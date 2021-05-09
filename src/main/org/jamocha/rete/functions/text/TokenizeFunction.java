@@ -48,7 +48,7 @@ public class TokenizeFunction implements Function, Serializable {
 					StringTokenizer toke = new StringTokenizer(rawText);
 					while (toke.hasMoreTokens()) {
 						String t = toke.nextToken();
-						t = t.replaceAll("[/./,/!/?/)/(/:/`/”/“]", "");
+						t = t.replaceAll("[/./,/!/?/)/(/:/`/^/]]", "");
 						Integer c = wordcount.get(t);
 						if (c == null) {
 							c = 0;

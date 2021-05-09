@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 import org.jamocha.rule.Rule;
 
+import org.jamocha.rete.BoundParam;
+
 /**
  * @author Peter Lin
  * 
@@ -97,10 +99,10 @@ public class Deffact implements Fact {
 	public boolean hasBinding() {
 		return this.hasBinding;
 	}
-
+	
 	public void resolveValues(Rete engine, Fact[] triggerFacts) {
 		for (int idx = 0; idx < this.boundSlots.length; idx++) {
-            if (this.boundSlots[idx] instanceof MultiSlot) {
+            if ((this.boundSlots[idx] instanceof MultiSlot) && !(this.boundSlots[idx].value instanceof BoundParam)) {
                 // for multislot we have to resolve each slot
                 Object[] mvals = ((MultiSlot)this.boundSlots[idx]).getValue();
                 for (int mdx=0; mdx < mvals.length; mdx++) {
@@ -315,7 +317,7 @@ public class Deffact implements Fact {
 	}
 
 	/**
-	 * Convienance method for cloning a fact. If a slot's value is a BoundParam,
+	 * Convenience method for cloning a fact. If a slot's value is a BoundParam,
 	 * the cloned fact uses the value of the BoundParam.
 	 * @return
 	 */
@@ -325,7 +327,25 @@ public class Deffact implements Fact {
 		BaseSlot[] slts = newfact.slots;
 		for (int idx = 0; idx < slts.length; idx++) {
 			// probably need to revisit this and make sure
-            if (this.slots[idx] instanceof MultiSlot) {
+			if (this.slots[idx].value instanceof BoundParam) {
+				if (slts[idx].getValueType() == Constants.STRING_TYPE) {
+					slts[idx].value = ((BoundParam) this.slots[idx].value)
+							.getValue().toString();
+				} else {
+					
+					/* The below does not work, at least in OpenJDK 11. 
+					   
+					   slts[idx].value = ((BoundParam) this.slots[idx].value)
+							.getValue(); 
+					
+					   However, the below does - although the two should be equivalent, 
+					   for some reason the intermediate object seems to be rewuired. 
+					   */
+					
+					Object v = this.slots[idx].value;
+					slts[idx].value = ((BoundParam)v).getValue();
+				}
+			} else if (this.slots[idx] instanceof MultiSlot) {
                 // it's multislot so we have to replace the bound values
                 // correctly
                 MultiSlot ms = (MultiSlot)this.slots[idx];
@@ -340,20 +360,13 @@ public class Deffact implements Fact {
                     }
                 }
                 slts[idx].value = mval;
-            } else if (this.slots[idx].value instanceof BoundParam) {
-				if (slts[idx].getValueType() == Constants.STRING_TYPE) {
-					slts[idx].value = ((BoundParam) this.slots[idx].value)
-							.getValue().toString();
-				} else {
-					slts[idx].value = ((BoundParam) this.slots[idx].value)
-							.getValue();
-				}
-			} else {
+            } else  {
 				slts[idx].value = this.slots[idx].value;
 			}
 		}
 		return newfact;
 	}
+
 
 	/**
 	 * this will make sure the fact is GC immediately. Note for shadown facts of

@@ -1,0 +1,8 @@
+(batch ./samples/defquery/templates.clp)
+(batch ./samples/defquery/queries.clp)
+(watch-query queryByTransactionStart queryByTransactionAfterStart)
+(load-facts ./samples/defquery/log_data.dat)
+(bind ?result (run-query queryByTransactionStart "1234baaa" 1269285900120))
+(printout t ?result crlf)
+(bind ?result2 (run-query queryByTransactionAfterStart "1234baaa" 1269285600120))
+(printout t ?result2 crlf)

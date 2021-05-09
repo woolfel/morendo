@@ -3,6 +3,7 @@ package org.jamocha.rete.functions.list;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jamocha.rete.BoundParam;
 import org.jamocha.rete.Constants;
 import org.jamocha.rete.DefaultReturnValue;
 import org.jamocha.rete.DefaultReturnVector;
@@ -34,6 +35,10 @@ public class LengthFunction implements Serializable, Function {
 		int size = 0;
 		Object val = null;
 		if (params != null && params.length == 1) {
+			if (params[0] instanceof BoundParam) {
+				BoundParam bp = (BoundParam)params[0];
+				bp.resolveBinding(engine);
+			}
 			if (params[0] instanceof ValueParam) {
 				val = params[0].getValue();
 			} else {

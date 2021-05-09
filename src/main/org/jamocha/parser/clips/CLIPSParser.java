@@ -193,16 +193,16 @@ public class CLIPSParser implements CLIPSParserConstants {
   final public Object typeExpr() throws ParseException {
   Token exp;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case INTEGER_LITERAL:
+      exp = jj_consume_token(INTEGER_LITERAL);
+    // we use BigDecimal
+    {if (true) return new BigDecimal(exp.image);}
+      break;
     case STRING_LITERAL:
       exp = jj_consume_token(STRING_LITERAL);
     String strlit = exp.image;
     strlit = ParserUtils.getStringLiteral(strlit);
     {if (true) return strlit;}
-      break;
-    case INTEGER_LITERAL:
-      exp = jj_consume_token(INTEGER_LITERAL);
-    // we use BigDecimal
-    {if (true) return new BigDecimal(exp.image);}
       break;
     case FLOATING_POINT_LITERAL:
       exp = jj_consume_token(FLOATING_POINT_LITERAL);
@@ -2798,359 +2798,359 @@ public class CLIPSParser implements CLIPSParserConstants {
     }
   }
 
-  final private boolean jj_2_1(int xla) {
+  private boolean jj_2_1(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_1(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(0, xla); }
   }
 
-  final private boolean jj_2_2(int xla) {
+  private boolean jj_2_2(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_2(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(1, xla); }
   }
 
-  final private boolean jj_2_3(int xla) {
+  private boolean jj_2_3(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_3(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(2, xla); }
   }
 
-  final private boolean jj_2_4(int xla) {
+  private boolean jj_2_4(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_4(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(3, xla); }
   }
 
-  final private boolean jj_2_5(int xla) {
+  private boolean jj_2_5(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_5(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(4, xla); }
   }
 
-  final private boolean jj_2_6(int xla) {
+  private boolean jj_2_6(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_6(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(5, xla); }
   }
 
-  final private boolean jj_2_7(int xla) {
+  private boolean jj_2_7(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_7(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(6, xla); }
   }
 
-  final private boolean jj_2_8(int xla) {
+  private boolean jj_2_8(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_8(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(7, xla); }
   }
 
-  final private boolean jj_2_9(int xla) {
+  private boolean jj_2_9(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_9(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(8, xla); }
   }
 
-  final private boolean jj_2_10(int xla) {
+  private boolean jj_2_10(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_10(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(9, xla); }
   }
 
-  final private boolean jj_2_11(int xla) {
+  private boolean jj_2_11(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_11(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(10, xla); }
   }
 
-  final private boolean jj_2_12(int xla) {
+  private boolean jj_2_12(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_12(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(11, xla); }
   }
 
-  final private boolean jj_2_13(int xla) {
+  private boolean jj_2_13(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_13(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(12, xla); }
   }
 
-  final private boolean jj_2_14(int xla) {
+  private boolean jj_2_14(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_14(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(13, xla); }
   }
 
-  final private boolean jj_2_15(int xla) {
+  private boolean jj_2_15(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_15(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(14, xla); }
   }
 
-  final private boolean jj_2_16(int xla) {
+  private boolean jj_2_16(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_16(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(15, xla); }
   }
 
-  final private boolean jj_2_17(int xla) {
+  private boolean jj_2_17(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_17(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(16, xla); }
   }
 
-  final private boolean jj_2_18(int xla) {
+  private boolean jj_2_18(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_18(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(17, xla); }
   }
 
-  final private boolean jj_2_19(int xla) {
+  private boolean jj_2_19(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_19(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(18, xla); }
   }
 
-  final private boolean jj_2_20(int xla) {
+  private boolean jj_2_20(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_20(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(19, xla); }
   }
 
-  final private boolean jj_2_21(int xla) {
+  private boolean jj_2_21(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_21(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(20, xla); }
   }
 
-  final private boolean jj_2_22(int xla) {
+  private boolean jj_2_22(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_22(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(21, xla); }
   }
 
-  final private boolean jj_2_23(int xla) {
+  private boolean jj_2_23(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_23(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(22, xla); }
   }
 
-  final private boolean jj_2_24(int xla) {
+  private boolean jj_2_24(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_24(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(23, xla); }
   }
 
-  final private boolean jj_2_25(int xla) {
+  private boolean jj_2_25(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_25(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(24, xla); }
   }
 
-  final private boolean jj_2_26(int xla) {
+  private boolean jj_2_26(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_26(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(25, xla); }
   }
 
-  final private boolean jj_2_27(int xla) {
+  private boolean jj_2_27(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_27(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(26, xla); }
   }
 
-  final private boolean jj_2_28(int xla) {
+  private boolean jj_2_28(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_28(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(27, xla); }
   }
 
-  final private boolean jj_2_29(int xla) {
+  private boolean jj_2_29(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_29(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(28, xla); }
   }
 
-  final private boolean jj_2_30(int xla) {
+  private boolean jj_2_30(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_30(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(29, xla); }
   }
 
-  final private boolean jj_2_31(int xla) {
+  private boolean jj_2_31(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_31(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(30, xla); }
   }
 
-  final private boolean jj_2_32(int xla) {
+  private boolean jj_2_32(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_32(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(31, xla); }
   }
 
-  final private boolean jj_2_33(int xla) {
+  private boolean jj_2_33(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_33(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(32, xla); }
   }
 
-  final private boolean jj_2_34(int xla) {
+  private boolean jj_2_34(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_34(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(33, xla); }
   }
 
-  final private boolean jj_2_35(int xla) {
+  private boolean jj_2_35(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_35(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(34, xla); }
   }
 
-  final private boolean jj_2_36(int xla) {
+  private boolean jj_2_36(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_36(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(35, xla); }
   }
 
-  final private boolean jj_2_37(int xla) {
+  private boolean jj_2_37(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_37(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(36, xla); }
   }
 
-  final private boolean jj_2_38(int xla) {
+  private boolean jj_2_38(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_38(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(37, xla); }
   }
 
-  final private boolean jj_2_39(int xla) {
+  private boolean jj_2_39(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_39(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(38, xla); }
   }
 
-  final private boolean jj_2_40(int xla) {
+  private boolean jj_2_40(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_40(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(39, xla); }
   }
 
-  final private boolean jj_2_41(int xla) {
+  private boolean jj_2_41(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_41(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(40, xla); }
   }
 
-  final private boolean jj_2_42(int xla) {
+  private boolean jj_2_42(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_42(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(41, xla); }
   }
 
-  final private boolean jj_2_43(int xla) {
+  private boolean jj_2_43(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_43(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(42, xla); }
   }
 
-  final private boolean jj_2_44(int xla) {
+  private boolean jj_2_44(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_44(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(43, xla); }
   }
 
-  final private boolean jj_2_45(int xla) {
+  private boolean jj_2_45(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_45(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(44, xla); }
   }
 
-  final private boolean jj_2_46(int xla) {
+  private boolean jj_2_46(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_46(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(45, xla); }
   }
 
-  final private boolean jj_2_47(int xla) {
+  private boolean jj_2_47(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_47(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(46, xla); }
   }
 
-  final private boolean jj_3_14() {
+  private boolean jj_3_14() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(SALIENCE)) return true;
     return false;
   }
 
-  final private boolean jj_3_36() {
+  private boolean jj_3_36() {
     if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
-  final private boolean jj_3_8() {
+  private boolean jj_3_8() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(SLOT)) return true;
     return false;
   }
 
-  final private boolean jj_3_29() {
+  private boolean jj_3_29() {
     if (jj_scan_token(BIND)) return true;
     if (jj_scan_token(RBRACE)) return true;
     return false;
   }
 
-  final private boolean jj_3_41() {
+  private boolean jj_3_41() {
     if (jj_scan_token(TILDA)) return true;
     Token xsp;
     xsp = jj_scanpos;
@@ -3164,12 +3164,12 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
-  final private boolean jj_3_44() {
+  private boolean jj_3_44() {
     if (jj_scan_token(STRING_LITERAL)) return true;
     return false;
   }
 
-  final private boolean jj_3_35() {
+  private boolean jj_3_35() {
     if (jj_scan_token(TILDA)) return true;
     Token xsp;
     xsp = jj_scanpos;
@@ -3183,40 +3183,40 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
-  final private boolean jj_3_40() {
+  private boolean jj_3_40() {
     if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
-  final private boolean jj_3_28() {
+  private boolean jj_3_28() {
     if (jj_scan_token(BIND4)) return true;
     return false;
   }
 
-  final private boolean jj_3_26() {
+  private boolean jj_3_26() {
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(LBRACE)) return true;
     return false;
   }
 
-  final private boolean jj_3_7() {
+  private boolean jj_3_7() {
     if (jj_scan_token(BIND3)) return true;
     if (jj_scan_token(BIND3)) return true;
     return false;
   }
 
-  final private boolean jj_3_27() {
+  private boolean jj_3_27() {
     if (jj_scan_token(BIND2)) return true;
     return false;
   }
 
-  final private boolean jj_3_6() {
+  private boolean jj_3_6() {
     if (jj_scan_token(BIND)) return true;
     if (jj_scan_token(BIND)) return true;
     return false;
   }
 
-  final private boolean jj_3_34() {
+  private boolean jj_3_34() {
     if (jj_scan_token(TILDA)) return true;
     Token xsp;
     xsp = jj_scanpos;
@@ -3231,7 +3231,7 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
-  final private boolean jj_3_39() {
+  private boolean jj_3_39() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_scan_token(14)) {
@@ -3244,58 +3244,58 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
-  final private boolean jj_3_5() {
+  private boolean jj_3_5() {
     if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
     if (jj_scan_token(FLOATING_POINT_LITERAL)) return true;
     return false;
   }
 
-  final private boolean jj_3_38() {
+  private boolean jj_3_38() {
     if (jj_scan_token(BIND)) return true;
     return false;
   }
 
-  final private boolean jj_3_47() {
+  private boolean jj_3_47() {
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(LBRACE)) return true;
     return false;
   }
 
-  final private boolean jj_3_4() {
+  private boolean jj_3_4() {
     if (jj_scan_token(INTEGER_LITERAL)) return true;
     if (jj_scan_token(INTEGER_LITERAL)) return true;
     return false;
   }
 
-  final private boolean jj_3_1() {
+  private boolean jj_3_1() {
     if (jj_scan_token(LBRACE)) return true;
     return false;
   }
 
-  final private boolean jj_3_3() {
+  private boolean jj_3_3() {
     if (jj_scan_token(STRING_LITERAL)) return true;
     if (jj_scan_token(STRING_LITERAL)) return true;
     return false;
   }
 
-  final private boolean jj_3_23() {
+  private boolean jj_3_23() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(TEMPORALACTIVATION)) return true;
     return false;
   }
 
-  final private boolean jj_3_2() {
+  private boolean jj_3_2() {
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
-  final private boolean jj_3_12() {
+  private boolean jj_3_12() {
     if (jj_scan_token(STRING_LITERAL)) return true;
     return false;
   }
 
-  final private boolean jj_3_33() {
+  private boolean jj_3_33() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_scan_token(14)) {
@@ -3312,13 +3312,13 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
-  final private boolean jj_3_22() {
+  private boolean jj_3_22() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(NOAGENDA)) return true;
     return false;
   }
 
-  final private boolean jj_3_25() {
+  private boolean jj_3_25() {
     if (jj_scan_token(NOTCE)) return true;
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
@@ -3326,13 +3326,13 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
-  final private boolean jj_3_11() {
+  private boolean jj_3_11() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(DEFAULTVALUE)) return true;
     return false;
   }
 
-  final private boolean jj_3_43() {
+  private boolean jj_3_43() {
     if (jj_scan_token(TILDA)) return true;
     Token xsp;
     xsp = jj_scanpos;
@@ -3346,29 +3346,29 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
-  final private boolean jj_3_46() {
+  private boolean jj_3_46() {
     if (jj_scan_token(ASSIGN)) return true;
     return false;
   }
 
-  final private boolean jj_3_21() {
+  private boolean jj_3_21() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(CHAININGDIRECTION)) return true;
     return false;
   }
 
-  final private boolean jj_3_20() {
+  private boolean jj_3_20() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(EXPIRATION)) return true;
     return false;
   }
 
-  final private boolean jj_3_42() {
+  private boolean jj_3_42() {
     if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
-  final private boolean jj_3_32() {
+  private boolean jj_3_32() {
     if (jj_scan_token(TILDA)) return true;
     Token xsp;
     xsp = jj_scanpos;
@@ -3383,37 +3383,37 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
-  final private boolean jj_3_19() {
+  private boolean jj_3_19() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(EFFECTIVE)) return true;
     return false;
   }
 
-  final private boolean jj_3_13() {
+  private boolean jj_3_13() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(DECLARE)) return true;
     return false;
   }
 
-  final private boolean jj_3_10() {
+  private boolean jj_3_10() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(TYPEDEF)) return true;
     return false;
   }
 
-  final private boolean jj_3_18() {
+  private boolean jj_3_18() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(HASHEDMEMORY)) return true;
     return false;
   }
 
-  final private boolean jj_3_17() {
+  private boolean jj_3_17() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(REMEMBERALPHA)) return true;
     return false;
   }
 
-  final private boolean jj_3_31() {
+  private boolean jj_3_31() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_scan_token(14)) {
@@ -3427,55 +3427,57 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
-  final private boolean jj_3_45() {
+  private boolean jj_3_45() {
     if (jj_scan_token(STRING_LITERAL)) return true;
     return false;
   }
 
-  final private boolean jj_3_16() {
+  private boolean jj_3_16() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(RULEVERSION)) return true;
     return false;
   }
 
-  final private boolean jj_3_24() {
+  private boolean jj_3_24() {
     if (jj_scan_token(BIND)) return true;
     return false;
   }
 
-  final private boolean jj_3_37() {
+  private boolean jj_3_37() {
     if (jj_scan_token(TILDA)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
-  final private boolean jj_3_15() {
+  private boolean jj_3_15() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(AUTOFOCUS)) return true;
     return false;
   }
 
-  final private boolean jj_3_9() {
+  private boolean jj_3_9() {
     if (jj_scan_token(LBRACE)) return true;
     if (jj_scan_token(MULTISLOT)) return true;
     return false;
   }
 
-  final private boolean jj_3_30() {
+  private boolean jj_3_30() {
     if (jj_scan_token(TILDA)) return true;
     if (jj_scan_token(BIND)) return true;
     if (jj_scan_token(RBRACE)) return true;
     return false;
   }
 
+  /** Generated Token Manager. */
   public CLIPSParserTokenManager token_source;
   SimpleCharStream jj_input_stream;
-  public Token token, jj_nt;
+  /** Current token. */
+  public Token token;
+  /** Next token. */
+  public Token jj_nt;
   private int jj_ntk;
   private Token jj_scanpos, jj_lastpos;
   private int jj_la;
-  public boolean lookingAhead = false;
-  private boolean jj_semLA;
   private int jj_gen;
   final private int[] jj_la1 = new int[78];
   static private int[] jj_la1_0;
@@ -3483,30 +3485,32 @@ public class CLIPSParser implements CLIPSParserConstants {
   static private int[] jj_la1_2;
   static private int[] jj_la1_3;
   static {
-      jj_la1_0();
-      jj_la1_1();
-      jj_la1_2();
-      jj_la1_3();
+      jj_la1_init_0();
+      jj_la1_init_1();
+      jj_la1_init_2();
+      jj_la1_init_3();
    }
-   private static void jj_la1_0() {
+   private static void jj_la1_init_0() {
       jj_la1_0 = new int[] {0x4000,0x6c201,0x200,0x201,0x5800,0x200,0x200,0x8800,0x200,0x6da00,0x6da00,0x68000,0x68000,0x81900000,0x6da00,0x0,0x6da00,0x6da00,0x6da00,0x81900000,0x6d800,0x68000,0x200,0x6d800,0x2d800,0x2d800,0x2d800,0x2d800,0x2d800,0x2d800,0x6d800,0x6d800,0x2d800,0x200,0x200000,0x8200,0x8200,0x0,0x1800,0x0,0x200,0x200,0x200,0x200,0x200,0x200,0x200,0x200,0x200,0x200,0x200,0x20000000,0x81900000,0x200,0x200,0x6da00,0x200,0x200,0x0,0x0,0x0,0x0,0x5800,0xd800,0x5800,0x6da00,0x0,0x0,0x200,0x200,0x68000,0x8200,0x8200,0x68000,0x8200,0x8200,0x200,0x0,};
    }
-   private static void jj_la1_1() {
+   private static void jj_la1_init_1() {
       jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x482000fd,0x0,0x8000000,0x0,0x0,0x0,0x482000fd,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x128400,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x18800800,0x482000fd,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
-   private static void jj_la1_2() {
+   private static void jj_la1_init_2() {
       jj_la1_2 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x6c00,0x6c00,0x0,0x0,0x7ff00000,0x6c00,0x7ff00000,0x6c00,0x6c00,0x6c00,0x7ff00000,0x6c00,0x0,0x0,0x6c00,0x0,0x0,0x0,0x0,0x0,0x0,0x6c00,0x6c00,0x0,0x0,0x68,0x0,0x0,0x20000,0x0,0x6c00,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x300,0x7ff00000,0x0,0x0,0x6c00,0x0,0x0,0x0,0x0,0x0,0x0,0xec00,0x0,0x0,0x6c00,0x3ff00000,0x3ff00000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
-   private static void jj_la1_3() {
+   private static void jj_la1_init_3() {
       jj_la1_3 = new int[] {0x20,0x20,0x0,0x0,0x100,0x0,0x0,0x0,0x0,0x120,0x120,0x0,0x0,0x25,0x120,0x5,0x120,0x120,0x120,0x25,0x120,0x0,0x0,0x120,0x120,0x120,0x120,0x120,0x120,0x120,0x120,0x120,0x120,0x0,0x20,0x0,0x0,0x0,0x20,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x21,0x25,0x0,0x0,0x120,0x0,0x0,0x8,0x8,0x2,0x2,0x100,0x110,0x100,0x120,0x5,0x25,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x20,};
    }
   final private JJCalls[] jj_2_rtns = new JJCalls[47];
   private boolean jj_rescan = false;
   private int jj_gc = 0;
 
+  /** Constructor with InputStream. */
   public CLIPSParser(java.io.InputStream stream) {
      this(stream, null);
   }
+  /** Constructor with InputStream and supplied encoding */
   public CLIPSParser(java.io.InputStream stream, String encoding) {
     try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new CLIPSParserTokenManager(jj_input_stream);
@@ -3517,9 +3521,11 @@ public class CLIPSParser implements CLIPSParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
+  /** Reinitialise. */
   public void ReInit(java.io.InputStream stream) {
      ReInit(stream, null);
   }
+  /** Reinitialise. */
   public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
@@ -3530,6 +3536,7 @@ public class CLIPSParser implements CLIPSParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
+  /** Constructor. */
   public CLIPSParser(java.io.Reader stream) {
     jj_input_stream = new SimpleCharStream(stream, 1, 1);
     token_source = new CLIPSParserTokenManager(jj_input_stream);
@@ -3540,6 +3547,7 @@ public class CLIPSParser implements CLIPSParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
+  /** Reinitialise. */
   public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
@@ -3550,6 +3558,7 @@ public class CLIPSParser implements CLIPSParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
+  /** Constructor with generated Token Manager. */
   public CLIPSParser(CLIPSParserTokenManager tm) {
     token_source = tm;
     token = new Token();
@@ -3559,6 +3568,7 @@ public class CLIPSParser implements CLIPSParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
+  /** Reinitialise. */
   public void ReInit(CLIPSParserTokenManager tm) {
     token_source = tm;
     token = new Token();
@@ -3568,7 +3578,7 @@ public class CLIPSParser implements CLIPSParserConstants {
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
-  final private Token jj_consume_token(int kind) throws ParseException {
+  private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
     if ((oldToken = token).next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -3594,7 +3604,7 @@ public class CLIPSParser implements CLIPSParserConstants {
 
   static private final class LookaheadSuccess extends java.lang.Error { }
   final private LookaheadSuccess jj_ls = new LookaheadSuccess();
-  final private boolean jj_scan_token(int kind) {
+  private boolean jj_scan_token(int kind) {
     if (jj_scanpos == jj_lastpos) {
       jj_la--;
       if (jj_scanpos.next == null) {
@@ -3615,6 +3625,8 @@ public class CLIPSParser implements CLIPSParserConstants {
     return false;
   }
 
+
+/** Get the next Token. */
   final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -3623,8 +3635,9 @@ public class CLIPSParser implements CLIPSParserConstants {
     return token;
   }
 
+/** Get the specific Token. */
   final public Token getToken(int index) {
-    Token t = lookingAhead ? jj_scanpos : token;
+    Token t = token;
     for (int i = 0; i < index; i++) {
       if (t.next != null) t = t.next;
       else t = t.next = token_source.getNextToken();
@@ -3632,14 +3645,14 @@ public class CLIPSParser implements CLIPSParserConstants {
     return t;
   }
 
-  final private int jj_ntk() {
+  private int jj_ntk() {
     if ((jj_nt=token.next) == null)
       return (jj_ntk = (token.next=token_source.getNextToken()).kind);
     else
       return (jj_ntk = jj_nt.kind);
   }
 
-  private java.util.Vector jj_expentries = new java.util.Vector();
+  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
   private int[] jj_expentry;
   private int jj_kind = -1;
   private int[] jj_lasttokens = new int[100];
@@ -3654,31 +3667,26 @@ public class CLIPSParser implements CLIPSParserConstants {
       for (int i = 0; i < jj_endpos; i++) {
         jj_expentry[i] = jj_lasttokens[i];
       }
-      boolean exists = false;
-      for (java.util.Enumeration e = jj_expentries.elements(); e.hasMoreElements();) {
-        int[] oldentry = (int[])(e.nextElement());
+      jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it.hasNext();) {
+        int[] oldentry = (int[])(it.next());
         if (oldentry.length == jj_expentry.length) {
-          exists = true;
           for (int i = 0; i < jj_expentry.length; i++) {
             if (oldentry[i] != jj_expentry[i]) {
-              exists = false;
-              break;
+              continue jj_entries_loop;
             }
           }
-          if (exists) break;
+          jj_expentries.add(jj_expentry);
+          break jj_entries_loop;
         }
       }
-      if (!exists) jj_expentries.addElement(jj_expentry);
       if (pos != 0) jj_lasttokens[(jj_endpos = pos) - 1] = kind;
     }
   }
 
+  /** Generate ParseException. */
   public ParseException generateParseException() {
-    jj_expentries.removeAllElements();
+    jj_expentries.clear();
     boolean[] la1tokens = new boolean[105];
-    for (int i = 0; i < 105; i++) {
-      la1tokens[i] = false;
-    }
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -3705,7 +3713,7 @@ public class CLIPSParser implements CLIPSParserConstants {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
-        jj_expentries.addElement(jj_expentry);
+        jj_expentries.add(jj_expentry);
       }
     }
     jj_endpos = 0;
@@ -3713,18 +3721,20 @@ public class CLIPSParser implements CLIPSParserConstants {
     jj_add_error_token(0, 0);
     int[][] exptokseq = new int[jj_expentries.size()][];
     for (int i = 0; i < jj_expentries.size(); i++) {
-      exptokseq[i] = (int[])jj_expentries.elementAt(i);
+      exptokseq[i] = jj_expentries.get(i);
     }
     return new ParseException(token, exptokseq, tokenImage);
   }
 
+  /** Enable tracing. */
   final public void enable_tracing() {
   }
 
+  /** Disable tracing. */
   final public void disable_tracing() {
   }
 
-  final private void jj_rescan_token() {
+  private void jj_rescan_token() {
     jj_rescan = true;
     for (int i = 0; i < 47; i++) {
     try {
@@ -3789,7 +3799,7 @@ public class CLIPSParser implements CLIPSParserConstants {
     jj_rescan = false;
   }
 
-  final private void jj_save(int index, int xla) {
+  private void jj_save(int index, int xla) {
     JJCalls p = jj_2_rtns[index];
     while (p.gen > jj_gen) {
       if (p.next == null) { p = p.next = new JJCalls(); break; }

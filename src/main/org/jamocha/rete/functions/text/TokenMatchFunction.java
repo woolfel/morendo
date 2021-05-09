@@ -46,7 +46,7 @@ public class TokenMatchFunction implements Function, Serializable {
 		if (params != null && params.length == 2) {
 			try {
 				String rawText = params[1].getStringValue();
-				rawText = rawText.replaceAll("[/./,/!/?/)/(/:/`/”/“]", "");
+				rawText = rawText.replaceAll("[/./,/!/?/)/(/:/`/^/]]", "");
 				BoundParam bp = (BoundParam) params[0];
 				Object resolvedValue = null;
 				if (bp.isObjectBinding()) {

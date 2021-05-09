@@ -1,0 +1,5 @@
+(bind ?t1 (now) )
+(printout t ?t1 crlf)
+(bind ?t2 (now) )
+(within-seconds 1 ?t1 ?t2)
+(printout t ?t1 " within " 1 " second of " ?t2 crlf)

@@ -1,0 +1,5 @@
+(bind ?t1 (now) )
+(printout t ?t1 crlf)
+(bind ?t2 (now) )
+(eq-second ?t1 ?t2)
+(printout t ?t1 " = " ?t2 crlf)
