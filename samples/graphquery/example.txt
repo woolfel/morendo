@@ -1,0 +1,26 @@
+(batch ./samples/graphquery/graph_query_test.clp)
+(bind ?data1 (load-graph ./samples/graphquery/graphdata.clp) )
+
+(bind ?gq1 (run-graph-query ?data1 conceptDistanceOne "tesla model s") )
+
+{
+  "id": "1234",
+  "label": "sample graph",
+  "type": "chatbot",
+  "nodes": [
+    {"id":"1", "label": "electric vehicle", "type": "concept"},
+    {"id":"2", "label": "autonomous vehicle", "type": "concept"},
+    {"id":"3", "label": "tesla model s", "type": "noun"},
+    {"id":"4", "label": "leaf", "type": "noun"},
+    {"id":"5", "label": "e-tron", "type": "noun"},
+    {"id":"6", "label": "i-pace", "type": "noun"},
+    {"id":"7", "label": "e-golf", "type": "noun"}
+  ],
+  "edges": [
+    {"id": "100", "source": "3", "target": "1"},
+    {"id": "101", "source": "3", "target": "2"},
+    {"id": "102", "source": "4", "target": "1"},
+    {"id": "103", "source": "5", "target": "1"},
+    {"id": "104", "source": "6", "target": "1"},
+  ]
+}

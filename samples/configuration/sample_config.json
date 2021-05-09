@@ -1,0 +1,38 @@
+{
+  "applications": [
+    {
+      "models": [
+        {
+          "classList": [
+            "woolfel.examples.model.Account",
+            "woolfel.examples.model.Account2"
+          ]
+        }
+      ],
+      "clipsData": [
+        {
+          "url": "./samples/data/data.dat"
+        }
+      ],
+      "functionGroups": [
+        {
+          "classNames": [
+            "woolfel.examples.function.HellFunction"
+          ],
+          "url": null
+        }
+      ],
+      "rulesets": [
+        {
+          "contents": null,
+          "url": "./samples/join_sample1.clp"
+        }
+      ],
+      "minPool": 1,
+      "maxPool": 10,
+      "initialPool": 1,
+      "name": "test"
+    }
+  ],
+  "serviceName": "sample"
+}

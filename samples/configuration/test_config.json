@@ -1,0 +1,50 @@
+{
+	"applications": [
+		{
+			"initialPool": 1,
+			"maxPool": 10,
+			"minPool": 1,
+			"name": "test",
+			"models": [
+				{
+					"classList": [
+						"woolfel.examples.model.Account",
+						"woolfel.examples.model.Account2"
+					],
+					"url": null,
+					"urlobject": null
+				}
+			],
+			"functionGroups": [
+				{
+					"classNames": [
+						"woolfel.examples.function.HellFunction"
+					],
+					"url": null,
+					"urlobject": null
+				}
+			],
+			"rulesets": [
+				{
+					"contents": null,
+					"url": "./samples/join_sample1.clp"
+				}
+			],
+			"objectData": [],
+			"clipsData": [
+				{
+					"name": null,
+					"url": "./samples/data/data.dat"
+				}
+			],
+			"jsonData": [
+				{
+					"name": "org.jamocha.examples.model.Account",
+					"url": "./samples/configuration/data.json",
+					"data": null
+				}
+			]
+		}
+	],
+	"serviceName": "sample"
+}
