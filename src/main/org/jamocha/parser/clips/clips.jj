@@ -130,12 +130,12 @@ TOKEN :
 {
   < LBRACE: "(" >
 | < RBRACE: ")" >
-| < INTEGER_LITERAL: ["0"-"9"] (["0"-"9"])* >
+| < INTEGER_LITERAL: ("-")? ["0"-"9"] (["0"-"9"])* >
 |
   < FLOATING_POINT_LITERAL:
-        (["0"-"9"])+ "." (["0"-"9"])* (<EXPONENT>)?
-      | "." (["0"-"9"])+ (<EXPONENT>)?
-      | (["0"-"9"])+ <EXPONENT>
+        (("-")? ["0"-"9"])+ "." (["0"-"9"])* (<EXPONENT>)?
+      |("-")? "." (["0"-"9"])+ (<EXPONENT>)?
+      | (("-")? ["0"-"9"])+ <EXPONENT>
   >
 | < #EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
 |
@@ -357,17 +357,17 @@ Object typeExpr() :
   Token exp;
 }
 {
+  exp = <INTEGER_LITERAL>
+  {
+    // we use BigDecimal
+    return new BigDecimal(exp.image);
+  }  
+|
   exp = <STRING_LITERAL>
   {
     String strlit = exp.image;
     strlit = ParserUtils.getStringLiteral(strlit);
     return strlit;
-  }
-|
-  exp = <INTEGER_LITERAL>
-  {
-    // we use BigDecimal
-    return new BigDecimal(exp.image);
   }
 |
   exp = <FLOATING_POINT_LITERAL>

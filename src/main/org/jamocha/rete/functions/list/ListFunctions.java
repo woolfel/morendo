@@ -69,6 +69,14 @@ public class ListFunctions implements FunctionGroup, Serializable {
 		EagerSetContainsFunction esetct = new EagerSetContainsFunction();
 		funcs.add(esetct);
 		engine.declareFunction(esetct);
+		// First function
+		FirstFunction first = new FirstFunction();
+		funcs.add(esetct);
+		engine.declareFunction(first);
+		// rest function
+		RestFunction rest = new RestFunction();
+		funcs.add(esetct);
+		engine.declareFunction(rest);
 	}
 
 }

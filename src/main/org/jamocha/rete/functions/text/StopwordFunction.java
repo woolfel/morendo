@@ -52,7 +52,7 @@ public class StopwordFunction implements Function, Serializable {
 					StringTokenizer toke = new StringTokenizer(rawText);
 					while (toke.hasMoreTokens()) {
 						String t = toke.nextToken();
-						t = t.replaceAll("[/./,/!/?/)/(/:/`/”/“]", "");
+						t = t.replaceAll("[/./,/!/?/)/(/:/`/^/]]", "");
 						if (!stop.contains(t)) {
 							Integer c = wordcount.get(t);
 							if (c == null) {

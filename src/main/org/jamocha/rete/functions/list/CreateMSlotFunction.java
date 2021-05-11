@@ -32,8 +32,8 @@ public class CreateMSlotFunction implements Serializable, Function {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
+		List list = new ArrayList();
 		if (params != null && params.length > 0) {
-			List list = new ArrayList();
 			for (int idx=0; idx < params.length; idx++) {
 				if (params[idx] instanceof ValueParam) {
 					list.add(params[idx].getValue());
@@ -54,6 +54,11 @@ public class CreateMSlotFunction implements Serializable, Function {
 						value);
 				ret.addReturnValue(rv);
 			}
+		} else {
+			Object[] value = list.toArray();
+			DefaultReturnValue rv = new DefaultReturnValue(Constants.ARRAY_TYPE,
+					value);
+			ret.addReturnValue(rv);
 		}
 		return ret;
 	}
