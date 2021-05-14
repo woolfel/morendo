@@ -133,7 +133,8 @@ public class Deffact implements Fact {
 		return this.slots[id].value;
 	}
 
-	/**
+	/*
+	 * *
 	 * Method will iterate over the slots until finds the match.
 	 * If no match is found, it return -1.
 	 */

@@ -63,7 +63,7 @@ public interface RuleApplication extends Configuration {
 	boolean loadRulesets(org.jamocha.rete.Rete engine);
 	boolean reloadRulesets(org.jamocha.rete.Rete engine);
 	
-	boolean loadInitialData(org.jamocha.rete.Rete engine);
+	// boolean loadInitialData(org.jamocha.rete.Rete engine);
 	
 	/**
 	 * 
