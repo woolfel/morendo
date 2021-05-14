@@ -847,7 +847,7 @@ public class CLIPSParser implements CLIPSParserConstants {
   }
 
 /**
- * this is for convienance
+ * this is for convenience
  */
   final public String getIdentifier() throws ParseException {
   Token exp;

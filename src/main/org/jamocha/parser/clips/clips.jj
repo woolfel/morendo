@@ -723,7 +723,7 @@ Token getBindType() :
 }
 
 /**
- * this is for convienance
+ * this is for convenience
  */
 String getIdentifier() :
 {
