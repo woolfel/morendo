@@ -25,6 +25,11 @@ package org.jamocha.rete;
  */
 public class StringParam extends AbstractParam {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected int valueType;
 
 	protected String value = null;

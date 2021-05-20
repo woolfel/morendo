@@ -64,6 +64,7 @@ public class AddMinutesFunction extends AbstractTimeFunction implements
 		return ADD_MINUTES;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{Date.class};
 	}

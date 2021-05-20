@@ -43,8 +43,10 @@ public class DeffunctionFunction implements Function {
 	protected String name = null;
     protected String ppString = null;
     protected Parameter[] parameters = null;
-    protected List functions = null;
-    protected Class[] functionParams = null;
+    @SuppressWarnings("rawtypes")
+	protected List functions = null;
+    @SuppressWarnings("rawtypes")
+	protected Class[] functionParams = null;
     protected int returnType;
     
     /**
@@ -55,7 +57,7 @@ public class DeffunctionFunction implements Function {
 
     public ReturnVector executeFunction(Rete engine, Parameter[] params) {
         DefaultReturnVector ret = new DefaultReturnVector();
-        boolean add = false;
+        Boolean add = Boolean.FALSE;
         if (engine.findFunction(this.name) == null) {
             // first we get the actual function from the shell function
             Function[] functions = new Function[this.functions.size()];
@@ -69,11 +71,11 @@ public class DeffunctionFunction implements Function {
                     this.parameters, functions, parameters);
             intrfunc.configureFunction(engine);
             engine.declareFunction(intrfunc);
-            add = true;
+            add = Boolean.TRUE;
         }
         
         DefaultReturnValue rv = new DefaultReturnValue(
-                Constants.BOOLEAN_OBJECT, new Boolean(add));
+                Constants.BOOLEAN_OBJECT, add);
         ret.addReturnValue(rv);
         return ret;
     }
@@ -86,7 +88,8 @@ public class DeffunctionFunction implements Function {
         return this.name;
     }
 
-    public Class[] getParameter() {
+    @SuppressWarnings("rawtypes")
+	public Class[] getParameter() {
         return this.functionParams;
     }
 
@@ -102,11 +105,13 @@ public class DeffunctionFunction implements Function {
         return this.ppString;
     }
 
-    public List getFunction() {
+    @SuppressWarnings("rawtypes")
+	public List getFunction() {
         return functions;
     }
 
-    public void setFunction(List functions) {
+    @SuppressWarnings("rawtypes")
+	public void setFunction(List functions) {
         this.functions = functions;
     }
 

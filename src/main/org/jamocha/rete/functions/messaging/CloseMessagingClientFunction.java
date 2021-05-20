@@ -38,6 +38,7 @@ public class CloseMessagingClientFunction implements Function {
 		return CLOSE_MSG_CLIENT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class};
 	}

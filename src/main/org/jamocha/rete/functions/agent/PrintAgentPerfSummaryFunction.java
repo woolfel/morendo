@@ -39,6 +39,7 @@ public class PrintAgentPerfSummaryFunction implements Function {
 		super();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		List summaries = AgentRegistry.getPerformanceSummaries();
 		Iterator iterator = summaries.iterator();
@@ -71,6 +72,7 @@ public class PrintAgentPerfSummaryFunction implements Function {
 		return PRINT_AGENT_PERF;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

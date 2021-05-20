@@ -29,6 +29,7 @@ public class JavaFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	
 	public JavaFunctions() {
@@ -39,6 +40,7 @@ public class JavaFunctions implements FunctionGroup {
 		return (JavaFunctions.class.getSimpleName());
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		ClassnameResolver classnameResolver = new ClassnameResolver(engine);
 		CallMethodFunction callm = new CallMethodFunction();
@@ -70,6 +72,7 @@ public class JavaFunctions implements FunctionGroup {
 		funcs.add(setm);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}

@@ -19,6 +19,11 @@ import java.util.Iterator;
  */
 public class JZoomableShapeContainer extends JShapeContainer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected JMiniRadarShapeContainer radarShapeContainer;
 	int zoomLevel;
 	

@@ -41,6 +41,7 @@ public class TokenMatchFunction implements Function, Serializable {
 		return Constants.INTEGER_OBJECT;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Integer total = 0;
 		if (params != null && params.length == 2) {
@@ -95,6 +96,7 @@ public class TokenMatchFunction implements Function, Serializable {
 		return TOKENMATCH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,BoundParam.class,ValueParam.class};
 	}

@@ -30,7 +30,11 @@ import java.util.ArrayList;
  */
 public class Account4 implements Serializable {
 
-    protected String first = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected String first = null;
     protected String middle = null;
     protected String last = null;
     /**
@@ -45,7 +49,8 @@ public class Account4 implements Serializable {
     protected double cash;
     protected String[] emails = null;
     
-    protected ArrayList listeners = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	protected ArrayList listeners = new ArrayList();
     
 	/**
 	 * 
@@ -164,9 +169,9 @@ public class Account4 implements Serializable {
 
     public void setCash(double value) {
     	if (value != this.cash) {
-    		Double old = new Double(this.cash);
+    		Double old = Double.valueOf(this.cash);
     		this.cash = value;
-    		this.notifyListener("cash",old,new Double(this.cash));
+    		this.notifyListener("cash",old, Double.valueOf(this.cash));
     	}
     }
     
@@ -201,7 +206,8 @@ public class Account4 implements Serializable {
 		this.emails = emails;
 	}
     
-    public void addPropertyChangeListener(PropertyChangeListener listener){
+    @SuppressWarnings("unchecked")
+	public void addPropertyChangeListener(PropertyChangeListener listener){
         this.listeners.add(listener);
     }
     

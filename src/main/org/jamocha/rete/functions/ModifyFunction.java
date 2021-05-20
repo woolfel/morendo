@@ -70,7 +70,7 @@ public class ModifyFunction implements RuleFunction, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean exec = false;
+		Boolean exec = Boolean.FALSE;
         if (params != null && params.length >= 2 &&
                 params[0].isObjectBinding()) {
             BoundParam bp = (BoundParam)params[0];
@@ -95,7 +95,7 @@ public class ModifyFunction implements RuleFunction, Serializable {
         			}
                     // now assert the fact using the same fact-id
                     engine.assertFact(fact);
-                    exec = true;
+                    exec = Boolean.TRUE;
             	} else {
 					Object instance = fact.getObjectInstance();
 					// firt we remove the engine as a listener
@@ -105,7 +105,7 @@ public class ModifyFunction implements RuleFunction, Serializable {
 						this.updateObject(engine, fact, dc, instance, params);
 						dc.getAddListenerMethod().invoke(instance, new Object[]{engine});
 						engine.modifyObject(instance);
-						exec = true;
+						exec = Boolean.TRUE;
 					} catch (IllegalArgumentException e) {
 					} catch (IllegalAccessException e) {
 					} catch (InvocationTargetException e) {
@@ -119,7 +119,7 @@ public class ModifyFunction implements RuleFunction, Serializable {
         }
         
 		DefaultReturnVector rv = new DefaultReturnVector();
-		DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT,new Boolean(exec));
+		DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, exec);
 		rv.addReturnValue(rval);
 		return rv;
 	}
@@ -139,6 +139,7 @@ public class ModifyFunction implements RuleFunction, Serializable {
 	 * <br/>
      * Example: (modify ?boundVariable (slotName value)* )
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] {BoundParam.class,SlotParam[].class};
 	}

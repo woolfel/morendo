@@ -23,6 +23,7 @@ public class RunQueryFunction implements Function {
 	public RunQueryFunction() {
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		List results = new ArrayList();
@@ -42,6 +43,7 @@ public class RunQueryFunction implements Function {
 		return RUN_QUERY;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String[].class};
 	}

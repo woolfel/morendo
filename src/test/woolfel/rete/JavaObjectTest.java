@@ -14,6 +14,7 @@ public class JavaObjectTest extends TestCase {
 		super();
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testDeclareObject() {
 		Rete engine = new Rete();
 		engine.declareObject(Account4.class);
@@ -27,6 +28,7 @@ public class JavaObjectTest extends TestCase {
 		}
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testAssertObject() {
 		Rete engine = new Rete();
 		engine.declareObject(Account4.class);

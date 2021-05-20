@@ -37,6 +37,7 @@ import org.jamocha.rete.ValueParam;
  * 
  * Returns the value of the first argument raised to the power of the following arguments.
  */
+@SuppressWarnings("serial")
 public class Pow implements Function, Serializable {
 
 	public static final String POW = "pow";
@@ -66,7 +67,7 @@ public class Pow implements Function, Serializable {
 				if (idx == 0) bdval = bdval.add(bd);
 				else {
 					double bdh = Math.pow(bdval.doubleValue(), bd.doubleValue());
-					bdval = bdval.valueOf(bdh);
+					bdval = BigDecimal.valueOf(bdh);
 				}
 			}
 		}
@@ -81,6 +82,7 @@ public class Pow implements Function, Serializable {
 		return POW;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

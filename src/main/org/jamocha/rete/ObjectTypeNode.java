@@ -58,7 +58,8 @@ public class ObjectTypeNode extends BaseAlpha implements Serializable {
     /**
      * HashMap entries for unique AlphaNodes
      */
-    private Map nodeHashMap = null;
+    @SuppressWarnings("rawtypes")
+	private Map nodeHashMap = null;
     
     /**
      * Second ArrayList for all nodes that do not use ==, null operators
@@ -270,7 +271,8 @@ public class ObjectTypeNode extends BaseAlpha implements Serializable {
     /**
      * Add a successor node
      */
-    public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings("unchecked")
+	public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
     throws AssertException 
     {
     	if (node instanceof AlphaNode) {
@@ -297,7 +299,8 @@ public class ObjectTypeNode extends BaseAlpha implements Serializable {
         // the new successor only
         AlphaMemory alpha = (AlphaMemory)mem.getAlphaMemory(this);
         if (alpha.size() > 0){
-            Iterator itr = alpha.iterator();
+            @SuppressWarnings("rawtypes")
+			Iterator itr = alpha.iterator();
             while (itr.hasNext()){
                 Fact f = (Fact)itr.next();
                 if (node instanceof BaseAlpha) {

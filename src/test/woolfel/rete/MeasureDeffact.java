@@ -41,7 +41,8 @@ public class MeasureDeffact {
 		super();
 	}
 
-    public static void main(String args[]) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void main(String args[]) {
         ArrayList objects = new ArrayList();
         Runtime rt = Runtime.getRuntime();
         long total1 = rt.totalMemory();

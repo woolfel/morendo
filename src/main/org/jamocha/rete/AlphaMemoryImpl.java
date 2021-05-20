@@ -31,6 +31,7 @@ public class AlphaMemoryImpl implements AlphaMemory {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private Map memory = null;
 
 	/**
@@ -45,6 +46,7 @@ public class AlphaMemoryImpl implements AlphaMemory {
 	 * addPartialMatch stores the fact with the factId as the
 	 * key.
 	 */
+	@SuppressWarnings("unchecked")
 	public void addPartialMatch(Fact fact) {
 		this.memory.put(fact, fact);
 	}
@@ -73,6 +75,7 @@ public class AlphaMemoryImpl implements AlphaMemory {
 	/**
 	 * Return an iterator of the values
 	 */
+	@SuppressWarnings("rawtypes")
 	public Iterator iterator() {
 		return this.memory.keySet().iterator();
 	}

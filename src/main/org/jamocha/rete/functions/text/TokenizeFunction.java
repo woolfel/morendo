@@ -80,6 +80,7 @@ public class TokenizeFunction implements Function, Serializable {
 		return TOKENIZE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,BoundParam.class,ValueParam.class};
 	}

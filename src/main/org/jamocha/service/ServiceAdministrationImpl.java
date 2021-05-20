@@ -20,18 +20,21 @@ public class ServiceAdministrationImpl implements ServiceAdministration {
 		return (RuleApplication)this.ruleService.getRuleApplicationMap().get(key);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public int getEnginePoolCount(String ruleApplication, String version) {
 		String key = ruleApplication + "::" + version;
 		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().get(key);
 		return queue.size();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List getEngines(String ruleApplication, String version) {
 		String key = ruleApplication + "::" + version;
 		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().get(key);
 		return new java.util.ArrayList(queue);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getRuleApplications() {
 		return this.ruleService.getRuleApplications();
 	}
@@ -40,6 +43,7 @@ public class ServiceAdministrationImpl implements ServiceAdministration {
 		return ruleService.getServiceConfiguration();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void reinitialize(String ruleApplication, String version) {
 		log.info("--- Start reinitializing rule application: " + ruleApplication + " " + version);
 		String key = ruleApplication + "::" + version;
@@ -65,6 +69,7 @@ public class ServiceAdministrationImpl implements ServiceAdministration {
 	}
 	
 
+	@SuppressWarnings("rawtypes")
 	public boolean reloadFunctionPackage(String ruleApplication, String version) {
 		log.info("--- Start reloading Function Package: " + ruleApplication + " " + version);
 		boolean reload = false;
@@ -83,6 +88,7 @@ public class ServiceAdministrationImpl implements ServiceAdministration {
 		return reload;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean reloadInitialData(String ruleApplication, String version) {
 		log.info("--- Start reloading Initial Data: " + ruleApplication + " " + version);
 		boolean reload = false;
@@ -101,6 +107,7 @@ public class ServiceAdministrationImpl implements ServiceAdministration {
 		return reload;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean reloadRuleset(String ruleApplication, String version) {
 		log.info("--- Start reloading Ruleset: " + ruleApplication + " " + version);
 		boolean reload = false;

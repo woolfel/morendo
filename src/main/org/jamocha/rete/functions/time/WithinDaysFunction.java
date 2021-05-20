@@ -54,7 +54,7 @@ public class WithinDaysFunction extends AbstractTimeFunction implements Function
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean eval = false;
+		Boolean eval = Boolean.FALSE;
 		if (params != null && params.length == 3) {
 			int interval = params[0].getIntValue();
 			Date date1 = null;
@@ -79,13 +79,13 @@ public class WithinDaysFunction extends AbstractTimeFunction implements Function
 				calendar3.setTime(date1);
 				calendar3.add(Calendar.DAY_OF_MONTH, interval);
 				if (calendar2.compareTo(calendar1) >= 0 && calendar2.compareTo(calendar3) <= 0) {
-					eval = true;
+					eval = Boolean.TRUE;
 				}
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = 
-			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(eval));
+			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, eval);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -94,6 +94,7 @@ public class WithinDaysFunction extends AbstractTimeFunction implements Function
 		return WITHIN_DAYS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{Date.class, Date.class};
 	}

@@ -223,7 +223,8 @@ public interface Rule extends Scope, Serializable {
     Action[] getActions();
     Action[] getModificationActions();
     void addJoinNode(BaseJoin node);
-    List getJoins();
+    @SuppressWarnings("rawtypes")
+	List getJoins();
     /**
      * The method should return the last node in the rule, not counting
      * the terminal node.
@@ -285,7 +286,8 @@ public interface Rule extends Scope, Serializable {
      * Get a iterator to the Binding objects
      * @return
      */
-    Iterator getBindingIterator();
+    @SuppressWarnings("rawtypes")
+	Iterator getBindingIterator();
     /**
      * Get a count of the Binding
      * @return

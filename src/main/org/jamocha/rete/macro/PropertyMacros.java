@@ -1,8 +1,5 @@
 package org.jamocha.rete.macro;
 
-import org.jamocha.rete.macro.ReadMacro;
-import org.jamocha.rete.macro.WriteMacro;
-
 /**
  * PropertyMacro has a reference to the ReadMacro and WriteMacro
  * for a single bean property. The purpose is to encapsulate the

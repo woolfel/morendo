@@ -54,6 +54,7 @@ public class NewFunction implements Function, Serializable {
 		this.classnameResolver = classnameResolver;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Object o = null;
 		String classname = null;
@@ -134,6 +135,7 @@ public class NewFunction implements Function, Serializable {
 		return NEW;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

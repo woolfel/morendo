@@ -54,9 +54,11 @@ public class DefaultQueryCompiler implements QueryCompiler {
 	 */
 	private static final long serialVersionUID = 1L;
     private Rete engine = null;
-    private Map objectTypeNodesMap = null;
+    @SuppressWarnings("rawtypes")
+	private Map objectTypeNodesMap = null;
     
-    private ArrayList listener = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	private ArrayList listener = new ArrayList();
     protected boolean validate = true;
     protected TemplateValidation tval = null;
     
@@ -73,6 +75,7 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * @param engine
      * @param inputNodes
      */
+	@SuppressWarnings("rawtypes")
 	public DefaultQueryCompiler(Rete engine, Map inputNodes) {
 		super();
         this.engine = engine;
@@ -161,10 +164,11 @@ public class DefaultQueryCompiler implements QueryCompiler {
             }
             return false;
 		}
-        return false;
+        return false; // Dead code
 	}
 
-    public Condition[] getRuleConditions(Query query) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public Condition[] getRuleConditions(Query query) {
         Condition[] conditions = query.getConditions();
         ArrayList conditionList = new ArrayList();
         boolean hasAnd = false;
@@ -191,6 +195,7 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * or the key already exists, the compiler will not add it to the
      * network.
 	 */
+	@SuppressWarnings("unchecked")
 	public void addObjectTypeNode(QueryObjTypeNode node) {
         if (!this.objectTypeNodesMap.containsKey(node.getDeftemplate())) {
             this.objectTypeNodesMap.put(node.getDeftemplate(),node);
@@ -227,7 +232,8 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * @param templateName
      * @return
      */
-    public QueryObjTypeNode findObjectTypeNode(String templateName) {
+    @SuppressWarnings("rawtypes")
+	public QueryObjTypeNode findObjectTypeNode(String templateName) {
         Iterator itr = this.objectTypeNodesMap.keySet().iterator();
         Template tmpl = null;
         while (itr.hasNext()) {
@@ -252,6 +258,7 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * Implementation will check to see if the 
 	 * @see org.jamocha.rete.RuleCompiler#addListener(org.jamocha.rete.CompilerListener)
 	 */
+	@SuppressWarnings("unchecked")
 	public void addListener(CompilerListener listener) {
         if (!this.listener.contains(listener)) {
             this.listener.add(listener);
@@ -418,7 +425,8 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * @param position
      * @return
      */
-    public QueryBaseAlpha compileConstraint(PredicateConstraint cnstr,
+    @SuppressWarnings({ "rawtypes", "unchecked", "null" })
+	public QueryBaseAlpha compileConstraint(PredicateConstraint cnstr,
             Template templ, Query query, int position) {
     	QueryBaseAlphaCondition current = null;
         // Queries are different than rules in that the value will be
@@ -599,7 +607,8 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * what kind of event it is and calling the appropriate method.
      * @param event
      */
-    public void notifyListener(CompileEvent event) {
+    @SuppressWarnings("rawtypes")
+	public void notifyListener(CompileEvent event) {
         Iterator itr = this.listener.iterator();
         //engine.writeMessage(event.getMessage());
         while (itr.hasNext()) {
@@ -615,6 +624,7 @@ public class DefaultQueryCompiler implements QueryCompiler {
         }
     }
 
+	@SuppressWarnings("rawtypes")
 	public Map getObjectTypeNodeMap() {
 		return objectTypeNodesMap;
 	}

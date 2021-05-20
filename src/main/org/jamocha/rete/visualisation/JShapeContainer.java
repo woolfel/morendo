@@ -26,6 +26,11 @@ import java.util.Iterator;
  */
 public class JShapeContainer extends JComponent {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected List<ConnectorLine> lines;
 	protected List<Shape> shapes;
 	protected int graphwidth;

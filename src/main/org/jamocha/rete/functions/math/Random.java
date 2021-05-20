@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Random implements Function, Serializable {
 
-	public static final String RANDOM = "random";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String RANDOM = "random";
+
+
 	public Random() {
 		super();
 	}
@@ -64,6 +67,7 @@ public class Random implements Function, Serializable {
 		return RANDOM;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] {};
 	}

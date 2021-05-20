@@ -53,7 +53,13 @@ import java.util.Iterator;
  */
 public class TemporalHashedAlphaMem implements Serializable {
 
-    protected Map memory = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@SuppressWarnings("rawtypes")
+	protected Map memory = null;
     
     protected int counter = 0;
     
@@ -69,6 +75,7 @@ public class TemporalHashedAlphaMem implements Serializable {
      * addPartialMatch stores the fact with the factId as the
      * key.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addPartialMatch(HashIndex index, Fact fact, Rete engine) {
 		Map matches = (Map)this.memory.get(index);
 		if (matches == null) {
@@ -79,6 +86,7 @@ public class TemporalHashedAlphaMem implements Serializable {
 		this.counter++;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addNewPartialMatch(HashIndex index, Fact fact, Rete engine) {
 		Map matches = engine.newMap();
 		matches.put(fact,fact);
@@ -88,6 +96,7 @@ public class TemporalHashedAlphaMem implements Serializable {
 	/**
      * clear the memory.
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear() {
 		Iterator itr = this.memory.values().iterator();
 		while (itr.hasNext()) {
@@ -96,6 +105,7 @@ public class TemporalHashedAlphaMem implements Serializable {
         this.memory.clear();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean isPartialMatch(HashIndex index, Fact fact) {
 		Map list = (Map)this.memory.get(index);
 		if (list != null) {
@@ -108,6 +118,7 @@ public class TemporalHashedAlphaMem implements Serializable {
 	/**
      * remove a partial match from the memory
 	 */
+	@SuppressWarnings("rawtypes")
 	public int removePartialMatch(HashIndex index, Fact fact) {
 		Map list = (Map)this.memory.get(index);
 		list.remove(fact);
@@ -121,7 +132,8 @@ public class TemporalHashedAlphaMem implements Serializable {
     /**
      * Return the number of memories of all hash buckets
      */
-    public int size() {
+    @SuppressWarnings("rawtypes")
+	public int size() {
     	Iterator itr = this.memory.keySet().iterator();
     	int count = 0;
     	while (itr.hasNext()) {
@@ -138,7 +150,8 @@ public class TemporalHashedAlphaMem implements Serializable {
     /**
      * Return an iterator of the values
      */
-    public Iterator iterator(HashIndex index) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public Iterator iterator(HashIndex index) {
     	Map list = (Map)this.memory.get(index);
 		if (list != null) {
             // we have to create a new ArrayList with the values
@@ -154,7 +167,8 @@ public class TemporalHashedAlphaMem implements Serializable {
 		}
     }
     
-    public int count(HashIndex index) {
+    @SuppressWarnings("rawtypes")
+	public int count(HashIndex index) {
     	Map list = (Map)this.memory.get(index);
     	if (list != null) {
     		return list.size();
@@ -167,7 +181,8 @@ public class TemporalHashedAlphaMem implements Serializable {
      * return an arraylist with all the facts
      * @return
      */
-    public Object[] iterateAll() {
+    @SuppressWarnings("rawtypes")
+	public Object[] iterateAll() {
     	Object[] all = new Object[this.counter];
     	Iterator itr = this.memory.keySet().iterator();
     	int idx = 0;

@@ -10,6 +10,7 @@ public class ReflectionTest extends TestCase {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testLookup1() {
 		String methd = "setCashCountry";
 		Class[] params = new Class[2];
@@ -30,6 +31,7 @@ public class ReflectionTest extends TestCase {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testLookup2() {
 		String methd = "setCashCountry";
 		Class[] params = new Class[2];

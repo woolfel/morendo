@@ -47,6 +47,7 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 
 	private JTextField nameField;
 
+	@SuppressWarnings("rawtypes")
 	private JComboBox moduleBox;
 
 	private JButton reloadButtonDumpAreaTemplate;
@@ -61,6 +62,7 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 
 	private List<EditorRow> rows = new LinkedList<EditorRow>();
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TemplateEditor(Rete engine) {
 		super(engine);
 		setSize(600, 500);
@@ -250,6 +252,7 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 		parent.add(label);
 	}
 
+	@SuppressWarnings("rawtypes")
 	private void addTypesCombo(JPanel parent, JComboBox combo,
 			GridBagLayout gridbag, GridBagConstraints c, int row) {
 		c.gridx = 2;
@@ -271,6 +274,7 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 		parent.add(field);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private JComboBox getNewTypesCombo() {
 		String[] types = new String[]{"STRING","LONG","DOUBLE","OBJECT","MULTISLOT"};
 		JComboBox box = new JComboBox(types);
@@ -283,10 +287,12 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 
 		private JLabel rowLabel;
 
+		@SuppressWarnings("rawtypes")
 		private JComboBox typeBox;
 
 		private JTextField nameField;
 
+		@SuppressWarnings("rawtypes")
 		private EditorRow(DeleteButton deleteButton, JLabel rowLabel,
 				JComboBox typeBox, JTextField nameField) {
 			this.deleteButton = deleteButton;

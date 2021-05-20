@@ -17,6 +17,7 @@
 package org.jamocha.rete.functions.java;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 
 import org.jamocha.rete.BoundParam;
 import org.jamocha.rete.Constants;
@@ -52,6 +53,7 @@ public class LoadPackageFunction implements Function, Serializable {
 		this.classnameResolver = classnameResolver;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Object o = null;
 		String classname = null;
@@ -72,7 +74,7 @@ public class LoadPackageFunction implements Function, Serializable {
 			try {
 				Class classDefinition = classnameResolver
 						.resolveClass(classname);
-				o = classDefinition.newInstance();
+				o = classDefinition.getDeclaredConstructor().newInstance();
 				if(o instanceof FunctionGroup) {
 					engine.declareFunctionGroup((FunctionGroup) o);
 				}
@@ -86,6 +88,10 @@ public class LoadPackageFunction implements Function, Serializable {
 				engine.writeMessage(e.getMessage());
 			} catch (IllegalArgumentException e) {
 				engine.writeMessage(e.getMessage());
+			} catch (InvocationTargetException e) {
+				engine.writeMessage(e.getMessage());
+			} catch (NoSuchMethodException e) {
+				engine.writeMessage(e.getMessage());
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
@@ -98,6 +104,7 @@ public class LoadPackageFunction implements Function, Serializable {
 		return FUNCTION_NAME;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

@@ -67,7 +67,7 @@ public class DuplicateFunction implements RuleFunction, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean exec = false;
+		Boolean exec = Boolean.FALSE;
         if (params != null && params.length >= 2 &&
                 params[0].isObjectBinding()) {
             BoundParam bp = (BoundParam)params[0];
@@ -91,7 +91,7 @@ public class DuplicateFunction implements RuleFunction, Serializable {
         			}
                     // now assert the fact using the same fact-id
                     engine.assertFact(clone);
-                    exec = true;
+                    exec = Boolean.TRUE;
             	}
             } catch (AssertException e) {
                 engine.writeMessage(e.getMessage());
@@ -99,7 +99,7 @@ public class DuplicateFunction implements RuleFunction, Serializable {
         }
         
 		DefaultReturnVector rv = new DefaultReturnVector();
-		DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT,new Boolean(exec));
+		DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, exec);
 		rv.addReturnValue(rval);
 		return rv;
 	}

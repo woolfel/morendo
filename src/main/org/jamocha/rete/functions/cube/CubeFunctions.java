@@ -36,6 +36,7 @@ public class CubeFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	
 	public CubeFunctions() {
@@ -46,6 +47,7 @@ public class CubeFunctions implements FunctionGroup, Serializable {
 		return (CubeFunctions.class.getSimpleName());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		try {
 	        CubeAddDataFunction upcube = new CubeAddDataFunction();
@@ -92,6 +94,7 @@ public class CubeFunctions implements FunctionGroup, Serializable {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}

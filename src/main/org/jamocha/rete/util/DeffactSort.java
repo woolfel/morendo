@@ -21,6 +21,7 @@ import java.util.Comparator;
 import org.jamocha.rete.Deffact;
 
 
+@SuppressWarnings("rawtypes")
 public class DeffactSort implements Comparator {
 
 	public static DeffactSort Comparator = new DeffactSort();

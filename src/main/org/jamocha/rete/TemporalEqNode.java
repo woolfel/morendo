@@ -18,7 +18,8 @@ public class TemporalEqNode extends AbstractTemporalNode {
         super(id);
     }
 
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
         long time = getRightTime();
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -47,7 +48,8 @@ public class TemporalEqNode extends AbstractTemporalNode {
 
     }
 
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
         long time = getLeftTime();
         TemporalHashedAlphaMem rightmem = (TemporalHashedAlphaMem) mem.getBetaRightMemory(this);
@@ -77,7 +79,8 @@ public class TemporalEqNode extends AbstractTemporalNode {
         }
     }
 
-    public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
             throws RetractException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
         leftmem.remove(linx);
@@ -96,7 +99,8 @@ public class TemporalEqNode extends AbstractTemporalNode {
         }
     }
 
-    public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws RetractException {
         long time = getLeftTime();
         EqHashIndex inx = new EqHashIndex(NodeUtils.getRightValues(this.binds,rfact));

@@ -48,7 +48,8 @@ public class NotJoin extends BaseJoin {
     /**
      * clear will clear the lists
      */
-    public void clear(WorkingMemory mem){
+    @SuppressWarnings("rawtypes")
+	public void clear(WorkingMemory mem){
         Map rightmem = (Map)mem.getBetaRightMemory(this);
         Map leftmem = (Map)mem.getBetaRightMemory(this);
         Iterator itr = leftmem.keySet().iterator();
@@ -71,7 +72,8 @@ public class NotJoin extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
         Map leftmem = (Map)mem.getBetaLeftMemory(this);
@@ -102,7 +104,8 @@ public class NotJoin extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
         // we only proceed if the fact hasn't already entered
@@ -144,7 +147,8 @@ public class NotJoin extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
     throws RetractException
     {
         Map leftmem = (Map)mem.getBetaLeftMemory(this);
@@ -165,7 +169,8 @@ public class NotJoin extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws RetractException
     {
         Map rightmem = (Map)mem.getBetaRightMemory(this);
@@ -225,7 +230,8 @@ public class NotJoin extends BaseJoin {
      * NotJoin has to have a special addSuccessorNode since it needs
      * to just propogate the left facts if it has zero matches.
      */
-    public void addSuccessorNode(TerminalNode node, Rete engine,
+    @SuppressWarnings("rawtypes")
+	public void addSuccessorNode(TerminalNode node, Rete engine,
             WorkingMemory mem) throws AssertException {
         if (addNode(node)) {
             // first, we get the memory for this node

@@ -29,6 +29,7 @@ public class TimeFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	
 	public TimeFunctions() {
@@ -39,6 +40,7 @@ public class TimeFunctions implements FunctionGroup, Serializable {
 		return TimeFunctions.class.getSimpleName();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		AddSecondsFunction addsec = new AddSecondsFunction();
 		engine.declareFunction(addsec);
@@ -96,6 +98,7 @@ public class TimeFunctions implements FunctionGroup, Serializable {
 		funcs.add(withinS);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}

@@ -55,19 +55,19 @@ public class AfterFunction extends AbstractTimeFunction implements Function, Ser
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean eval = false;
+		Boolean eval = Boolean.FALSE;
 		
 		if (params != null && params.length == 2) {
 			long time1 = getMillisecondTime(params[0].getValue(engine, Constants.OBJECT_TYPE));
 			long time2 = getMillisecondTime(params[1].getValue(engine, Constants.OBJECT_TYPE));
 			if (time1 > time2) {
-				eval = true;
+				eval = Boolean.TRUE;
 			}
 		}
 
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = 
-			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(eval));
+			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, eval);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -76,6 +76,7 @@ public class AfterFunction extends AbstractTimeFunction implements Function, Ser
 		return AFTER;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{Object.class, Object.class};
 	}

@@ -38,6 +38,8 @@ import org.jamocha.rete.ValueParam;
  */
 public class Greater implements Function, Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	public static final String GREATER = "greater";
 
 	/**
@@ -57,7 +59,7 @@ public class Greater implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean eval = true;
+		Boolean eval = Boolean.TRUE;
 		BigDecimal left = null;
 		BigDecimal right = null;
 		if (params != null) {
@@ -82,7 +84,7 @@ public class Greater implements Function, Serializable {
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(eval));
+				Constants.BOOLEAN_OBJECT, eval);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -91,6 +93,7 @@ public class Greater implements Function, Serializable {
 		return GREATER;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}

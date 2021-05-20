@@ -29,6 +29,7 @@ import java.util.Iterator;
  */
 public class ContentHandlerRegistry {
 	
+	@SuppressWarnings("rawtypes")
 	private static HashMap REGISTRY = new HashMap();
 	
 	/**
@@ -37,6 +38,7 @@ public class ContentHandlerRegistry {
 	 * @param jmsType
 	 * @param instance
 	 */
+	@SuppressWarnings("unchecked")
 	public static void registerHandler(String jmsType, Object instance){
 		if (jmsType != null && instance != null){
 			if (!REGISTRY.containsKey(jmsType)){
@@ -57,6 +59,7 @@ public class ContentHandlerRegistry {
 		return handler;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static Iterator keyIterator() {
 		return REGISTRY.keySet().iterator();
 	}

@@ -51,6 +51,7 @@ public class MLTerminalNode extends TerminalNode2 {
 	 * @param facts
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertFacts(Index inx, Rete engine, WorkingMemory mem) {
 		long time = System.currentTimeMillis();
 		boolean add = true;
@@ -86,6 +87,7 @@ public class MLTerminalNode extends TerminalNode2 {
 	 * @param facts
 	 * @param engine
 	 */
+	@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
 	public void retractFacts(Index inx, Rete engine, WorkingMemory mem) {
 		long time = System.currentTimeMillis();
         Map tmem = (Map) mem.getTerminalMemory(this);

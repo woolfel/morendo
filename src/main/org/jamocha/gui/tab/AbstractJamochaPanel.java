@@ -31,6 +31,10 @@ import org.jamocha.gui.JamochaGui;
 public abstract class AbstractJamochaPanel extends JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * The JamochaGui Object. We need it to get the engine or other future
 	 * purposes.
 	 */

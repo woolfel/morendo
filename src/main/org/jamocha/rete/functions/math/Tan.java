@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Tan implements Function, Serializable {
 
-	public static final String TAN = "tan";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String TAN = "tan";
+
+
 	public Tan() {
 		super();
 	}
@@ -75,6 +78,7 @@ public class Tan implements Function, Serializable {
 		return TAN;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

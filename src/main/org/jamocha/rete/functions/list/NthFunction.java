@@ -62,7 +62,7 @@ public class NthFunction implements Serializable, Function {
 			if (list.getClass().isArray()) {
 				Object[] lval = (Object[])list;
 				if (index >= lval.length) {
-					val = new Boolean(false);
+					val = Boolean.FALSE;
 				} else {
 					val = lval[index];
 				}
@@ -78,6 +78,7 @@ public class NthFunction implements Serializable, Function {
 		return NTH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}

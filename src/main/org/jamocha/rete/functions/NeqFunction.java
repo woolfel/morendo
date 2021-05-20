@@ -52,20 +52,20 @@ public class NeqFunction implements Function, Serializable {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-		boolean eq = true;
+		Boolean eq = Boolean.TRUE;
 		if (params != null && params.length > 1) {
 			Object first = params[0].getValue(engine, Constants.OBJECT_TYPE);
 			for (int idx = 1; idx < params.length; idx++) {
 				Object other = params[idx].getValue(engine, Constants.OBJECT_TYPE);
 				if ( (  (first == null && other == null)     ||  
 						(first != null && first.equals(other))  ) ) {
-					eq = false;
+					eq = Boolean.FALSE;
 					break;
 				}
 			}
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(eq));
+				Constants.BOOLEAN_OBJECT, eq);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -74,6 +74,7 @@ public class NeqFunction implements Function, Serializable {
 		return NEQUAL;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

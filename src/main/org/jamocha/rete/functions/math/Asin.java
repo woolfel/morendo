@@ -37,6 +37,10 @@ import org.jamocha.rete.ValueParam;
  */
 public class Asin implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String ASIN = "asin";
 
 	/**
@@ -74,6 +78,7 @@ public class Asin implements Function, Serializable {
 		return ASIN;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

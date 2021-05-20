@@ -77,6 +77,7 @@ public class DiscoverAgentsFunction implements Function {
 		return DISCOVER_AGENTS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class};
 	}

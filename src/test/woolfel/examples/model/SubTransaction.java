@@ -2,7 +2,6 @@ package woolfel.examples.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,8 +10,13 @@ import java.util.ArrayList;
  */
 public class SubTransaction extends Security {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String[] transactionSet = null;
-    protected ArrayList listeners = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	protected ArrayList listeners = new ArrayList();
 
     public SubTransaction() {
 		super();
@@ -30,7 +34,8 @@ public class SubTransaction extends Security {
     	return this.transactionSet;
     }
     
-    public void addPropertyChangeListener(PropertyChangeListener listener){
+    @SuppressWarnings("unchecked")
+	public void addPropertyChangeListener(PropertyChangeListener listener){
         this.listeners.add(listener);
     }
     

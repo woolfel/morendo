@@ -22,7 +22,11 @@ package woolfel.examples.model;
  */
 public class Account3 extends Account2 {
 
-    protected String street1 = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected String street1 = null;
     protected String stree2 = null;
     protected String city = null;
     protected String state = null;

@@ -640,8 +640,8 @@ public class GenerateCERules {
 		int rules = 5;
 		int data = 1000;
 		int joins = 1;
-		boolean right = true;
-		boolean profleft = false;
+		// boolean right = true; Unused - see bwlow
+		// boolean profleft = false; Unused - see below
 		if (args != null && args.length > 0) {
 			if (args[0] != null) {
 				outfile = args[0];
@@ -655,12 +655,15 @@ public class GenerateCERules {
 			if (args[3] != null) {
 				data = Integer.parseInt(args[3]);
 			}
+			/* TODO - determine if this has some vestigal function
 			if (args[4] != null && args[4].equals("left")) {
 				right = false;
 			}
+			
 			if (args[5] != null && args[5].equals("true")) {
 				profleft = true;
 			}
+			*/
 			
 			GenerateCERules gen = new GenerateCERules();
 			StringBuffer buf = new StringBuffer();

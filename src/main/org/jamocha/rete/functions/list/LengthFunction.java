@@ -53,7 +53,7 @@ public class LengthFunction implements Serializable, Function {
 			}
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(Constants.INTEGER_OBJECT,
-				new Integer(size));
+				Integer.valueOf(size));
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -62,6 +62,7 @@ public class LengthFunction implements Serializable, Function {
 		return LENGTH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}

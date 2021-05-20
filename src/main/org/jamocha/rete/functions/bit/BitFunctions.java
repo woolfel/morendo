@@ -12,6 +12,7 @@ public class BitFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private List funcs = new ArrayList();
 
 	public BitFunctions() {
@@ -21,10 +22,12 @@ public class BitFunctions implements FunctionGroup {
 		return BitFunctions.class.getSimpleName();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		BitAndFunction bitand = new BitAndFunction();
 		engine.declareFunction(bitand);

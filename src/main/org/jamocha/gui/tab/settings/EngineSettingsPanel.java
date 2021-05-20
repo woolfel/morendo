@@ -153,23 +153,23 @@ public class EngineSettingsPanel extends AbstractSettingsPanel implements
 	@Override
 	public void save() {
 		gui.getPreferences().put("engine.evaluation", 
-				new Boolean(false).toString());
+				Boolean.FALSE.toString());
 		gui.getPreferences().put("engine.profileAssert",
-				new Boolean(false).toString());
+				Boolean.FALSE.toString());
 		gui.getPreferences().put("engine.profileRetract",
-				new Boolean(false).toString());
+				Boolean.FALSE.toString());
 		gui.getPreferences().put("engine.profileFire",
-				new Boolean(false).toString());
+				Boolean.FALSE.toString());
 		gui.getPreferences().put("engine.profileAddActivation",
-				new Boolean(false).toString());
+				Boolean.FALSE.toString());
 		gui.getPreferences().put("engine.profileRemoveActivation",
-				new Boolean(false).toString());
+				Boolean.FALSE.toString());
 		gui.getPreferences().put("engine.watchActivations",
-				new Boolean(false).toString());
+				Boolean.FALSE.toString());
 		gui.getPreferences().put("engine.watchFacts",
-				new Boolean(false).toString());
+				Boolean.FALSE.toString());
 		gui.getPreferences().put("engine.watchRules",
-				new Boolean(false).toString());
+				Boolean.FALSE.toString());
 	}
 
 

@@ -35,6 +35,11 @@ import org.jamocha.rete.ValueParam;
  */
 public class StringNotEmptyFunction implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String STRING_LENGTH = "str-not-empty";
 	
 	/**
@@ -73,6 +78,7 @@ public class StringNotEmptyFunction implements Function, Serializable {
 		return STRING_LENGTH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

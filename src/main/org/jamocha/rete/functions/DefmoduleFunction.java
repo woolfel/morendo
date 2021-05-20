@@ -48,16 +48,16 @@ public class DefmoduleFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean add = true;
+		Boolean add = Boolean.TRUE;
 		if (params.length == 1) {
 			engine.addModule(params[0].getStringValue());
 			engine.writeMessage("true",Constants.DEFAULT_OUTPUT);
 		} else {
-			add = false;
+			add = Boolean.FALSE;
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(add));
+				Constants.BOOLEAN_OBJECT, add);
 		ret.addReturnValue(rv);
 		DefaultReturnValue rv2 = new DefaultReturnValue(
 				Constants.STRING_TYPE, params[0].getStringValue());
@@ -73,6 +73,7 @@ public class DefmoduleFunction implements Function, Serializable {
 	 * The expected parameter is a single ValueParam containing a deftemplate
 	 * instance. The function gets the deftemplate using Parameter.getValue().
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

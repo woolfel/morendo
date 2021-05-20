@@ -26,7 +26,7 @@ public class OrFunction implements Function, Serializable {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-		boolean eq = false;
+		Boolean eq = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				if (eq) {
@@ -44,7 +44,7 @@ public class OrFunction implements Function, Serializable {
 			}
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(eq));
+				Constants.BOOLEAN_OBJECT, eq);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -53,6 +53,7 @@ public class OrFunction implements Function, Serializable {
 		return OR;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ ValueParam[].class };
 	}

@@ -35,11 +35,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class StringUpperFunction implements Function, Serializable {
 
-	public static final String STRING_UPPER = "str-upper";
-	
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String STRING_UPPER = "str-upper";
+	
+
 	public StringUpperFunction() {
 		super();
 	}
@@ -69,6 +72,7 @@ public class StringUpperFunction implements Function, Serializable {
 		return STRING_UPPER;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

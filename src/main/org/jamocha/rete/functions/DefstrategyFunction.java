@@ -17,6 +17,7 @@
 package org.jamocha.rete.functions;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 
 import org.jamocha.rete.Constants;
 import org.jamocha.rete.DefaultReturnValue;
@@ -51,29 +52,42 @@ public class DefstrategyFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean def = true;
+		Boolean def = Boolean.TRUE;
 		if (params.length == 1) {
 			String clazz = params[0].getStringValue();
             Class clzz;
             try {
                 clzz = Class.forName(clazz);
-                Strategy strat = (Strategy)clzz.newInstance();
+                Strategy strat = (Strategy)clzz.getDeclaredConstructor().newInstance();
                 Strategies.register(strat);
-                def = true;
+                def = Boolean.TRUE;
             } catch (ClassNotFoundException e) {
                 // for now we do nothing
             } catch (InstantiationException e) {
                 // for now we do nothing
             } catch (IllegalAccessException e) {
                 // for now we do nothing
-            }
+            } catch (NoSuchMethodException e) {
+            	// for now we do nothing
+            } catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
 		} else {
-			def = false;
+			def = Boolean.FALSE;
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(def));
+				Constants.BOOLEAN_OBJECT, def);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -86,6 +100,7 @@ public class DefstrategyFunction implements Function, Serializable {
 	 * defclass function expects 3 parameters. (defclass classname,
 	 * templatename, parenttemplate) parent template name is optional.
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class,
 				ValueParam.class };

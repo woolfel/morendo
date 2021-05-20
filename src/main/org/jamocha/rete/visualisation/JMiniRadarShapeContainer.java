@@ -19,6 +19,11 @@ import java.awt.event.MouseMotionListener;
  */
 public class JMiniRadarShapeContainer extends JShapeContainer implements MouseListener, MouseMotionListener, ComponentListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected JZoomableShapeContainer masterShapeContainer;
 	protected int offsetX;
 	protected int offsetY;

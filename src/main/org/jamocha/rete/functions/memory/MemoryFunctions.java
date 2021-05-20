@@ -31,6 +31,12 @@ import org.jamocha.rete.Rete;
  */
 public class MemoryFunctions implements FunctionGroup, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	
 	public MemoryFunctions() {
@@ -41,6 +47,7 @@ public class MemoryFunctions implements FunctionGroup, Serializable {
 		return (MemoryFunctions.class.getSimpleName());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		GarbageCollectFunction gcf = new GarbageCollectFunction();
 		engine.declareFunction(gcf);
@@ -65,6 +72,7 @@ public class MemoryFunctions implements FunctionGroup, Serializable {
         funcs.add(rmatch);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}

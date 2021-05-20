@@ -32,11 +32,12 @@ public class EagerSetContainsFunction implements Function, Serializable {
 		super();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
 		Object rl = null;
 		String key = null;
-		Boolean contain = new Boolean(false);
+		Boolean contain = Boolean.FALSE;
 		if (params != null && params.length == 2) {
 			Set map = null;
 			rl = params[0].getValue();
@@ -66,6 +67,7 @@ public class EagerSetContainsFunction implements Function, Serializable {
 		return MAPCONTAINS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}

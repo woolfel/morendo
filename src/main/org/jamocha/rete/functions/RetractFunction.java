@@ -63,12 +63,12 @@ public class RetractFunction implements Function, Serializable {
 						}
 						DefaultReturnValue rval = 
 							new DefaultReturnValue(
-									Constants.BOOLEAN_OBJECT,new Boolean(true));
+									Constants.BOOLEAN_OBJECT, Boolean.TRUE);
 						rv.addReturnValue(rval);
 					} catch (RetractException e) {
 						DefaultReturnValue rval = 
 							new DefaultReturnValue(
-									Constants.BOOLEAN_OBJECT,new Boolean(false));
+									Constants.BOOLEAN_OBJECT, Boolean.FALSE);
 						rv.addReturnValue(rval);
 					}
 				} else if (params[idx] instanceof ValueParam) {
@@ -77,12 +77,12 @@ public class RetractFunction implements Function, Serializable {
 						engine.retractById(bi.longValue());
 						DefaultReturnValue rval = 
 							new DefaultReturnValue(
-									Constants.BOOLEAN_OBJECT,new Boolean(true));
+									Constants.BOOLEAN_OBJECT, Boolean.TRUE);
 						rv.addReturnValue(rval);
 					} catch (RetractException e) {
 						DefaultReturnValue rval = 
 							new DefaultReturnValue(
-									Constants.BOOLEAN_OBJECT,new Boolean(false));
+									Constants.BOOLEAN_OBJECT, Boolean.FALSE);
 						rv.addReturnValue(rval);
 					}
 				}
@@ -95,6 +95,7 @@ public class RetractFunction implements Function, Serializable {
 		return RETRACT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] {BoundParam.class};
 	}

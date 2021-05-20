@@ -50,7 +50,9 @@ public class AssertRetractTest extends TestCase {
 		super(arg0);
 	}
 
-    public void testRetractNoShadow() {
+ 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testRetractNoShadow() {
         System.out.println("testRetractNoShadow");
         Random ran = new Random();
         ArrayList objects = new ArrayList();
@@ -118,9 +120,13 @@ public class AssertRetractTest extends TestCase {
         }
         long retend = System.currentTimeMillis();
         long retractET = retend - retstart;
-        long total4 = rt.totalMemory();
-        long free4 = rt.freeMemory();
-        long used4 = total4 - free4;
+        /*
+         * Unused 
+        	long total4 = rt.totalMemory();
+        	long free4 = rt.freeMemory();
+        	long used4 = total4 - free4; 
+        * 
+        */
         objects.clear();
         engine.clearAll();
         engine.close();
@@ -129,7 +135,8 @@ public class AssertRetractTest extends TestCase {
         // the retract should be atleast 3 times shorter than the assert
     }
     
-    public void testRetractWithShadow() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testRetractWithShadow() {
         System.out.println("testRetractWithShadow");
         Random ran = new Random();
         ArrayList objects = new ArrayList();
@@ -197,9 +204,13 @@ public class AssertRetractTest extends TestCase {
         }
         long retend = System.currentTimeMillis();
         long retractET = retend - retstart;
-        long total4 = rt.totalMemory();
-        long free4 = rt.freeMemory();
-        long used4 = total4 - free4;
+        /*
+         * Unused
+         *
+        	long total4 = rt.totalMemory();
+        	long free4 = rt.freeMemory();
+        	long used4 = total4 - free4;
+        */
         objects.clear();
         rt.gc();
         System.out.println("elapsed time to retract " + retractET + " ms");

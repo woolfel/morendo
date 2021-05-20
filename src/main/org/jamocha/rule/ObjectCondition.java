@@ -47,14 +47,16 @@ public class ObjectCondition extends AbstractCondition {
 		super();
 	}
 	
-    public void addConstraint(Constraint con) {
+    @SuppressWarnings("unchecked")
+	public void addConstraint(Constraint con) {
         this.constraints.add(con);
         if (this.getNegated() && con instanceof BoundConstraint) {
         	((BoundConstraint)con).setBindableConstraint(false);
         }
     }
     
-    public void addConstraint(Constraint con, int position) {
+    @SuppressWarnings("unchecked")
+	public void addConstraint(Constraint con, int position) {
         this.constraints.add(0,con);
         if (this.getNegated() && con instanceof BoundConstraint) {
         	((BoundConstraint)con).setBindableConstraint(false);
@@ -167,15 +169,18 @@ public class ObjectCondition extends AbstractCondition {
     }
     
 	public ConditionCompiler getCompiler(RuleCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).objectConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.objectConditionCompiler;
 	}
 	
 	public ConditionCompiler getCompiler(QueryCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).objectConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.objectConditionCompiler;
 	}
 	
 	public ConditionCompiler getCompiler(GraphQueryCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).objectConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.objectConditionCompiler;
 	}
 	
 	public boolean isHasNotEqual() {

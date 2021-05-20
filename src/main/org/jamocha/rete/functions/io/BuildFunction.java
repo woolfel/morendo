@@ -98,7 +98,7 @@ public class BuildFunction implements Function, Serializable {
 			}
 			if (rv != null) {
 				rv.addReturnValue(new DefaultReturnValue(
-						Constants.BOOLEAN_OBJECT, new Boolean(true)));
+						Constants.BOOLEAN_OBJECT, Boolean.TRUE));
 			}
 		} catch (ParseException e) {
             engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
@@ -109,6 +109,7 @@ public class BuildFunction implements Function, Serializable {
 		return BUILD;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

@@ -22,7 +22,6 @@ import java.util.Iterator;
 import org.jamocha.rete.BaseSlot;
 import org.jamocha.rete.Deftemplate;
 import org.jamocha.rete.Rete;
-import org.jamocha.rete.Slot;
 import org.jamocha.rete.Template;
 
 import woolfel.examples.model.Account;
@@ -53,7 +52,8 @@ public class DeclareClassTest extends TestCase {
 		super(arg0);
 	}
 
-    public void testDeclareClass() {
+    @SuppressWarnings("rawtypes")
+	public void testDeclareClass() {
         Rete engine = new Rete();
         assertNotNull(engine);
         engine.declareObject(Account.class);
@@ -70,7 +70,8 @@ public class DeclareClassTest extends TestCase {
         System.out.println("--------------------------------");
     }
     
-    public void testDeclareClass2() {
+    @SuppressWarnings("rawtypes")
+	public void testDeclareClass2() {
         Rete engine = new Rete();
         assertNotNull(engine);
         engine.declareObject(Account.class);

@@ -16,6 +16,8 @@
  */
 package org.jamocha.rete.functions.cube;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.jamocha.rete.Constants;
 import org.jamocha.rete.DefaultReturnValue;
 import org.jamocha.rete.DefaultReturnVector;
@@ -37,28 +39,37 @@ public class LoadMeasureFunction implements Function {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean load = false;
+		Boolean load = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				String className = params[idx].getStringValue();
 				try {
 					Class clzz = Class.forName(className);
-					Measure measure = (Measure)clzz.newInstance();
+					Measure measure = (Measure)clzz.getDeclaredConstructor().newInstance();
 					engine.declareMeasure(measure);
-					load = true;
+					load = Boolean.TRUE;
 				} catch (ClassNotFoundException e) {
 					engine.writeMessage("Could not find the class. Please double check and make sure it is the fully qualified class name.");
 				} catch (InstantiationException e) {
 					engine.writeMessage("Could not create new instance of the class.");
 				} catch (IllegalAccessException e) {
 					engine.writeMessage("Could not create new instance of the class.");
+				} catch (IllegalArgumentException e) {
+					engine.writeMessage(e.getMessage());
+				} catch (InvocationTargetException e) {
+					engine.writeMessage(e.getMessage());
+				} catch (NoSuchMethodException e) {
+					engine.writeMessage(e.getMessage());
+				} catch (SecurityException e) {
+					engine.writeMessage(e.getMessage());
 				}
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(load));
+				Constants.BOOLEAN_OBJECT,load);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -67,6 +78,7 @@ public class LoadMeasureFunction implements Function {
 		return LOAD_MEASURE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String[].class};
 	}

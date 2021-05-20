@@ -36,7 +36,6 @@ import org.jamocha.rete.Parameter;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.ReturnVector;
 import org.jamocha.rete.ValueParam;
-import org.jamocha.rule.*;
 
 
 /**
@@ -90,11 +89,11 @@ public class BatchObjectsFunction implements Function, Serializable {
                 } catch (FileNotFoundException e) {
 					// we should report the error
 					rv.addReturnValue(new DefaultReturnValue(
-							Constants.BOOLEAN_OBJECT, new Boolean(false)));
+							Constants.BOOLEAN_OBJECT, Boolean.FALSE));
                     engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
                 } catch (IOException e) {
                     rv.addReturnValue(new DefaultReturnValue(
-                            Constants.BOOLEAN_OBJECT, new Boolean(false)));
+                            Constants.BOOLEAN_OBJECT, Boolean.FALSE));
                     engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
 				}
 			}
@@ -109,6 +108,7 @@ public class BatchObjectsFunction implements Function, Serializable {
 	 * @param ins
 	 * @param rv
 	 */
+	@SuppressWarnings("unchecked")
 	public void parse(Rete engine, InputStream ins, DefaultReturnVector rv) {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(ins);
@@ -119,7 +119,7 @@ public class BatchObjectsFunction implements Function, Serializable {
 			}
 			if (rv != null) {
 				rv.addReturnValue(new DefaultReturnValue(
-						Constants.BOOLEAN_OBJECT, new Boolean(true)));
+						Constants.BOOLEAN_OBJECT, Boolean.FALSE));
 			}
 		} catch (Exception e) {
             engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
@@ -130,6 +130,7 @@ public class BatchObjectsFunction implements Function, Serializable {
 		return BATCH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

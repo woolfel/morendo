@@ -28,6 +28,11 @@ import org.jamocha.rete.ReturnVector;
 
 public class GarbageCollectFunction implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String GARBAGE_COLLECT = "gc";
 
 	public GarbageCollectFunction() {
@@ -49,6 +54,7 @@ public class GarbageCollectFunction implements Function, Serializable {
 		return GARBAGE_COLLECT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

@@ -45,6 +45,7 @@ public class NoAgendaTNode extends TerminalNode2 {
 	/**
 	 * method does not apply for no agenda terminal node
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map tmem = (Map)mem.getTerminalMemory(this);
         if (tmem != null) {

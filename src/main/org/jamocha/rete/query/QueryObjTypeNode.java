@@ -80,7 +80,8 @@ public class QueryObjTypeNode extends QueryBaseAlpha implements Serializable {
      * @param fact
      * @param engine
      */
-    public void assertFact(Fact fact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void assertFact(Fact fact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
     	if (fact == null) {

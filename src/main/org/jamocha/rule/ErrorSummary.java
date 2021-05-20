@@ -24,11 +24,13 @@ import org.jamocha.rete.Constants;
  */
 public class ErrorSummary implements Summary {
 
-	private String[] errors = new String[0];
-	
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String[] errors = new String[0];
+
 	public ErrorSummary() {
 	}
 

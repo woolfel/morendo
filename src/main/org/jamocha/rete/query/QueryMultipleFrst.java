@@ -50,6 +50,7 @@ public class QueryMultipleFrst extends QueryBaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
 		Map leftmem = (Map) mem.getBetaRightMemory(this);
@@ -82,6 +83,7 @@ public class QueryMultipleFrst extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
 		// we only proceed if the fact hasn't already entered

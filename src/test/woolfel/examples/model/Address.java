@@ -35,7 +35,8 @@ public class Address {
     protected String zip = null;
     protected String accountId = null;
     
-    protected ArrayList listeners = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	protected ArrayList listeners = new ArrayList();
     
 	/**
 	 * 
@@ -116,7 +117,8 @@ public class Address {
         return this.accountId;
     }
     
-    public void addPropertyChangeListener(PropertyChangeListener listener){
+    @SuppressWarnings("unchecked")
+	public void addPropertyChangeListener(PropertyChangeListener listener){
         this.listeners.add(listener);
     }
     

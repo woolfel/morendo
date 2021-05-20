@@ -50,7 +50,8 @@ public class MemoryBenchmark {
 		super();
 	}
 
-    public void parse(Rete engine, CLIPSParser parser, List factlist) {
+    @SuppressWarnings("rawtypes")
+	public void parse(Rete engine, CLIPSParser parser, List factlist) {
         Object itm = null;
         try {
             while ( (itm = parser.basicExpr()) != null ) {
@@ -81,7 +82,8 @@ public class MemoryBenchmark {
         }
     }    
     
-    public static void main(String args[]) {
+    @SuppressWarnings("rawtypes")
+	public static void main(String args[]) {
         String rulefile = "./benchmark_files/random_5_w_50Kdata.clp";
         String datafile = "./benchmark_files/test.clp";
         // in case it's run within OptimizeIt and we want to keep the test running

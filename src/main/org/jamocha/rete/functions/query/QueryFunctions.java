@@ -12,6 +12,7 @@ public class QueryFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 
 	public QueryFunctions() {
@@ -22,10 +23,12 @@ public class QueryFunctions implements FunctionGroup {
 		return QueryFunctions.class.getSimpleName();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		DefqueryFunction dquery = new DefqueryFunction();
 		engine.declareFunction(dquery);

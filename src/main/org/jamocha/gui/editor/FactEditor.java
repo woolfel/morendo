@@ -62,16 +62,20 @@ public class FactEditor extends AbstractJamochaEditor implements
 
 	private JButton reloadButtondumpAreaFact;
 
+	@SuppressWarnings("rawtypes")
 	private JList moduleList;
 
+	@SuppressWarnings("rawtypes")
 	private JList templateList;
 
 	private JTextArea dumpAreaTemplate = new JTextArea();
 
 	private JTextArea dumpAreaFact = new JTextArea();
 
+	@SuppressWarnings("rawtypes")
 	private DefaultListModel moduleListModel = new DefaultListModel();
 
+	@SuppressWarnings("rawtypes")
 	private DefaultListModel templateListModel = new DefaultListModel();
 
 	private StringChannel channel;
@@ -128,6 +132,7 @@ public class FactEditor extends AbstractJamochaEditor implements
 		setVisible(true);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initPreselectionPanel() {
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -180,6 +185,7 @@ public class FactEditor extends AbstractJamochaEditor implements
 
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initTemplateList() {
 		templateListModel.clear();
 		Module module = engine.getWorkingMemory().findModule(
@@ -196,6 +202,7 @@ public class FactEditor extends AbstractJamochaEditor implements
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	private void initFactEditPanel() {
 		factComponents.clear();
 		GridBagLayout gridbag = new GridBagLayout();
@@ -341,6 +348,7 @@ public class FactEditor extends AbstractJamochaEditor implements
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	private String getCurrentFactAssertionString(boolean print) {
 		Module module = engine.getWorkingMemory().findModule(
 				String.valueOf(moduleList.getSelectedValue()));
@@ -379,8 +387,10 @@ public class FactEditor extends AbstractJamochaEditor implements
 	private final class MultiSlotEditor implements ActionListener,
 			PopupMenuListener {
 
+		@SuppressWarnings("rawtypes")
 		private JList list;
 
+		@SuppressWarnings("rawtypes")
 		private DefaultListModel listModel = new DefaultListModel();
 
 		private JPopupMenu popupMenu;
@@ -391,6 +401,7 @@ public class FactEditor extends AbstractJamochaEditor implements
 
 		private JMenuItem deleteMenuItem;
 
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		private MultiSlotEditor() {
 			popupMenu = new JPopupMenu();
 			addMenuItem = new JMenuItem("add value", IconLoader
@@ -411,10 +422,12 @@ public class FactEditor extends AbstractJamochaEditor implements
 			list.setComponentPopupMenu(popupMenu);
 		}
 
+		@SuppressWarnings("rawtypes")
 		private JList getList() {
 			return list;
 		}
 
+		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource() == addMenuItem) {
 				String value = JOptionPane.showInputDialog("Enter the value:");

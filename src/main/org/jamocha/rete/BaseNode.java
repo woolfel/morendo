@@ -29,6 +29,11 @@ import org.jamocha.rete.exception.AssertException;
  */
 public abstract class BaseNode implements Serializable, Print {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected int nodeID;
 
     /**
@@ -133,6 +138,7 @@ public abstract class BaseNode implements Serializable, Print {
 	 * Subclasses need to implement clear and make sure all
 	 * memories are cleared properly.
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
         leftmem.clear();

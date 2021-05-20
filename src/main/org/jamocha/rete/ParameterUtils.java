@@ -18,7 +18,7 @@ package org.jamocha.rete;
 
 import java.util.List;
 
-import org.jamocha.rete.SlotParam;
+// import org.jamocha.rete.SlotParam;
 
 
 public class ParameterUtils {
@@ -28,6 +28,7 @@ public class ParameterUtils {
 	 * @param list
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Parameter[] convertParameters(java.util.List list) {
 		Parameter[] pms = new Parameter[list.size()];
 		for (int idx=0; idx < list.size(); idx++) {
@@ -43,6 +44,7 @@ public class ParameterUtils {
 	 * @param list
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Parameter[] slotToParameters(List list) {
 		Parameter[] pms = new Parameter[list.size()];
 		for (int idx=0; idx < list.size(); idx++) {

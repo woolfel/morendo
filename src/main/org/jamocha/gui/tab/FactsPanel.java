@@ -203,7 +203,7 @@ public class FactsPanel extends AbstractJamochaPanel implements ActionListener,
 			return false;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public Class getColumnClass(int aColumn) {
 			if (aColumn == 0)
 				return java.lang.Number.class;

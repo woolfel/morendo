@@ -36,6 +36,7 @@ public class BooleanFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	
 	public BooleanFunctions() {
@@ -46,6 +47,7 @@ public class BooleanFunctions implements FunctionGroup, Serializable {
 		return (BooleanFunctions.class.getSimpleName());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		NotFunction not = new NotFunction();
 		engine.declareFunction(not);
@@ -60,6 +62,7 @@ public class BooleanFunctions implements FunctionGroup, Serializable {
 		funcs.add(falseFunc);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}

@@ -17,7 +17,7 @@
 package org.jamocha.rule;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+// import java.util.Iterator;
 import java.util.List;
 
 import org.jamocha.rete.BoundParam;
@@ -38,6 +38,11 @@ import org.jamocha.rete.ValueParam;
 public class PredicateConstraint implements Constraint {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
      * the name of the slot
      */
     protected String name = null;
@@ -52,7 +57,8 @@ public class PredicateConstraint implements Constraint {
 
     protected Object value = null;
     
-    protected ArrayList parameters = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	protected ArrayList parameters = new ArrayList();
     
     protected boolean isPredicateJoin = false;
     
@@ -113,7 +119,8 @@ public class PredicateConstraint implements Constraint {
     	return this.isPredicateJoin;
     }
     
-    public void addParameters(List params) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void addParameters(List params) {
         this.parameters.addAll(params);
         int bcount = 0;
         // we try to set the value
@@ -143,7 +150,8 @@ public class PredicateConstraint implements Constraint {
         }
     }
     
-    public void addParameter(Parameter param) {
+    @SuppressWarnings("unchecked")
+	public void addParameter(Parameter param) {
         this.parameters.add(param);
         if (param instanceof ValueParam) {
             this.setValue( ((ValueParam)param).getValue());
@@ -152,7 +160,8 @@ public class PredicateConstraint implements Constraint {
         }
     }
     
-    public List getParameters() {
+    @SuppressWarnings("rawtypes")
+	public List getParameters() {
         return this.parameters;
     }
     

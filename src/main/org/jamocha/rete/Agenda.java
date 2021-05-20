@@ -44,6 +44,7 @@ public class Agenda implements Serializable {
     /**
 	 * The ArrayList for the modules.
 	 */
+	@SuppressWarnings("rawtypes")
 	protected Map modules = null;
 
 	private Rete engine = null;
@@ -150,6 +151,7 @@ public class Agenda implements Serializable {
 	/**
 	 * Clear will clear all the modules and remove all activations
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear() {
 		Iterator itr = this.modules.keySet().iterator();
 		while (itr.hasNext()) {

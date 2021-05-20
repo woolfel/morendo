@@ -103,6 +103,7 @@ public class SetMemberFunction implements Function, Serializable {
 	 * <br/>
      * Example: (set-member ?objectVariable slotName value)
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] {BoundParam.class,StringParam.class,ValueParam.class};
 	}

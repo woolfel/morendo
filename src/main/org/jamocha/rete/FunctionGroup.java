@@ -40,5 +40,6 @@ public interface FunctionGroup extends Serializable {
 	 * A convienance method for listing the functions in a given group.
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	List listFunctions();
 }

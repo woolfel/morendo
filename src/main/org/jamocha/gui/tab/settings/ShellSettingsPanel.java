@@ -43,8 +43,10 @@ public class ShellSettingsPanel extends AbstractSettingsPanel implements
 
 	private static final long serialVersionUID = -7136144663514250335L;
 
+	@SuppressWarnings("rawtypes")
 	private JComboBox fonts;
 
+	@SuppressWarnings("rawtypes")
 	private JComboBox fontsizes;
 
 	private JButton fontColorChooserButton;
@@ -55,6 +57,7 @@ public class ShellSettingsPanel extends AbstractSettingsPanel implements
 
 	private JTextField backgroundColorChooserPreview;
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ShellSettingsPanel(JamochaGui gui) {
 		super(gui);
 		GridBagLayout gridbag = new GridBagLayout();
@@ -142,6 +145,7 @@ public class ShellSettingsPanel extends AbstractSettingsPanel implements
 			super();
 		}
 
+		@SuppressWarnings("rawtypes")
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
 			super.getListCellRendererComponent(list, value, index, isSelected,

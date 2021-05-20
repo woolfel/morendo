@@ -30,6 +30,11 @@ import java.io.Serializable;
 public class BaseSlot implements Serializable, Cloneable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The name of the slot
 	 */
 	private String name;

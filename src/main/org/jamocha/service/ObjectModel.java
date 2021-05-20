@@ -16,6 +16,7 @@ import org.jamocha.rete.Rete;
 public class ObjectModel implements Model {
 	
 	private String URL = null;
+	@SuppressWarnings("rawtypes")
 	private List classList = null;
 	private RuleApplication ruleApp;
 	
@@ -48,6 +49,7 @@ public class ObjectModel implements Model {
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List getClassList() {
 		return classList;
 	}
@@ -57,10 +59,12 @@ public class ObjectModel implements Model {
 	 * interface.
 	 * @param classList
 	 */
+	@SuppressWarnings("rawtypes")
 	public void setClassList(List classList) {
 		this.classList = classList;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void loadModel(Rete engine) {
 		for (int idx=0; idx < classList.size(); idx++) {
 			String clazzname = (String)classList.get(idx);

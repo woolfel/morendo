@@ -41,7 +41,8 @@ public class AndCondition implements Condition {
      * 
      */
     private static final long serialVersionUID = 1L;
-    protected List nestedCE = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	protected List nestedCE = new ArrayList();
     protected BaseJoin reteNode = null;
     
 	/**
@@ -55,25 +56,30 @@ public class AndCondition implements Condition {
 		return false;
 	}
 
-    public void addNestedConditionElement(Object ce) {
+    @SuppressWarnings("unchecked")
+	public void addNestedConditionElement(Object ce) {
         this.nestedCE.add(ce);
     }
     
-    public void addAll(java.util.List list) {
+    @SuppressWarnings("unchecked")
+	public void addAll(@SuppressWarnings("rawtypes") java.util.List list) {
         if (list != null) {
             this.nestedCE.addAll(list);
         }
     }
     
-    public List getNestedConditionalElement() {
+    @SuppressWarnings("rawtypes")
+	public List getNestedConditionalElement() {
         return this.nestedCE;
     }
     
-    public Condition[] getConditions() {
+    @SuppressWarnings("unchecked")
+	public Condition[] getConditions() {
         Condition[] conditions = new Condition[this.nestedCE.size()];
         return (Condition[])this.nestedCE.toArray(conditions);
     }
     
+	@SuppressWarnings("rawtypes")
 	public List getNodes() {
 		return new ArrayList();
 	}
@@ -119,17 +125,21 @@ public class AndCondition implements Condition {
 	}
 
 	public ConditionCompiler getCompiler(RuleCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).andConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.andConditionCompiler;
 	}
 
 	public ConditionCompiler getCompiler(QueryCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).andConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.andConditionCompiler;
 	}
 	
 	public ConditionCompiler getCompiler(GraphQueryCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).andConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.andConditionCompiler;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List getBindConstraints() {
 		return null;
 	}

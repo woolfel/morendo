@@ -42,7 +42,9 @@ public class Matrix implements Serializable, Cloneable {
 	 */
 	private static final long serialVersionUID = 1L;
 	// to be memory efficient, always initialize with zero cols and rows
-	private float[][] fmatrix = new float[0][0];
+	
+	
+	// private float[][] fmatrix = new float[0][0];
 
 	public Matrix() {
 	}

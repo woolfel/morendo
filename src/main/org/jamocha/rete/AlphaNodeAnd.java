@@ -133,6 +133,7 @@ public class AlphaNodeAnd extends BaseAlpha2 {
 	 * @param engine
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public boolean evaluate(Fact factInstance) {
 		boolean equal = true;
 		Iterator itr = this.slot.getEqualList().iterator();

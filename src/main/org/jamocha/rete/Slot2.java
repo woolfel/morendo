@@ -40,8 +40,10 @@ public class Slot2 extends Slot {
      * 
      */
     private static final long serialVersionUID = 1L;
-    private List equalsList = new ArrayList();
-    private List notEqualList = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	private List equalsList = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	private List notEqualList = new ArrayList();
 
     public Slot2(){
     }
@@ -56,7 +58,8 @@ public class Slot2 extends Slot {
      * list.
      * @param val
      */
-    public void setValue(Object val) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void setValue(Object val) {
     	if (val instanceof Collection) {
     		Iterator itr = ((Collection)val).iterator();
     		while (itr.hasNext()) {
@@ -81,7 +84,8 @@ public class Slot2 extends Slot {
      * get the list of values the slot should equal to
      * @return
      */
-    public List getEqualList(){
+    @SuppressWarnings("rawtypes")
+	public List getEqualList(){
         return this.equalsList;
     }
 
@@ -89,7 +93,8 @@ public class Slot2 extends Slot {
      * set the values the slot should equal to 
      * @param val
      */
-    public void setEqualList(List val){
+    @SuppressWarnings("rawtypes")
+	public void setEqualList(List val){
         this.equalsList = val;
     }
 
@@ -97,7 +102,8 @@ public class Slot2 extends Slot {
      * get the list of values the slot should not equal to
      * @return
      */
-    public List getNotEqualList(){
+    @SuppressWarnings("rawtypes")
+	public List getNotEqualList(){
         return this.notEqualList;
     }
     
@@ -117,11 +123,13 @@ public class Slot2 extends Slot {
      * set the list of values the slot should not equal to
      * @param val
      */
-    public void setNotEqualList(List val){
+    @SuppressWarnings("rawtypes")
+	public void setNotEqualList(List val){
         this.notEqualList = val;
     }
     
-    public String toString(String andOr) {
+    @SuppressWarnings("rawtypes")
+	public String toString(String andOr) {
     	StringBuffer buf = new StringBuffer();
     	if (this.equalsList.size() > 0) {
     		buf.append("(");

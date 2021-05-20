@@ -21,6 +21,7 @@ public class TextFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	
 	public TextFunctions() {
@@ -31,10 +32,12 @@ public class TextFunctions implements FunctionGroup, Serializable {
 		return TextFunctions.class.getSimpleName();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		StopwordFunction swf = new StopwordFunction();
 		funcs.add(swf);

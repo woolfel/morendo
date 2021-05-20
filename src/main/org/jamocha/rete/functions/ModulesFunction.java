@@ -49,6 +49,7 @@ public class ModulesFunction implements Function, Serializable {
 		return Constants.STRING_TYPE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Collection modules = engine.getWorkingMemory().getModules();
 		int count = modules.size();
@@ -67,6 +68,7 @@ public class ModulesFunction implements Function, Serializable {
 		return MODULES;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

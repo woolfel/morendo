@@ -45,6 +45,7 @@ public class ExistPredJoin extends BaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
 		Map leftmem = (Map) mem.getBetaRightMemory(this);
@@ -68,6 +69,7 @@ public class ExistPredJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -95,6 +97,7 @@ public class ExistPredJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map rightmem = (Map)mem.getBetaRightMemory(this);
@@ -125,6 +128,7 @@ public class ExistPredJoin extends BaseJoin {
 	 */
 	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws RetractException {
+		@SuppressWarnings("rawtypes")
 		Map leftmem = (Map) mem.getBetaLeftMemory(this);
         leftmem.remove(linx);
         propagateRetract(linx, engine, mem);
@@ -138,6 +142,7 @@ public class ExistPredJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws RetractException {
         Map rightmem = (Map)mem.getBetaRightMemory(this);

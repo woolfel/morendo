@@ -59,7 +59,7 @@ public class BindFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean bound = false;
+		Boolean bound = Boolean.FALSE;
 		if (params.length == 2) {
 			String name = params[0].getStringValue();
 			Object val = null;
@@ -73,11 +73,11 @@ public class BindFunction implements Function, Serializable {
 				val = drv.firstReturnValue().getValue();
 			}
 			engine.setBindingValue(name, val);
-			bound = true;
+			bound = Boolean.TRUE;
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(bound));
+				Constants.BOOLEAN_OBJECT, bound);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -90,6 +90,7 @@ public class BindFunction implements Function, Serializable {
 	 * The function takes 2 parameters. The first is the name of the variable
 	 * and the second is some value. At the moment, the function does not hand
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}

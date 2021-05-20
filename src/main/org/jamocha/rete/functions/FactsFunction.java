@@ -55,6 +55,7 @@ public class FactsFunction implements Function, Serializable {
 		return Constants.RETURN_VOID_TYPE;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
         boolean filter = false;
         HashMap objects = new HashMap();
@@ -88,6 +89,7 @@ public class FactsFunction implements Function, Serializable {
 		return FACTS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

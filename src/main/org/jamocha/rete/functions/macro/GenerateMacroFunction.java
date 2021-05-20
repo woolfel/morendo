@@ -22,7 +22,7 @@ public class GenerateMacroFunction implements Function {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean generate = false;
+		Boolean generate = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			MacroGenerator generator = new MacroGenerator();
 			for (int idx=0; idx < params.length; idx++) {
@@ -32,10 +32,10 @@ public class GenerateMacroFunction implements Function {
 					generator.generateMacros(defclass, engine.getCurrentFocus());
 				}
 			}
-			generate = true;
+			generate = Boolean.TRUE;
 		}
 		DefaultReturnVector rv = new DefaultReturnVector();
-		DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(generate));
+		DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT,generate);
 		rv.addReturnValue(rval);
 		return rv;
 	}
@@ -44,6 +44,7 @@ public class GenerateMacroFunction implements Function {
 		return GENERATE_MACRO;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

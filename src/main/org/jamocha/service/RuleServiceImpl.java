@@ -24,12 +24,15 @@ public class RuleServiceImpl implements RuleService {
 	private long totalRulesFired = 0;
 	private String serviceName = null;
 	private List<RuleApplicationImpl> applications = new ArrayList<RuleApplicationImpl>();
+	@SuppressWarnings("rawtypes")
 	private Map applicationMap = new HashMap();
+	@SuppressWarnings("rawtypes")
 	private Map engineMap = new HashMap();
 	private ServiceConfiguration serviceConfiguration = null;
 	private ServiceAdministration administration = null;
 	private static ObjectMapper mapper = new ObjectMapper();
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public RuleServiceImpl() {
 		applications = new ArrayList();
 		administration = new ServiceAdministrationImpl(this);
@@ -59,6 +62,7 @@ public class RuleServiceImpl implements RuleService {
 		return this.totalRulesFired;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initialize() {
 		log.info("--- Start initializing RuleService ---");
 		for (int idx=0; idx < applications.size(); idx++) {
@@ -90,6 +94,7 @@ public class RuleServiceImpl implements RuleService {
 	/**
 	 * Close method iterates over all the engine instances and calls Rete.close()
 	 */
+	@SuppressWarnings("rawtypes")
 	public void close() {
 		log.info("--- Start closing RuleService ---");
 		Iterator itr = this.engineMap.keySet().iterator();
@@ -114,6 +119,7 @@ public class RuleServiceImpl implements RuleService {
 		log.info("--- End closing RuleService ---");
 	}
 
+	@SuppressWarnings("rawtypes")
 	public EngineContext getEngine(String applicationName, String version) {
 		String key = applicationName + "::" + version;
 		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.engineMap.get(key);
@@ -165,6 +171,7 @@ public class RuleServiceImpl implements RuleService {
 		return applications;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void queueEngine(String application, String version, org.jamocha.rete.Rete engine) {
 		String key = application + "::" + version;
 		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.engineMap.get(key);
@@ -210,10 +217,12 @@ public class RuleServiceImpl implements RuleService {
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Map getRuleApplicationMap() {
 		return this.applicationMap;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Map getEngineMap() {
 		return this.engineMap;
 	}

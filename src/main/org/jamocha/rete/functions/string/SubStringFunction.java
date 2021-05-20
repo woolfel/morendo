@@ -35,11 +35,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class SubStringFunction implements Function, Serializable {
 
-	public static final String SUBSTRING = "sub-string";
-	
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String SUBSTRING = "sub-string";
+	
+
 	public SubStringFunction() {
 		super();
 	}
@@ -79,6 +82,7 @@ public class SubStringFunction implements Function, Serializable {
 		return SUBSTRING;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class,ValueParam.class};
 	}

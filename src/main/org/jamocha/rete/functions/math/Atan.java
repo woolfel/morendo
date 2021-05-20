@@ -38,6 +38,10 @@ import org.jamocha.rete.ValueParam;
  */
 public class Atan implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String ATAN = "atan";
 
 	/**
@@ -75,6 +79,7 @@ public class Atan implements Function, Serializable {
 		return ATAN;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

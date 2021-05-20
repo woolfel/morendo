@@ -86,6 +86,7 @@ public class Degrees implements Function, Serializable {
 		return DEGREES;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

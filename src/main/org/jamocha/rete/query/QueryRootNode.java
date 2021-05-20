@@ -30,7 +30,6 @@ import org.jamocha.rete.WorkingMemory;
 import org.jamocha.rete.exception.AssertException;
 import org.jamocha.rete.exception.RetractException;
 import org.jamocha.rule.Defquery;
-import org.jamocha.rule.GraphQuery;
 
 /**
  * 
@@ -52,7 +51,8 @@ public class QueryRootNode implements Serializable {
      * 
      */
     private static final long serialVersionUID = 1L;
-    protected Map queryObjTypeNodeMap = null;
+    @SuppressWarnings("rawtypes")
+	protected Map queryObjTypeNodeMap = null;
     protected RootNode root = null;
     protected QueryObjTypeNode initialFactObjTypeNode = null;
 
@@ -75,7 +75,8 @@ public class QueryRootNode implements Serializable {
      * doesn't already exist in the network.
      * @param node
      */
-    public void addQueryObjTypeNode(QueryObjTypeNode node) {
+    @SuppressWarnings("unchecked")
+	public void addQueryObjTypeNode(QueryObjTypeNode node) {
     	if (node.getDeftemplate().getName().equals(Constants.INITIAL_FACT)) {
     		this.initialFactObjTypeNode = node;
     	} else {
@@ -100,7 +101,8 @@ public class QueryRootNode implements Serializable {
      * Return the HashMap with all the ObjectTypeNodes
      * @return
      */
-    public Map getQueryObjTypeNodes() {
+    @SuppressWarnings("rawtypes")
+	public Map getQueryObjTypeNodes() {
         return this.queryObjTypeNodeMap;
     }
     
@@ -123,7 +125,8 @@ public class QueryRootNode implements Serializable {
      * @param mem
      * @throws AssertException
      */
-    public synchronized void assertObject(Fact fact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public synchronized void assertObject(Fact fact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
     	if (fact != null) {
@@ -186,7 +189,8 @@ public class QueryRootNode implements Serializable {
     {
     }
     
-    public synchronized void clear() {
+    @SuppressWarnings("rawtypes")
+	public synchronized void clear() {
         Iterator itr = this.queryObjTypeNodeMap.values().iterator();
         while (itr.hasNext()) {
             ObjectTypeNode otn = (ObjectTypeNode)itr.next();
@@ -203,7 +207,8 @@ public class QueryRootNode implements Serializable {
      * @param query
      * @return
      */
-    public QueryRootNode clone(Rete engine, Defquery query) {
+    @SuppressWarnings("rawtypes")
+	public QueryRootNode clone(Rete engine, Defquery query) {
     	QueryRootNode clone = new QueryRootNode(engine, this.root);
     	Iterator iterator = this.queryObjTypeNodeMap.values().iterator();
     	while (iterator.hasNext()) {

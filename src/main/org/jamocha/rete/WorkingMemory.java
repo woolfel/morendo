@@ -45,7 +45,8 @@ public interface WorkingMemory extends Serializable {
     public void assertTemporalObject(Object data, String template, Date effective, 
     		Date expiration, boolean statc) throws AssertException;
     
-    void assertObjects(List objs) throws AssertException;
+    @SuppressWarnings("rawtypes")
+	void assertObjects(List objs) throws AssertException;
     
 	void retractFact(Fact fact) throws RetractException;
     
@@ -56,19 +57,24 @@ public interface WorkingMemory extends Serializable {
     
     public Agenda getAgenda();
     
-    public Map getDeffactMap();
+    @SuppressWarnings("rawtypes")
+	public Map getDeffactMap();
     
     public DefglobalMap getDefglobals();
     
-    public List getAllFacts();
+    @SuppressWarnings("rawtypes")
+	public List getAllFacts();
     
-    public List getDeffacts();
+    @SuppressWarnings("rawtypes")
+	public List getDeffacts();
     
     public Fact getFactById(long id);
     
-    public List getObjects();
+    @SuppressWarnings("rawtypes")
+	public List getObjects();
     
-    public List getInitialFacts();
+    @SuppressWarnings("rawtypes")
+	public List getInitialFacts();
     
     public boolean profileAssert();
 
@@ -99,14 +105,17 @@ public interface WorkingMemory extends Serializable {
     void popScope();
     
     /// ----- methods for getting the Fact map  ----- ///
-    Map getDynamicFacts();
-    Map getStaticFacts();
+    @SuppressWarnings("rawtypes")
+	Map getDynamicFacts();
+    @SuppressWarnings("rawtypes")
+	Map getStaticFacts();
     
     /// ----- methods related to cube ----- ///
     void addCube(Cube cube);
     Cube getCube(String name);
     Cube removeCube(String name);
-    List getCubes();
+    @SuppressWarnings("rawtypes")
+	List getCubes();
     
     /// ----- methods related to module ----- ///
     public Module addModule(String name);
@@ -115,7 +124,8 @@ public interface WorkingMemory extends Serializable {
     public Module getMain();
     public Module removeModule(String name);
     public void setCurrentModule(Module mod);
-    public Collection getModules();
+    @SuppressWarnings("rawtypes")
+	public Collection getModules();
     
     /// ----- method for Strategy ----- ///
     public Strategy getStrategy();

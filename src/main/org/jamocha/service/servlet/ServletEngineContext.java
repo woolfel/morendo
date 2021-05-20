@@ -36,6 +36,7 @@ public class ServletEngineContext implements EngineContext {
 	private String version = null;
 	private long startTime = 0;
 	private long endTime = 0;
+	@SuppressWarnings("rawtypes")
 	private List objectList = new ArrayList();
 	private ServletContext servletContext = null;
 	
@@ -57,6 +58,7 @@ public class ServletEngineContext implements EngineContext {
 		return this.engine;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void assertObject(Object data, boolean isStatic, boolean isShadowed)
 			throws AssertException {
 		try {
@@ -68,6 +70,7 @@ public class ServletEngineContext implements EngineContext {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void asssertObjects(List data, boolean isStatic, boolean isShadowed)
 			throws AssertException {
 		objectList.addAll(data);
@@ -82,6 +85,7 @@ public class ServletEngineContext implements EngineContext {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void close() {
 		this.endTime = System.currentTimeMillis();
 		long elapsedTime = endTime - startTime;
@@ -107,6 +111,7 @@ public class ServletEngineContext implements EngineContext {
 		return this.applicationName;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getObjects() {
 		return engine.getObjects();
 	}
@@ -124,6 +129,7 @@ public class ServletEngineContext implements EngineContext {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void modifyObjects(List data) throws AssertException,
 			RetractException {
 		Iterator itr = data.iterator();
@@ -149,6 +155,7 @@ public class ServletEngineContext implements EngineContext {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void removeObjects(List data) throws RetractException {
 		Iterator itr = data.iterator();
 		while (itr.hasNext()) {

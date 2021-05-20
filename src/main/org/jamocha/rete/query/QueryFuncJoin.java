@@ -60,7 +60,8 @@ public class QueryFuncJoin extends QueryBaseJoin {
     /**
      * clear will clear the lists
      */
-    public void clear(WorkingMemory mem) {
+    @SuppressWarnings("rawtypes")
+	public void clear(WorkingMemory mem) {
         Map leftmem = (Map) mem.getQueryBetaMemory(this);
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem.getQueryRightMemory(this);
         Iterator itr = leftmem.keySet().iterator();
@@ -84,7 +85,8 @@ public class QueryFuncJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
         Map leftmem = (Map) mem.getQueryBetaMemory(this);
         BetaMemory bmem = new BetaMemoryImpl(linx, engine);
@@ -109,7 +111,8 @@ public class QueryFuncJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
         Map rightmem = (Map)mem.getQueryBetaMemory(this);
         rightmem.put(rfact, rfact);

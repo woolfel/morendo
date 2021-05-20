@@ -29,6 +29,7 @@ public class StringFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 
 	public StringFunctions() {
@@ -39,6 +40,7 @@ public class StringFunctions implements FunctionGroup {
 		return (StringFunctions.class.getSimpleName());
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		StringCompareFunction compare = new StringCompareFunction();
 		engine.declareFunction(compare);
@@ -72,6 +74,7 @@ public class StringFunctions implements FunctionGroup {
 		funcs.add(snef);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}

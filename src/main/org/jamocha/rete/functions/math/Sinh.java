@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Sinh implements Function, Serializable {
 
-	public static final String SINH = "sinh";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String SINH = "sinh";
+
+	
 	public Sinh() {
 		super();
 	}
@@ -75,6 +78,7 @@ public class Sinh implements Function, Serializable {
 		return SINH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

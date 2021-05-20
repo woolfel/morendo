@@ -20,8 +20,6 @@ import java.util.ArrayList;
 
 import org.jamocha.rule.Rule;
 
-import org.jamocha.rete.BoundParam;
-
 /**
  * @author Peter Lin
  * 
@@ -71,6 +69,7 @@ public class Deffact implements Fact {
 	 * 
 	 * @param util
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void compileBinding(Rule util) {
 		ArrayList list = new ArrayList();
 		for (int idx = 0; idx < this.slots.length; idx++) {

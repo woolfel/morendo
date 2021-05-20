@@ -38,19 +38,19 @@ public class SendMessageFunction implements Function {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean sent = false;
+		Boolean sent = Boolean.FALSE;
 		if (params != null && params.length == 2) {
 			String client = params[0].getStringValue();
 			String message = params[1].getStringValue();
 			MessageClient msgClient = (MessageClient)engine.getDefglobalValue(client);
 			if (msgClient != null) {
 				msgClient.publish(message);
-				sent = true;
+				sent = Boolean.TRUE;
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(sent));
+				Constants.BOOLEAN_OBJECT, sent);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -59,6 +59,7 @@ public class SendMessageFunction implements Function {
 		return SEND_MSG;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class, String.class};
 	}

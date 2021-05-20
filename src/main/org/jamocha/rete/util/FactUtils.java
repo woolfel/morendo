@@ -37,12 +37,14 @@ public class FactUtils {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Object[] sortFacts(List facts) {
 		Object[] sorted = facts.toArray();
 		Arrays.sort(sorted,COMPARATOR);
 		return sorted;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Object[] sortFactsByTemplate(List facts) {
 		Object[] sorted = facts.toArray();
 		Arrays.sort(sorted,TEMPLATECOMP);

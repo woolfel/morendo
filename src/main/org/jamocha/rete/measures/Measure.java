@@ -16,8 +16,6 @@
  */
 package org.jamocha.rete.measures;
 
-import org.jamocha.rete.Print;
-
 /**
  * Measures are used by the engine to perform additional filtering. For example, we might
  * want to calculate and aggregate from the matching data. We might also want to get the

@@ -63,6 +63,7 @@ public class ListTemplatesFunction implements Function, Serializable {
 	 * no specific order. The function does basically the same thing
 	 * as CLIPS (list-deftemplates)
 	 */
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Collection templates = engine.getCurrentFocus().getTemplates();
 		int count = templates.size();
@@ -76,6 +77,7 @@ public class ListTemplatesFunction implements Function, Serializable {
 		return rv;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { String.class };
 	}

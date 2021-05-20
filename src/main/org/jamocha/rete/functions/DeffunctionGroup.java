@@ -48,7 +48,8 @@ public class DeffunctionGroup implements FunctionGroup {
     /* (non-Javadoc)
      * @see org.jamocha.rete.FunctionGroup#listFunctions()
      */
-    public List listFunctions() {
+    @SuppressWarnings("rawtypes")
+	public List listFunctions() {
         return funcs;
     }
 

@@ -24,11 +24,13 @@ import org.jamocha.rete.Constants;
  */
 public class WarningSummary implements Summary {
 
-	private String[] warnings = new String[0];
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	private String[] warnings = new String[0];
+
+
 	public WarningSummary() {
 	}
 

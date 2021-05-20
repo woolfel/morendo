@@ -36,11 +36,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class ValidateRuleFunction implements Function, Serializable {
 
-	protected static final String VALIDATE_RULE = "validate-rule";
-	
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	protected static final String VALIDATE_RULE = "validate-rule";
+	
+
 	public ValidateRuleFunction() {
 		super();
 	}
@@ -71,6 +74,7 @@ public class ValidateRuleFunction implements Function, Serializable {
 		return VALIDATE_RULE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

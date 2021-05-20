@@ -43,7 +43,8 @@ public class RootNode implements Serializable {
      * 
      */
     private static final long serialVersionUID = 1L;
-    protected Map inputNodes = null;
+    @SuppressWarnings("rawtypes")
+	protected Map inputNodes = null;
 
     /**
 	 * 
@@ -59,7 +60,8 @@ public class RootNode implements Serializable {
      * doesn't already exist in the network.
      * @param node
      */
-    public void addObjectTypeNode(ObjectTypeNode node) {
+    @SuppressWarnings("unchecked")
+	public void addObjectTypeNode(ObjectTypeNode node) {
         if (!this.inputNodes.containsKey(node.getDeftemplate()) ) {
             this.inputNodes.put(node.getDeftemplate(),node);
         }
@@ -80,7 +82,8 @@ public class RootNode implements Serializable {
      * Return the HashMap with all the ObjectTypeNodes
      * @return
      */
-    public Map getObjectTypeNodes() {
+    @SuppressWarnings("rawtypes")
+	public Map getObjectTypeNodes() {
         return this.inputNodes;
     }
     
@@ -161,7 +164,8 @@ public class RootNode implements Serializable {
         }
     }
     
-    public synchronized void clear() {
+    @SuppressWarnings("rawtypes")
+	public synchronized void clear() {
         Iterator itr = this.inputNodes.values().iterator();
         while (itr.hasNext()) {
             ObjectTypeNode otn = (ObjectTypeNode)itr.next();
@@ -176,7 +180,8 @@ public class RootNode implements Serializable {
      * @param engine
      * @return
      */
-    public QueryRootNode createQueryRoot(Rete engine) {
+    @SuppressWarnings("rawtypes")
+	public QueryRootNode createQueryRoot(Rete engine) {
     	QueryRootNode queryRoot = new QueryRootNode(engine, this);
     	Iterator iterator = this.inputNodes.values().iterator();
     	while (iterator.hasNext()) {

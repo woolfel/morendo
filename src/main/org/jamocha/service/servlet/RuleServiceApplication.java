@@ -20,6 +20,7 @@ package org.jamocha.service.servlet;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -51,15 +52,19 @@ public class RuleServiceApplication implements RuleApplication {
 	private transient Logger log = LogFactory.createLogger(RuleServiceApplication.class);
 	private String applicationName = null;
 	private String version = null;
+	@SuppressWarnings("rawtypes")
 	private List models = null;
 	private List<ObjectData> objectData = null;
 	private List<ClipsInitialData> clipsData = null;
+	@SuppressWarnings("rawtypes")
 	private List functionGroups = null;
+	@SuppressWarnings("rawtypes")
 	private List rulesets = new ArrayList();
 	/**
 	 * FunctionGroup just lists the names, we keep the
 	 * instances in a list to make it easier to reload.
 	 */
+	@SuppressWarnings("rawtypes")
 	private List functionInstances = new ArrayList();
 	
 	private int minPool;
@@ -89,6 +94,7 @@ public class RuleServiceApplication implements RuleApplication {
 	 * data that isn't declared in the models.
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected URLClassLoader createURLClassLoader() {
 		ArrayList urls = new ArrayList();
 		if (this.models != null) {
@@ -119,6 +125,7 @@ public class RuleServiceApplication implements RuleApplication {
 		return this.classloader;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Class findClass(String className) {
 		try {
 			return this.classloader.loadClass(className);
@@ -172,6 +179,7 @@ public class RuleServiceApplication implements RuleApplication {
 	 * users can group a variety of functions or groups into a logical group.
 	 * Within the rule engine, functions will be added to the main group.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public boolean loadFunctionGroups(Rete engine) {
 		if (this.functionInstances == null) {
 			this.functionInstances = new ArrayList();
@@ -186,7 +194,7 @@ public class RuleServiceApplication implements RuleApplication {
 				try {
 					clzz = classloader.loadClass(classname);
 					if (clzz != null) {
-						Object data = clzz.newInstance();
+						Object data = clzz.getDeclaredConstructor().newInstance();
 						if (data instanceof org.jamocha.rete.Function) {
 							Function func = (Function)data;
 							engine.declareFunction(func);
@@ -205,6 +213,22 @@ public class RuleServiceApplication implements RuleApplication {
 					success = false;
 					break;
 				} catch (IllegalAccessException e) {
+					log.fatal(e);
+					success = false;
+					break;
+				} catch (IllegalArgumentException e) {
+					log.fatal(e);
+					success = false;
+					break;
+				} catch (InvocationTargetException e) {
+					log.fatal(e);
+					success = false;
+					break;
+				} catch (NoSuchMethodException e) {
+					log.fatal(e);
+					success = false;
+					break;
+				} catch (SecurityException e) {
 					log.fatal(e);
 					success = false;
 					break;
@@ -304,10 +328,12 @@ public class RuleServiceApplication implements RuleApplication {
 		return reload;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List getFunctionGroups() {
 		return this.functionGroups;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List getObjectData() {
 		return this.objectData;
 	}
@@ -324,6 +350,7 @@ public class RuleServiceApplication implements RuleApplication {
 		return minPool;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List getModels() {
 		return this.models;
 	}
@@ -332,6 +359,7 @@ public class RuleServiceApplication implements RuleApplication {
 		return this.applicationName;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List getRulesets() {
 		return this.rulesets;
 	}
@@ -340,10 +368,12 @@ public class RuleServiceApplication implements RuleApplication {
 		return this.version;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void setFunctionGroups(List functionGroups) {
 		this.functionGroups = functionGroups;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setObjectData(List data) {
 		this.objectData = data;
 	}
@@ -368,6 +398,7 @@ public class RuleServiceApplication implements RuleApplication {
 		this.minPool = min;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setModels(List models) {
 		this.models = models;
 	}
@@ -376,6 +407,7 @@ public class RuleServiceApplication implements RuleApplication {
 		this.applicationName = name;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setRulesets(List rulesets) {
 		this.rulesets = rulesets;
 	}

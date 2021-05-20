@@ -34,7 +34,7 @@ public class CreateMessageClientFunction implements Function {
 	 *  
 	 */
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean created = false;
+		Boolean created = Boolean.FALSE;
 		if (params != null && params.length == 7) {
 			BasicClient client = new BasicClient();
 			client.setRete(engine);
@@ -48,19 +48,20 @@ public class CreateMessageClientFunction implements Function {
 			
 			String clientName = params[6].getStringValue();
 			engine.declareDefglobal(clientName, client);
-			created = true;
+			created = Boolean.TRUE;
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(created));
+				Constants.BOOLEAN_OBJECT, created);
 		ret.addReturnValue(rv);
 		return ret;
-	}
+	} 
 
 	public String getName() {
 		return CREATE_MESSAGE_CLIENT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class,String.class,String.class,String.class,String.class,String.class,String.class};
 	}

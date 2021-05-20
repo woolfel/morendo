@@ -45,6 +45,7 @@ public class ExistJoinFrst extends BaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
 		Map leftmem = (Map) mem.getBetaRightMemory(this);
@@ -77,6 +78,7 @@ public class ExistJoinFrst extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
 		// we only proceed if the fact hasn't already entered
@@ -111,6 +113,7 @@ public class ExistJoinFrst extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws RetractException {
 		Index inx = new Index(new Fact[] { rfact });

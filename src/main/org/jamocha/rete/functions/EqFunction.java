@@ -55,7 +55,7 @@ public class EqFunction implements Function, Serializable {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-		boolean eq = false;
+		Boolean eq = Boolean.FALSE;
 		if (params != null && params.length > 1) {
 			Object first = null;
 			if (params[0] instanceof ValueParam) {
@@ -74,7 +74,7 @@ public class EqFunction implements Function, Serializable {
 				ReturnVector rval = (ReturnVector) n.getValue();
 				first = rval.firstReturnValue().getValue();
 			}
-            boolean eval = true;
+            Boolean eval = Boolean.TRUE;
 			for (int idx = 1; idx < params.length; idx++) {
 				Object right = null;
 				if (params[idx] instanceof ValueParam) {
@@ -95,17 +95,17 @@ public class EqFunction implements Function, Serializable {
                     right = rval.firstReturnValue().getValue();
 				}
 				if (first == null && right != null) {
-                    eval = false;
+                    eval = Boolean.FALSE;
                     break;
                 } else if (first != null && !Evaluate.evaluate(Constants.EQUAL, first, right)) {
-					eval = false;
+					eval = Boolean.FALSE;
 					break;
 				}
 			}
             eq = eval;
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(eq));
+				Constants.BOOLEAN_OBJECT, eq);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -114,6 +114,7 @@ public class EqFunction implements Function, Serializable {
 		return EQUAL;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

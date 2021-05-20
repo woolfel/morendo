@@ -54,7 +54,7 @@ public class NotFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean boolVal = true;
+		Boolean boolVal = Boolean.TRUE;
 		if (params != null) {
 			if(params.length==1) {
 				if (params[0] instanceof ValueParam) {
@@ -74,8 +74,7 @@ public class NotFunction implements Function, Serializable {
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
-		DefaultReturnValue rv = new DefaultReturnValue(Constants.BOOLEAN_OBJECT,
-				new Boolean(boolVal));
+		DefaultReturnValue rv = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, boolVal);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -84,6 +83,7 @@ public class NotFunction implements Function, Serializable {
 		return NOT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

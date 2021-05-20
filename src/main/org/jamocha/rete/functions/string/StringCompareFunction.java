@@ -35,6 +35,10 @@ import org.jamocha.rete.ValueParam;
  */
 public class StringCompareFunction implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String STRING_COMPARE = "str-compare";
 	
 	/**
@@ -65,7 +69,7 @@ public class StringCompareFunction implements Function, Serializable {
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.INTEGER_OBJECT, new Integer(eq));
+				Constants.INTEGER_OBJECT, Integer.valueOf(eq));
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -74,6 +78,7 @@ public class StringCompareFunction implements Function, Serializable {
 		return STRING_COMPARE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}

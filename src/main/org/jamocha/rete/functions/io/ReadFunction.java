@@ -48,6 +48,7 @@ public class ReadFunction implements Function {
 		return READ;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{Object.class};
 	}

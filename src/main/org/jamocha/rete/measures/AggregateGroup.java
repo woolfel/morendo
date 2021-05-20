@@ -24,6 +24,7 @@ import org.jamocha.rete.Rete;
 public class AggregateGroup implements MeasureGroup {
 
 	public static final String AGGREGATE_GROUP = "aggregate group";
+	@SuppressWarnings("rawtypes")
 	private List measures = new ArrayList();
 	
 	public AggregateGroup() {
@@ -34,10 +35,12 @@ public class AggregateGroup implements MeasureGroup {
 		return AGGREGATE_GROUP;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getMeasures() {
 		return measures;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadMeasures(Rete engine) {
 		AverageMeasure ave = new AverageMeasure();
 		engine.declareMeasure(ave);

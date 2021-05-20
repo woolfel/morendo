@@ -128,7 +128,7 @@ public class LogPanel extends AbstractJamochaPanel implements ActionListener,
 
 		private int superType;
 
-		public static final int TYPE_EVENT = 1;
+		// public static final int TYPE_EVENT = 1; Unused
 
 		public static final int TYPE_WARNING = 2;
 
@@ -321,7 +321,7 @@ public class LogPanel extends AbstractJamochaPanel implements ActionListener,
 			return false;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public Class getColumnClass(int aColumn) {
 			return java.lang.String.class;
 		}

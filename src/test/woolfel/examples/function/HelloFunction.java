@@ -36,6 +36,7 @@ public class HelloFunction implements Function {
 		return HELLO;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

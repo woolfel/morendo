@@ -40,7 +40,6 @@ import org.jamocha.rete.Parameter;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.ReturnVector;
 import org.jamocha.rete.ValueParam;
-import org.jamocha.rete.exception.AssertException;
 
 
 /**
@@ -71,6 +70,7 @@ public class LoadGraphFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
 		boolean loaded = true;
@@ -134,6 +134,7 @@ public class LoadGraphFunction implements Function, Serializable {
 		return LOAD;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

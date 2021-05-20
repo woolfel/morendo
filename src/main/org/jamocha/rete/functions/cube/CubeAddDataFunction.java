@@ -88,6 +88,7 @@ public class CubeAddDataFunction implements RuleFunction {
 		return CUBE_ADD_DATA;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class};
 	}

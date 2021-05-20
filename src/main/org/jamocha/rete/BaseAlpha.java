@@ -117,7 +117,8 @@ public abstract class BaseAlpha extends BaseNode {
      * The next node can be an AlphaNode or a LIANode.
      * @param node
      */
-    public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings("rawtypes")
+	public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
     throws AssertException 
     {
         if (addNode(node)) {
@@ -150,7 +151,8 @@ public abstract class BaseAlpha extends BaseNode {
      * @param mem
      * @throws AssertException
      */
-    public void removeSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings("rawtypes")
+	public void removeSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
     throws RetractException
     {
         if (removeNode(node)) {

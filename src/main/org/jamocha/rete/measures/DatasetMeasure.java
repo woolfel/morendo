@@ -30,5 +30,6 @@ public interface DatasetMeasure extends Measure {
 	 * @param parameters
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	Object[] filterResults(Rete engine, Cube cube, List data, List parameters);
 }

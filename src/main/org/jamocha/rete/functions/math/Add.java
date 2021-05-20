@@ -36,6 +36,10 @@ import org.jamocha.rete.ValueParam;
  */
 public class Add implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String ADD = "add";
 
 	/**
@@ -69,6 +73,7 @@ public class Add implements Function, Serializable {
 		return ADD;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

@@ -76,6 +76,7 @@ public class PrintProfileFunction implements Function, Serializable {
 		return PRINT_PROFILE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

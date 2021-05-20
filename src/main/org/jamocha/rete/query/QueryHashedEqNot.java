@@ -58,7 +58,8 @@ public class QueryHashedEqNot extends QueryBaseNot {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
         Map leftmem = (Map) mem.getQueryBetaMemory(this);
@@ -84,7 +85,8 @@ public class QueryHashedEqNot extends QueryBaseNot {
      * ExecuteJoin performs the join using EqHashIndex and propogates any partial
      * matches down the query network.
      */
-    public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
+    @SuppressWarnings("rawtypes")
+	public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
         Map leftmem = (Map) mem.getQueryBetaMemory(this);
     	Iterator iterator = leftmem.values().iterator();
     	while (iterator.hasNext()) {

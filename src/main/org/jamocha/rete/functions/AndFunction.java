@@ -26,7 +26,7 @@ public class AndFunction implements Function, Serializable {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-		boolean eq = true;
+		Boolean eq = Boolean.TRUE;
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				if (!eq) {
@@ -44,7 +44,7 @@ public class AndFunction implements Function, Serializable {
 			}
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(eq));
+				Constants.BOOLEAN_OBJECT, eq);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -53,6 +53,7 @@ public class AndFunction implements Function, Serializable {
 		return AND;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ ValueParam[].class };
 	}

@@ -43,6 +43,7 @@ public class MultipleJoin extends BaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
 		Map leftmem = (Map) mem.getBetaRightMemory(this);
@@ -66,6 +67,7 @@ public class MultipleJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -84,6 +86,7 @@ public class MultipleJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem
@@ -117,6 +120,7 @@ public class MultipleJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void retractLeft(Index inx, Rete engine, WorkingMemory mem)
 			throws RetractException {
 		Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -132,6 +136,7 @@ public class MultipleJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws RetractException {
         HashedAlphaMemoryImpl rightmem = 

@@ -59,6 +59,7 @@ public class DefinstanceFunction implements Function, Serializable {
 		return Constants.STRING_TYPE;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		String asrt = "";
 		Object instance = null;
@@ -69,7 +70,7 @@ public class DefinstanceFunction implements Function, Serializable {
 				try {
 					Defclass defclass = engine.findDefclassByName(classname);
 					if (defclass != null) {
-						instance = defclass.getClassObject().newInstance();
+						instance = defclass.getClassObject().getDeclaredConstructor().newInstance();
 						Parameter[] parameters = (Parameter[])func.getParameters();
 						for (int idx=0; idx < parameters.length; idx++) {
 							if (parameters[idx] instanceof FunctionParam2) {
@@ -90,6 +91,10 @@ public class DefinstanceFunction implements Function, Serializable {
 					log.debug(e);
 				} catch (InvocationTargetException e) {
 					log.debug(e);
+				} catch (NoSuchMethodException e) {
+					log.debug(e);
+				} catch (SecurityException e) {
+					log.debug(e);
 				}
 			} else if (params[0] instanceof BoundParam) {
 				instance = ((BoundParam)params[0]).getValue(engine, Constants.OBJECT_TYPE);
@@ -98,12 +103,19 @@ public class DefinstanceFunction implements Function, Serializable {
 				Defclass defclass = engine.findDefclassByName(classname);
 				if (defclass != null) {
 					try {
-						instance = defclass.getClassObject().newInstance();
+						instance = defclass.getClassObject().getDeclaredConstructor().newInstance();
 					} catch (InstantiationException e) {
 						log.debug(e);
 					} catch (IllegalAccessException e) {
 						log.debug(e);
-					}
+					} catch (IllegalArgumentException e) {
+						log.debug(e);
+					} catch (InvocationTargetException e) {
+						log.debug(e);
+					} catch (NoSuchMethodException e) {
+						log.debug(e);
+					} catch (SecurityException e) {
+						log.debug(e);					}
 				}
 			}
 			String template = null;
@@ -127,19 +139,20 @@ public class DefinstanceFunction implements Function, Serializable {
 		return ret;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	protected Object getTypedValue(ValueParam param, Class clzz) {
 		if (clzz == String.class) {
 			return param.getStringValue();
 		} else if (clzz == int.class || clzz == Integer.class) {
-			return new Integer(param.getIntValue());
+			return  Integer.valueOf(param.getIntValue());
 		} else if (clzz == short.class || clzz == Short.class) {
-			return new Short(param.getShortValue());
+			return Short.valueOf(param.getShortValue());
 		} else if (clzz == float.class || clzz == Float.class) {
-			return new Float(param.getFloatValue());
+			return Float.valueOf(param.getFloatValue());
 		} else if (clzz == long.class || clzz == Long.class) {
-			return new Long(param.getLongValue());
+			return Long.valueOf(param.getLongValue());
 		} else if (clzz == double.class || clzz == Double.class) {
-			return new Double (param.getDoubleValue());
+			return Double.valueOf(param.getDoubleValue());
 		} else if (clzz == BigDecimal.class) {
 			return param.getBigDecimalValue();
 		} else if (clzz == BigInteger.class) {
@@ -156,6 +169,7 @@ public class DefinstanceFunction implements Function, Serializable {
 	/**
 	 * The function expects a single BoundParam that is an object binding
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { BoundParam.class, ValueParam.class };
 	}

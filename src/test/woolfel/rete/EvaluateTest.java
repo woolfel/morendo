@@ -17,8 +17,6 @@
 package woolfel.rete;
 
 import org.jamocha.rete.Evaluate;
-import org.jamocha.rete.*;
-
 import junit.framework.TestCase;
 
 /**
@@ -38,8 +36,8 @@ public class EvaluateTest extends TestCase {
     }
     
     public void testLessEqual1() {
-        Integer int1 = new Integer(1);
-        Integer int2 = new Integer(2);
+        Integer int1 = Integer.valueOf(1);
+        Integer int2 = Integer.valueOf(2);
         System.out.println("---- evaluate int to int");
         assertEquals(true,Evaluate.evaluateLessEqual(int1,int2));
         System.out.println(int1.intValue() + " <= " + int2.intValue() + " is " +
@@ -54,8 +52,8 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLessEqual(int1,int1));
         
         // ----- now test using Short ----- //
-        Short sh1 = new Short("1");
-        Short sh2 = new Short("2");
+        Short sh1 = Short.valueOf("1");
+        Short sh2 = Short.valueOf("2");
         System.out.println("---- evaluate short to short");
         assertEquals(true,Evaluate.evaluateLessEqual(sh1,sh2));
         System.out.println(sh1.shortValue() + " <= " + sh2.shortValue() + " is " +
@@ -69,8 +67,8 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLessEqual(sh1,sh1));
         
         // ----- now test using Long ----- //
-        Long ln1 = new Long(10001);
-        Long ln2 = new Long(10010);
+        Long ln1 = Long.valueOf(10001);
+        Long ln2 = Long.valueOf(10010);
         System.out.println("---- evaluate long to long");
         assertEquals(true,Evaluate.evaluateLessEqual(ln1,ln2));
         System.out.println(ln1.longValue() + " <= " + ln2.longValue() + " is " +
@@ -84,8 +82,8 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLessEqual(ln1,ln1));
         
         // ----- now test using Float ----- //
-        Float fl1 = new Float(10001.01);
-        Float fl2 = new Float(10002.01);
+        Float fl1 = Float.valueOf("10001.01");
+        Float fl2 = Float.valueOf("10002.01");
         System.out.println("---- evaluate float to float");
         assertEquals(true,Evaluate.evaluateLessEqual(fl1,fl2));
         System.out.println(fl1.floatValue() + " <= " + fl2.floatValue() + " is " +
@@ -100,8 +98,8 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLessEqual(fl1,fl1));
         
         // ----- now test using Double ----- //
-        Double db1 = new Double(1000.00);
-        Double db2 = new Double(2000.00);
+        Double db1 = Double.valueOf(1000.00);
+        Double db2 = Double.valueOf(2000.00);
         System.out.println("---- evaluate double to double");
         assertEquals(true,Evaluate.evaluateLessEqual(db1,db2));
         System.out.println(db1.doubleValue() + " <= " + db2.doubleValue() + " is " +
@@ -123,9 +121,9 @@ public class EvaluateTest extends TestCase {
      */
     public void testLessEqual2() {
         System.out.println("testLessEqual2 -------");
-        Integer int1 = new Integer(1);
+        Integer int1 = Integer.valueOf(1);
 
-        Short sh1 = new Short("2");
+        Short sh1 = Short.valueOf("2");
         System.out.println("---- evaluate int to short");
         assertEquals(true,Evaluate.evaluateLessEqual(int1,sh1));
         System.out.println(int1.intValue() + " <= " + sh1.longValue() + " is " +
@@ -135,7 +133,7 @@ public class EvaluateTest extends TestCase {
         System.out.println(sh1.intValue() + " <= " + int1.intValue() + " is " +
                 Evaluate.evaluateLessEqual(sh1,int1));
         
-        Long ln1 = new Long(2);
+        Long ln1 = Long.valueOf(2);
         System.out.println("---- evaluate int to long");
         assertEquals(true,Evaluate.evaluateLessEqual(int1,ln1));
         System.out.println(int1.intValue() + " <= " + ln1.longValue() + " is " +
@@ -146,7 +144,7 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLessEqual(ln1,int1));
         
         // ----- now test using float ----- //
-        Float fl1 = new Float(10001);
+        Float fl1 = Float.valueOf("10001");
         System.out.println("---- evaluate int to float");
         assertEquals(true,Evaluate.evaluateLessEqual(int1,fl1));
         System.out.println(int1.longValue() + " <= " + fl1.longValue() + " is " +
@@ -157,7 +155,7 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLessEqual(fl1,int1));
         
         // ----- now test using Double ----- //
-        Double db1 = new Double(1000.00);
+        Double db1 = Double.valueOf(1000.00);
         System.out.println("---- evaluate int to double");
         assertEquals(true,Evaluate.evaluateLessEqual(int1,db1));
         System.out.println(int1.doubleValue() + " <= " + db1.doubleValue() + " is " +
@@ -170,8 +168,8 @@ public class EvaluateTest extends TestCase {
     }
     
     public void testLess1() {
-        Integer int1 = new Integer(1);
-        Integer int2 = new Integer(2);
+        Integer int1 = Integer.valueOf(1);
+        Integer int2 = Integer.valueOf(2);
         System.out.println("---- evaluate int to int");
         assertEquals(true,Evaluate.evaluateLess(int1,int2));
         System.out.println(int1.intValue() + " < " + int2.intValue() + " is " +
@@ -186,8 +184,8 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLess(int1,int1));
         
         // ----- now test using Short ----- //
-        Short sh1 = new Short("1");
-        Short sh2 = new Short("2");
+        Short sh1 = Short.valueOf("1");
+        Short sh2 = Short.valueOf("2");
         System.out.println("---- evaluate short to short");
         assertEquals(true,Evaluate.evaluateLess(sh1,sh2));
         System.out.println(sh1.shortValue() + " < " + sh2.shortValue() + " is " +
@@ -201,8 +199,8 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLess(sh1,sh1));
         
         // ----- now test using Long ----- //
-        Long ln1 = new Long(10001);
-        Long ln2 = new Long(10010);
+        Long ln1 = Long.valueOf(10001);
+        Long ln2 = Long.valueOf(10010);
         System.out.println("---- evaluate long to long");
         assertEquals(true,Evaluate.evaluateLess(ln1,ln2));
         System.out.println(ln1.longValue() + " < " + ln2.longValue() + " is " +
@@ -216,8 +214,8 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLess(ln1,ln1));
         
         // ----- now test using Float ----- //
-        Float fl1 = new Float(10001.01);
-        Float fl2 = new Float(10002.01);
+        Float fl1 = Float.valueOf("10001.01");
+        Float fl2 = Float.valueOf("10002.01");
         System.out.println("---- evaluate float to float");
         assertEquals(true,Evaluate.evaluateLess(fl1,fl2));
         System.out.println(fl1.floatValue() + " < " + fl2.floatValue() + " is " +
@@ -232,8 +230,8 @@ public class EvaluateTest extends TestCase {
                 Evaluate.evaluateLess(fl1,fl1));
         
         // ----- now test using Double ----- //
-        Double db1 = new Double(1000.00);
-        Double db2 = new Double(2000.00);
+        Double db1 = Double.valueOf(1000.00);
+        Double db2 = Double.valueOf(2000.00);
         System.out.println("---- evaluate double to double");
         assertEquals(true,Evaluate.evaluateLess(db1,db2));
         System.out.println(db1.doubleValue() + " < " + db2.doubleValue() + " is " +
@@ -250,10 +248,10 @@ public class EvaluateTest extends TestCase {
     }
     
     public void testBoolean1() {
-    	Boolean t = new Boolean(true);
+    	Boolean t = Boolean.TRUE;
     	String f = "false";
     	String t2 = "true";
-    	Boolean f2 = new Boolean(false);
+    	Boolean f2 = Boolean.FALSE;
     	assertFalse( Evaluate.evaluateEqual(t,f));
     	assertFalse( Evaluate.evaluateEqual(t2,f2));
     	assertTrue( Evaluate.evaluateEqual(t,t2));

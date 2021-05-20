@@ -14,11 +14,16 @@ import org.jamocha.rete.ValueParam;
 
 public class StringContainsFunction implements Function, Serializable {
 
-    public static final String STRING_CONTAINS = "str-contains";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String STRING_CONTAINS = "str-contains";
     
     
     public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-        boolean contain = false;
+        Boolean contain = Boolean.FALSE;
         if (params != null && params.length == 2) {
 			if (params[0] instanceof BoundParam) {
 				BoundParam bp = (BoundParam)params[0];
@@ -34,7 +39,7 @@ public class StringContainsFunction implements Function, Serializable {
         }
         DefaultReturnVector ret = new DefaultReturnVector();
         DefaultReturnValue rv = new DefaultReturnValue(
-                Constants.BOOLEAN_OBJECT, new Boolean(contain));
+                Constants.BOOLEAN_OBJECT, contain);
         ret.addReturnValue(rv);
         return ret;
     }
@@ -43,7 +48,8 @@ public class StringContainsFunction implements Function, Serializable {
         return STRING_CONTAINS;
     }
 
-    public Class[] getParameter() {
+    @SuppressWarnings("rawtypes")
+	public Class[] getParameter() {
         return new Class[]{ValueParam.class,ValueParam.class};
     }
 

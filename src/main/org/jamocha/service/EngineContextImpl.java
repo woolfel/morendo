@@ -19,6 +19,7 @@ public class EngineContextImpl implements EngineContext {
 	private String version = null;
 	private long startTime = 0;
 	private long endTime = 0;
+	@SuppressWarnings("rawtypes")
 	private List objectList = new ArrayList();
 	
 	public EngineContextImpl(RuleServiceImpl service, org.jamocha.rete.Rete engine, String name, String version) {
@@ -44,6 +45,7 @@ public class EngineContextImpl implements EngineContext {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void asssertObjects(List data, boolean isStatic, boolean isShadowed) throws AssertException {
 		Iterator itr = data.iterator();
 		while (itr.hasNext()) {
@@ -56,6 +58,7 @@ public class EngineContextImpl implements EngineContext {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void close() {
 		this.endTime = System.currentTimeMillis();
 		long elapsedTime = endTime - startTime;
@@ -81,6 +84,7 @@ public class EngineContextImpl implements EngineContext {
 		return this.applicationName;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getObjects() {
 		return engine.getObjects();
 	}
@@ -97,6 +101,7 @@ public class EngineContextImpl implements EngineContext {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void modifyObjects(List data) throws AssertException, RetractException {
 		Iterator itr = data.iterator();
 		while (itr.hasNext()) {
@@ -121,6 +126,7 @@ public class EngineContextImpl implements EngineContext {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void removeObjects(List data) throws RetractException {
 		Iterator itr = data.iterator();
 		while (itr.hasNext()) {

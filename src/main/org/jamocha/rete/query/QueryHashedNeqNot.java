@@ -50,7 +50,8 @@ public class QueryHashedNeqNot extends QueryBaseNot {
     /**
      * clear will clear the lists
      */
-    public void clear(WorkingMemory mem){
+    @SuppressWarnings("rawtypes")
+	public void clear(WorkingMemory mem){
         Map leftmem = (Map)mem.getQueryBetaMemory(this);
         HashedNeqAlphaMemory rightmem = 
         	(HashedNeqAlphaMemory)mem.getQueryRightMemory(this);
@@ -74,7 +75,8 @@ public class QueryHashedNeqNot extends QueryBaseNot {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
         Map leftmem = (Map) mem.getQueryBetaMemory(this);
@@ -100,7 +102,8 @@ public class QueryHashedNeqNot extends QueryBaseNot {
      * ExecuteJoin will perform an index join and propogate the partial matches
      * down the query network.
      */
-    public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
+    @SuppressWarnings("rawtypes")
+	public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
         Map leftmem = (Map) mem.getQueryBetaMemory(this);
         Iterator iterator = leftmem.values().iterator();
         while (iterator.hasNext()) {

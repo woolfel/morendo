@@ -47,7 +47,7 @@ public class DefcubeFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean add = false;
+		Boolean add = Boolean.FALSE;
 		
 		if (params != null && params.length == 1) {
 			Defcube cube = (Defcube)params[0].getValue(engine, Constants.OBJECT_TYPE);
@@ -67,7 +67,7 @@ public class DefcubeFunction implements Function, Serializable {
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(add));
+				Constants.BOOLEAN_OBJECT, add);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -76,6 +76,7 @@ public class DefcubeFunction implements Function, Serializable {
 		return DEFCUBE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{Cube.class};
 	}

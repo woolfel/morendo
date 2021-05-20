@@ -108,7 +108,8 @@ public class LIANode extends BaseAlpha {
      * The next node can be an AlphaNode or a LIANode.
      * @param node
      */
-    public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings("rawtypes")
+	public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
     throws AssertException 
     {
         if (addNode(node)) {

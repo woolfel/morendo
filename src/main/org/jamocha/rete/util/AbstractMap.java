@@ -197,7 +197,7 @@ public abstract class AbstractMap implements Map {
 
 		private Entry entry;
 		
-		private Entry next;
+		// private Entry next; // Unused
 
 		public EntryIterator(final AbstractMap map) {
 			this.hashMap = map;
@@ -232,7 +232,8 @@ public abstract class AbstractMap implements Map {
 			this.length = this.table.length;
 			this.row = -1;
 			this.entry = null;
-			this.next = null;
+			// this.next = null; Unused
+		    // TODO clean up
 		}
 	}
 }

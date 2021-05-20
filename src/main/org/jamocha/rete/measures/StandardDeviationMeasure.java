@@ -18,6 +18,7 @@ package org.jamocha.rete.measures;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class StandardDeviationMeasure implements AggregateMeasure {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BigDecimal calculate(Rete engine, Cube cube, Object[] data, CubeBinding binding) {
 		if (data != null) {
 			ArrayList values = new ArrayList();
@@ -62,6 +64,7 @@ public class StandardDeviationMeasure implements AggregateMeasure {
 	 * @param data
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	protected BigDecimal calculate(Rete engine, Cube cube, List data) {
 		// first calculate the average
 		BigDecimal sum = new BigDecimal(0);
@@ -78,7 +81,7 @@ public class StandardDeviationMeasure implements AggregateMeasure {
 				sum = sum.add(new BigDecimal(bi.longValue()));
 			}
 		}
-		BigDecimal average = sum.divide(new BigDecimal(data.size()), 30,BigDecimal.ROUND_DOWN);
+		BigDecimal average = sum.divide(new BigDecimal(data.size()), 30, RoundingMode.DOWN);
 		sum = new BigDecimal(0);
 		// now calculate the deviation from the average
 		for (int idx=0; idx < data.size(); idx++) {
@@ -95,7 +98,7 @@ public class StandardDeviationMeasure implements AggregateMeasure {
 				sum = sum.add(dev.pow(2));
 			}
 		}
-		BigDecimal dev = sum.divide(new BigDecimal(data.size()),20,BigDecimal.ROUND_DOWN);
+		BigDecimal dev = sum.divide(new BigDecimal(data.size()),20, RoundingMode.DOWN);
 		return new BigDecimal( Math.sqrt(dev.doubleValue()) );
 	}
 	

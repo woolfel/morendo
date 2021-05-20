@@ -25,7 +25,7 @@ public class SetDistinctCount implements Function {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean success = false;
+		Boolean success = Boolean.FALSE;
 		if (params != null && params.length == 3) {
 			String template = params[0].getStringValue();
 			String slotname = params[1].getStringValue();
@@ -33,10 +33,10 @@ public class SetDistinctCount implements Function {
 			Template deftemplate = engine.findTemplate(template);
 			BaseSlot sl = deftemplate.getSlot(slotname);
 			sl.setDistinctCount(count.longValue());
-			success = true;
+			success = Boolean.TRUE;
 		}
 		DefaultReturnVector returnVector = new DefaultReturnVector();
-		DefaultReturnValue returnVal = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(success));
+		DefaultReturnValue returnVal = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, success);
 		returnVector.addReturnValue(returnVal);
 		return returnVector;
 	}
@@ -45,6 +45,7 @@ public class SetDistinctCount implements Function {
 		return SET_DISTINCT_COUNT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class, ValueParam.class, ValueParam.class};
 	}

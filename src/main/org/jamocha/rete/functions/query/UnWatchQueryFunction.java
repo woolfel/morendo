@@ -23,7 +23,7 @@ public class UnWatchQueryFunction implements Function {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-		boolean watch = false;
+		Boolean watch = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			for (int i=0; i < params.length; i++) {
 				String name = params[i].getStringValue();
@@ -32,9 +32,9 @@ public class UnWatchQueryFunction implements Function {
 					query.setWatch(false);
 				}
 			}
-			watch = true;
+			watch = Boolean.TRUE;
 		}
-		DefaultReturnValue rv = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(watch));
+		DefaultReturnValue rv = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, watch);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -43,6 +43,7 @@ public class UnWatchQueryFunction implements Function {
 		return WATCH_QUERY;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class, String.class};
 	}

@@ -27,6 +27,8 @@ public class DeletedAccount extends BackupAccount {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+
 	public DeletedAccount() {
 		super();
 		// TODO Auto-generated constructor stub

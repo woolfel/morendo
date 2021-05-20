@@ -18,6 +18,7 @@ package org.jamocha.rete.functions.math;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.jamocha.rete.BoundParam;
 import org.jamocha.rete.Constants;
@@ -37,6 +38,11 @@ import org.jamocha.rete.ValueParam;
  */
 public class Divide implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String DIVIDE = "divide";
 
 	/**
@@ -66,10 +72,10 @@ public class Divide implements Function, Serializable {
 				if (params[idx] instanceof ValueParam) {
 					ValueParam n = (ValueParam) params[idx];
 					BigDecimal bd = n.getBigDecimalValue();
-                    bdval = bdval.divide(bd, 20, BigDecimal.ROUND_DOWN);
+                    bdval = bdval.divide(bd, 20, RoundingMode.DOWN);
 				} else {
 					BigDecimal bd = new BigDecimal(params[idx].getValue(engine, Constants.BIG_DECIMAL).toString());
-                    bdval = bdval.divide(bd, 20, BigDecimal.ROUND_DOWN);
+                    bdval = bdval.divide(bd, 20, RoundingMode.DOWN);
 				}
 			}
 		}
@@ -84,6 +90,7 @@ public class Divide implements Function, Serializable {
 		return DIVIDE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
@@ -112,6 +119,7 @@ public class Divide implements Function, Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private BigDecimal secureDivide(BigDecimal dividend, BigDecimal divisor) {
 	    try {
 		dividend = dividend.divide( divisor );

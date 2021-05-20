@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.Writer;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -186,6 +187,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
         this.compiler.addListener(this);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void loadBuiltInFunctions() {
 		AgentFunctions agentfuncs = new AgentFunctions();
 		declareFunctionGroup(agentfuncs);
@@ -258,6 +260,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
         lff.setUserDefinedFunctions(udfs);
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected void loadBuiltInMeasures() {
 		AggregateGroup aggrGrp = new AggregateGroup();
 		aggrGrp.loadMeasures(this);
@@ -370,7 +373,8 @@ public class Rete implements PropertyChangeListener, CompilerListener,
         this.workingMem.getStaticFacts().clear();
 	}
 
-    protected void addRuleFired(Rule r) {
+    @SuppressWarnings("unchecked")
+	protected void addRuleFired(Rule r) {
         this.rulesFired.put(r, null);
     }
     
@@ -483,7 +487,8 @@ public class Rete implements PropertyChangeListener, CompilerListener,
      * Method returns a list of the rules that fired
      * @return
      */
-    public List getRulesFired() {
+    @SuppressWarnings("unchecked")
+	public List getRulesFired() {
         ArrayList list = new ArrayList();
         list.addAll(this.rulesFired.keySet());
         return list;
@@ -642,6 +647,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * @param parent -
 	 *            the parent template
 	 */
+	@SuppressWarnings("unchecked")
 	public void declareObject(Class obj, String templateName, String parent) {
 		// if the class hasn't already been declared, we create a defclass
 		// and deftemplate for the class.
@@ -708,6 +714,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * match against it in rules.
 	 * @param cube
 	 */
+	@SuppressWarnings("unchecked")
 	public void declareCube(Cube cube) {
 		if (!this.defclass.containsKey(cube)) {
 			Defclass dclass = new Defclass(cube.getClass());
@@ -757,6 +764,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * @param clazz
 	 * @param template
 	 */
+	@SuppressWarnings("unchecked")
 	public void addAssociation(Class clazz, Deftemplate template) throws TemplateAssociationException {
 		if (this.defclass.containsKey(clazz)) {
 			throw new TemplateAssociationException(clazz.getName() + 
@@ -849,6 +857,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * 
 	 * @param func
 	 */
+	@SuppressWarnings("unchecked")
 	public void declareFunction(Function func) {
 		this.functions.put(func.getName(), func);
         if (func instanceof InterpretedFunction) {
@@ -863,6 +872,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * @param alias
 	 * @param func
 	 */
+	@SuppressWarnings("unchecked")
 	public void declareFunction(String alias, Function func) throws FunctionException {
 		if (this.functions.containsKey(alias)) {
 			throw new FunctionException(alias + " is already in use. Please use a different alias for the function.");
@@ -878,10 +888,11 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * 
 	 * @param name
 	 */
+	@SuppressWarnings("unchecked")
 	public Function declareFunction(String name) throws ClassNotFoundException {
 		try {
 			Class fclaz = Class.forName(name);
-			Function func = (Function) fclaz.newInstance();
+			Function func = (Function) fclaz.getDeclaredConstructor().newInstance();
 			declareFunction(func);
 			return func;
 		} catch (ClassNotFoundException e) {
@@ -890,6 +901,15 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 		} catch (IllegalAccessException e) {
 			log.debug(e);
 		} catch (InstantiationException e) {
+			log.debug(e);
+		} catch (IllegalArgumentException e) {
+			log.debug(e);
+		} catch (InvocationTargetException e) {
+			log.debug(e);// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			log.debug(e);
+		} catch (SecurityException e) {
 			log.debug(e);
 		}
 		return null;
@@ -909,10 +929,11 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * 
 	 * @param name
 	 */
+	@SuppressWarnings("unchecked")
 	public void declareFunctionGroup(String name) throws ClassNotFoundException {
 		try {
 			Class fclaz = Class.forName(name);
-			FunctionGroup group = (FunctionGroup) fclaz.newInstance();
+			FunctionGroup group = (FunctionGroup) fclaz.getDeclaredConstructor().newInstance();
 			declareFunctionGroup(group);
 		} catch (ClassNotFoundException e) {
 			log.debug(e);
@@ -920,6 +941,14 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 		} catch (IllegalAccessException e) {
 			log.debug(e);
 		} catch (InstantiationException e) {
+			log.debug(e);
+		} catch (IllegalArgumentException e) {
+			log.debug(e);
+		} catch (InvocationTargetException e) {
+			log.debug(e);
+		} catch (NoSuchMethodException e) {
+			log.debug(e);
+		} catch (SecurityException e) {
 			log.debug(e);
 		}
 	}
@@ -929,6 +958,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * 
 	 * @param functionGroup FunctionGroup with the functions to register.
 	 */
+	@SuppressWarnings("unchecked")
 	public void declareFunctionGroup(FunctionGroup functionGroup) {
 		functionGroup.loadFunctions(this);
 		this.functionGroups.add(functionGroup);
@@ -962,12 +992,14 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 		return this.functions.values();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void declareDefquery(Query query) {
 		if (!this.queries.containsKey(query.getName())) {
 			this.queries.put(query.getName(), query);
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void declareGraphQuery(GraphQuery query) {
 		if (!this.graphQueries.containsKey(query.getName())) {
 			this.graphQueries.put(query.getName(), query);
@@ -990,6 +1022,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 		return (GraphQuery)this.graphQueries.remove(name);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List getAllMeasures() {
 		return new ArrayList(this.measures.values());
 	}
@@ -998,12 +1031,14 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 		return (Measure)measures.get(name);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void declareMeasure(Measure measure) {
 		if (!this.measures.containsKey(measure.getMeasureName())) {
 			this.measures.put(measure.getMeasureName(), measure);
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void declareMeasureGroup(MeasureGroup measureGroup) {
 		if (!this.measureGroups.contains(measureGroup)) {
 			this.measureGroups.add(measureGroup);
@@ -1325,6 +1360,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * this method is for adding printwriters for spools. the purpose of
 	 * the spool function is to dump everything out to a file.
 	 */
+	@SuppressWarnings("unchecked")
 	public void addPrintWriter(String name, Writer writer) {
 		this.outputStreams.put(name,writer);
 	}
@@ -1563,6 +1599,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * not reset the objects. To reset both the facts and objects, call
 	 * resetAll. resetFacts handles deffacts which are not derived from objects.
 	 */
+	@SuppressWarnings("unchecked")
 	public void resetFacts() {
 		try {
 			this.workingMem.getAgenda().startReset();
@@ -1713,6 +1750,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * 
 	 * @param listen
 	 */
+	@SuppressWarnings("unchecked")
 	public void addEngineEventListener(EngineEventListener listen) {
 		if (!this.listeners.contains(listen)) {
 			this.listeners.add(listen);

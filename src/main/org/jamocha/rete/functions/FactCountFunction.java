@@ -56,7 +56,7 @@ public class FactCountFunction implements Function, Serializable {
 		count = engine.getAllFacts().size();
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.INTEGER_OBJECT, new Integer(count));
+				Constants.INTEGER_OBJECT, Integer.valueOf(count));
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -65,6 +65,7 @@ public class FactCountFunction implements Function, Serializable {
 		return FACT_COUNT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

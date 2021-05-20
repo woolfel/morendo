@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Radians implements Function, Serializable {
 
-	public static final String RADIANS = "radians";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String RADIANS = "radians";
+
+
 	public Radians() {
 		super();
 	}
@@ -69,7 +72,7 @@ public class Radians implements Function, Serializable {
 					bdval = rval.firstReturnValue().getBigDecimalValue();
 			}
 			double bdh = bdval.doubleValue();
-			bdval = bdval.valueOf(java.lang.Math.toRadians(bdh));
+			bdval = BigDecimal.valueOf(java.lang.Math.toRadians(bdh));
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(Constants.BIG_DECIMAL,
@@ -82,6 +85,7 @@ public class Radians implements Function, Serializable {
 		return RADIANS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

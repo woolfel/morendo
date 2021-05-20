@@ -35,7 +35,8 @@ public class TestBean2 {
     protected float attr5;
     protected double attr6;
     
-    protected ArrayList listeners = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	protected ArrayList listeners = new ArrayList();
     
 	/**
 	 * 
@@ -92,7 +93,8 @@ public class TestBean2 {
         return this.attr6;
     }
     
-    public void addPropertyChangeListener(PropertyChangeListener listener){
+    @SuppressWarnings("unchecked")
+	public void addPropertyChangeListener(PropertyChangeListener listener){
         this.listeners.add(listener);
     }
     

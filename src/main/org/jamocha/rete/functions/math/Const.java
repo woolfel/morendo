@@ -34,6 +34,10 @@ import org.jamocha.rete.ValueParam;
  */
 public class Const implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String CONST = "const";
 	
 	/**
@@ -60,7 +64,7 @@ public class Const implements Function, Serializable {
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BIG_DECIMAL, new Double(eq));
+				Constants.BIG_DECIMAL, Double.valueOf(eq));
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -70,6 +74,7 @@ public class Const implements Function, Serializable {
 		return CONST;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}

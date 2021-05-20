@@ -13,6 +13,7 @@ public class TemporalFunctions implements Serializable, FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 
 	public TemporalFunctions() {
@@ -23,10 +24,12 @@ public class TemporalFunctions implements Serializable, FunctionGroup {
 		return TemporalFunctions.class.getSimpleName();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		CalculateTemporalDistanceFunction ctd = new CalculateTemporalDistanceFunction();
 		funcs.add(ctd);

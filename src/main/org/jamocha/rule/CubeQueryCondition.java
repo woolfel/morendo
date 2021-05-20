@@ -20,10 +20,12 @@ public class CubeQueryCondition extends ObjectCondition {
 		super();
 	}
 
+	@SuppressWarnings("static-access")
 	public ConditionCompiler getCompiler(RuleCompiler ruleCompiler) {
 		return CompilerProvider.getInstance(ruleCompiler).cubeQueryConditionCompiler;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List getQueryConstraints() {
         ArrayList binds = new ArrayList();
         Iterator itr = constraints.iterator();

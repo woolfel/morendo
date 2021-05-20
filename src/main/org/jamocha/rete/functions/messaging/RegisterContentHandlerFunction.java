@@ -1,5 +1,7 @@
 package org.jamocha.rete.functions.messaging;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.jamocha.messaging.ContentHandler;
 import org.jamocha.messaging.ContentHandlerRegistry;
 import org.jamocha.rete.Constants;
@@ -22,28 +24,33 @@ public class RegisterContentHandlerFunction implements Function {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean register = false;
+		Boolean register = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			for (int i=0; i < params.length; i++) {
 				String name = params[i].getStringValue();
 				try {
 					Class clzz = Class.forName(name);
-					ContentHandler handler = (ContentHandler)clzz.newInstance();
+					ContentHandler handler = (ContentHandler)clzz.getDeclaredConstructor().newInstance();
 					String[] types = handler.getMessageTypes();
 					for (int x=0; x < types.length; x++) {
 						ContentHandlerRegistry.registerHandler(types[x], handler);
 					}
-					register = true;
+					register = Boolean.TRUE;
 				} catch (ClassNotFoundException e) {
 				} catch (InstantiationException e) {
 				} catch (IllegalAccessException e) {
+				} catch (IllegalArgumentException e) {
+				} catch (InvocationTargetException e) {
+				} catch (NoSuchMethodException e) {
+				} catch (SecurityException e) {
 				}
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(register));
+				Constants.BOOLEAN_OBJECT, register);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -52,6 +59,7 @@ public class RegisterContentHandlerFunction implements Function {
 		return REGISTER_CONTENT_HANDLER;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class};
 	}

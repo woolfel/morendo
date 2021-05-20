@@ -31,10 +31,13 @@ import org.jamocha.rete.exception.RetractException;
  */
 public class ZJBetaNode extends BaseJoin {
 
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * The operator for the join by default is equal. The the join
 	 * doesn't comparing values, the operator should be set to -1.
 	 */
+	
 	protected int operator = Constants.EQUAL;
 
 	public ZJBetaNode(int id) {
@@ -51,6 +54,7 @@ public class ZJBetaNode extends BaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map leftmem = (Map) mem.getBetaLeftMemory(this);
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
@@ -74,6 +78,7 @@ public class ZJBetaNode extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -94,6 +99,7 @@ public class ZJBetaNode extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map rightmem = (Map) mem.getBetaRightMemory(this);
@@ -112,6 +118,7 @@ public class ZJBetaNode extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws RetractException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -132,6 +139,7 @@ public class ZJBetaNode extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws RetractException {
         Map rightmem = (Map) mem.getBetaRightMemory(this);

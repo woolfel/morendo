@@ -153,6 +153,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 	/**
 	 * method compiles ObjectConditions
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BaseJoin compileJoin(Condition condition, int position, Rule rule, Condition previousCond) {
 		ArrayList dbindings = new ArrayList();
 		ArrayList mbindings = new ArrayList();
@@ -180,6 +181,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 		return joinNode;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public QueryBaseJoin compileJoin(Condition condition, int position, Query rule, Condition previousCond) {
 		ArrayList dbindings = new ArrayList();
 		ArrayList mbindings = new ArrayList();
@@ -226,6 +228,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 	public void compileSingleCE(Query query) throws AssertException{
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Binding[] getLeftBindings(Condition condition, Rule rule, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
 	       List Constraints = cqcond.getQueryConstraints();
@@ -259,6 +262,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
         return binds;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Binding[] getLeftBindings(Condition condition, Query query, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
 	       List Constraints = cqcond.getQueryConstraints();
@@ -292,6 +296,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
         return binds;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Binding[] getNumericBindings(Condition condition, Rule rule, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
 		List Constraints = cqcond.getQueryConstraints();
@@ -321,6 +326,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 		return binds;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Binding[] getNumericBindings(Condition condition, Query query, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
 		List Constraints = cqcond.getQueryConstraints();
@@ -350,6 +356,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 		return binds;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void getCubeBindings(Condition condition, Rule rule, int position, ArrayList dimensionBinding, ArrayList measureBinding) {
 		CubeQueryCondition cqcondition = (CubeQueryCondition)condition;
 		Cube cube = this.ruleCompiler.getEngine().getCube(cqcondition.getTemplateName());
@@ -381,6 +388,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 		}
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void getCubeBindings(Condition condition, Query query, int position, ArrayList dimensionBinding, ArrayList measureBinding) {
 		CubeQueryCondition cqcondition = (CubeQueryCondition)condition;
 		Cube cube = this.queryCompiler.getEngine().getCube(cqcondition.getTemplateName());

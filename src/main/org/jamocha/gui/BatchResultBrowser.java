@@ -35,12 +35,14 @@ public class BatchResultBrowser extends JFrame implements ActionListener {
 
 	private JTextArea aboutArea;
 
+	@SuppressWarnings("rawtypes")
 	private JComboBox resultsBox;
 
 	private ResultBoxModel resultsBoxModel;
 
 	private Map<String, String> batchResults;
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	BatchResultBrowser(JButton batchResultsButton) {
 		this.batchResultsButton = batchResultsButton;
 		topPanel = new JPanel();
@@ -110,6 +112,7 @@ public class BatchResultBrowser extends JFrame implements ActionListener {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	private class ResultBoxModel extends DefaultComboBoxModel {
 
 		private static final long serialVersionUID = 1L;

@@ -13,6 +13,7 @@ public class ListFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	
 	public ListFunctions() {
@@ -23,10 +24,12 @@ public class ListFunctions implements FunctionGroup, Serializable {
 		return ListFunctions.class.getSimpleName();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		BottomFunction btm = new BottomFunction();
 		funcs.add(btm);

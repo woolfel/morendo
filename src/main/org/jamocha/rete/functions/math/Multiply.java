@@ -36,11 +36,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Multiply implements Function, Serializable {
 
-    public static final String MULTIPLY = "multiply";
-
     /**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String MULTIPLY = "multiply";
+
+  
 	public Multiply() {
 		super();
 	}
@@ -79,6 +82,7 @@ public class Multiply implements Function, Serializable {
 		return MULTIPLY;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
         return new Class[] {ValueParam[].class};
 	}

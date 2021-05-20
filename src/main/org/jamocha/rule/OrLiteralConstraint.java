@@ -36,13 +36,17 @@ import org.jamocha.rete.ConversionUtils;
  */
 public class OrLiteralConstraint implements Constraint {
 
-    protected String name;
-    protected ArrayList value = new ArrayList();
-    protected boolean negated = false;
-    
-	/**
+    /**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	protected String name;
+    @SuppressWarnings("rawtypes")
+	protected ArrayList value = new ArrayList();
+    protected boolean negated = false;
+    
+	
 	public OrLiteralConstraint() {
 		super();
 	}
@@ -72,16 +76,19 @@ public class OrLiteralConstraint implements Constraint {
      * Set the value of the constraint. It should be a concrete value and
      * not a binding.
 	 */
+	@SuppressWarnings("rawtypes")
 	public void setValue(Object val) {
 		if (val instanceof ArrayList) {
 	        this.value = (ArrayList)val;
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void addValue(MultiValue mv) {
 		this.value.add(mv);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addValues(Collection list) {
 		this.value.addAll(list);
 	}
@@ -103,6 +110,7 @@ public class OrLiteralConstraint implements Constraint {
 		return this.negated;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public String toPPString() {
 		StringBuffer buf = new StringBuffer();
 		Iterator itr = this.value.iterator();

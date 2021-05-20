@@ -35,6 +35,11 @@ import org.jamocha.rete.ValueParam;
  */
 public class StringLowerFunction implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String STRING_LOWER = "str-lower";
 	
 	/**
@@ -69,6 +74,7 @@ public class StringLowerFunction implements Function, Serializable {
 		return STRING_LOWER;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

@@ -86,6 +86,7 @@ public class StopwordFunction implements Function, Serializable {
 		return STOPWORD;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,BoundParam.class,ValueParam.class};
 	}

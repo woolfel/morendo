@@ -35,6 +35,10 @@ import org.jamocha.rete.ValueParam;
  */
 public class StringIndexFunction implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String STRING_INDEX = "str-index";
 	/**
 	 * 
@@ -64,7 +68,7 @@ public class StringIndexFunction implements Function, Serializable {
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.INTEGER_OBJECT, new Integer(index));
+				Constants.INTEGER_OBJECT, Integer.valueOf(index));
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -73,6 +77,7 @@ public class StringIndexFunction implements Function, Serializable {
 		return STRING_INDEX;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}

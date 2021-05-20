@@ -28,6 +28,7 @@ public class AgentFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private List funcs = new ArrayList();
 
 	public AgentFunctions() {
@@ -38,10 +39,12 @@ public class AgentFunctions implements FunctionGroup {
 		return AgentFunctions.class.getSimpleName();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		AddRuleStatusFunction addstatus = new AddRuleStatusFunction();
 		engine.declareFunction(addstatus);

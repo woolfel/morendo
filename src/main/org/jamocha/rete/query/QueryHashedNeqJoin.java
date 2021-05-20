@@ -54,7 +54,8 @@ public class QueryHashedNeqJoin extends QueryBaseJoin {
     /**
      * clear will clear the lists
      */
-    public void clear(WorkingMemory mem){
+    @SuppressWarnings("rawtypes")
+	public void clear(WorkingMemory mem){
         Map leftmem = (Map)mem.getQueryBetaMemory(this);
         HashedNeqAlphaMemory rightmem = 
         	(HashedNeqAlphaMemory)mem.getQueryRightMemory(this);
@@ -78,7 +79,8 @@ public class QueryHashedNeqJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
         Map leftmem = (Map) mem.getQueryBetaMemory(this);
@@ -104,7 +106,8 @@ public class QueryHashedNeqJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
         // get the memory for the node

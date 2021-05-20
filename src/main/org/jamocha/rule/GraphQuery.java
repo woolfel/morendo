@@ -17,21 +17,16 @@
 package org.jamocha.rule;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.jamocha.rete.Fact;
 import org.jamocha.rete.Parameter;
 import org.jamocha.rete.Rete;
-import org.jamocha.rete.RootNode;
 import org.jamocha.rete.WorkingMemory;
 import org.jamocha.rete.exception.AssertException;
-import org.jamocha.rete.query.GraphResultNode;
 import org.jamocha.rete.query.QueryBaseAlpha;
 import org.jamocha.rete.query.QueryBaseJoin;
-import org.jamocha.rete.query.QueryBaseNot;
 import org.jamocha.rete.query.QueryFuncAlphaNode;
-import org.jamocha.rete.query.QueryObjTypeNode;
 import org.jamocha.rete.query.QueryParameterNode;
 import org.jamocha.rete.query.QueryResultNode;
 
@@ -87,7 +82,8 @@ public class GraphQuery extends Defquery {
     /**
      * 
      */
-    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
 	public List executeQuery(Rete engine, WorkingMemory memory, Parameter[] parameters) {
 		if (watch) {
 			startTime = System.currentTimeMillis();

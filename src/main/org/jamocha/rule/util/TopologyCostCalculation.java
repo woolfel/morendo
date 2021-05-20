@@ -59,7 +59,8 @@ public class TopologyCostCalculation {
     	}
     }
     
-    public void calculateWithoutOptimization(Rete engine, Defrule r, RootNode root) {
+    @SuppressWarnings("rawtypes")
+	public void calculateWithoutOptimization(Rete engine, Defrule r, RootNode root) {
         Condition[] conditions = r.getConditions();
         // first we add the size for the object type nodes
         int cost = 0;
@@ -105,7 +106,8 @@ public class TopologyCostCalculation {
         r.setCostValue(cost);
     }
     
-    public void calculateWithOptimization(Rete engine, Defrule r, RootNode root) {
+    @SuppressWarnings("rawtypes")
+	public void calculateWithOptimization(Rete engine, Defrule r, RootNode root) {
         Condition[] conditions = r.getConditions();
         // first we add the size for the object type nodes
         int cost = 0;

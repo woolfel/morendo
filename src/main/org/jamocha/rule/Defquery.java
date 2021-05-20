@@ -52,17 +52,23 @@ public class Defquery implements Query, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected String name = null;
-    protected ArrayList conditions = null;
+    @SuppressWarnings("rawtypes")
+	protected ArrayList conditions = null;
+	@SuppressWarnings("rawtypes")
 	protected ArrayList joins = null;
+	@SuppressWarnings("rawtypes")
 	protected ArrayList notJoins = null;
+	@SuppressWarnings("rawtypes")
 	protected Map variables = new HashMap();
     protected boolean auto = false;
     /**
      * by default noAgenda is false
      */
     protected String version = "";
-    protected Map bindValues = new HashMap();
-    protected LinkedHashMap bindings = new LinkedHashMap();
+    @SuppressWarnings("rawtypes")
+	protected Map bindValues = new HashMap();
+    @SuppressWarnings("rawtypes")
+	protected LinkedHashMap bindings = new LinkedHashMap();
     protected String comment = "";
 
     protected QueryRootNode queryRoot = null;
@@ -71,7 +77,8 @@ public class Defquery implements Query, Serializable {
 	 * We use LinkedHashMap to keep the parameters in the order
 	 * they were declared.
 	 */
-    protected Map queryParameterNodeMap = new LinkedHashMap();
+    @SuppressWarnings("rawtypes")
+	protected Map queryParameterNodeMap = new LinkedHashMap();
 	
     /**
      * by default watch is off
@@ -83,6 +90,7 @@ public class Defquery implements Query, Serializable {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("rawtypes")
 	public Defquery() {
 		super();
         conditions = new ArrayList();
@@ -129,10 +137,12 @@ public class Defquery implements Query, Serializable {
     	}
     }
 
+	@SuppressWarnings("unchecked")
 	public void addCondition(Condition cond) {
         conditions.add(cond);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Condition[] getConditions() {
         Condition[] cond = new Condition[conditions.size()];
         conditions.toArray(cond);
@@ -142,7 +152,8 @@ public class Defquery implements Query, Serializable {
     /**
      * add join nodes to the rule
      */
-    public void addJoinNode(QueryBaseJoin node) {
+    @SuppressWarnings("unchecked")
+	public void addJoinNode(QueryBaseJoin node) {
     	if (node instanceof QueryBaseNot) {
     		this.notJoins.add(node);
     	} else {
@@ -153,15 +164,18 @@ public class Defquery implements Query, Serializable {
     /**
      * get the array of join nodes
      */
-    public List getJoins() {
+    @SuppressWarnings("rawtypes")
+	public List getJoins() {
         return this.joins;
     }
     
-    public void addNotNode(QueryBaseNot node) {
+    @SuppressWarnings("unchecked")
+	public void addNotNode(QueryBaseNot node) {
     	this.notJoins.add(node);
     }
     
-    public List getNotNodes() {
+    @SuppressWarnings("rawtypes")
+	public List getNotNodes() {
     	return this.notJoins;
     }
     
@@ -189,6 +203,7 @@ public class Defquery implements Query, Serializable {
 	 * exist.
 	 * @param bind
 	 */
+	@SuppressWarnings("unchecked")
 	public void addBinding(String key, Binding bind) {
 		if (!this.bindings.containsKey(key)) {
 			this.bindings.put(key,bind);
@@ -239,6 +254,7 @@ public class Defquery implements Query, Serializable {
 	 * were added to the utility.
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public Iterator getBindingIterator() {
 		return this.bindings.values().iterator();
 	}
@@ -253,6 +269,7 @@ public class Defquery implements Query, Serializable {
 		return this.bindings.size();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void addQueryParameterNode(QueryParameterNode parameterNode) {
 		if (this.queryParameterNodeMap.containsKey(parameterNode.getParameterName())) {
 			// only set the node if the parameter was declared
@@ -260,6 +277,7 @@ public class Defquery implements Query, Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void addQueryFuncNode(QueryFuncAlphaNode funcNode) {
 		if (this.queryParameterNodeMap.containsKey(funcNode.getParameterName())) {
 			this.queryParameterNodeMap.put(funcNode.getParameterName(), funcNode);
@@ -297,6 +315,7 @@ public class Defquery implements Query, Serializable {
         }
     }
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setQueryParameters(List props) {
 		Iterator itr = props.iterator();
 		while (itr.hasNext()) {
@@ -313,6 +332,7 @@ public class Defquery implements Query, Serializable {
 	 * This method is only used by clone(Rete) method.
 	 * @param variables
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void setQueryParameters(Map variables) {
 		Iterator itr = variables.keySet().iterator();
 		while (itr.hasNext()) {
@@ -345,6 +365,7 @@ public class Defquery implements Query, Serializable {
 		return buf.toString();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void clear() {
 		Iterator itr = this.conditions.iterator();
 		while (itr.hasNext()) {
@@ -389,6 +410,7 @@ public class Defquery implements Query, Serializable {
 		this.elapsedTime = time;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List executeQuery(Rete engine, WorkingMemory memory, Parameter[] parameters) {
 		if (watch) {
 			startTime = System.currentTimeMillis();

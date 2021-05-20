@@ -18,6 +18,7 @@ public class LogFactory {
 	}
 
 	
+	@SuppressWarnings("rawtypes")
 	public static Logger createLogger(Class clazz) {
 		if (mode == LOG4J) {
 			if (!configuredLog4J) {

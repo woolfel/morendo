@@ -25,6 +25,7 @@ public class BottomFunction implements Function, Serializable {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
 		Object rl = null;
@@ -67,6 +68,7 @@ public class BottomFunction implements Function, Serializable {
 		return BOTTOM;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}

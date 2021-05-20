@@ -70,6 +70,7 @@ public class ResetFunction implements Function, Serializable {
 	/**
 	 * reset does not take any parameters
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

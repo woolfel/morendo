@@ -29,7 +29,6 @@ import org.jamocha.rete.BaseNode;
 import org.jamocha.rete.Binding;
 import org.jamocha.rete.Binding2;
 import org.jamocha.rete.Constants;
-import org.jamocha.rete.Deftemplate;
 import org.jamocha.rete.Fact;
 import org.jamocha.rete.Module;
 import org.jamocha.rete.Rete;
@@ -43,10 +42,19 @@ import org.jamocha.rete.Template;
  */
 public class Defrule implements Rule, Scope, Serializable {
 
-    protected String name = null;
-    protected ArrayList conditions = null;
-    protected ArrayList actions = null;
-    protected ArrayList modificationActions = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	protected String name = null;
+    @SuppressWarnings("rawtypes")
+	protected ArrayList conditions = null;
+    @SuppressWarnings("rawtypes")
+	protected ArrayList actions = null;
+    @SuppressWarnings("rawtypes")
+	protected ArrayList modificationActions = null;
+	@SuppressWarnings("rawtypes")
 	protected ArrayList joins = null;
     protected int salience = 100;
     protected boolean auto = false;
@@ -59,7 +67,9 @@ public class Defrule implements Rule, Scope, Serializable {
     protected boolean noAgenda = false;
     protected String version = "";
     protected Module themodule = null;
-    protected Map bindValues = new HashMap();
+    @SuppressWarnings("rawtypes")
+	protected Map bindValues = new HashMap();
+	@SuppressWarnings("rawtypes")
 	private LinkedHashMap bindings = new LinkedHashMap();
 	private String comment = "";
 	/**
@@ -95,6 +105,7 @@ public class Defrule implements Rule, Scope, Serializable {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("rawtypes")
 	public Defrule() {
 		super();
         this.complex = ComplexityFactory.newInstance();
@@ -243,6 +254,7 @@ public class Defrule implements Rule, Scope, Serializable {
     /* (non-Javadoc)
 	 * @see woolfel.engine.rule.Rule#addCondition(woolfel.engine.rule.Condition)
 	 */
+	@SuppressWarnings("unchecked")
 	public void addCondition(Condition cond) {
         conditions.add(cond);
 	}
@@ -250,6 +262,7 @@ public class Defrule implements Rule, Scope, Serializable {
 	/* (non-Javadoc)
 	 * @see woolfel.engine.rule.Rule#addAction(woolfel.engine.rule.Action)
 	 */
+	@SuppressWarnings("unchecked")
 	public void addAction(Action act) {
         actions.add(act);
 	}
@@ -257,6 +270,7 @@ public class Defrule implements Rule, Scope, Serializable {
 	/* (non-Javadoc)
 	 * @see woolfel.engine.rule.Rule#getConditions()
 	 */
+	@SuppressWarnings("unchecked")
 	public Condition[] getConditions() {
         Condition[] cond = new Condition[conditions.size()];
         conditions.toArray(cond);
@@ -266,18 +280,21 @@ public class Defrule implements Rule, Scope, Serializable {
 	/* (non-Javadoc)
 	 * @see woolfel.engine.rule.Rule#getActions()
 	 */
+	@SuppressWarnings("unchecked")
 	public Action[] getActions() {
         Action[] acts = new Action[actions.size()];
         actions.toArray(acts);
 		return acts;
 	}
 
-    public Action[] getModificationActions() {
+    @SuppressWarnings("unchecked")
+	public Action[] getModificationActions() {
         Action[] acts = new Action[modificationActions.size()];
         modificationActions.toArray(acts);
 		return acts;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addModificationAction(Action act) {
 		this.modificationActions.add(act);
 	}
@@ -293,14 +310,16 @@ public class Defrule implements Rule, Scope, Serializable {
     /**
      * add join nodes to the rule
      */
-    public void addJoinNode(BaseJoin node) {
+    @SuppressWarnings("unchecked")
+	public void addJoinNode(BaseJoin node) {
         this.joins.add(node);
     }
 
     /**
      * get the array of join nodes
      */
-    public List getJoins() {
+    @SuppressWarnings("rawtypes")
+	public List getJoins() {
         return this.joins;
     }
     
@@ -327,7 +346,8 @@ public class Defrule implements Rule, Scope, Serializable {
      * the current implementation simply replaces the existing
      * value if one already exists.
      */
-    public void setBindingValue(Object key, Object value) {
+    @SuppressWarnings("unchecked")
+	public void setBindingValue(Object key, Object value) {
     	this.bindValues.put(key,value);
     }
 
@@ -350,7 +370,8 @@ public class Defrule implements Rule, Scope, Serializable {
     	return val;
     }
  
-    public void setBindingValue(String name, Object value) {
+    @SuppressWarnings("unchecked")
+	public void setBindingValue(String name, Object value) {
         this.bindValues.put(name, value);
     }
     
@@ -384,6 +405,7 @@ public class Defrule implements Rule, Scope, Serializable {
 	 * exist.
 	 * @param bind
 	 */
+	@SuppressWarnings("unchecked")
 	public void addBinding(String key, Binding bind) {
 		if (!this.bindings.containsKey(key)) {
 			this.bindings.put(key,bind);
@@ -445,6 +467,7 @@ public class Defrule implements Rule, Scope, Serializable {
 	 * were added to the utility.
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public Iterator getBindingIterator() {
 		return this.bindings.values().iterator();
 	}
@@ -490,6 +513,7 @@ public class Defrule implements Rule, Scope, Serializable {
         }
     }
 	
+	@SuppressWarnings("rawtypes")
 	public void setRuleProperties(List props) {
 		Iterator itr = props.iterator();
 		while (itr.hasNext()) {
@@ -564,6 +588,7 @@ public class Defrule implements Rule, Scope, Serializable {
 		return buf.toString();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void clear() {
 		Iterator itr = this.conditions.iterator();
 		while (itr.hasNext()) {

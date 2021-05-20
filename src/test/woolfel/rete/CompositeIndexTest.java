@@ -143,7 +143,8 @@ public class CompositeIndexTest extends TestCase {
         System.out.println(ci.toPPString());
     }
     
-    public void testIndex(){
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testIndex(){
         Defclass dc = new Defclass(TestBean2.class);
         Deftemplate dtemp = (Deftemplate)dc.createDeftemplate("testBean2");
         TestBean2 bean = new TestBean2();
@@ -185,7 +186,8 @@ public class CompositeIndexTest extends TestCase {
         assertFalse(map.containsKey(ci5));
     }
     
-    public void testIndex2(){
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testIndex2(){
         Defclass dc = new Defclass(TestBean2.class);
         Deftemplate dtemp = (Deftemplate)dc.createDeftemplate("testBean2");
         TestBean2 bean = new TestBean2();

@@ -21,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.jamocha.parser.clips.CLIPSParser;
 import org.jamocha.rete.Deftemplate;
@@ -45,7 +44,7 @@ import woolfel.examples.model.Transaction;
  */
 public class RulesetBenchmark2 {
 
-    private static Random ran = new Random();
+    // private static Random ran = new Random(); Unused
     
 	/**
 	 * 
@@ -54,7 +53,8 @@ public class RulesetBenchmark2 {
 		super();
 	}
 
-    public void parse(Rete engine, CLIPSParser parser, List factlist) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void parse(Rete engine, CLIPSParser parser, List factlist) {
         Object itm = null;
         try {
             while ((itm = parser.basicExpr()) != null) {
@@ -99,18 +99,21 @@ public class RulesetBenchmark2 {
         }
     }    
     
-    public static void main(String args[]) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void main(String args[]) {
         String rulefile = "./benchmark_files/share_5nodes.clp";
-        boolean keepopen = false;
+        // boolean keepopen = false; Unused - see below
         int fcount = 50000;
         if (args != null && args.length > 0) {
         	rulefile = args[0];
         }
+        /*
         if (args.length >= 2) {
             if (args[1].equals("true")) {
                 keepopen = true;
             }
         }
+        */
         System.out.println("Using file " + rulefile);
         
         RulesetBenchmark2 mb = new RulesetBenchmark2();

@@ -37,11 +37,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Rint implements Function, Serializable {
 
-	public static final String RINT = "rint";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String RINT = "rint";
+
+	
 	public Rint() {
 		super();
 	}
@@ -60,7 +63,7 @@ public class Rint implements Function, Serializable {
 				bdval = new BigDecimal( params[0].getValue(engine, Constants.BIG_DECIMAL).toString() );
 			}
 			double bdh = bdval.doubleValue();
-			bdval = bdval.valueOf(bdh);	
+			bdval = BigDecimal.valueOf(bdh);	
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(Constants.BIG_DECIMAL,
@@ -73,6 +76,7 @@ public class Rint implements Function, Serializable {
 		return RINT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

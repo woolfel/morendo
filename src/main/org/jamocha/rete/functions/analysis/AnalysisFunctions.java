@@ -35,6 +35,7 @@ public class AnalysisFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	
 	public AnalysisFunctions() {
@@ -45,6 +46,7 @@ public class AnalysisFunctions implements FunctionGroup, Serializable {
 		return (AnalysisFunctions.class.getSimpleName());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		AverageCostFunction aveCost = new AverageCostFunction();
 		engine.declareFunction(aveCost);
@@ -72,6 +74,7 @@ public class AnalysisFunctions implements FunctionGroup, Serializable {
         funcs.add(vrf);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}

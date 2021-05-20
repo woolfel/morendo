@@ -3,6 +3,7 @@ package org.jamocha.service;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class RuleApplicationImpl implements RuleApplication {
 	private String version = null;
 	private List<ObjectModel> models = null;
 	private List<ObjectData> objectData = null;
+	@SuppressWarnings("rawtypes")
 	private List<JSONData> jsonData = null;
 	private List<ClipsInitialData> clipsData = null;
 	private List<FunctionPackage> functionGroups = null;
@@ -41,6 +43,7 @@ public class RuleApplicationImpl implements RuleApplication {
 	 * FunctionGroup just lists the names, we keep the
 	 * instances in a list to make it easier to reload.
 	 */
+	@SuppressWarnings("rawtypes")
 	@JsonIgnore
 	private List functionInstances = new ArrayList();
 	
@@ -94,6 +97,7 @@ public class RuleApplicationImpl implements RuleApplication {
 	 * data that isn't declared in the models.
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@JsonIgnore
 	protected URLClassLoader createURLClassLoader() {
 		ArrayList urls = new ArrayList();
@@ -134,6 +138,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		return this.classloader;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@JsonIgnore
 	public Class findClass(String className) {
 		try {
@@ -190,6 +195,7 @@ public class RuleApplicationImpl implements RuleApplication {
 	 * users can group a variety of functions or groups into a logical group.
 	 * Within the rule engine, functions will be added to the main group.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@JsonIgnore
 	public boolean loadFunctionGroups(Rete engine) {
 		if (this.functionInstances == null) {
@@ -206,7 +212,7 @@ public class RuleApplicationImpl implements RuleApplication {
 					clzz = classloader.loadClass(classname);
 					log.info("load function group: " + clzz.getName());
 					if (clzz != null) {
-						Object data = clzz.newInstance();
+						Object data = clzz.getDeclaredConstructor().newInstance();
 						if (data instanceof org.jamocha.rete.Function) {
 							Function func = (Function)data;
 							engine.declareFunction(func);
@@ -225,6 +231,22 @@ public class RuleApplicationImpl implements RuleApplication {
 					success = false;
 					break;
 				} catch (IllegalAccessException e) {
+					log.fatal(e);
+					success = false;
+					break;
+				} catch (IllegalArgumentException e) {
+					log.fatal(e);
+					success = false;
+					break;
+				} catch (InvocationTargetException e) {
+					log.fatal(e);
+					success = false;
+					break;
+				} catch (NoSuchMethodException e) {
+					log.fatal(e);
+					success = false;
+					break;
+				} catch (SecurityException e) {
 					log.fatal(e);
 					success = false;
 					break;
@@ -247,6 +269,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		return success;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@JsonIgnore
 	public boolean loadInitialData(Rete engine) {
 		boolean success = true;
@@ -351,6 +374,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		return this.clipsData;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List<JSONData> getJsonData() {
 		return this.jsonData;
 	}
@@ -395,6 +419,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		this.clipsData = data;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void setJsonData(List<JSONData> data) {
 		this.jsonData = data;
 	}

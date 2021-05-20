@@ -54,6 +54,7 @@ public class QueryExistFuncJoin extends QueryBaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map rightmem = (Map) mem.getQueryRightMemory(this);
 		Map leftmem = (Map) mem.getQueryBetaMemory(this);
@@ -77,6 +78,7 @@ public class QueryExistFuncJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map leftmem = (Map) mem.getQueryBetaMemory(this);
@@ -104,6 +106,7 @@ public class QueryExistFuncJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map rightmem = (Map)mem.getQueryRightMemory(this);

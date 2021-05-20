@@ -49,7 +49,7 @@ public class DefclassFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean def = true;
+		Boolean def = Boolean.TRUE;
 		if (params.length >= 0) {
 			String clazz = params[0].getStringValue();
 			String template = null;
@@ -63,14 +63,14 @@ public class DefclassFunction implements Function, Serializable {
             try {
                 engine.declareObject(clazz, template, parent);
             } catch (ClassNotFoundException e) {
-                def = false;
+                def = Boolean.FALSE;
             }
 		} else {
-			def = false;
+			def = Boolean.FALSE;
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(def));
+				Constants.BOOLEAN_OBJECT, def);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -83,6 +83,7 @@ public class DefclassFunction implements Function, Serializable {
 	 * defclass function expects 3 parameters. (defclass classname,
 	 * templatename, parenttemplate) parent template name is optional.
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class,
 				ValueParam.class };

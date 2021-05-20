@@ -32,6 +32,11 @@ import org.jamocha.rule.Rule;
 public class TerminalNode3 extends TerminalNode2 {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * @param id
 	 */
 	public TerminalNode3(int id, Rule rl) {
@@ -48,6 +53,7 @@ public class TerminalNode3 extends TerminalNode2 {
 	 * @param facts
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertFacts(Index inx, Rete engine, WorkingMemory mem) {
 		long time = System.currentTimeMillis();
 		if (this.theRule.getExpirationDate() > 0
@@ -70,6 +76,7 @@ public class TerminalNode3 extends TerminalNode2 {
 	 * @param facts
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void retractFacts(Index inx, Rete engine, WorkingMemory mem) {
         Map tmem = (Map) mem.getTerminalMemory(this);
         LinkedActivation act = (LinkedActivation) tmem.remove(inx);

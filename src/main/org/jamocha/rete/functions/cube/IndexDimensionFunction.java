@@ -22,7 +22,7 @@ public class IndexDimensionFunction implements Function {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean index = false;
+		Boolean index = Boolean.FALSE;
 		if (params != null && params.length >= 2) {
 			String cubename = params[0].getStringValue();
 			Defcube cube = (Defcube)engine.getCube(cubename);
@@ -30,11 +30,11 @@ public class IndexDimensionFunction implements Function {
 				String dimension = params[i].getStringValue();
 				cube.getDimension(dimension).setAutoIndex(true);
 			}
-			index = true;
+			index = Boolean.TRUE;
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(index));
+				Constants.BOOLEAN_OBJECT, index);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -43,6 +43,7 @@ public class IndexDimensionFunction implements Function {
 		return INDEX_DIMENSION;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class, String[].class};
 	}

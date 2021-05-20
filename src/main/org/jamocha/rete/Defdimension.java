@@ -26,17 +26,14 @@ import org.jamocha.rete.util.ProfileStats;
 
 public class Defdimension implements CubeDimension {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	private String name;
 	private boolean joined = false;
 	private boolean autoIndex = false;
 	private Binding binding = null;
+	@SuppressWarnings("rawtypes")
 	private List deftemplates = new ArrayList();
 	private String variableName;
+	@SuppressWarnings("rawtypes")
 	private Map tokenIndex = null;
 	private boolean profile = false;
 	
@@ -61,10 +58,12 @@ public class Defdimension implements CubeDimension {
 		this.joined = joined;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getDeftemplates() {
 		return deftemplates;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setDeftemplates(List deftemplates) {
 		this.deftemplates = deftemplates;
 	}
@@ -97,6 +96,7 @@ public class Defdimension implements CubeDimension {
 	 * Current implementation gets the value for the left row + column and creates a
 	 * token index. This is inspired by sybase IQ, which is a column based database.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void indexData(Index index, Rete engine) {
 		if (profile) {
 			ProfileStats.startCubeIndex();
@@ -127,6 +127,7 @@ public class Defdimension implements CubeDimension {
 		this.profile = profile;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Map getData(Object value, boolean negated) {
 		if (!negated) {
 			return (Map)tokenIndex.get(value);
@@ -148,6 +149,7 @@ public class Defdimension implements CubeDimension {
 	 * method will only return data if the value is an instance
 	 * of Number of a subclass.
 	 */
+	@SuppressWarnings("rawtypes")
 	public Map getData(Object value, int operator) {
 		if (value instanceof Number) {
 			Number n = (Number)value;
@@ -170,6 +172,7 @@ public class Defdimension implements CubeDimension {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Map queryGreater(Number value) {
 		Map matches = new HashMap();
 		Iterator keyIterator = this.tokenIndex.keySet().iterator();
@@ -190,6 +193,7 @@ public class Defdimension implements CubeDimension {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Map queryLesser(Number value) {
 		Map matches = new HashMap();
 		Iterator keyIterator = this.tokenIndex.keySet().iterator();
@@ -210,6 +214,7 @@ public class Defdimension implements CubeDimension {
 		}
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Map queryGreaterEqual(Number value) {
 		Map matches = new HashMap();
 		Iterator keyIterator = this.tokenIndex.keySet().iterator();
@@ -230,6 +235,7 @@ public class Defdimension implements CubeDimension {
 		}
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Map queryLesserEqual(Number value) {
 		Map matches = new HashMap();
 		Iterator keyIterator = this.tokenIndex.keySet().iterator();

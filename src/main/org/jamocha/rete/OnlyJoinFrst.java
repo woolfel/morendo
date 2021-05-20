@@ -16,7 +16,6 @@
  */
 package org.jamocha.rete;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import org.jamocha.rete.exception.AssertException;
@@ -45,6 +44,7 @@ public class OnlyJoinFrst extends BaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
 		rightmem.clear();
@@ -66,6 +66,7 @@ public class OnlyJoinFrst extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
 		// we only proceed if the fact hasn't already entered
@@ -105,6 +106,7 @@ public class OnlyJoinFrst extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws RetractException {
 		Index inx = new Index(new Fact[] { rfact });

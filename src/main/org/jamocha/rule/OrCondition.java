@@ -35,7 +35,13 @@ import org.jamocha.rete.compiler.ConditionCompiler;
  */
 public class OrCondition implements Condition {
 
-    protected List nestedCE = new ArrayList();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@SuppressWarnings("rawtypes")
+	protected List nestedCE = new ArrayList();
     protected BaseJoin reteNode = null;
     
 	/**
@@ -57,14 +63,17 @@ public class OrCondition implements Condition {
 		}
 	}
 
-    public void addNestedConditionElement(Object ce) {
+    @SuppressWarnings("unchecked")
+	public void addNestedConditionElement(Object ce) {
         this.nestedCE.add(ce);
     }
     
-    public List getNestedConditionalElement() {
+    @SuppressWarnings("rawtypes")
+	public List getNestedConditionalElement() {
         return this.nestedCE;
     }
     
+	@SuppressWarnings("rawtypes")
 	public List getNodes() {
 		return new ArrayList();
 	}
@@ -108,6 +117,7 @@ public class OrCondition implements Condition {
 		return null;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List getBindConstraints() {
 		// TODO Auto-generated method stub
 		return null;

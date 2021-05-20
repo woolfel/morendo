@@ -27,7 +27,7 @@ public class QueryTimeFunction implements Function {
 			String name = params[0].getStringValue();
 			time = engine.getQueryTime(name);
 		}
-		DefaultReturnValue rv = new DefaultReturnValue(Constants.LONG_OBJECT, new Long(time));
+		DefaultReturnValue rv = new DefaultReturnValue(Constants.LONG_OBJECT, Long.valueOf(time));
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -36,6 +36,7 @@ public class QueryTimeFunction implements Function {
 		return QUERY_TIME;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class};
 	}

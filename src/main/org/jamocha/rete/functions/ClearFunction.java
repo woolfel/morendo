@@ -63,7 +63,7 @@ public class ClearFunction implements Function, Serializable {
 			engine.clearAll();
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(true));
+				Constants.BOOLEAN_OBJECT, Boolean.TRUE);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -75,6 +75,7 @@ public class ClearFunction implements Function, Serializable {
 	/**
 	 * The function does not take any parameters
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

@@ -29,7 +29,6 @@ import org.jamocha.rete.NotJoin;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.exception.AssertException;
 import org.jamocha.rete.exception.RetractException;
-import org.jamocha.rete.util.EventCounter;
 import org.jamocha.rete.*;
 
 import junit.framework.TestCase;
@@ -87,7 +86,8 @@ public class NotNodeTest extends TestCase {
         bn.setBindings(binds);
     }
     
-    public void testAssertLeftOne() {
+    @SuppressWarnings("rawtypes")
+	public void testAssertLeftOne() {
         // first create a rule engine instance
         Rete engine = new Rete();
         NotJoin bn = new NotJoin(engine.nextNodeId());
@@ -129,7 +129,8 @@ public class NotNodeTest extends TestCase {
         }
     }
     
-    public void testAssertLeftMultiple() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testAssertLeftMultiple() {
         // first create a rule engine instance
         Rete engine = new Rete();
         NotJoin bn = new NotJoin(engine.nextNodeId());
@@ -183,7 +184,8 @@ public class NotNodeTest extends TestCase {
     /**
      * Assert several object down the right input
      */
-    public void testAssertRightMultiple() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testAssertRightMultiple() {
         // first create a rule engine instance
         Rete engine = new Rete();
         NotJoin bn = new NotJoin(engine.nextNodeId());
@@ -237,7 +239,8 @@ public class NotNodeTest extends TestCase {
     /**
      * Try asserting 10 objects and make sure the results are correct
      */
-    public void testMatch() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testMatch() {
         // first create a rule engine instance
         Rete engine = new Rete();
         NotJoin bn = new NotJoin(engine.nextNodeId());
@@ -306,7 +309,8 @@ public class NotNodeTest extends TestCase {
     /**
      * Try asserting 10 objects and make sure the results are correct
      */
-    public void testAssertAndRetract() {
+    @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
+	public void testAssertAndRetract() {
         // first create a rule engine instance
         Rete engine = new Rete();
         NotJoin bn = new NotJoin(engine.nextNodeId());
@@ -391,7 +395,8 @@ public class NotNodeTest extends TestCase {
      * test the NotJoin with facts that don't match. Each BetaMemory
      * should have a match count of zero.
      */
-    public void testNoMatch() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testNoMatch() {
         // first create a rule engine instance
         Rete engine = new Rete();
         NotJoin bn = new NotJoin(engine.nextNodeId());
@@ -462,7 +467,8 @@ public class NotNodeTest extends TestCase {
      * it then asserts 10 facts and makes sure the facts are propogated
      * to the BetaNode.
      */
-    public void testPropogateNoMatch() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testPropogateNoMatch() {
         System.out.println("testPropogateNoMatch");
         // first create a rule engine instance
         Rete engine = new Rete();
@@ -559,7 +565,8 @@ public class NotNodeTest extends TestCase {
      * method will make sure the correct number of facts are asserted,
      * propogated and retracted.
      */
-    public void testPropogateChange() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testPropogateChange() {
         System.out.println("testPropogateChange");
         // first create a rule engine instance
         Rete engine = new Rete();
@@ -658,7 +665,8 @@ public class NotNodeTest extends TestCase {
      * should only propogate assert and retract when the match count
      * goes from zero to one or one to zero.
      */
-    public void testPropogateChange2() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testPropogateChange2() {
         System.out.println("testPropogateChange2");
         // first create a rule engine instance
         Rete engine = new Rete();

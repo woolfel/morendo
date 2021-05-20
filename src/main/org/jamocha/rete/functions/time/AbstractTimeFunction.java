@@ -43,7 +43,7 @@ public abstract class AbstractTimeFunction {
 		} else if (date instanceof BigInteger) {
 			return ((BigInteger)date).longValue();
 		} else {
-			return new Long(date.toString()).longValue();
+			return Long.valueOf(date.toString()).longValue();
 		}
 	}
 	

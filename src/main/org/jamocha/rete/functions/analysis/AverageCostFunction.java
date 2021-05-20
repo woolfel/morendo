@@ -40,6 +40,7 @@ public class AverageCostFunction implements Function {
 		super();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		int total = 0;
@@ -50,7 +51,7 @@ public class AverageCostFunction implements Function {
 			total += rule.getCostValue();
 		}
 		int average = total/rules.size();
-		DefaultReturnValue v = new DefaultReturnValue(Constants.INTEGER_OBJECT, new Integer(average));
+		DefaultReturnValue v = new DefaultReturnValue(Constants.INTEGER_OBJECT, Integer.valueOf(average));
 		ret.addReturnValue(v);
 		return ret;
 	}
@@ -59,6 +60,7 @@ public class AverageCostFunction implements Function {
 		return AVERAGE_COST;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

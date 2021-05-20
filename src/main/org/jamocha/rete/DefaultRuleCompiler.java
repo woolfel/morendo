@@ -41,10 +41,12 @@ public class DefaultRuleCompiler implements RuleCompiler {
 	private static final long serialVersionUID = 1L;
 	private WorkingMemory memory = null;
     private Rete engine = null;
-    private Map inputnodes = null;
+    @SuppressWarnings("rawtypes")
+	private Map inputnodes = null;
     private Module currentMod = null;
     
-    private ArrayList listener = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	private ArrayList listener = new ArrayList();
     protected boolean validate = true;
     protected TemplateValidation tval = null;
     
@@ -58,6 +60,7 @@ public class DefaultRuleCompiler implements RuleCompiler {
     protected Logger log = LogFactory.createLogger(DefaultRuleCompiler.class);
 
     
+	@SuppressWarnings("rawtypes")
 	public DefaultRuleCompiler(Rete engine, Map inputNodes) {
 		super();
         this.engine = engine;
@@ -187,7 +190,8 @@ public class DefaultRuleCompiler implements RuleCompiler {
 		}
 	}
 
-    public Condition[] getRuleConditions(Rule rule) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public Condition[] getRuleConditions(Rule rule) {
         Condition[] conditions = rule.getConditions();
         ArrayList conditionList = new ArrayList();
         boolean hasAnd = false;
@@ -255,6 +259,7 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * or the key already exists, the compiler will not add it to the
      * network.
 	 */
+	@SuppressWarnings("unchecked")
 	public void addObjectTypeNode(ObjectTypeNode node) {
         if (!this.inputnodes.containsKey(node.getDeftemplate())) {
             this.inputnodes.put(node.getDeftemplate(),node);
@@ -292,7 +297,8 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * @param templateName
      * @return
      */
-    public ObjectTypeNode findObjectTypeNode(String templateName) {
+    @SuppressWarnings("rawtypes")
+	public ObjectTypeNode findObjectTypeNode(String templateName) {
         Iterator itr = this.inputnodes.keySet().iterator();
         Template tmpl = null;
         while (itr.hasNext()) {
@@ -313,6 +319,7 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * Implementation will check to see if the 
 	 * @see org.jamocha.rete.RuleCompiler#addListener(org.jamocha.rete.CompilerListener)
 	 */
+	@SuppressWarnings("unchecked")
 	public void addListener(CompilerListener listener) {
         if (!this.listener.contains(listener)) {
             this.listener.add(listener);
@@ -495,7 +502,8 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * @param position
      * @return
      */
-    public BaseAlpha compileConstraint(PredicateConstraint cnstr,
+    @SuppressWarnings("unchecked")
+	public BaseAlpha compileConstraint(PredicateConstraint cnstr,
             Template templ, Rule rule, int position) {
         BaseAlpha current = null;
         // for now we expect the user to write the predicate in this
@@ -705,7 +713,8 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * what kind of event it is and calling the appropriate method.
      * @param event
      */
-    public void notifyListener(CompileEvent event) {
+    @SuppressWarnings("rawtypes")
+	public void notifyListener(CompileEvent event) {
         Iterator itr = this.listener.iterator();
         //engine.writeMessage(event.getMessage());
         while (itr.hasNext()) {
@@ -721,6 +730,7 @@ public class DefaultRuleCompiler implements RuleCompiler {
         }
     }
 
+	@SuppressWarnings("rawtypes")
 	public Map getInputnodes() {
 		return inputnodes;
 	}

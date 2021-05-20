@@ -46,7 +46,7 @@ public class BitAndFunction implements Function {
 				}
 				value = value & intval;
 			}
-			DefaultReturnValue returnVal = new DefaultReturnValue(Constants.INTEGER_OBJECT, new Integer(value));
+			DefaultReturnValue returnVal = new DefaultReturnValue(Constants.INTEGER_OBJECT, Integer.valueOf(value));
 			returnVector.addReturnValue(returnVal);
 		}
 		return returnVector;
@@ -56,6 +56,7 @@ public class BitAndFunction implements Function {
 		return BIT_AND;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class, ValueParam.class};
 	}

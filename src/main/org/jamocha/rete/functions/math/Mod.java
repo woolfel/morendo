@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Mod implements Function, Serializable {
 
-	public static final String MOD = "mod";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String MOD = "mod";
+
+
 	public Mod() {
 		super();
 	}
@@ -79,6 +82,7 @@ public class Mod implements Function, Serializable {
 		return MOD;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}

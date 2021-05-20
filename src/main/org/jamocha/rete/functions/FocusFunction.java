@@ -64,6 +64,7 @@ public class FocusFunction implements Function, Serializable {
 		return FOCUS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

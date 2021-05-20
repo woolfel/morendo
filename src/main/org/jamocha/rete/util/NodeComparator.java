@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import org.jamocha.rete.BaseNode;
 
+@SuppressWarnings("rawtypes")
 public class NodeComparator implements Comparator {
 
     public NodeComparator() {

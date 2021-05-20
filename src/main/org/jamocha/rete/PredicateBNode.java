@@ -50,7 +50,8 @@ public class PredicateBNode extends BaseJoin {
     /**
      * clear will clear the lists
      */
-    public void clear(WorkingMemory mem) {
+    @SuppressWarnings("rawtypes")
+	public void clear(WorkingMemory mem) {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem
                 .getBetaRightMemory(this);
@@ -75,7 +76,8 @@ public class PredicateBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
         BetaMemory bmem = new BetaMemoryImpl(linx, engine);
@@ -100,7 +102,8 @@ public class PredicateBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
         Map rightmem = (Map)mem.getBetaRightMemory(this);
         rightmem.put(rfact, rfact);
@@ -122,7 +125,8 @@ public class PredicateBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
             throws RetractException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
         leftmem.remove(linx);
@@ -143,7 +147,8 @@ public class PredicateBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws RetractException {
         Map rightmem = (Map)mem.getBetaRightMemory(this);
         rightmem.remove(rfact);

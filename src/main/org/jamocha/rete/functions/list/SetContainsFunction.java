@@ -30,6 +30,7 @@ public class SetContainsFunction implements Function, Serializable {
 		super();
 	}
 
+	@SuppressWarnings({ "deprecation", "rawtypes" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
 		Object rl = null;
@@ -56,6 +57,7 @@ public class SetContainsFunction implements Function, Serializable {
 		return MAPCONTAINS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}

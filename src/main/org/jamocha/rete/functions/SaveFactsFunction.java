@@ -57,8 +57,9 @@ public class SaveFactsFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean saved = false;
+		Boolean saved = Boolean.FALSE;
 		boolean sortid = true;
 		DefaultReturnVector rv = new DefaultReturnVector();
 		if (params != null && params.length >= 1) {
@@ -80,13 +81,13 @@ public class SaveFactsFunction implements Function, Serializable {
 					writer.write(ft.toPPString() + Constants.LINEBREAK);
 				}
 				writer.close();
-				saved = true;
+				saved = Boolean.TRUE;
 			} catch (IOException e) {
 				// we should log this
 			}
 		}
 		DefaultReturnValue drv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(saved));
+				Constants.BOOLEAN_OBJECT, saved);
 		rv.addReturnValue(drv);
 		return rv;
 	}
@@ -95,6 +96,7 @@ public class SaveFactsFunction implements Function, Serializable {
 		return SAVE_FACTS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}
