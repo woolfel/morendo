@@ -31,7 +31,7 @@ import org.jamocha.rete.ValueParam;
 
 /**
  * @author Peter Lin
- *
+ * Modified 22/5/21 Dave Woodman- make 1 based as per CLIPS
  */
 public class SubStringFunction implements Function, Serializable {
 
@@ -66,10 +66,13 @@ public class SubStringFunction implements Function, Serializable {
 				BoundParam bp = (BoundParam)params[2];
 				bp.resolveBinding(engine);
 			}
-			int begin = params[0].getIntValue();
-			int end = params[1].getIntValue();
+			int begin = params[0].getIntValue() - 1;
+			int end = params[1].getIntValue() - 1;
 			String txt = params[2].getStringValue();
+			int length = txt.length();
+			if ((length != 0) && (begin < end ) && (end <= length)) {
 			sub = txt.substring(begin,end);
+			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(

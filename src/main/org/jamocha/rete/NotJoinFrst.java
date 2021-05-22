@@ -75,7 +75,7 @@ public class NotJoinFrst extends BaseJoin {
         BetaMemory bmem = new BetaMemoryImpl(linx, engine);
         leftmem.put(bmem.getIndex(),bmem);
         Map rightmem = (Map)mem.getBetaRightMemory(this);
-        int prevCount = bmem.matchCount();
+        // int prevCount = bmem.matchCount(); Unused
         Iterator itr = rightmem.values().iterator();
         while (itr.hasNext()){
             Fact rfcts = (Fact)itr.next();

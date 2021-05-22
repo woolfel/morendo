@@ -55,11 +55,11 @@ public class LazyAgendaFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean exec = false;
+		// boolean exec = false; Unused
 		String mode = "normal";
 		DefaultReturnVector rv = new DefaultReturnVector();
 		if (params != null && params.length == 1) {
-			exec = true;
+			// exec = true; Unused
 			ValueParam vp = (ValueParam) params[0];
 			if (vp.getStringValue().equals("true")) {
 				engine.getCurrentFocus().setLazy(true);

@@ -119,13 +119,13 @@ public class Constants {
     public static final String CRLF = "crlf";
     public static String SHELL_PROMPT = "Morendo> ";
     public static String DEFAULT_OUTPUT = "t";
-    public static String VERSION = "1.3.0";
+    public static String VERSION = "1.3.0+";
     public static String INITIAL_FACT = "_initialFact";
     public static String COUNT_FACT = "_countFact";
     public static String COUNT_SLOT = "count";
     public static String COUNT_VALUE = "value";
     public static String PROJECT_MESSAGE = "Copyright Jamocha Project http://sourceforge.net/projects/jamocha";
-    public static String SHELL_MESSAGE = "Morendo Version " + VERSION + " 6/2009-3/2021";
+    public static String SHELL_MESSAGE = "Morendo Version " + VERSION + " 6/2009-5/2021";
     
     /// --------------- working directory ----------------- ///
     public static final String WORKING_DIRECTORY = "./working_directory";

@@ -31,6 +31,8 @@ import org.jamocha.rete.ValueParam;
 
 /**
  * @author Peter Lin
+ * Modified 22/5/21 - DAve Woodman. Returns 1-based index or false if not found (as CLIPS)
+ *   args now [string to find] [string to search]
  *
  */
 public class StringIndexFunction implements Function, Serializable {
@@ -39,10 +41,9 @@ public class StringIndexFunction implements Function, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	public static final String STRING_INDEX = "str-index";
-	/**
-	 * 
-	 */
+
 	public StringIndexFunction() {
 		super();
 	}
@@ -62,14 +63,20 @@ public class StringIndexFunction implements Function, Serializable {
 				BoundParam bp = (BoundParam)params[1];
 				bp.resolveBinding(engine);
 			}
-			String val = params[0].getStringValue();
-			String pt = params[1].getStringValue();
+			String pt = params[0].getStringValue();
+			String val = params[1].getStringValue();
 			index = val.indexOf(pt);
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
-		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.INTEGER_OBJECT, Integer.valueOf(index));
-		ret.addReturnValue(rv);
+		if (index == -1) {
+			DefaultReturnValue rv = new DefaultReturnValue(
+					Constants.BOOLEAN_OBJECT, Boolean.FALSE);
+			ret.addReturnValue(rv);
+		} else {
+			DefaultReturnValue rv = new DefaultReturnValue(
+					Constants.INTEGER_OBJECT, Integer.valueOf(++index));
+			ret.addReturnValue(rv);
+		}
 		return ret;
 	}
 
@@ -83,7 +90,7 @@ public class StringIndexFunction implements Function, Serializable {
 	}
 
 	public String toPPString(Parameter[] params, int indents) {
-		return "(str-index [string] [pattern])";
+		return "(str-index [string to find] [string to search]])";
 	}
 
 }

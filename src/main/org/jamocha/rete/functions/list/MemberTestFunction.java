@@ -27,7 +27,7 @@ public class MemberTestFunction implements Serializable, Function {
 	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-		int index = -1;
+		// int index = -1; Unsued
 		Boolean member = Boolean.FALSE;
 		if (params != null && params.length == 2) {
 			Object item = params[0].getValue();
@@ -38,7 +38,7 @@ public class MemberTestFunction implements Serializable, Function {
 					Object[] ary = (Object[])list;
 					for (int idx=0; idx < ary.length; idx++) {
 						if (ary[idx].equals(item)) {
-							index = idx;
+							// index = idx;
 							member = Boolean.TRUE;
 							break;
 						}
@@ -50,7 +50,7 @@ public class MemberTestFunction implements Serializable, Function {
 					Object[] ary = (Object[])list;
 					for (int idx=0; idx < ary.length; idx++) {
 						if (ary[idx].equals(item)) {
-							index = idx;
+							// index = idx;
 							member = Boolean.TRUE;
 							break;
 						}

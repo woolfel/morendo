@@ -143,51 +143,35 @@ public class GraphQueryCompiler implements QueryCompiler {
 		QueryRootNode queryRoot = engine.getRootNode().createQueryRoot(engine);
 		currentQuery.setQueryNetwork(queryRoot);
         this.setupObjectNodes();
-		if (true) {
-			if (this.currentQuery.getConditions() != null && this.currentQuery.getConditions().length > 0) {
-	            try {
-	                Condition[] conds = this.getRuleConditions(this.currentQuery);
-	                // first we create the constraints, before creating the Conditional
-	                // elements which include joins
-                    // we use a counter and only increment it to make sure the
-                    // row index of the bindings are accurate. this makes it simpler
-                    // for the rule compiler and compileJoins is cleaner and does
-                    // less work.
-                    int counter = 0;
-	                for (int idx=0; idx < conds.length; idx++) {
-	                    Condition con = conds[idx];
-	                    // compile object conditions
-	                    //implement in the ObjectConditionCompiler.compile or ExistConditionCompiler.compile
-	                    con.getCompiler(this).compile(con, counter, this.currentQuery);
-	                    
-                        if ((con instanceof ObjectCondition)&&(!((ObjectCondition)con).getNegated())) {
-                            counter++;
-                        }
-	                }
-                    // now we compile the joins
-	                compileJoins(this.currentQuery,conds);
-	                
-	                BaseNode last = this.currentQuery.getLastNode();
-	                GraphResultNode resultNode = new GraphResultNode(engine.nextNodeId());
-	                last.addSuccessorNode(resultNode, engine, null);
-	                currentQuery.setQueryResultNode(resultNode);
-	                
-	                engine.declareGraphQuery(this.currentQuery);
-	                
-	        		this.currentQuery = null;
-	                return true;
-	            } catch (AssertException e) {
-	                CompileEvent ce = new CompileEvent(this.currentQuery,CompileEvent.INVALID_RULE);
-	                ce.setMessage(Messages.getString("RuleCompiler.assert.error")); //$NON-NLS-1$
-	                this.notifyListener(ce);
-	                log.debug(e);
-	        		this.currentQuery = null;
-	                return false;
-	            }
-            }
-            return false;
+		if (this.currentQuery.getConditions() != null && this.currentQuery.getConditions().length > 0) {
+			try {
+				Condition[] conds = this.getRuleConditions(this.currentQuery);
+				int counter = 0;
+				for (int idx = 0; idx < conds.length; idx++) {
+					Condition con = conds[idx];
+					con.getCompiler(this).compile(con, counter, this.currentQuery);
+					if ((con instanceof ObjectCondition) && (!((ObjectCondition) con).getNegated())) {
+						counter++;
+					}
+				}
+				compileJoins(this.currentQuery, conds);
+				BaseNode last = this.currentQuery.getLastNode();
+				GraphResultNode resultNode = new GraphResultNode(engine.nextNodeId());
+				last.addSuccessorNode(resultNode, engine, null);
+				currentQuery.setQueryResultNode(resultNode);
+				engine.declareGraphQuery(this.currentQuery);
+				this.currentQuery = null;
+				return true;
+			} catch (AssertException e) {
+				CompileEvent ce = new CompileEvent(this.currentQuery, CompileEvent.INVALID_RULE);
+				ce.setMessage(Messages.getString("RuleCompiler.assert.error"));
+				this.notifyListener(ce);
+				log.debug(e);
+				this.currentQuery = null;
+				return false;
+			}
 		}
-        return false; // Unreachable
+		return false;
 	}
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -509,7 +493,8 @@ public class GraphQueryCompiler implements QueryCompiler {
                 // we need to notify listeners the function wasn't found
                 CompileEvent ce = 
                     new CompileEvent(this,CompileEvent.FUNCTION_NOT_FOUND);
-                ce.setMessage(FUNCTION_NOT_FOUND + " " + f.getReturnType()); //$NON-NLS-1$
+                // ce.setMessage(FUNCTION_NOT_FOUND + " " + f.getReturnType()); //$NON-NLS-1$
+                ce.setMessage(FUNCTION_NOT_FOUND + " Null return type"); // TODO
                 this.notifyListener(ce);
             }
     	}

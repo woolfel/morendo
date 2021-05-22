@@ -11,8 +11,8 @@ import java.util.Iterator;
 
 import org.jamocha.rete.Rete;
 import org.jamocha.rule.Defrule;
-import org.jamocha.rete.*;
-import org.jamocha.rule.*;
+// import org.jamocha.rete.*;
+// import org.jamocha.rule.*;
 
 import junit.framework.TestCase;
 

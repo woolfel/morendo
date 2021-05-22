@@ -21,7 +21,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
+// import java.util.Random;
 
 import org.jamocha.parser.clips.CLIPSParser;
 import org.jamocha.rete.Deftemplate;
@@ -41,7 +41,7 @@ import org.jamocha.rule.FunctionAction;
  */
 public class MemoryBenchmark {
 
-    private static Random ran = new Random();
+   //  private static Random ran = new Random(); Unused
     
 	/**
 	 * 
@@ -65,7 +65,7 @@ public class MemoryBenchmark {
                   engine.declareTemplate(dt);
                 } else if (itm instanceof FunctionAction) {
 					FunctionAction fa = (FunctionAction) itm;
-
+                    // TODO - has this been completed ?
 				} else if (itm instanceof Function) {
 					ReturnVector rv = ((Function) itm).executeFunction(engine,
 							null);
@@ -85,7 +85,7 @@ public class MemoryBenchmark {
     @SuppressWarnings("rawtypes")
 	public static void main(String args[]) {
         String rulefile = "./benchmark_files/random_5_w_50Kdata.clp";
-        String datafile = "./benchmark_files/test.clp";
+        // String datafile = "./benchmark_files/test.clp"; Unused
         // in case it's run within OptimizeIt and we want to keep the test running
         boolean keepopen = false;
 
@@ -106,7 +106,7 @@ public class MemoryBenchmark {
         long total1 = rt.totalMemory();
         long free1 = rt.freeMemory();
         long used1 = total1 - free1;
-        int count = 100000;
+        // int count = 100000; Unused
         System.out.println("Used memory before creating engine " + used1 + " bytes " +
                 (used1/1024) + " Kb");
         Rete engine = new Rete();

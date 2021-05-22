@@ -60,7 +60,7 @@ public class TestRuleFunction implements Function, Serializable {
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		if (params != null && params.length == 1) {
-			String rlz = params[0].getStringValue();
+			// String rlz = params[0].getStringValue(); Unused
 			Defrule r = (Defrule)engine.getCurrentFocus().findRule(
 					params[0].getStringValue());
 			ArrayList facts = GenerateFacts.generateFacts(r,engine);

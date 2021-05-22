@@ -837,7 +837,7 @@ void arrayType(List tokens) :
 Deftemplate templateExpr() :
 {
   Token exp;
-  Deftemplate template;
+  Deftemplate tmplate;
   List slots = new ArrayList();
 }
 {
@@ -846,11 +846,11 @@ Deftemplate templateExpr() :
   {
     Slot[] s = new Slot[slots.size()];
     slots.toArray(s);
-    template = new Deftemplate(exp.image,null,s);
+    tmplate = new Deftemplate(exp.image,null,s);
     slots.clear();
     exp.clear();
     exp = null;
-    return template;
+    return tmplate;
   }
 }
 

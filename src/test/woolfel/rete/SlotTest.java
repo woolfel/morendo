@@ -21,8 +21,8 @@ import org.jamocha.rete.Constants;
 import org.jamocha.rete.ConversionUtils;
 import org.jamocha.rete.Defclass;
 import org.jamocha.rete.Deftemplate;
-import org.jamocha.rete.ObjectTypeNode;
-import org.jamocha.rete.Rete;
+// import org.jamocha.rete.ObjectTypeNode;
+// import org.jamocha.rete.Rete;
 import org.jamocha.rete.Slot;
 
 import woolfel.examples.model.TestBean2;
@@ -51,12 +51,12 @@ public class SlotTest extends TestCase {
 	}
 
     public void testOneSlot(){
-    	Rete engine = new Rete();
+    	// Rete engine = new Rete(); Unused
         Defclass dc = new Defclass(TestBean2.class);
         Deftemplate dtemp = (Deftemplate)dc.createDeftemplate("testBean2");
-        TestBean2 bean = new TestBean2();
+        // TestBean2 bean = new TestBean2(); Unused
         Slot[] slts = dtemp.getAllSlots();
-        ObjectTypeNode otn = new ObjectTypeNode(1,dtemp,engine);
+        // ObjectTypeNode otn = new ObjectTypeNode(1,dtemp,engine); Unused
         AlphaNode an = new AlphaNode(1);
         slts[0].setValue(ConversionUtils.convert(110));
         an.setOperator(Constants.EQUAL);
@@ -66,12 +66,12 @@ public class SlotTest extends TestCase {
     }
     
     public void testTwoSlots(){
-    	Rete engine = new Rete();
+    	// Rete engine = new Rete(); Unused
         Defclass dc = new Defclass(TestBean2.class);
         Deftemplate dtemp = (Deftemplate)dc.createDeftemplate("testBean2");
-        TestBean2 bean = new TestBean2();
+        // TestBean2 bean = new TestBean2(); Unused
         Slot[] slts = dtemp.getAllSlots();
-        ObjectTypeNode otn = new ObjectTypeNode(1,dtemp,engine);
+        // ObjectTypeNode otn = new ObjectTypeNode(1,dtemp,engine); Unused
         AlphaNode an1 = new AlphaNode(1);
         AlphaNode an2 = new AlphaNode(1);
         

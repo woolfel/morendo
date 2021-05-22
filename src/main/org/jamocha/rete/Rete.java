@@ -140,7 +140,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 
 	private int lastNodeId = 0;
 
-    private InterpretedFunction intrFunction = null;
+    // private InterpretedFunction intrFunction = null; Unused
 	private Logger log = null;
 	private MessageRouter router = new MessageRouter(this);
 	protected Deftemplate initFact = new InitialFact();
@@ -905,7 +905,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 		} catch (IllegalArgumentException e) {
 			log.debug(e);
 		} catch (InvocationTargetException e) {
-			log.debug(e);// TODO Auto-generated catch block
+			log.debug(e);
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			log.debug(e);
@@ -1151,9 +1151,11 @@ public class Rete implements PropertyChangeListener, CompilerListener,
         this.workingMem.popScope();
     }
     
+    /* TODO - check if might be used 
     public void setInterpretedFunction(InterpretedFunction f) {
         this.intrFunction = f;
     }
+    */
     
 	/**
 	 * set the focus to a different module

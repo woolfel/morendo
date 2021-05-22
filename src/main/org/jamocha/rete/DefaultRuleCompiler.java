@@ -572,7 +572,8 @@ public class DefaultRuleCompiler implements RuleCompiler {
                     // we need to notify listeners the function wasn't found
                     CompileEvent ce = 
                         new CompileEvent(this,CompileEvent.FUNCTION_NOT_FOUND);
-                    ce.setMessage(FUNCTION_NOT_FOUND + " " + f.getReturnType()); //$NON-NLS-1$
+                    // ce.setMessage(FUNCTION_NOT_FOUND + " " + f.getReturnType()); //$NON-NLS-1$
+                    ce.setMessage(FUNCTION_NOT_FOUND + " Null return type"); // TODO
                     this.notifyListener(ce);
                 }
             }

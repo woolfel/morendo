@@ -115,56 +115,38 @@ public class DefaultQueryCompiler implements QueryCompiler {
      */
 	public boolean addQuery(Query query) {
 		query.resolveTemplates(engine);
-		if (true) {
-			this.currentQuery = (Defquery)query;
-			
-			QueryRootNode queryRoot = engine.getRootNode().createQueryRoot(engine);
-			currentQuery.setQueryNetwork(queryRoot);
-            
-			if (query.getConditions() != null && query.getConditions().length > 0) {
-	            try {
-	                Condition[] conds = this.getRuleConditions(query);
-	                // first we create the constraints, before creating the Conditional
-	                // elements which include joins
-                    // we use a counter and only increment it to make sure the
-                    // row index of the bindings are accurate. this makes it simpler
-                    // for the rule compiler and compileJoins is cleaner and does
-                    // less work.
-                    int counter = 0;
-	                for (int idx=0; idx < conds.length; idx++) {
-	                    Condition con = conds[idx];
-	                    // compile object conditions
-	                    //implement in the ObjectConditionCompiler.compile or ExistConditionCompiler.compile
-	                    con.getCompiler(this).compile(con, counter, query);
-	                    
-                        if ((con instanceof ObjectCondition)&&(!((ObjectCondition)con).getNegated())) {
-                            counter++;
-                        }
-	                }
-                    // now we compile the joins
-	                compileJoins(query,conds);
-	                
-	                BaseNode last = query.getLastNode();
-	                QueryResultNode resultNode = new QueryResultNode(engine.nextNodeId());
-	                last.addSuccessorNode(resultNode, engine, null);
-	                currentQuery.setQueryResultNode(resultNode);
-	                
-	                engine.declareDefquery(query);
-	                
-	        		this.currentQuery = null;
-	                return true;
-	            } catch (AssertException e) {
-	                CompileEvent ce = new CompileEvent(query,CompileEvent.INVALID_RULE);
-	                ce.setMessage(Messages.getString("RuleCompiler.assert.error")); //$NON-NLS-1$
-	                this.notifyListener(ce);
-	                log.debug(e);
-	        		this.currentQuery = null;
-	                return false;
-	            }
-            }
-            return false;
+		this.currentQuery = (Defquery) query;
+		QueryRootNode queryRoot = engine.getRootNode().createQueryRoot(engine);
+		currentQuery.setQueryNetwork(queryRoot);
+		if (query.getConditions() != null && query.getConditions().length > 0) {
+			try {
+				Condition[] conds = this.getRuleConditions(query);
+				int counter = 0;
+				for (int idx = 0; idx < conds.length; idx++) {
+					Condition con = conds[idx];
+					con.getCompiler(this).compile(con, counter, query);
+					if ((con instanceof ObjectCondition) && (!((ObjectCondition) con).getNegated())) {
+						counter++;
+					}
+				}
+				compileJoins(query, conds);
+				BaseNode last = query.getLastNode();
+				QueryResultNode resultNode = new QueryResultNode(engine.nextNodeId());
+				last.addSuccessorNode(resultNode, engine, null);
+				currentQuery.setQueryResultNode(resultNode);
+				engine.declareDefquery(query);
+				this.currentQuery = null;
+				return true;
+			} catch (AssertException e) {
+				CompileEvent ce = new CompileEvent(query, CompileEvent.INVALID_RULE);
+				ce.setMessage(Messages.getString("RuleCompiler.assert.error"));
+				this.notifyListener(ce);
+				log.debug(e);
+				this.currentQuery = null;
+				return false;
+			}
 		}
-        return false; // Dead code
+		return false;
 	}
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

@@ -65,8 +65,7 @@ public class AssertWRules {
 					engine.declareTemplate(dt);
 				} else if (itm instanceof FunctionAction) {
 					FunctionAction fa = (FunctionAction) itm;
-					// TOOO check if unfinished
-
+					System.out.println("FunctionAction reached???? " + fa.getFunctionName());
 				} else if (itm instanceof Function) {
 					ReturnVector rv = ((Function) itm).executeFunction(engine,
 							null);

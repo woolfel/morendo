@@ -2,9 +2,9 @@ package org.jamocha.rete.functions.text;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.HashSet;
+// import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+// import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.jamocha.rete.BoundParam;
@@ -68,6 +68,7 @@ public class TokenizeFunction implements Function, Serializable {
 		return ret;
 	}
 	
+	/* TODO - check if may be needed in future
 	private Set<String> read(String[] words) {
 		Set<String> wordset = new HashSet<String>();
 		for (String s: words) {
@@ -75,6 +76,7 @@ public class TokenizeFunction implements Function, Serializable {
 		}
 		return wordset;
 	}
+	*/
 
 	public String getName() {
 		return TOKENIZE;
