@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.jamocha.rete.BoundParam;
 import org.jamocha.rete.Constants;
-// import org.jamocha.rete.Deffact;
 import org.jamocha.rete.Deftemplate;
 import org.jamocha.rete.Defcube;
 import org.jamocha.rete.Defdimension;
@@ -75,19 +74,23 @@ public class CLIPSParser {
     public void close() {
         engine = null;
         if (token != null) {
-            token.clear();
+            token.next = null;
+	    	token.specialToken = null;
             token = null;
         }
         if (jj_nt != null) {
-            jj_nt.clear();
+            jj_nt.next = null;
+	    	jj_nt.specialToken = null;
             jj_nt = null;
         }
         if (jj_scanpos != null) {
-            jj_scanpos.clear();
+         	jj_scanpos.next = null;
+	    	jj_scanpos.specialToken = null;   
             jj_scanpos = null;
         }
         if (jj_lastpos != null) {
-            jj_lastpos.clear();
+            jj_lastpos.next = null;
+	    	jj_lastpos.specialToken = null;
             jj_lastpos = null;
         }
         try {
@@ -106,24 +109,12 @@ SKIP :
 | "\t"
 | "\n"
 | "\r"
-| ";;" : IN_COMMENT
 }
 
 /* COMMENTS */
 
-< IN_COMMENT >
-MORE : 
-{ 
-  <  ~[] >
-|
-  < COMMENT_TEXT: ( (["0"-"9"])|(["a"-"z"]) )+ >
-}
-
-< IN_COMMENT >
-SKIP :
-{
-  < END_COMMENT: ("\r" | "\n" | "\r\n") > : DEFAULT
-}
+SPECIAL_TOKEN : {
+< COMMENT: ";;"(~["\n","\r"])* ("\n"|"\r"|"\r\n")? > }
 
 TOKEN :
 {
@@ -410,7 +401,8 @@ Object expr() :
     pms[0] = new ValueParam(Constants.STRING_TYPE,exp2.image);
     pms[1] = new ValueParam(Constants.OBJECT_TYPE,list.toArray());
     func.setParameters(pms);
-    exp.clear();
+    exp.next = null;
+	exp.specialToken = null;
     exp = null;
     return func;
   }
@@ -424,7 +416,8 @@ Object expr() :
     pms[0] = new ValueParam(Constants.STRING_TYPE,exp2.image);
     pms[1] = new ValueParam(Constants.OBJECT_TYPE,list.toArray());
     func.setParameters(pms);
-    exp.clear();
+    exp.next = null;
+	exp.specialToken = null;
     exp = null;
     return func;
   }
@@ -443,9 +436,11 @@ Object expr() :
       rpms[0] = vp;
     }
     func.setParameters(rpms);
-    exp.clear();
+    exp.next = null;
+	exp.specialToken = null;
     exp = null;
-    exp2.clear();
+    exp2.next = null;
+	exp2.specialToken = null;
     exp2 = null;
     return func;
   }
@@ -458,7 +453,8 @@ Object expr() :
     bp.setVariableName(exp2.image);
     list.add(0,bp);
     func.setParameters(ParameterUtils.slotToParameters(list));
-    exp.clear();
+    exp.next = null;
+	exp.specialToken = null;
     exp = null;
     return func;
   }
@@ -773,7 +769,8 @@ void assertContents(List<Object> tokens) :
         tokens.add(s);
       }
     }
-    exp.clear();
+    exp.next = null;
+	exp.specialToken = null;
     exp = null;
     body = null;
   }
@@ -908,7 +905,8 @@ Deftemplate templateExpr() :
     slots.toArray(s);
     tmplate = new Deftemplate(exp.image,null,s);
     slots.clear();
-    exp.clear();
+    exp.next = null;
+	exp.specialToken = null;
     exp = null;
     return tmplate;
   }

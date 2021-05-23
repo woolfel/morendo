@@ -102,11 +102,6 @@ public class Token implements java.io.Serializable {
   {
     return image;
   }
-  
-  public void clear() {
-	    next = null;
-	    specialToken = null;
-	  }
 
   /**
    * Returns a new Token object, by default. However, if you want, you

@@ -544,7 +544,7 @@ public class ShellPanel extends AbstractJamochaPanel implements ActionListener,
 									if (currLine.length() > 0) {
 										addToHistory(currLine);
 										outWriter.write(currLine
-												+ System.getProperty("line.separator")); 
+												+ System.getProperty("line.separator"));
 										outWriter.flush();
 									}
 								} catch (IOException e1) {
