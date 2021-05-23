@@ -64,6 +64,7 @@ import org.jamocha.rete.Constants;
  * 
  * @author Karl-Heinz Krempels <krempels@cs.rwth-aachen.de>
  * @author Alexander Wilden <october.rust@gmx.de>
+ * Modified - Dave Woodman 23/05/21 - send currline with line end so that comments are recognised
  */
 public class ShellPanel extends AbstractJamochaPanel implements ActionListener,
 		FocusListener, AdjustmentListener {
@@ -539,11 +540,11 @@ public class ShellPanel extends AbstractJamochaPanel implements ActionListener,
 									}
 									lastIncompleteCommand
 											.append(currLine
-													+ System
-															.getProperty("line.separator"));
+												+ System.getProperty("line.separator"));
 									if (currLine.length() > 0) {
 										addToHistory(currLine);
-										outWriter.write(currLine);
+										outWriter.write(currLine
+												+ System.getProperty("line.separator")); 
 										outWriter.flush();
 									}
 								} catch (IOException e1) {

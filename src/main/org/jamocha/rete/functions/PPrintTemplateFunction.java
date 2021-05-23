@@ -93,7 +93,6 @@ public class PPrintTemplateFunction implements Function, Serializable {
 	}
 
 	public String toPPString(Parameter[] params, int indents) {
-		StringBuffer buf = new StringBuffer();
-		return buf.toString();
+		return "(ppdeftemplate <name>)";
 	}
 }
