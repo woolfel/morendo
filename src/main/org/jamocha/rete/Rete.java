@@ -268,6 +268,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	}
 
 	protected void clearBuiltInFunctions() {
+		this.functionGroups.clear();
 		this.functions.clear();
 	}
 	
