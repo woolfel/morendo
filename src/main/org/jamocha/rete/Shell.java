@@ -17,8 +17,8 @@
 package org.jamocha.rete;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import org.jamocha.messagerouter.MessageEvent;
 import org.jamocha.messagerouter.MessageRouter;
 import org.jamocha.messagerouter.StreamChannel;
@@ -60,8 +60,20 @@ public class Shell {
 						System.out.println(exceptionToString((Exception)event.getMessage()).trim());
 					}
 					if (event.getType() != MessageEvent.COMMAND && !event.getMessage().toString().equals("")) {
-						System.out.print(event.getMessage().toString());
+						if(event.getMessage() instanceof DefaultReturnVector) {
+							DefaultReturnVector rv = (DefaultReturnVector) event.getMessage();
+							if (rv.getItems().size() > 0) {
+								ReturnValue rval = (ReturnValue) rv.getItems().firstElement();
+								if (rval.getValueType() == Constants.ARRAY_TYPE) {
+									System.out.print(Arrays.toString((Object[])rval.getValue()) 
+											+ System.getProperty("line.separator"));
+								} else System.out.print(event.getMessage().toString());
+							}
+						}
+						else System.out.print(event.getMessage().toString());
 					}
+	
+						 
 				}
 				msgEvents.clear();
 				if (printPrompt) {

@@ -60,23 +60,26 @@ public class InsertValueFunction implements Serializable, Function {
 				BigDecimal bval = new BigDecimal(params[1].getValue(engine, Constants.INT_PRIM_TYPE).toString());
 				startIndex = bval.intValue();
 			}
+			startIndex--; // Make 1 based
 			Object add = null;
-			if (params[2] instanceof ValueParam) {
-				add = params[2].getValue();
-			} else if (params[2] instanceof BoundParam) {
-				add = ((BoundParam)params[2]).getValue(engine, Constants.ARRAY_TYPE);
-			} else if (params[2] instanceof FunctionParam2) {
-				add = ((FunctionParam2)params[2]).getValue(engine, Constants.ARRAY_TYPE);
-			}
-			if (add.getClass().isArray()) {
-				Object[] ar = (Object[])add;
-				List inlist = new ArrayList();
-				for (int idx=0; idx < ar.length; idx++) {
-					inlist.add(ar[idx]);
+			for (int p = params.length -1; p >= 2; p--) { // loop over remaining arguments 
+				if (params[p] instanceof ValueParam) {
+					add = params[p].getValue();
+				} else if (params[p] instanceof BoundParam) {
+					add = ((BoundParam)params[p]).getValue(engine, Constants.ARRAY_TYPE);
+				} else if (params[p] instanceof FunctionParam2) {
+					add = ((FunctionParam2)params[p]).getValue(engine, Constants.ARRAY_TYPE);
 				}
-				returnlist.addAll(startIndex,inlist);
-			} else {
-				returnlist.add(startIndex,add);
+				if (add.getClass().isArray()) {
+					Object[] ar = (Object[])add;
+					List inlist = new ArrayList();
+					for (int idx=0; idx < ar.length; idx++) {
+						inlist.add(ar[idx]);
+					}
+					returnlist.addAll(startIndex,inlist);
+				} else {
+					returnlist.add(startIndex,add);
+				}
 			}
 			value = returnlist.toArray();
 		}
@@ -100,7 +103,7 @@ public class InsertValueFunction implements Serializable, Function {
 	}
 
 	public String toPPString(Parameter[] params, int indents) {
-		return "(insert$ <list> <begin-index> <sing-or-list>)";
+		return "(insert$ <list> <begin-index> <sing-or-list>)+";
 	}
 
 }

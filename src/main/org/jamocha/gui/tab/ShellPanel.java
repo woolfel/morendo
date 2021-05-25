@@ -36,6 +36,7 @@ import java.io.PipedOutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -58,6 +59,8 @@ import org.jamocha.gui.icons.IconLoader;
 import org.jamocha.messagerouter.MessageEvent;
 import org.jamocha.messagerouter.StreamChannel;
 import org.jamocha.rete.Constants;
+import org.jamocha.rete.DefaultReturnVector;
+import org.jamocha.rete.ReturnValue;
 
 /**
  * This class provides a panel with a command line interface to Jamocha.
@@ -421,7 +424,18 @@ public class ShellPanel extends AbstractJamochaPanel implements ActionListener,
 							if (event.getType() != MessageEvent.COMMAND
 									&& !event.getMessage().toString()
 											.equals("") && !event.getMessage().equals(Constants.NIL_SYMBOL)) {
-								buffer.append(event.getMessage().toString()
+								if(event.getMessage() instanceof DefaultReturnVector) {
+									DefaultReturnVector rv = (DefaultReturnVector) event.getMessage();			
+									if (rv.getItems().size() > 0) {
+										ReturnValue rval = (ReturnValue) rv.getItems().firstElement();
+										if (rval.getValueType() == Constants.ARRAY_TYPE) {
+											buffer.append(Arrays.toString((Object[])rval.getValue()) 
+													+ System.getProperty("line.separator"));
+										} else buffer.append(event.getMessage().toString()
+												+ System.getProperty("line.separator"));
+									}
+								}
+								else buffer.append(event.getMessage().toString()
 										.trim()
 										+ System.getProperty("line.separator"));
 							}
