@@ -31,7 +31,7 @@ public class BottomFunction implements Function, Serializable {
 		Object rl = null;
 		if (params != null && params.length == 2) {
 			int count = params[0].getBigIntegerValue().intValue();
-			rl = params[1].getValue();
+			rl = params[1].getValue(engine, Constants.OBJECT_TYPE);
 			if (rl instanceof List) {
 				List list = (List)rl;
 				if (list.size() > count) {

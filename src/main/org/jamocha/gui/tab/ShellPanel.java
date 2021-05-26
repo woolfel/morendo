@@ -14,6 +14,10 @@
  * limitations under the License.
  * 
  */
+
+/**
+ * DPW - Modified May 2021 - allow correct output of array type, tidied up line end processing
+ */
 package org.jamocha.gui.tab;
 
 import java.awt.BorderLayout;
@@ -428,21 +432,21 @@ public class ShellPanel extends AbstractJamochaPanel implements ActionListener,
 									DefaultReturnVector rv = (DefaultReturnVector) event.getMessage();			
 									if (rv.getItems().size() > 0) {
 										ReturnValue rval = (ReturnValue) rv.getItems().firstElement();
-										if (rval.getValueType() == Constants.ARRAY_TYPE) {
-											buffer.append(Arrays.toString((Object[])rval.getValue()) 
+										if ((rval.getValueType() == Constants.ARRAY_TYPE) ||
+												(rval.getValueType() == Constants.LIST_TYPE))
+										{
+											buffer.append(Arrays.toString((Object[])rval.getValue())
 													+ System.getProperty("line.separator"));
-										} else buffer.append(event.getMessage().toString()
-												+ System.getProperty("line.separator"));
+										} else buffer.append(event.getMessage().toString());
 									}
 								}
-								else buffer.append(event.getMessage().toString()
-										.trim()
-										+ System.getProperty("line.separator"));
+								else buffer.append(event.getMessage().toString());
 							}
 						}
 						msgEvents.clear();
 						hideCursor();
-						printMessage(buffer.toString().trim(), true);
+						// Only output a line if there is something to send
+						if (buffer.length() > 0) printMessage(buffer.toString().trim(), true);
 						if (printPrompt) {
 							printPrompt();
 							moveCursorTo(lastPromptIndex);

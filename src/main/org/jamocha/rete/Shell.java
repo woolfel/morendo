@@ -40,6 +40,7 @@ public class Shell {
     /**
      * run is the main method for the shell.
      */
+	@SuppressWarnings("rawtypes")
 	public void run() {
 		List<MessageEvent> msgEvents = new ArrayList<MessageEvent>();
 		boolean printPrompt = false;
@@ -64,10 +65,11 @@ public class Shell {
 							DefaultReturnVector rv = (DefaultReturnVector) event.getMessage();
 							if (rv.getItems().size() > 0) {
 								ReturnValue rval = (ReturnValue) rv.getItems().firstElement();
-								if (rval.getValueType() == Constants.ARRAY_TYPE) {
+								if ((rval.getValueType() == Constants.ARRAY_TYPE) || 
+										(rval.getValueType() == Constants.LIST_TYPE))  {
 									System.out.print(Arrays.toString((Object[])rval.getValue()) 
 											+ System.getProperty("line.separator"));
-								} else System.out.print(event.getMessage().toString());
+								}  else	System.out.print(event.getMessage().toString());
 							}
 						}
 						else System.out.print(event.getMessage().toString());
