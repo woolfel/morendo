@@ -294,7 +294,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 	
 	public Binding[] getNumericBindings(Condition condition, Rule rule, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
-		List Constraints = cqcond.getQueryConstraints();
+		List<?> Constraints = cqcond.getQueryConstraints();
 		Template tmpl = cqcond.getTemplate();
 		ArrayList<Binding> bindlist = new ArrayList<Binding>();
 		for (int idz=0; idz < Constraints.size(); idz++) {
@@ -323,7 +323,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 	
 	public Binding[] getNumericBindings(Condition condition, Query query, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
-		List Constraints = cqcond.getQueryConstraints();
+		List<?> Constraints = cqcond.getQueryConstraints();
 		Template tmpl = cqcond.getTemplate();
 		ArrayList<Binding> bindlist = new ArrayList<Binding>();
 		for (int idz=0; idz < Constraints.size(); idz++) {

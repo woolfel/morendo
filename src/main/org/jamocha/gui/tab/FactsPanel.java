@@ -116,7 +116,7 @@ public class FactsPanel extends AbstractJamochaPanel implements ActionListener,
 		initPopupMenu();
 	}
 
-	//@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	private void initFactsList() {
 		List<Fact> facts = (List<Fact>) gui.getEngine().getAllFacts();
 		dataModel.setFacts(facts);
