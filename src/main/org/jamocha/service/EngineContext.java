@@ -57,6 +57,7 @@ public interface EngineContext {
 	 * @param isStatic
 	 * @param isShadowed
 	 */
+	@SuppressWarnings("rawtypes")
 	void asssertObjects(List data, boolean isStatic, boolean isShadowed) throws AssertException;
 
 	/**
@@ -69,6 +70,7 @@ public interface EngineContext {
 	 * Remove the objects in the list from the rule engine
 	 * @param data
 	 */
+	@SuppressWarnings("rawtypes")
 	void removeObjects(List data) throws RetractException;
 
 	/**
@@ -81,12 +83,14 @@ public interface EngineContext {
 	 * Tell the rule engine of the objects that have been modified
 	 * @param data
 	 */
+	@SuppressWarnings("rawtypes")
 	void modifyObjects(List data) throws AssertException, RetractException;
 
 	/**
 	 * Returns a list of the current Java objects in memory.
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	List getObjects();
 	
 	/**

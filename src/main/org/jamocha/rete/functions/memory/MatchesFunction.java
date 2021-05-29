@@ -32,7 +32,12 @@ import org.jamocha.rete.functions.BaseMatchFunction;
  */
 public class MatchesFunction extends BaseMatchFunction implements Function, Serializable {
 
-    public static final String MATCHES = "matches";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String MATCHES = "matches";
     
 	/**
 	 * 
@@ -50,6 +55,7 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
 	 * all the memories. if parameters are passed, the output will be
 	 * filtered.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		HashMap filter = new HashMap();
 		if (params != null && params.length > 0) {
@@ -66,7 +72,8 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
 		return new DefaultReturnVector();
 	}
 
-    protected void printMemoriesByNodes(Rete engine, HashMap filter) {
+    @SuppressWarnings("rawtypes")
+	protected void printMemoriesByNodes(Rete engine, HashMap filter) {
         DefaultWM wm = (DefaultWM)engine.getWorkingMemory();
         ArrayList alphaNodes = this.getSortedAlphaNodes(wm);
         for (int idx=0; idx < alphaNodes.size(); idx++) {
@@ -81,7 +88,8 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
         }
     }
     
-    protected void printMemoryForRule(Rete engine, HashMap filter) {
+    @SuppressWarnings("rawtypes")
+	protected void printMemoryForRule(Rete engine, HashMap filter) {
     }
     
     protected void printAlphaNodeInfo(BaseAlpha alphaNode, Rete engine, DefaultWM wm) {
@@ -95,7 +103,8 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
         }
     }
     
-    protected void printBetaNodeInfo(BaseJoin betaNode, Rete engine, DefaultWM wm) {
+    @SuppressWarnings("rawtypes")
+	protected void printBetaNodeInfo(BaseJoin betaNode, Rete engine, DefaultWM wm) {
         StringBuffer buf = new StringBuffer();
         buf.append(betaNode.toPPString());
         Map lmem = (Map)wm.getBetaLeftMemory(betaNode);
@@ -120,6 +129,7 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
 		return MATCHES;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] {String[].class};
 	}

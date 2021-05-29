@@ -13,6 +13,11 @@ import org.jamocha.rule.util.PartialMatchCalculation;
 
 public class PartialMatchCostFunction implements Function {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final String PARTIAL_MATCH_COST = "partial-match-cost";
 	
 	private PartialMatchCalculation calculation = new PartialMatchCalculation();
@@ -22,15 +27,15 @@ public class PartialMatchCostFunction implements Function {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean success = false;
+		Boolean success = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			String rulename = params[0].getStringValue();
 			Defrule rule = (Defrule)engine.getCurrentFocus().findRule(rulename);
 			calculation.calculatePartialMatchCost(engine, rule);
-			success = true;
+			success = Boolean.TRUE;
 		}
 		DefaultReturnVector returnVector = new DefaultReturnVector();
-		DefaultReturnValue returnVal = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(success));
+		DefaultReturnValue returnVal = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, success);
 		returnVector.addReturnValue(returnVal);
 		return returnVector;
 	}
@@ -39,6 +44,7 @@ public class PartialMatchCostFunction implements Function {
 		return PARTIAL_MATCH_COST;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

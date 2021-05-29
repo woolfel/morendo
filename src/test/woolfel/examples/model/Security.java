@@ -11,6 +11,11 @@ import java.util.ArrayList;
  */
 public class Security implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected String countryCode = null;
 	protected double currentPrice;
 	protected int cusip;
@@ -23,7 +28,8 @@ public class Security implements Serializable{
 	protected int subIndustryID;
 	protected String securityType = null;
 			
-    protected ArrayList listeners = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	protected ArrayList listeners = new ArrayList();
 
     public Security() {
 		super();
@@ -43,9 +49,9 @@ public class Security implements Serializable{
     
     public void setCurrentPrice(double price) {
     	if (price != this.currentPrice) {
-    		Double old = new Double(this.currentPrice);
+    		Double old = Double.valueOf(this.currentPrice);
     		this.currentPrice = price;
-    		this.notifyListener("currentPrice",old,new Double(this.currentPrice));
+    		this.notifyListener("currentPrice",old, Double.valueOf(this.currentPrice));
     	}
     }
     
@@ -55,9 +61,9 @@ public class Security implements Serializable{
     
     public void setCusip(int value) {
     	if (value != this.cusip) {
-    		Integer old = new Integer(this.cusip);
+    		Integer old = Integer.valueOf(this.cusip);
     		this.cusip = value;
-    		this.notifyListener("cusip",old,new Integer(this.cusip));
+    		this.notifyListener("cusip",old, Integer.valueOf(this.cusip));
     	}
     }
     
@@ -82,7 +88,7 @@ public class Security implements Serializable{
     		int old = this.industryGroupID;
     		this.industryGroupID = id;
     		this.notifyListener("industryGroupID", 
-    				new Integer(old), new Integer(this.industryGroupID));
+    			 Integer.valueOf(old), Integer.valueOf(this.industryGroupID));
     	}
     }
     
@@ -95,7 +101,7 @@ public class Security implements Serializable{
     		int old = this.industryID;
     		this.industryID = id;
     		this.notifyListener("industryID", 
-    				new Integer(old), new Integer(this.industryID));
+    				Integer.valueOf(old), Integer.valueOf(this.industryID));
     	}
     }
     
@@ -117,9 +123,9 @@ public class Security implements Serializable{
     
     public void setLastPrice(double price) {
     	if (price != this.lastPrice) {
-    		Double old = new Double(this.lastPrice);
+    		Double old = Double.valueOf(this.lastPrice);
     		this.lastPrice = price;
-    		this.notifyListener("lastPrice",old,new Double(this.lastPrice));
+    		this.notifyListener("lastPrice",old, Double.valueOf(this.lastPrice));
     	}
     }
     
@@ -132,7 +138,7 @@ public class Security implements Serializable{
     		int old = this.sectorID;
     		this.sectorID = id;
     		this.notifyListener("sectorID", 
-    				new Integer(old), new Integer(this.sectorID));
+    				Integer.valueOf(old), Integer.valueOf(this.sectorID));
     	}
     }
     
@@ -157,7 +163,7 @@ public class Security implements Serializable{
     		int old = this.subIndustryID;
     		this.subIndustryID = id;
     		this.notifyListener("subIndustryID", 
-    				new Integer(old), new Integer(this.subIndustryID));
+    			 Integer.valueOf(old), Integer.valueOf(this.subIndustryID));
     	}
     }
     
@@ -165,7 +171,8 @@ public class Security implements Serializable{
     	return this.subIndustryID;
     }
     
-    public void addPropertyChangeListener(PropertyChangeListener listener){
+    @SuppressWarnings("unchecked")
+	public void addPropertyChangeListener(PropertyChangeListener listener){
         this.listeners.add(listener);
     }
     

@@ -37,11 +37,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Min implements Function, Serializable {
 
-	public static final String MIN = "min";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String MIN = "min";
+
+	
 	public Min() {
 		super();
 	}
@@ -76,6 +79,7 @@ public class Min implements Function, Serializable {
 		return MIN;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

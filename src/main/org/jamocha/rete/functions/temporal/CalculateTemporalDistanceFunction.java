@@ -29,13 +29,14 @@ public class CalculateTemporalDistanceFunction implements Serializable,
 	 * function isn't implemented yet. need to implement temporal distance
 	 * calculation utility first
 	 */
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean successful = false;
+		Boolean successful = Boolean.FALSE;
 		TemporalCalculation calculation = new TemporalCalculation();
 		Collection rules = engine.getCurrentFocus().getAllRules();
 		successful = calculation.calcuateDistance(engine, rules);
 		DefaultReturnVector rv = new DefaultReturnVector();
-		DefaultReturnValue value = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(successful));
+		DefaultReturnValue value = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, successful);
 		rv.addReturnValue(value);
 		return rv;
 	}
@@ -44,6 +45,7 @@ public class CalculateTemporalDistanceFunction implements Serializable,
 		return CALCULATE_DISTANCE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class, ValueParam.class};
 	}

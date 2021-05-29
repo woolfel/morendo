@@ -76,6 +76,7 @@ public class TopologyCostFunction implements Function, Serializable {
 		return TOPOLOGY_COST;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

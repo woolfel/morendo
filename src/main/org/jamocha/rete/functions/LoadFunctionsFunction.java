@@ -50,7 +50,7 @@ public class LoadFunctionsFunction implements Function, Serializable {
 
 	
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean load = false;
+		Boolean load = Boolean.FALSE;
 		DefaultReturnVector ret = new DefaultReturnVector();
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
@@ -58,14 +58,14 @@ public class LoadFunctionsFunction implements Function, Serializable {
                 try {
                     Function f = engine.declareFunction(func);
                     this.userDefinedFunctions.addFunction(f);
-                    load = true;
+                    load = Boolean.TRUE;
                 } catch (ClassNotFoundException e) {
-                    load = false;
+                    load = Boolean.TRUE;
                 }
 			}
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(load));
+				Constants.BOOLEAN_OBJECT, load);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -74,6 +74,7 @@ public class LoadFunctionsFunction implements Function, Serializable {
 		return LOAD_FUNCTION;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

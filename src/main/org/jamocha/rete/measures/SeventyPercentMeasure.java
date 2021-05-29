@@ -16,6 +16,7 @@ public class SeventyPercentMeasure implements AggregateMeasure {
 	public SeventyPercentMeasure() {
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected BigDecimal calculate(Rete engine, Cube cube, List data) {
 		if (data != null) {
 			java.util.Collections.sort(data);
@@ -31,6 +32,7 @@ public class SeventyPercentMeasure implements AggregateMeasure {
 		return new BigDecimal(0);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BigDecimal calculate(Rete engine, Cube cube, Object[] data, CubeBinding binding) {
 		if (data != null) {
 			ArrayList values = new ArrayList();

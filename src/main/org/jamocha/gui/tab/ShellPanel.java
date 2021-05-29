@@ -14,6 +14,10 @@
  * limitations under the License.
  * 
  */
+
+/**
+ * DPW - Modified May 2021 - allow correct output of array type, tidied up line end processing
+ */
 package org.jamocha.gui.tab;
 
 import java.awt.BorderLayout;
@@ -36,6 +40,7 @@ import java.io.PipedOutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -58,12 +63,15 @@ import org.jamocha.gui.icons.IconLoader;
 import org.jamocha.messagerouter.MessageEvent;
 import org.jamocha.messagerouter.StreamChannel;
 import org.jamocha.rete.Constants;
+import org.jamocha.rete.DefaultReturnVector;
+import org.jamocha.rete.ReturnValue;
 
 /**
  * This class provides a panel with a command line interface to Jamocha.
  * 
  * @author Karl-Heinz Krempels <krempels@cs.rwth-aachen.de>
  * @author Alexander Wilden <october.rust@gmx.de>
+ * Modified - Dave Woodman 23/05/21 - send currline with line end so that comments are recognised
  */
 public class ShellPanel extends AbstractJamochaPanel implements ActionListener,
 		FocusListener, AdjustmentListener {
@@ -420,14 +428,25 @@ public class ShellPanel extends AbstractJamochaPanel implements ActionListener,
 							if (event.getType() != MessageEvent.COMMAND
 									&& !event.getMessage().toString()
 											.equals("") && !event.getMessage().equals(Constants.NIL_SYMBOL)) {
-								buffer.append(event.getMessage().toString()
-										.trim()
-										+ System.getProperty("line.separator"));
+								if(event.getMessage() instanceof DefaultReturnVector) {
+									DefaultReturnVector rv = (DefaultReturnVector) event.getMessage();			
+									if (rv.getItems().size() > 0) {
+										ReturnValue rval = (ReturnValue) rv.getItems().firstElement();
+										if ((rval.getValueType() == Constants.ARRAY_TYPE) ||
+												(rval.getValueType() == Constants.LIST_TYPE))
+										{
+											buffer.append(Arrays.toString((Object[])rval.getValue())
+													+ System.getProperty("line.separator"));
+										} else buffer.append(event.getMessage().toString());
+									}
+								}
+								else buffer.append(event.getMessage().toString());
 							}
 						}
 						msgEvents.clear();
 						hideCursor();
-						printMessage(buffer.toString().trim(), true);
+						// Only output a line if there is something to send
+						if (buffer.length() > 0) printMessage(buffer.toString().trim(), true);
 						if (printPrompt) {
 							printPrompt();
 							moveCursorTo(lastPromptIndex);
@@ -539,9 +558,9 @@ public class ShellPanel extends AbstractJamochaPanel implements ActionListener,
 									}
 									lastIncompleteCommand
 											.append(currLine
-													+ System
-															.getProperty("line.separator"));
+												+ System.getProperty("line.separator"));
 									if (currLine.length() > 0) {
+										currLine = currLine + System.getProperty("line.separator");
 										addToHistory(currLine);
 										outWriter.write(currLine);
 										outWriter.flush();

@@ -52,6 +52,7 @@ public class QueryOnlyFrst extends QueryBaseNot {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
 		Map leftmem = (Map) mem.getBetaRightMemory(this);
@@ -84,6 +85,7 @@ public class QueryOnlyFrst extends QueryBaseNot {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
 		// we only proceed if the fact hasn't already entered
@@ -95,6 +97,7 @@ public class QueryOnlyFrst extends QueryBaseNot {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
 		// now that we've added the facts to the list, we

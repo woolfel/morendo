@@ -21,9 +21,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import org.jamocha.messagerouter.MessageEvent;
-import org.jamocha.messagerouter.MessageRouter;
-import org.jamocha.messagerouter.StringChannel;
 import org.jamocha.rete.Rete;
 
 import junit.framework.TestCase;

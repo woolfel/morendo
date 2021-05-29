@@ -45,7 +45,7 @@ public class InstanceofFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean eval = false;
+		Boolean eval = Boolean.FALSE;
 		if (params.length == 2) {
 			Object param1 = null;
 			if (params[0] instanceof BoundParam && params[1] instanceof BoundParam) {
@@ -60,7 +60,7 @@ public class InstanceofFunction implements Function, Serializable {
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(eval));
+				Constants.BOOLEAN_OBJECT, eval);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -69,6 +69,7 @@ public class InstanceofFunction implements Function, Serializable {
 		return INSTANCEOF;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] {BoundParam.class,BoundParam.class};
 	}

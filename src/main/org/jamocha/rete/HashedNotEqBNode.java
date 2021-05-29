@@ -44,7 +44,8 @@ public class HashedNotEqBNode extends BaseJoin {
     /**
      * clear will clear the lists
      */
-    public void clear(WorkingMemory mem){
+    @SuppressWarnings("rawtypes")
+	public void clear(WorkingMemory mem){
         Map leftmem = (Map)mem.getBetaLeftMemory(this);
         HashedNeqAlphaMemory rightmem = 
         	(HashedNeqAlphaMemory)mem.getBetaRightMemory(this);
@@ -68,7 +69,8 @@ public class HashedNotEqBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -95,7 +97,8 @@ public class HashedNotEqBNode extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
         // get the memory for the node
@@ -128,7 +131,8 @@ public class HashedNotEqBNode extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-    public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
     throws RetractException
     {
         Map leftmem = (Map)mem.getBetaLeftMemory(this);
@@ -152,7 +156,8 @@ public class HashedNotEqBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws RetractException
     {
     	NotEqHashIndex inx = new NotEqHashIndex(NodeUtils.getRightBindValues(this.binds,rfact));

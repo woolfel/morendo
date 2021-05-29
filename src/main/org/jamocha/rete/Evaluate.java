@@ -308,7 +308,7 @@ public class Evaluate {
     	if (right instanceof Boolean) {
     		return !left.equals(right);
     	} else if (right instanceof String) {
-    		Boolean b = new Boolean((String)right);
+    		Boolean b = Boolean.valueOf((String)right);
     		return !left.equals(b);
     	} else {
     		return false;

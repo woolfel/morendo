@@ -9,6 +9,7 @@ public class ReflectionUtil {
 	public ReflectionUtil() {
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static Method findMethod(Defclass dfclass, String name, Object[] parameters) {
 		Method m = null;
 		Class clazz = dfclass.getClassObject();
@@ -26,6 +27,7 @@ public class ReflectionUtil {
 		return m;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static boolean compareParameters(Class[] cparams, Object[] parameters) {
 		if (cparams.length == parameters.length) {
 			boolean equal = true;
@@ -43,6 +45,7 @@ public class ReflectionUtil {
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static boolean compareClass(Class left, Class right) {
 		boolean equal = false;
 		if (left == right) {

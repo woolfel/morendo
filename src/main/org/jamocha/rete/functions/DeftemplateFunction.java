@@ -50,7 +50,7 @@ public class DeftemplateFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean add = true;
+		Boolean add = Boolean.TRUE;
 		if (params.length == 1 && params[0].getValue() instanceof Deftemplate) {
 			Deftemplate tpl = (Deftemplate) params[0].getValue();
 			Module mod = tpl.checkName(engine);
@@ -59,11 +59,11 @@ public class DeftemplateFunction implements Function, Serializable {
 			}
 			mod.addTemplate(tpl,engine,engine.getWorkingMemory());
 		} else {
-			add = false;
+			add = Boolean.FALSE;
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(add));
+				Constants.BOOLEAN_OBJECT,add);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -76,6 +76,7 @@ public class DeftemplateFunction implements Function, Serializable {
 	 * The expected parameter is a single ValueParam containing a deftemplate
 	 * instance. The function gets the deftemplate using Parameter.getValue().
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

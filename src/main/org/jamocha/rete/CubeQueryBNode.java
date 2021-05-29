@@ -80,7 +80,8 @@ public class CubeQueryBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
     	Map leftmem = (Map) mem.getBetaLeftMemory(this);
     	// first we create the hashIndex and put it in the left memory
@@ -128,7 +129,8 @@ public class CubeQueryBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
     	// first set the reference to CubeFact
     	this.cubeFact = (CubeFact)rfact;
@@ -177,7 +179,8 @@ public class CubeQueryBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
             throws RetractException {
     	// Get the Left memory, which is a Map
     	Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -204,7 +207,8 @@ public class CubeQueryBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws RetractException {
     	CubeHashMemoryImpl rightmem = (CubeHashMemoryImpl) mem.getBetaRightMemory(this);
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -222,7 +226,8 @@ public class CubeQueryBNode extends BaseJoin {
     	}
     }
 
-    protected Object[] queryCube(Index linx, Cube c, Rete engine, WorkingMemory mem, ResultsetFact resultFact) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	protected Object[] queryCube(Index linx, Cube c, Rete engine, WorkingMemory mem, ResultsetFact resultFact) {
 		java.util.Set result = new java.util.HashSet();
 		Map firstResult = null;
 		// execute query

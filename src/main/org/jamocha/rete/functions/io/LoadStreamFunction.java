@@ -68,7 +68,7 @@ public class LoadStreamFunction implements Function, Serializable {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
-		boolean loaded = true;
+		Boolean loaded = Boolean.TRUE;
 		if (params != null && params.length > 0) {
 			for (int idx = 0; idx < params.length; idx++) {
 				String input = null;
@@ -97,24 +97,24 @@ public class LoadStreamFunction implements Function, Serializable {
 						engine.assertFact(fact);
 					}
 				} catch (FileNotFoundException e) {
-					loaded = false;
+					loaded = Boolean.FALSE;
 					engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
 				} catch (ParseException e) {
-					loaded = false;
+					loaded = Boolean.FALSE;
 					engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
 				} catch (AssertException e) {
-					loaded = false;
+					loaded = Boolean.FALSE;
 					engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
 				} catch (IOException e) {
-                    loaded = false;
+                    loaded = Boolean.FALSE;
                     engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
                 }
 			}
 		} else {
-			loaded = false;
+			loaded = Boolean.FALSE;
 		}
 		DefaultReturnValue drv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(loaded));
+				Constants.BOOLEAN_OBJECT, loaded);
 		rv.addReturnValue(drv);
 		return rv;
 	}
@@ -123,6 +123,7 @@ public class LoadStreamFunction implements Function, Serializable {
 		return LOAD_STREAM;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

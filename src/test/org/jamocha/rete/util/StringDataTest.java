@@ -16,9 +16,6 @@
  */
 package org.jamocha.rete.util;
 
-import org.jamocha.rete.util.HashMap;
-import org.jamocha.rete.util.Iterator;
-
 import junit.framework.TestCase;
 
 /**
@@ -40,8 +37,8 @@ public class StringDataTest extends TestCase {
 		HashMap map = new HashMap();
 		assertNotNull(map);
 		for (int idx=0; idx < count; idx++) {
-			Integer key = new Integer(idx);
-			Integer val = new Integer(idx);
+			Integer key = Integer.valueOf(idx);
+			Integer val = Integer.valueOf(idx);
 			map.put(key,val);
 			assertEquals(val,map.get(key));
 		}
@@ -93,6 +90,7 @@ public class StringDataTest extends TestCase {
 		System.out.println("Custom HashMap put ET - " + (end-start));
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testJUHashMap1() {
 		int count = 100000;
 		java.util.HashMap map = new java.util.HashMap();
@@ -125,6 +123,7 @@ public class StringDataTest extends TestCase {
 		System.out.println("Custom HashMap containsKey ET - " + (end-start));
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testJUHashMap2() {
 		int count = 100000;
 		java.util.HashMap map = new java.util.HashMap();
@@ -161,6 +160,7 @@ public class StringDataTest extends TestCase {
 		System.out.println("Custom HashMap get(key) ET - " + (end-start));
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testJUHashMap3() {
 		int count = 100000;
 		java.util.HashMap map = new java.util.HashMap();
@@ -198,6 +198,7 @@ public class StringDataTest extends TestCase {
 		System.out.println("Custom HashMap iterate ET - " + (end-start));
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testJUHashMap4() {
 		int count = 100000;
 		java.util.HashMap map = new java.util.HashMap();

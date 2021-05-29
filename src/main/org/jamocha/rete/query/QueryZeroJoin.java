@@ -57,6 +57,7 @@ public class QueryZeroJoin extends QueryBaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map leftmem = (Map) mem.getQueryBetaMemory(this);
 		Map rightmem = (Map) mem.getQueryRightMemory(this);
@@ -80,6 +81,7 @@ public class QueryZeroJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -100,6 +102,7 @@ public class QueryZeroJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map rightmem = (Map) mem.getBetaRightMemory(this);

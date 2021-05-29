@@ -44,11 +44,14 @@ import org.jamocha.rete.util.IOUtilities;
  */
 public class GenerateFactsFunction implements Function, Serializable {
 
-	public static final String GENERATEFACTS = "generate-facts";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String GENERATEFACTS = "generate-facts";
+
+	
 	public GenerateFactsFunction() {
 		super();
 	}
@@ -57,6 +60,7 @@ public class GenerateFactsFunction implements Function, Serializable {
 		return Constants.OBJECT_TYPE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		boolean echo = false;
@@ -98,7 +102,7 @@ public class GenerateFactsFunction implements Function, Serializable {
 				ret.addReturnValue(rv);
 			} else {
 				DefaultReturnValue rv = new DefaultReturnValue(
-						Constants.BOOLEAN_OBJECT, new Boolean(false));
+						Constants.BOOLEAN_OBJECT, Boolean.FALSE);
 				ret.addReturnValue(rv);
 			}
 		}
@@ -112,6 +116,7 @@ public class GenerateFactsFunction implements Function, Serializable {
 	/**
 	 * The function does not take any parameters
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

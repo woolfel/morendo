@@ -27,12 +27,15 @@ import java.io.Serializable;
  */
 public class MultiValue implements Serializable {
 
-	protected Object value = null;
-	protected boolean negated = false;
-	
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	protected Object value = null;
+	protected boolean negated = false;
+	
+	
 	public MultiValue() {
 		super();
 	}

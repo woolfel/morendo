@@ -24,8 +24,6 @@ import java.util.List;
 import org.jamocha.rete.Defclass;
 import org.jamocha.rete.Deftemplate;
 import org.jamocha.rete.Fact;
-import org.jamocha.rete.Module;
-import org.jamocha.rete.MultiSlot;
 import org.jamocha.rete.Parameter;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.Slot;
@@ -44,6 +42,7 @@ public class GenerateFacts {
 		super();
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static ArrayList generateFacts(Rule rule, Rete engine) {
 		ArrayList facts = new ArrayList();
 		if (rule != null) {
@@ -78,11 +77,12 @@ public class GenerateFacts {
 	 * @param engine
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Object generateJavaFacts(ObjectCondition cond, Deftemplate templ, Rete engine) {
 		try {
 			Class theclz = Class.forName(templ.getClassName());
 			Defclass dfc = engine.findDefclass(theclz);
-			Object data = theclz.newInstance();
+			Object data = theclz.getDeclaredConstructor().newInstance();
 			Constraint[] cnstr = cond.getConstraints();
 			for (int idx=0; idx < cnstr.length; idx++) {
 				Constraint cn = cnstr[idx];
@@ -105,6 +105,10 @@ public class GenerateFacts {
 			return null;
 		} catch (InvocationTargetException e) {
 			return null;
+		} catch (NoSuchMethodException e) {
+			return null;
+		} catch (SecurityException e) {
+			return null;
 		}
 	}
 	
@@ -115,6 +119,7 @@ public class GenerateFacts {
 	 * @param engine
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Object generateDeffact(ObjectCondition cond, Deftemplate templ, Rete engine) {
 		ArrayList list = new ArrayList();
 		Constraint[] cnstr = cond.getConstraints();
@@ -131,7 +136,7 @@ public class GenerateFacts {
 			} else if (cn instanceof BoundConstraint) {
 				// for now we do the simple thing and just set
 				// any bound slots to 1
-				Slot s = new Slot(cn.getName(),new Integer(1));
+				Slot s = new Slot(cn.getName(), Integer.valueOf(1));
 				list.add(s);
 			}
 		}
@@ -148,7 +153,8 @@ public class GenerateFacts {
         return null;
     }
     
-    public static Object generatePredicateValue(PredicateConstraint pc) {
+    @SuppressWarnings("rawtypes")
+	public static Object generatePredicateValue(PredicateConstraint pc) {
     	String fname = pc.getFunctionName();
     	Object value = null;
 		Parameter p = null;

@@ -79,6 +79,7 @@ public class CubeDeleteDataFunction implements RuleFunction {
 		return CUBE_DELETE_DATA;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class};
 	}

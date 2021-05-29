@@ -17,6 +17,7 @@
 package org.jamocha.rete.measures;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class MedianMeasure implements AggregateMeasure {
 	public MedianMeasure() {
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected BigDecimal calculate(Rete engine, Cube cube, List data) {
 		if (data != null) {
 			java.util.Collections.sort(data);
@@ -61,7 +63,7 @@ public class MedianMeasure implements AggregateMeasure {
 				Object val1 = data.get(div);
 				Object val2 = data.get(div - 1);
 				BigDecimal total = addValues(val1, val2);
-				return total.divide(new BigDecimal(2), 30, BigDecimal.ROUND_DOWN);
+				return total.divide(new BigDecimal(2), 30, RoundingMode.DOWN);
 			}
 		}
 		return new BigDecimal(0);
@@ -70,6 +72,7 @@ public class MedianMeasure implements AggregateMeasure {
 	/**
 	 * Method extracts the values and call an internal protected method to calculate the median
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BigDecimal calculate(Rete engine, Cube cube, Object[] data, CubeBinding binding) {
 		if (data != null) {
 			ArrayList values = new ArrayList();

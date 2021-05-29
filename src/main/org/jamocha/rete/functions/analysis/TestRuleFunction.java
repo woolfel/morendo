@@ -40,11 +40,14 @@ import org.jamocha.rule.util.GenerateFacts;
  */
 public class TestRuleFunction implements Function, Serializable {
 
-	public static final String TESTRULE = "test-rule";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String TESTRULE = "test-rule";
+
+
 	public TestRuleFunction() {
 		super();
 	}
@@ -53,10 +56,11 @@ public class TestRuleFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		if (params != null && params.length == 1) {
-			String rlz = params[0].getStringValue();
+			// String rlz = params[0].getStringValue(); Unused
 			Defrule r = (Defrule)engine.getCurrentFocus().findRule(
 					params[0].getStringValue());
 			ArrayList facts = GenerateFacts.generateFacts(r,engine);
@@ -80,7 +84,7 @@ public class TestRuleFunction implements Function, Serializable {
 			}
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(true));
+				Constants.BOOLEAN_OBJECT, Boolean.TRUE);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -92,6 +96,7 @@ public class TestRuleFunction implements Function, Serializable {
 	/**
 	 * The function does not take any parameters
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

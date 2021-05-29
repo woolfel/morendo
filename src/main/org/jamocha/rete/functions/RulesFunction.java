@@ -55,6 +55,7 @@ public class RulesFunction implements Function, Serializable {
 		return Constants.RETURN_VOID_TYPE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Collection rules = engine.getCurrentFocus().getAllRules();
 		int count = rules.size();
@@ -73,6 +74,7 @@ public class RulesFunction implements Function, Serializable {
 		return rv;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

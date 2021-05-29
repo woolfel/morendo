@@ -30,18 +30,21 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		String key = applicationName + "::" + version;
 		return (RuleApplication)this.ruleService.getRuleApplicationMap().get(key);	}
 
+	@SuppressWarnings("rawtypes")
 	public int getEnginePoolCount(String ruleApplication, String version) {
 		String key = ruleApplication + "::" + version;
 		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().get(key);
 		return queue.size();
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List getEngines(String applicationName, String version) {
 		String key = applicationName + "::" + version;
 		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().get(key);
 		return new java.util.ArrayList(queue);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getRuleApplications() {
 		return this.ruleService.getRuleApplications();
 	}
@@ -50,6 +53,7 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		return ruleService.getServiceConfiguration();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void reinitialize(String ruleApplication, String version) {
 		servletContext.log("--- Start reinitializing rule application: " + ruleApplication + " " + version);
 		String key = ruleApplication + "::" + version;
@@ -74,6 +78,7 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		servletContext.log("--- Finished reinitializing rule application: " + ruleApplication + " " + version);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean reloadFunctionPackage(String ruleApplication, String version) {
 		servletContext.log("--- Start reloading Function Package: " + ruleApplication + " " + version);
 		boolean reload = false;
@@ -92,6 +97,7 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		return reload;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean reloadInitialData(String ruleApplication, String version) {
 		servletContext.log("--- Start reloading Initial Data: " + ruleApplication + " " + version);
 		boolean reload = false;
@@ -110,6 +116,7 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		return reload;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean reloadRuleset(String ruleApplication, String version) {
 		servletContext.log("--- Start reloading Ruleset: " + ruleApplication + " " + version);
 		boolean reload = false;

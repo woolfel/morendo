@@ -10,6 +10,10 @@ import org.jamocha.rete.Rete;
 
 public abstract class AbstractJamochaEditor extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Rete engine;
 
 	public AbstractJamochaEditor(Rete engine) {

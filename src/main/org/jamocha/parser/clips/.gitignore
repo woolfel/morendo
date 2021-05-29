@@ -1,0 +1,11 @@
+/CLIPSParser.java
+/CLIPSParserConstants.java
+/CLIPSParserTokenManager.java
+/ParseException.java
+/SimpleCharStream.java
+/TokenMgrError.java
+/Token.java
+/Provider.java
+/StreamProvider.java
+/StringProvider.java
+/TokenMgrException.java

@@ -23,7 +23,8 @@ public abstract class AbstractCondition implements Condition {
     /**
      * the constraints for the condition element
      */
-    protected List constraints = new ArrayList(8);
+    @SuppressWarnings("rawtypes")
+	protected List constraints = new ArrayList(8);
     /**
      * In the case the object pattern is negated, the boolean
      * would be set to true.
@@ -32,7 +33,8 @@ public abstract class AbstractCondition implements Condition {
     /**
      * a list for the RETE nodes created by RuleCompiler
      */
-    protected List nodes = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	protected List nodes = new ArrayList();
     /**
      * the deftemplate associated with the ObjectCondition
      */
@@ -44,7 +46,8 @@ public abstract class AbstractCondition implements Condition {
      */
     protected long partialMatchCount = 0;
     
-    public void addNewAlphaNodes(BaseNode node) {
+    @SuppressWarnings("unchecked")
+	public void addNewAlphaNodes(BaseNode node) {
     	if (node != null) {
             if (!nodes.contains(node)) {
                 nodes.add(node);
@@ -60,7 +63,8 @@ public abstract class AbstractCondition implements Condition {
     	}
     }
 
-    public void addNode(BaseNode node) {
+    @SuppressWarnings("unchecked")
+	public void addNode(BaseNode node) {
         if (!this.nodes.contains(node)) {
             this.nodes.add(node);
         }
@@ -75,7 +79,8 @@ public abstract class AbstractCondition implements Condition {
     /**
      * returns the bindings, excluding predicateConstraints
      */
-    public List getBindConstraints() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public List getBindConstraints() {
         ArrayList binds = new ArrayList();
         Iterator itr = constraints.iterator();
         while (itr.hasNext()) {
@@ -111,7 +116,8 @@ public abstract class AbstractCondition implements Condition {
         }
     }
 
-    public List getNodes() {
+    @SuppressWarnings("rawtypes")
+	public List getNodes() {
         return this.nodes;
     }
 
@@ -154,16 +160,19 @@ public abstract class AbstractCondition implements Condition {
         return this.negated;
     }
     
-    public Constraint[] getConstraints() {
+    @SuppressWarnings("unchecked")
+	public Constraint[] getConstraints() {
         Constraint[] con = new Constraint[constraints.size()];
         return (Constraint[])constraints.toArray(con);
     }
     
-    public void addConstraint(Constraint con) {
+    @SuppressWarnings("unchecked")
+	public void addConstraint(Constraint con) {
         this.constraints.add(con);
     }
     
-    public void addConstraint(Constraint con, int position) {
+    @SuppressWarnings("unchecked")
+	public void addConstraint(Constraint con, int position) {
         this.constraints.add(0,con);
     }
     

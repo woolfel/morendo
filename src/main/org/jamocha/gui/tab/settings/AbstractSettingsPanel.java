@@ -11,6 +11,10 @@ import org.jamocha.gui.JamochaGui;
 
 public abstract class AbstractSettingsPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected JamochaGui gui;
 
 	public AbstractSettingsPanel(JamochaGui gui) {

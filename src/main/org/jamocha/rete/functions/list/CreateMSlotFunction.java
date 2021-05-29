@@ -30,6 +30,7 @@ public class CreateMSlotFunction implements Serializable, Function {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		List list = new ArrayList();
@@ -67,6 +68,7 @@ public class CreateMSlotFunction implements Serializable, Function {
 		return CREATE_MULTISLOT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}

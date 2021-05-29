@@ -13,6 +13,7 @@ public class MacroFunctions implements FunctionGroup {
 	 */
 	private static final long serialVersionUID = 1L;
 	public static final String MACRO_FUNCTIONS = "Macro Functions";
+	@SuppressWarnings("rawtypes")
 	protected ArrayList funcs = new ArrayList();
 
 	public MacroFunctions() {
@@ -23,10 +24,12 @@ public class MacroFunctions implements FunctionGroup {
 		return MACRO_FUNCTIONS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		UseMacroFunction usemacro = new UseMacroFunction();
 		funcs.add(usemacro);

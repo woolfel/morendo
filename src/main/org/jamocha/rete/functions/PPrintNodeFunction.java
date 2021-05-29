@@ -69,6 +69,7 @@ public class PPrintNodeFunction implements Function, Serializable {
 		return PPNODE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

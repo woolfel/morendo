@@ -59,7 +59,8 @@ public class OnlyCondition extends ObjectCondition {
 	}
 
 	public ConditionCompiler getCompiler(RuleCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).onlyConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.onlyConditionCompiler;
 	}
     
     public static OnlyCondition newOnlyCondition(ObjectCondition cond) {

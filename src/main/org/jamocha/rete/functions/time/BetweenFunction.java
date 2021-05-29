@@ -17,10 +17,6 @@
 package org.jamocha.rete.functions.time;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Calendar;
-import java.util.Date;
 
 import org.jamocha.rete.Constants;
 import org.jamocha.rete.DefaultReturnValue;
@@ -60,7 +56,7 @@ public class BetweenFunction extends AbstractTimeFunction implements Function, S
 	 * line.
 	 */
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean eval = false;
+		Boolean eval = Boolean.FALSE;
 		if (params != null && params.length == 3) {
 			Object one = params[0].getValue(engine, Constants.OBJECT_TYPE);
 			Object two = params[1].getValue(engine, Constants.OBJECT_TYPE);
@@ -69,13 +65,13 @@ public class BetweenFunction extends AbstractTimeFunction implements Function, S
 			long end = getMillisecondTime(two);
 			long time = getMillisecondTime(three);
 			if (begin < time && time < end) {
-				eval = true;
+				eval = Boolean.TRUE;
 			}
 		}
 		
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = 
-			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(eval));
+			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, eval);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -84,6 +80,7 @@ public class BetweenFunction extends AbstractTimeFunction implements Function, S
 		return BETWEEN;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
         return new Class[]{Object.class,Object.class,Object.class};
 	}

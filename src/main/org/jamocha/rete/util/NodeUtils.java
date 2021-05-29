@@ -16,15 +16,9 @@
  */
 package org.jamocha.rete.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jamocha.rete.BindValue;
 import org.jamocha.rete.Binding;
-import org.jamocha.rete.Binding2;
-import org.jamocha.rete.BoundParam;
 import org.jamocha.rete.Fact;
-import org.jamocha.rete.Parameter;
 
 public class NodeUtils {
     /**

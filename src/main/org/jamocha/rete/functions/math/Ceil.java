@@ -37,6 +37,10 @@ import org.jamocha.rete.ValueParam;
  */
 public class Ceil implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String CEIL = "ceil";
 
 	/**
@@ -61,12 +65,13 @@ public class Ceil implements Function, Serializable {
 				} else {
 					bdval = new BigDecimal( params[idx].getValue(engine, Constants.BIG_DECIMAL).toString());
 				}
-				bd = bd.valueOf(bdval.intValue());
+				BigDecimal valueOf = BigDecimal.valueOf(bdval.intValue());
+				bd = valueOf;
 				bd = bdval.subtract(bd);
 				if (bd.doubleValue() < 0) 
-					bdval = bdval.valueOf(bdval.intValue());
+					bdval = BigDecimal.valueOf(bdval.intValue());
 				else if (bd.doubleValue() > 0) 
-					bdval = bdval.valueOf(bdval.intValue() + 1);
+					bdval = BigDecimal.valueOf(bdval.intValue() + 1);
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
@@ -80,6 +85,7 @@ public class Ceil implements Function, Serializable {
 		return CEIL;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

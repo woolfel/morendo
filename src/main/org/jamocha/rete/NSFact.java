@@ -39,7 +39,8 @@ import java.io.Serializable;
  */
 public class NSFact implements Fact, Serializable {
 
-    private Deftemplate deftemplate = null;
+	private static final long serialVersionUID = 1L;
+	private Deftemplate deftemplate = null;
     private Defclass dclazz = null;
     private Object objInstance;
     private Slot[] slots = null;

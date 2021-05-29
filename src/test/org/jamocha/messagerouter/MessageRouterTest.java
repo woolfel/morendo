@@ -19,9 +19,6 @@ package org.jamocha.messagerouter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jamocha.messagerouter.MessageEvent;
-import org.jamocha.messagerouter.MessageRouter;
-import org.jamocha.messagerouter.StringChannel;
 import org.jamocha.rete.Rete;
 
 public class MessageRouterTest {

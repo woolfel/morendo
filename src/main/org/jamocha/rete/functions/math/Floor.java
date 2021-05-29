@@ -37,11 +37,13 @@ import org.jamocha.rete.ValueParam;
  */
 public class Floor implements Function, Serializable {
 
-	public static final String FLOOR = "floor";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String FLOOR = "floor";
+
 	public Floor() {
 		super();
 	}
@@ -61,12 +63,12 @@ public class Floor implements Function, Serializable {
 				} else {
 					bdval = new BigDecimal( params[idx].getValue(engine, Constants.BIG_DECIMAL).toString());
 				}
-				bd = bd.valueOf(bdval.intValue());
+				bd = BigDecimal.valueOf(bdval.intValue());
 				bd = bdval.subtract(bd);
 				if (bd.doubleValue() > 0) 
-					bdval = bdval.valueOf(bdval.intValue());
+					bdval = BigDecimal.valueOf(bdval.intValue());
 				else if (bd.doubleValue() < 0) 
-					bdval = bdval.valueOf(bdval.intValue() - 1);
+					bdval = BigDecimal.valueOf(bdval.intValue() - 1);
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
@@ -80,6 +82,7 @@ public class Floor implements Function, Serializable {
 		return FLOOR;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

@@ -14,6 +14,7 @@ public class UserDefinedFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	public static final String USER_DEFINED_FUNCTIONS = "User Defined Functions";
 	
@@ -24,6 +25,7 @@ public class UserDefinedFunctions implements FunctionGroup, Serializable {
 		return USER_DEFINED_FUNCTIONS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return this.funcs;
 	}
@@ -35,6 +37,7 @@ public class UserDefinedFunctions implements FunctionGroup, Serializable {
 	public void loadFunctions(Rete engine) {
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addFunction(Function f) {
 		this.funcs.add(f);
 	}

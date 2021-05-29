@@ -31,6 +31,7 @@ public class IntersectionFunction implements Serializable, Function {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		Object[] result = null;
@@ -51,6 +52,7 @@ public class IntersectionFunction implements Serializable, Function {
 		return ret;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Set convertToList(Object[] array) {
 		Set data = new HashSet();
 		for (int idx=0; idx < array.length; idx++) {
@@ -62,6 +64,7 @@ public class IntersectionFunction implements Serializable, Function {
 		return INTERSECTION;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}

@@ -38,11 +38,13 @@ import org.jamocha.rete.ValueParam;
  */
 public class Exp implements Function, Serializable {
 
-	public static final String EXP = "exp";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String EXP = "exp";
+
 	public Exp() {
 		super();
 	}
@@ -62,7 +64,7 @@ public class Exp implements Function, Serializable {
 					bdval = new BigDecimal( params[idx].getValue(engine, Constants.BIG_DECIMAL).toString());
 				}
 				double bdh = Math.pow(Math.E, bdval.doubleValue());
-				bdval = bdval.valueOf(bdh);
+				bdval = BigDecimal.valueOf(bdh);
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
@@ -76,6 +78,7 @@ public class Exp implements Function, Serializable {
 		return EXP;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

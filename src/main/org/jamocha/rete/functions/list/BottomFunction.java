@@ -25,12 +25,13 @@ public class BottomFunction implements Function, Serializable {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
 		Object rl = null;
 		if (params != null && params.length == 2) {
 			int count = params[0].getBigIntegerValue().intValue();
-			rl = params[1].getValue();
+			rl = params[1].getValue(engine, Constants.OBJECT_TYPE);
 			if (rl instanceof List) {
 				List list = (List)rl;
 				if (list.size() > count) {
@@ -67,6 +68,7 @@ public class BottomFunction implements Function, Serializable {
 		return BOTTOM;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}

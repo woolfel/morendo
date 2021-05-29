@@ -34,7 +34,9 @@ import java.util.Queue;
  * @author Peter Lin
  */
 public class AgentRegistry {
+	@SuppressWarnings("rawtypes")
 	private static Map agentRegistry = new HashMap();
+	@SuppressWarnings("rawtypes")
 	private static Map agentSummaries = new HashMap();
 	
 	/**
@@ -43,6 +45,7 @@ public class AgentRegistry {
 	 * the existing entry.
 	 * @param agent
 	 */
+	@SuppressWarnings("unchecked")
 	public static void registerAgent(AgentEntry agent) {
 		if (!agentRegistry.containsKey(agent.getKey())) {
 			agentRegistry.put(agent.getKey(), agent);
@@ -53,6 +56,7 @@ public class AgentRegistry {
 		return (AgentEntry)agentRegistry.get(key);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static List getAgents() {
 		return new ArrayList(agentRegistry.values());
 	}
@@ -61,6 +65,7 @@ public class AgentRegistry {
 		return (AgentEntry)agentRegistry.remove(agent.getKey());
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void addSummary(AgentPerformanceSummary summary) {
 		Queue queue = (Queue)agentSummaries.get(summary.getKey());
 		if (queue == null) {
@@ -73,6 +78,7 @@ public class AgentRegistry {
 		queue.offer(summary);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Queue getSummary(AgentPerformanceSummary summary) {
 		Queue queue = (Queue)agentSummaries.get(summary.getKey());
 		if (queue == null) {
@@ -88,6 +94,7 @@ public class AgentRegistry {
 	 * administration service.
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static List getPerformanceSummaries() {
 		return new ArrayList(agentSummaries.values());
 	}

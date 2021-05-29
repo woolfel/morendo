@@ -40,11 +40,15 @@ public interface Mapping extends Serializable, Print {
 	String getTemplate();
 	void setTemplate(String template);
 	
+	@SuppressWarnings("rawtypes")
 	List getKeyProperties();
+	@SuppressWarnings("rawtypes")
 	void setKeyProperties(List keyProperties);
 	void addKeyProperty(KeyProperty key);
 	
+	@SuppressWarnings("rawtypes")
 	List getProperties();
+	@SuppressWarnings("rawtypes")
 	void setProperties(List properties);
 	void addProperty(Property property);
 	

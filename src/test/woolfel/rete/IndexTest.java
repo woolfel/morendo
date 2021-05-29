@@ -51,8 +51,8 @@ public class IndexTest extends TestCase {
      * Startout with a simple test of 2 Long objects
      */
     public void testObjectEquals() {
-        Long l1 = new Long(2);
-        Long l2 = new Long(2);
+        Long l1 = Long.valueOf(2);
+        Long l2 = Long.valueOf(2);
         assertEquals(true,l1.equals(l2));
     }
 
@@ -167,7 +167,8 @@ public class IndexTest extends TestCase {
      * Test the index with a HashMap and make sure it all works
      * as expected.
      */
-    public void testHashMapIndex() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testHashMapIndex() {
         Defclass dc = new Defclass(TestBean2.class);
         Deftemplate dtemp = (Deftemplate)dc.createDeftemplate("testBean2");
         TestBean2 bean = new TestBean2();

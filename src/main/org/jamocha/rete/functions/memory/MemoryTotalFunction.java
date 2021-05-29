@@ -28,6 +28,11 @@ import org.jamocha.rete.ReturnVector;
 
 public class MemoryTotalFunction implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String MEMORY_TOTAL = "mem-total";
 	
 	public MemoryTotalFunction() {
@@ -53,6 +58,7 @@ public class MemoryTotalFunction implements Function, Serializable {
 		return MEMORY_TOTAL;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

@@ -30,7 +30,11 @@ import java.util.ArrayList;
  */
 public class Account implements IAccount, Serializable {
 
-    protected String first = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected String first = null;
     protected String middle = null;
     protected String last = null;
     /**
@@ -56,6 +60,7 @@ public class Account implements IAccount, Serializable {
     protected String ext = null;
     protected int age = 0;
     
+	@SuppressWarnings("rawtypes")
 	protected ArrayList listeners = new ArrayList();
     
 	/**
@@ -239,13 +244,14 @@ public class Account implements IAccount, Serializable {
 
 	public void setAge(int age) {
 		if (age != this.age) {
-			Integer old = new Integer(this.age);
+			Integer old = Integer.valueOf(this.age);
 			this.age = age;
-			notifyListener("age", old, new Integer(this.age));
+			notifyListener("age", old, Integer.valueOf(this.age));
 		}
 	}
 
-    public void addPropertyChangeListener(PropertyChangeListener listener){
+    @SuppressWarnings("unchecked")
+	public void addPropertyChangeListener(PropertyChangeListener listener){
         this.listeners.add(listener);
     }
     

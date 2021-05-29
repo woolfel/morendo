@@ -67,6 +67,7 @@ public class CallMethodFunction implements Function, Serializable {
 	/**
 	 * 
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Object rtn = null;
 		DefaultReturnVector drv = new DefaultReturnVector();
@@ -134,6 +135,7 @@ public class CallMethodFunction implements Function, Serializable {
 	 * <br/>
 	 * Example: (set-member ?objectVariable slotName value)
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { BoundParam.class, ValueParam.class, ValueParam[].class };
 	}

@@ -63,6 +63,7 @@ public class VersionFunction implements Function, Serializable {
 	/**
 	 * The function does not take any parameters
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

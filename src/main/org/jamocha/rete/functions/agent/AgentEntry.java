@@ -26,6 +26,7 @@ public class AgentEntry {
 	private String agentApplicationName;
 	private String agentApplicationVersion;
 	private long timestamp;
+	@SuppressWarnings("rawtypes")
 	private List ruleNames = new ArrayList();
 	
 	public AgentEntry() {
@@ -86,6 +87,7 @@ public class AgentEntry {
 		this.timestamp = ms;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List getRules() {
 		return this.ruleNames;
 	}
@@ -94,6 +96,7 @@ public class AgentEntry {
 		this.ruleNames.remove(name);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void addRule(String name) {
 		this.ruleNames.add(name);
 	}

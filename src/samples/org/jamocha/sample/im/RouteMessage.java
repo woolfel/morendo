@@ -19,6 +19,11 @@ import org.jamocha.rete.ReturnVector;
  */
 public class RouteMessage implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String ROUTE_MESSAGE = "route-msg";
 	
 	public RouteMessage() {
@@ -47,6 +52,7 @@ public class RouteMessage implements Function, Serializable {
 		return ROUTE_MESSAGE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{Object.class};
 	}

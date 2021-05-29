@@ -31,7 +31,12 @@ import org.jamocha.rete.compiler.ConditionCompiler;
  */
 public class TemporalCondition extends ObjectCondition {
 
-    protected String varname = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	protected String varname = null;
     protected int relativeTime = 0;
     protected int intervalTime = 0;
     protected String function = null;
@@ -85,7 +90,8 @@ public class TemporalCondition extends ObjectCondition {
         this.parameters = parameters;
     }
     
-    public void addFunction(List list) {
+    @SuppressWarnings("rawtypes")
+	public void addFunction(List list) {
         if (list.size() > 0) {
             Object[] array = list.toArray();
             ValueParam vp = (ValueParam)array[0];
@@ -148,6 +154,7 @@ public class TemporalCondition extends ObjectCondition {
     }
 
 	public ConditionCompiler getCompiler(RuleCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).temporalConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.temporalConditionCompiler;
 	}
 }

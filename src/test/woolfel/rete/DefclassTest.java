@@ -151,7 +151,8 @@ public class DefclassTest extends TestCase {
         assertNotNull(dtemp);
     }
     
-    public void testDeclareObject() {
+    @SuppressWarnings("rawtypes")
+	public void testDeclareObject() {
         Rete engine = new Rete();
         assertNotNull(engine);
         engine.declareObject(Account.class);

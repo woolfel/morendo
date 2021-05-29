@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Subtract implements Function, Serializable {
 
-    public static final String SUBTRACT = "subtract";
-
     /**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String SUBTRACT = "subtract";
+
+   
 	public Subtract() {
 		super();
 	}
@@ -77,6 +80,7 @@ public class Subtract implements Function, Serializable {
 		return SUBTRACT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
         return new Class[] {ValueParam[].class};
 	}

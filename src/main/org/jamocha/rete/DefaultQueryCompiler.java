@@ -54,9 +54,11 @@ public class DefaultQueryCompiler implements QueryCompiler {
 	 */
 	private static final long serialVersionUID = 1L;
     private Rete engine = null;
-    private Map objectTypeNodesMap = null;
+    @SuppressWarnings("rawtypes")
+	private Map objectTypeNodesMap = null;
     
-    private ArrayList listener = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	private ArrayList listener = new ArrayList();
     protected boolean validate = true;
     protected TemplateValidation tval = null;
     
@@ -73,6 +75,7 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * @param engine
      * @param inputNodes
      */
+	@SuppressWarnings("rawtypes")
 	public DefaultQueryCompiler(Rete engine, Map inputNodes) {
 		super();
         this.engine = engine;
@@ -112,59 +115,42 @@ public class DefaultQueryCompiler implements QueryCompiler {
      */
 	public boolean addQuery(Query query) {
 		query.resolveTemplates(engine);
-		if (true) {
-			this.currentQuery = (Defquery)query;
-			
-			QueryRootNode queryRoot = engine.getRootNode().createQueryRoot(engine);
-			currentQuery.setQueryNetwork(queryRoot);
-            
-			if (query.getConditions() != null && query.getConditions().length > 0) {
-	            try {
-	                Condition[] conds = this.getRuleConditions(query);
-	                // first we create the constraints, before creating the Conditional
-	                // elements which include joins
-                    // we use a counter and only increment it to make sure the
-                    // row index of the bindings are accurate. this makes it simpler
-                    // for the rule compiler and compileJoins is cleaner and does
-                    // less work.
-                    int counter = 0;
-	                for (int idx=0; idx < conds.length; idx++) {
-	                    Condition con = conds[idx];
-	                    // compile object conditions
-	                    //implement in the ObjectConditionCompiler.compile or ExistConditionCompiler.compile
-	                    con.getCompiler(this).compile(con, counter, query);
-	                    
-                        if ((con instanceof ObjectCondition)&&(!((ObjectCondition)con).getNegated())) {
-                            counter++;
-                        }
-	                }
-                    // now we compile the joins
-	                compileJoins(query,conds);
-	                
-	                BaseNode last = query.getLastNode();
-	                QueryResultNode resultNode = new QueryResultNode(engine.nextNodeId());
-	                last.addSuccessorNode(resultNode, engine, null);
-	                currentQuery.setQueryResultNode(resultNode);
-	                
-	                engine.declareDefquery(query);
-	                
-	        		this.currentQuery = null;
-	                return true;
-	            } catch (AssertException e) {
-	                CompileEvent ce = new CompileEvent(query,CompileEvent.INVALID_RULE);
-	                ce.setMessage(Messages.getString("RuleCompiler.assert.error")); //$NON-NLS-1$
-	                this.notifyListener(ce);
-	                log.debug(e);
-	        		this.currentQuery = null;
-	                return false;
-	            }
-            }
-            return false;
+		this.currentQuery = (Defquery) query;
+		QueryRootNode queryRoot = engine.getRootNode().createQueryRoot(engine);
+		currentQuery.setQueryNetwork(queryRoot);
+		if (query.getConditions() != null && query.getConditions().length > 0) {
+			try {
+				Condition[] conds = this.getRuleConditions(query);
+				int counter = 0;
+				for (int idx = 0; idx < conds.length; idx++) {
+					Condition con = conds[idx];
+					con.getCompiler(this).compile(con, counter, query);
+					if ((con instanceof ObjectCondition) && (!((ObjectCondition) con).getNegated())) {
+						counter++;
+					}
+				}
+				compileJoins(query, conds);
+				BaseNode last = query.getLastNode();
+				QueryResultNode resultNode = new QueryResultNode(engine.nextNodeId());
+				last.addSuccessorNode(resultNode, engine, null);
+				currentQuery.setQueryResultNode(resultNode);
+				engine.declareDefquery(query);
+				this.currentQuery = null;
+				return true;
+			} catch (AssertException e) {
+				CompileEvent ce = new CompileEvent(query, CompileEvent.INVALID_RULE);
+				ce.setMessage(Messages.getString("RuleCompiler.assert.error"));
+				this.notifyListener(ce);
+				log.debug(e);
+				this.currentQuery = null;
+				return false;
+			}
 		}
-        return false;
+		return false;
 	}
 
-    public Condition[] getRuleConditions(Query query) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public Condition[] getRuleConditions(Query query) {
         Condition[] conditions = query.getConditions();
         ArrayList conditionList = new ArrayList();
         boolean hasAnd = false;
@@ -191,6 +177,7 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * or the key already exists, the compiler will not add it to the
      * network.
 	 */
+	@SuppressWarnings("unchecked")
 	public void addObjectTypeNode(QueryObjTypeNode node) {
         if (!this.objectTypeNodesMap.containsKey(node.getDeftemplate())) {
             this.objectTypeNodesMap.put(node.getDeftemplate(),node);
@@ -227,7 +214,8 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * @param templateName
      * @return
      */
-    public QueryObjTypeNode findObjectTypeNode(String templateName) {
+    @SuppressWarnings("rawtypes")
+	public QueryObjTypeNode findObjectTypeNode(String templateName) {
         Iterator itr = this.objectTypeNodesMap.keySet().iterator();
         Template tmpl = null;
         while (itr.hasNext()) {
@@ -252,6 +240,7 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * Implementation will check to see if the 
 	 * @see org.jamocha.rete.RuleCompiler#addListener(org.jamocha.rete.CompilerListener)
 	 */
+	@SuppressWarnings("unchecked")
 	public void addListener(CompilerListener listener) {
         if (!this.listener.contains(listener)) {
             this.listener.add(listener);
@@ -418,7 +407,8 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * @param position
      * @return
      */
-    public QueryBaseAlpha compileConstraint(PredicateConstraint cnstr,
+    @SuppressWarnings({ "rawtypes", "unchecked", "null" })
+	public QueryBaseAlpha compileConstraint(PredicateConstraint cnstr,
             Template templ, Query query, int position) {
     	QueryBaseAlphaCondition current = null;
         // Queries are different than rules in that the value will be
@@ -599,7 +589,8 @@ public class DefaultQueryCompiler implements QueryCompiler {
      * what kind of event it is and calling the appropriate method.
      * @param event
      */
-    public void notifyListener(CompileEvent event) {
+    @SuppressWarnings("rawtypes")
+	public void notifyListener(CompileEvent event) {
         Iterator itr = this.listener.iterator();
         //engine.writeMessage(event.getMessage());
         while (itr.hasNext()) {
@@ -615,6 +606,7 @@ public class DefaultQueryCompiler implements QueryCompiler {
         }
     }
 
+	@SuppressWarnings("rawtypes")
 	public Map getObjectTypeNodeMap() {
 		return objectTypeNodesMap;
 	}

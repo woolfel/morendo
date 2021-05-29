@@ -11,206 +11,202 @@ public interface CLIPSParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int COMMENT_TEXT = 7;
+  int COMMENT = 5;
   /** RegularExpression Id. */
-  int END_COMMENT = 8;
+  int LBRACE = 6;
   /** RegularExpression Id. */
-  int LBRACE = 9;
+  int RBRACE = 7;
   /** RegularExpression Id. */
-  int RBRACE = 10;
+  int INTEGER_LITERAL = 8;
   /** RegularExpression Id. */
-  int INTEGER_LITERAL = 11;
+  int FLOATING_POINT_LITERAL = 9;
   /** RegularExpression Id. */
-  int FLOATING_POINT_LITERAL = 12;
+  int EXPONENT = 10;
   /** RegularExpression Id. */
-  int EXPONENT = 13;
+  int STRING_LITERAL = 11;
   /** RegularExpression Id. */
-  int STRING_LITERAL = 14;
+  int BIND = 12;
   /** RegularExpression Id. */
-  int BIND = 15;
+  int BIND2 = 13;
   /** RegularExpression Id. */
-  int BIND2 = 16;
+  int BIND3 = 14;
   /** RegularExpression Id. */
-  int BIND3 = 17;
+  int BIND4 = 15;
   /** RegularExpression Id. */
-  int BIND4 = 18;
+  int BIND5 = 16;
   /** RegularExpression Id. */
-  int BIND5 = 19;
+  int BINDING = 17;
   /** RegularExpression Id. */
-  int BINDING = 20;
+  int BOOLEAN = 18;
   /** RegularExpression Id. */
-  int BOOLEAN = 21;
+  int AGGREGATE = 19;
   /** RegularExpression Id. */
-  int AGGREGATE = 22;
+  int ASSERT = 20;
   /** RegularExpression Id. */
-  int ASSERT = 23;
+  int ASSERTTEMPORAL = 21;
   /** RegularExpression Id. */
-  int ASSERTTEMPORAL = 24;
+  int AUTOFOCUS = 22;
   /** RegularExpression Id. */
-  int AUTOFOCUS = 25;
+  int ALLOWEDVALUES = 23;
   /** RegularExpression Id. */
-  int ALLOWEDVALUES = 26;
+  int CHAININGDIRECTION = 24;
   /** RegularExpression Id. */
-  int CHAININGDIRECTION = 27;
+  int COMMAND = 25;
   /** RegularExpression Id. */
-  int COMMAND = 28;
+  int CUBEQUERY = 26;
   /** RegularExpression Id. */
-  int CUBEQUERY = 29;
+  int DECLARE = 27;
   /** RegularExpression Id. */
-  int DECLARE = 30;
+  int DEFCLASS = 28;
   /** RegularExpression Id. */
-  int DEFCLASS = 31;
+  int DEFCUBE = 29;
   /** RegularExpression Id. */
-  int DEFCUBE = 32;
+  int DEFFACT = 30;
   /** RegularExpression Id. */
-  int DEFFACT = 33;
+  int DEFFUNCTION = 31;
   /** RegularExpression Id. */
-  int DEFFUNCTION = 34;
+  int DEFMODULE = 32;
   /** RegularExpression Id. */
-  int DEFMODULE = 35;
+  int DEFRULE = 33;
   /** RegularExpression Id. */
-  int DEFRULE = 36;
+  int DEFQUERY = 34;
   /** RegularExpression Id. */
-  int DEFQUERY = 37;
+  int DEFGRAPHQUERY = 35;
   /** RegularExpression Id. */
-  int DEFGRAPHQUERY = 38;
+  int DEFTEMPLATE = 36;
   /** RegularExpression Id. */
-  int DEFTEMPLATE = 39;
+  int DESCRIBECLASS = 37;
   /** RegularExpression Id. */
-  int DESCRIBECLASS = 40;
+  int DEFAULTVALUE = 38;
   /** RegularExpression Id. */
-  int DEFAULTVALUE = 41;
+  int DOUBLE = 39;
   /** RegularExpression Id. */
-  int DOUBLE = 42;
+  int EXISTS = 40;
   /** RegularExpression Id. */
-  int EXISTS = 43;
+  int EFFECTIVE = 41;
   /** RegularExpression Id. */
-  int EFFECTIVE = 44;
+  int EXPIRATION = 42;
   /** RegularExpression Id. */
-  int EXPIRATION = 45;
+  int FACTINDEX = 43;
   /** RegularExpression Id. */
-  int FACTINDEX = 46;
+  int FLOAT = 44;
   /** RegularExpression Id. */
-  int FLOAT = 47;
+  int HASHEDMEMORY = 45;
   /** RegularExpression Id. */
-  int HASHEDMEMORY = 48;
+  int INTEGER = 46;
   /** RegularExpression Id. */
-  int INTEGER = 49;
+  int INTERVALTIME = 47;
   /** RegularExpression Id. */
-  int INTERVALTIME = 50;
+  int LOGICAL = 48;
   /** RegularExpression Id. */
-  int LOGICAL = 51;
+  int LONG = 49;
   /** RegularExpression Id. */
-  int LONG = 52;
+  int MODIFY = 50;
   /** RegularExpression Id. */
-  int MODIFY = 53;
+  int MULTISLOT = 51;
   /** RegularExpression Id. */
-  int MULTISLOT = 54;
+  int MULTIPLECE = 52;
   /** RegularExpression Id. */
-  int MULTIPLECE = 55;
+  int NOAGENDA = 53;
   /** RegularExpression Id. */
-  int NOAGENDA = 56;
+  int NOLOOP = 54;
   /** RegularExpression Id. */
-  int NOLOOP = 57;
+  int NUMBER = 55;
   /** RegularExpression Id. */
-  int NUMBER = 58;
+  int NOTCE = 56;
   /** RegularExpression Id. */
-  int NOTCE = 59;
+  int ONLYCE = 57;
   /** RegularExpression Id. */
-  int ONLYCE = 60;
+  int REMEMBERALPHA = 58;
   /** RegularExpression Id. */
-  int REMEMBERALPHA = 61;
+  int RETRACT = 59;
   /** RegularExpression Id. */
-  int RETRACT = 62;
+  int RULEVERSION = 60;
   /** RegularExpression Id. */
-  int RULEVERSION = 63;
+  int RELATIVETIME = 61;
   /** RegularExpression Id. */
-  int RELATIVETIME = 64;
+  int SALIENCE = 62;
   /** RegularExpression Id. */
-  int SALIENCE = 65;
+  int SEND = 63;
   /** RegularExpression Id. */
-  int SEND = 66;
+  int SHORT = 64;
   /** RegularExpression Id. */
-  int SHORT = 67;
+  int SLOT = 65;
   /** RegularExpression Id. */
-  int SLOT = 68;
+  int STRING = 66;
   /** RegularExpression Id. */
-  int STRING = 69;
+  int SYMBOL = 67;
   /** RegularExpression Id. */
-  int SYMBOL = 70;
+  int TEMPORALACTIVATION = 68;
   /** RegularExpression Id. */
-  int TEMPORALACTIVATION = 71;
+  int TEMPORAL = 69;
   /** RegularExpression Id. */
-  int TEMPORAL = 72;
+  int TEST = 70;
   /** RegularExpression Id. */
-  int TEST = 73;
+  int TRUE = 71;
   /** RegularExpression Id. */
-  int TRUE = 74;
+  int TRUE2 = 72;
   /** RegularExpression Id. */
-  int TRUE2 = 75;
+  int TYPEDEF = 73;
   /** RegularExpression Id. */
-  int TYPEDEF = 76;
+  int FALSE = 74;
   /** RegularExpression Id. */
-  int FALSE = 77;
+  int FALSE2 = 75;
   /** RegularExpression Id. */
-  int FALSE2 = 78;
+  int NIL = 76;
   /** RegularExpression Id. */
-  int NIL = 79;
+  int ARROW = 77;
   /** RegularExpression Id. */
-  int ARROW = 80;
+  int LEFT_ARROW = 78;
   /** RegularExpression Id. */
-  int LEFT_ARROW = 81;
+  int ASSIGN = 79;
   /** RegularExpression Id. */
-  int ASSIGN = 82;
+  int SEMICOLON = 80;
   /** RegularExpression Id. */
-  int SEMICOLON = 83;
+  int PLUS = 81;
   /** RegularExpression Id. */
-  int PLUS = 84;
+  int MINUS = 82;
   /** RegularExpression Id. */
-  int MINUS = 85;
+  int MULTIPLY = 83;
   /** RegularExpression Id. */
-  int MULTIPLY = 86;
+  int DIVIDE = 84;
   /** RegularExpression Id. */
-  int DIVIDE = 87;
+  int GT1 = 85;
   /** RegularExpression Id. */
-  int GT1 = 88;
+  int LT1 = 86;
   /** RegularExpression Id. */
-  int LT1 = 89;
+  int EQ1 = 87;
   /** RegularExpression Id. */
-  int EQ1 = 90;
+  int EQ2 = 88;
   /** RegularExpression Id. */
-  int EQ2 = 91;
+  int LE1 = 89;
   /** RegularExpression Id. */
-  int LE1 = 92;
+  int GE1 = 90;
   /** RegularExpression Id. */
-  int GE1 = 93;
+  int NE1 = 91;
   /** RegularExpression Id. */
-  int NE1 = 94;
+  int NE2 = 92;
   /** RegularExpression Id. */
-  int NE2 = 95;
+  int AND1 = 93;
   /** RegularExpression Id. */
-  int AND1 = 96;
+  int AND2 = 94;
   /** RegularExpression Id. */
-  int AND2 = 97;
+  int OR1 = 95;
   /** RegularExpression Id. */
-  int OR1 = 98;
+  int OR2 = 96;
   /** RegularExpression Id. */
-  int OR2 = 99;
+  int TILDA = 97;
   /** RegularExpression Id. */
-  int TILDA = 100;
+  int IDENTIFIER = 98;
   /** RegularExpression Id. */
-  int IDENTIFIER = 101;
+  int LETTER = 99;
   /** RegularExpression Id. */
-  int LETTER = 102;
+  int DIGIT = 100;
   /** RegularExpression Id. */
-  int DIGIT = 103;
-  /** RegularExpression Id. */
-  int PATH_LITERAL = 104;
+  int PATH_LITERAL = 101;
 
   /** Lexical state. */
   int DEFAULT = 0;
-  /** Lexical state. */
-  int IN_COMMENT = 1;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -219,10 +215,7 @@ public interface CLIPSParserConstants {
     "\"\\t\"",
     "\"\\n\"",
     "\"\\r\"",
-    "\";;\"",
-    "<token of kind 6>",
-    "<COMMENT_TEXT>",
-    "<END_COMMENT>",
+    "<COMMENT>",
     "\"(\"",
     "\")\"",
     "<INTEGER_LITERAL>",

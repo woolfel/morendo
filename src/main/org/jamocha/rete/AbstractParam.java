@@ -25,6 +25,10 @@ import java.math.BigInteger;
  *         Parameter interface.
  */
 public abstract class AbstractParam implements Parameter, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected boolean objBinding = false;
 
 	/**
@@ -70,7 +74,7 @@ public abstract class AbstractParam implements Parameter, Serializable {
 	 */
 	public boolean getBooleanValue() throws ClassCastException {
 		if (getValue() != null && !(getValue() instanceof Boolean)) {
-			Boolean b = new Boolean(getStringValue());
+			Boolean b = Boolean.valueOf((getStringValue()));
 			return b.booleanValue();
 		} else {
 			return ((Boolean) getValue()).booleanValue();

@@ -19,8 +19,6 @@ package org.jamocha.rete.util;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.Iterator;
-
 import org.jamocha.rete.Fact;
 
 /**
@@ -30,6 +28,7 @@ import org.jamocha.rete.Fact;
  */
 public class IOUtilities {
 	
+	@SuppressWarnings("rawtypes")
 	public static boolean saveFacts(List facts, String output) {
 		try {
 			FileWriter writer = new FileWriter(output);

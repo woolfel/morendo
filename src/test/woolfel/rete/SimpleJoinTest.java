@@ -47,6 +47,7 @@ public class SimpleJoinTest extends TestCase {
 		super(arg0);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testFiveRules() {
 		int objCount = 25000;
         Random ran = new Random();

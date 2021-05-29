@@ -66,7 +66,7 @@ public class FireFunction implements Function, Serializable {
 		// engine.writeMessage(String.valueOf(count) + Constants.LINEBREAK,"t");
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.INTEGER_OBJECT, new Integer(count));
+				Constants.INTEGER_OBJECT, Integer.valueOf(count));
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -75,6 +75,7 @@ public class FireFunction implements Function, Serializable {
 		return FIRE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

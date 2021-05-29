@@ -38,11 +38,13 @@ import org.jamocha.rete.ValueParam;
  */
 public class Less implements Function, Serializable {
 
-	public static final String LESS = "less";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	public static final String LESS = "less";
+
+
 	public Less() {
 		super();
 	}
@@ -52,7 +54,7 @@ public class Less implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean eval = true;
+		Boolean eval = Boolean.TRUE;
 		BigDecimal left = null;
 		BigDecimal right = null;
 		if (params != null) {
@@ -77,7 +79,7 @@ public class Less implements Function, Serializable {
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(eval));
+				Constants.BOOLEAN_OBJECT, eval);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -86,6 +88,7 @@ public class Less implements Function, Serializable {
 		return LESS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}

@@ -36,8 +36,13 @@ import org.jamocha.rete.ConversionUtils;
  */
 public class AndLiteralConstraint implements Constraint {
 
-    protected String name;
-    protected ArrayList value = new ArrayList();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected String name;
+    @SuppressWarnings("rawtypes")
+	protected ArrayList value = new ArrayList();
     protected boolean negated = false;
     
 	/**
@@ -72,16 +77,19 @@ public class AndLiteralConstraint implements Constraint {
      * Set the value of the constraint. It should be a concrete value and
      * not a binding.
 	 */
+	@SuppressWarnings("rawtypes")
 	public void setValue(Object val) {
 		if (val instanceof ArrayList) {
 	        this.value = (ArrayList)val;
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void addValue(MultiValue mv) {
 		this.value.add(mv);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addValues(Collection list) {
 		this.value.addAll(list);
 	}
@@ -103,6 +111,7 @@ public class AndLiteralConstraint implements Constraint {
 		return this.negated;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public String toPPString() {
 		StringBuffer buf = new StringBuffer();
 		Iterator itr = this.value.iterator();

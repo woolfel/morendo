@@ -60,7 +60,7 @@ public class SpoolFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean sp = true;
+		Boolean sp = Boolean.TRUE;
 		if (params != null && params.length >= 2) {
 			String val = params[0].getStringValue();
 			if (val.equals("off")) {
@@ -84,17 +84,17 @@ public class SpoolFunction implements Function, Serializable {
 					engine.addPrintWriter(spname,writer);
 				} catch (FileNotFoundException e) {
 					// we should report it
-					sp = false;
+					sp = Boolean.FALSE;
 				} catch (IOException e) {
-					sp = false;
+					sp = Boolean.FALSE;
 				}
 			}
 		} else {
-			sp = false;
+			sp = Boolean.FALSE;
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = 
-			new DefaultReturnValue(Constants.BOOLEAN_OBJECT,new Boolean(sp));
+			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, sp);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -103,6 +103,7 @@ public class SpoolFunction implements Function, Serializable {
 		return SPOOL;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

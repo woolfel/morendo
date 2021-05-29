@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Sin implements Function, Serializable {
 
-	public static final String SIN = "sin";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String SIN = "sin";
+
+
 	public Sin() {
 		super();
 	}
@@ -75,6 +78,7 @@ public class Sin implements Function, Serializable {
 		return SIN;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

@@ -47,14 +47,17 @@ import org.jamocha.rete.functions.ShellFunction;
  */
 public class TestCondition implements Condition {
 
-    protected Function func = null;
-    protected TestNode node = null;
-    protected ArrayList binds = new ArrayList();
-    protected boolean negated = false;
-    
-	/**
+    /**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	protected Function func = null;
+    protected TestNode node = null;
+    @SuppressWarnings("rawtypes")
+	protected ArrayList binds = new ArrayList();
+    protected boolean negated = false;
+
+    
 	public TestCondition() {
 		super();
 	}
@@ -93,7 +96,8 @@ public class TestCondition implements Condition {
      * the current implementation creates a new ArrayList, adds the
      * TestNode to it and returns the list.
      */
-    public List getNodes() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public List getNodes() {
         List n = new ArrayList();
         n.add(node);
         return n;
@@ -144,6 +148,7 @@ public class TestCondition implements Condition {
      * return an List of the bindings. in the case of TestCondition, the
      * bindings are BoundParam
      */
+	@SuppressWarnings("rawtypes")
 	public List getBindConstraints() {
 		return binds;
 	}
@@ -184,14 +189,17 @@ public class TestCondition implements Condition {
     	return buf.toString();
     }
 
+	@SuppressWarnings("static-access")
 	public ConditionCompiler getCompiler(RuleCompiler ruleCompiler) {
 		return CompilerProvider.getInstance(ruleCompiler).testConditionCompiler;
 	}
 
+	@SuppressWarnings("static-access")
 	public ConditionCompiler getCompiler(QueryCompiler ruleCompiler) {
 		return CompilerProvider.getInstance(ruleCompiler).testConditionCompiler;
 	}
 	
+	@SuppressWarnings("static-access")
 	public ConditionCompiler getCompiler(GraphQueryCompiler ruleCompiler) {
 		return CompilerProvider.getInstance(ruleCompiler).testConditionCompiler;
 	}

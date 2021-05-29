@@ -21,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.jamocha.parser.clips.CLIPSParser;
 import org.jamocha.rete.Deffact;
@@ -46,7 +45,7 @@ import org.jamocha.rule.FunctionAction;
  */
 public class MemoryBenchmark2 {
 
-    private static Random ran = new Random();
+    // private static Random ran = new Random(); Unused
     
 	/**
 	 * 
@@ -55,7 +54,8 @@ public class MemoryBenchmark2 {
 		super();
 	}
 
-    public void parse(Rete engine, CLIPSParser parser, List factlist) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void parse(Rete engine, CLIPSParser parser, List factlist) {
         Object itm = null;
         try {
             while ((itm = parser.basicExpr()) != null) {
@@ -69,7 +69,7 @@ public class MemoryBenchmark2 {
 					engine.declareTemplate(dt);
 				} else if (itm instanceof FunctionAction) {
 					FunctionAction fa = (FunctionAction) itm;
-
+                    // TODO - has this been completed ?
 				} else if (itm instanceof Function) {
 					if (itm instanceof ShellFunction) {
 						ShellFunction sf = (ShellFunction)itm;
@@ -100,9 +100,10 @@ public class MemoryBenchmark2 {
         }
     }    
     
-    public static void main(String args[]) {
+    @SuppressWarnings("rawtypes")
+	public static void main(String args[]) {
         String rulefile = "./benchmark_files/4K_rules_50Kdata_sequential.clp";
-        String datafile = "./benchmark_files/test.clp";
+        // String datafile = "./benchmark_files/test.clp"; Unused
         boolean keepopen = false;
         if (args != null && args.length > 0) {
         	rulefile = args[0];

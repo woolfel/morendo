@@ -33,7 +33,8 @@ public class HashMapBenchmark {
 		super();
 	}
     
-    public HashMap createHashMap(int count) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public HashMap createHashMap(int count) {
     	HashMap map = new HashMap();
         for (int idx=0; idx < count; idx++) {
             map.put(String.valueOf(count), count + "value");
@@ -41,6 +42,7 @@ public class HashMapBenchmark {
         return map;
     }
 
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
         int[] series = {1000,10000,100000,1000000,10000000};
         HashMapBenchmark util = new HashMapBenchmark();

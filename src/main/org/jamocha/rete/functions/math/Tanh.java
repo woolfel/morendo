@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Tanh implements Function, Serializable {
 
-	public static final String TANH = "tanh";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String TANH = "tanh";
+
+
 	public Tanh() {
 		super();
 	}
@@ -75,6 +78,7 @@ public class Tanh implements Function, Serializable {
 		return TANH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

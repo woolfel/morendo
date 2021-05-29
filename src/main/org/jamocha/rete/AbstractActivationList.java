@@ -28,7 +28,12 @@ import java.io.Serializable;
 public abstract class AbstractActivationList implements ActivationList,
 		Serializable {
 
-    protected Strategy stratey = null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected Strategy stratey = null;
     
 	protected boolean lazy = true;
 

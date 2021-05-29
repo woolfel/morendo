@@ -119,7 +119,7 @@ public class TemplatesPanel extends AbstractJamochaPanel implements
 		initPopupMenu();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initTemplatesList() {
 		dataModel.clear();
 		Collection<Module> modules = gui.getEngine().getWorkingMemory().getModules();
@@ -219,7 +219,7 @@ public class TemplatesPanel extends AbstractJamochaPanel implements
 			return false;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public Class getColumnClass(int aColumn) {
 			if (aColumn == 0)
 				return java.lang.String.class;

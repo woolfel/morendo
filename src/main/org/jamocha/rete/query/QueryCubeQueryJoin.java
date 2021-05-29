@@ -95,7 +95,8 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
     	Map leftmem = (Map) mem.getQueryBetaMemory(this);
     	// first we create the hashIndex and put it in the left memory
@@ -143,7 +144,8 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
     	// first set the reference to CubeFact
     	this.cubeFact = (CubeFact)rfact;
@@ -185,7 +187,8 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
         }
     }
 
-    protected Object[] queryCube(Index linx, Cube c, Rete engine, WorkingMemory mem, ResultsetFact resultFact) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	protected Object[] queryCube(Index linx, Cube c, Rete engine, WorkingMemory mem, ResultsetFact resultFact) {
 		java.util.Set result = new java.util.HashSet();
 		Map firstResult = null;
 		// execute query

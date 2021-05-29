@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
@@ -80,6 +79,7 @@ public class CubeTestGenerator {
 	public Random random = new Random();
 	public Random randomShares = new Random();
 	
+	@SuppressWarnings("rawtypes")
 	private HashMap symbols = new HashMap();
 	private int numberOfPositions = 50;
 	
@@ -127,6 +127,7 @@ public class CubeTestGenerator {
 		codes[3] = subInd;
 		return codes;
 	}
+	@SuppressWarnings("rawtypes")
 	public void generateData(int count, String filename) {
 		FileWriter accountWriter = getWriter(filename + "_account_data.dat");
 		StringBuffer buf = new StringBuffer();
@@ -160,12 +161,13 @@ public class CubeTestGenerator {
 		buf.append("(lastName \"last" + counter + "\") (ssn " + ssn + ") (age " + age() + ") (gender \"m\")	)" + LINEBREAK);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void generatePositions(StringBuffer buf, String accountid, int positions) {
 		for (int idx=0; idx < positions; idx++) {
 			String ticker = this.nextTicker();
 			int shares = shares();
 			double price = price();
-			symbols.put(ticker, new Double(price));
+			symbols.put(ticker, Double.valueOf(price));
 			BigDecimal total = new BigDecimal(shares * price);
 			String totalText = currency.format(total.doubleValue());
 			String[] codes = getGICSCodes();

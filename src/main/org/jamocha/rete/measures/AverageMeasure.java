@@ -18,6 +18,7 @@ package org.jamocha.rete.measures;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 import org.jamocha.rete.Cube;
 import org.jamocha.rete.CubeBinding;
@@ -52,7 +53,7 @@ public class AverageMeasure implements AggregateMeasure {
 					sum = sum.add(new BigDecimal(bi.longValue()));
 				}
 			}
-			BigDecimal average = sum.divide(new BigDecimal(data.length), 30,BigDecimal.ROUND_DOWN);
+			BigDecimal average = sum.divide(new BigDecimal(data.length), 30, RoundingMode.DOWN);
 			return average;
 		} else {
 			return new BigDecimal(0);

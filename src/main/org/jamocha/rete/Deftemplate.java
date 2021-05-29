@@ -297,6 +297,7 @@ public class Deftemplate implements Template, Serializable {
 	 * @param id
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public Fact createFact(List data, long id) {
 		BaseSlot[] values = cloneAllSlots();
 		Iterator itr = data.iterator();
@@ -322,6 +323,7 @@ public class Deftemplate implements Template, Serializable {
 		return newfact;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Fact createFact(Object[] data, long id) {
 		BaseSlot[] values = cloneAllSlots();
         ArrayList bslots = new ArrayList();

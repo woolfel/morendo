@@ -39,35 +39,43 @@ public class CollectionsFactory {
 		factory = new CollectionsFactory();
 	}
 	
-    public static Map newAlphaMemoryMap(String name) {
+    @SuppressWarnings("rawtypes")
+	public static Map newAlphaMemoryMap(String name) {
         return new HashMap();
     }
     
-    public static Map newLinkedHashmap(String name) {
+    @SuppressWarnings("rawtypes")
+	public static Map newLinkedHashmap(String name) {
         return new LinkedHashMap();
     }
     
-    public static Map newBetaMemoryMap(String name) {
+    @SuppressWarnings("rawtypes")
+	public static Map newBetaMemoryMap(String name) {
         return new HashMap();
     }
     
-    public static Map newTerminalMap() {
+    @SuppressWarnings("rawtypes")
+	public static Map newTerminalMap() {
     	return new HashMap();
     }
     
-    public static Map newClusterableMap(String name) {
+    @SuppressWarnings("rawtypes")
+	public static Map newClusterableMap(String name) {
         return new HashMap();
     }
     
-    public static Map newMap() {
+    @SuppressWarnings("rawtypes")
+	public static Map newMap() {
     	return new HashMap();
     }
     
-    public static Map newHashMap() {
+    @SuppressWarnings("rawtypes")
+	public static Map newHashMap() {
     	return new HashMap();
     }
     
-    public static Map newNodeMap(String name) {
+    @SuppressWarnings("rawtypes")
+	public static Map newNodeMap(String name) {
         return new HashMap();
     }
     
@@ -78,11 +86,13 @@ public class CollectionsFactory {
      * JCache compliant product like Tangosol's Coherence.
      * @return
      */
-    public static Map localMap() {
+    @SuppressWarnings("rawtypes")
+	public static Map localMap() {
     	return new HashMap();
     }
     
-    public static java.util.Map javaHashMap() {
+    @SuppressWarnings("rawtypes")
+	public static java.util.Map javaHashMap() {
     	return new java.util.HashMap();
     }
     

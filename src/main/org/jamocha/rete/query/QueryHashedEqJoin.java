@@ -56,7 +56,8 @@ public class QueryHashedEqJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
         Map leftmem = (Map) mem.getQueryBetaMemory(this);
         leftmem.put(linx, linx);
@@ -83,7 +84,8 @@ public class QueryHashedEqJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem.getQueryRightMemory(this);
         EqHashIndex inx = new EqHashIndex(NodeUtils.getRightValues(this.binds,rfact));

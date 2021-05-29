@@ -47,6 +47,8 @@ public class DepthStrategy implements Strategy, Serializable {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+
 	public DepthStrategy() {
 		super();
 	}

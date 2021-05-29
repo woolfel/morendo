@@ -108,7 +108,7 @@ public class FunctionsPanel extends AbstractJamochaPanel implements ActionListen
 	}
 
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initFunctionsList() {
 		Collection c = gui.getEngine().getAllFunctions();
 		Function[] func = (Function[]) c.toArray(new Function[0]);
@@ -194,7 +194,7 @@ public class FunctionsPanel extends AbstractJamochaPanel implements ActionListen
 			return false;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public Class getColumnClass(int aColumn) {
 			if (aColumn == 0)
 				return java.lang.String.class;

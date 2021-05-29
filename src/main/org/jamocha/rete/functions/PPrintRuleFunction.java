@@ -67,12 +67,12 @@ public class PPrintRuleFunction implements Function {
 		return PPRULES;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 
 	public String toPPString(Parameter[] params, int indents) {
-		StringBuffer buf = new StringBuffer();
-		return buf.toString();
+		return "(ppdefrule <name>)";
 	}
 }

@@ -15,6 +15,7 @@ public class MessagingTest2 extends TestCase {
 	public MessagingTest2() {
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void testMessageFilter() {
 		this.engine = setupEngine();
 		if (this.engine == null) {
@@ -77,6 +78,7 @@ public class MessagingTest2 extends TestCase {
 		return usr;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BlockList createBlock() {
 		BlockList block = new BlockList();
 		block.setUserId("john.doe");

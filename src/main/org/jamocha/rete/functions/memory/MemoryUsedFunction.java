@@ -28,6 +28,11 @@ import org.jamocha.rete.ReturnVector;
 
 public class MemoryUsedFunction implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String MEMORY_FREE = "mem-used";
 	
 	public MemoryUsedFunction() {
@@ -57,6 +62,7 @@ public class MemoryUsedFunction implements Function, Serializable {
 		return MEMORY_FREE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

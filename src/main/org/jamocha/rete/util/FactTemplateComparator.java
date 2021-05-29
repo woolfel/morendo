@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import org.jamocha.rete.Fact;
 
+@SuppressWarnings("rawtypes")
 public class FactTemplateComparator implements Comparator {
 
 	public FactTemplateComparator() {

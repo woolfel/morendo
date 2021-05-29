@@ -78,6 +78,7 @@ public class EchoFunction implements Function, Serializable {
 		return ECHO;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ShellBoundParam[].class };
 	}

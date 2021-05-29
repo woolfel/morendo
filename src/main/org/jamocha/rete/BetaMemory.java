@@ -46,7 +46,8 @@ public interface BetaMemory extends Serializable {
      * Get the facts that match from the right side
      * @return
      */
-    Iterator iterateRightFacts();
+    @SuppressWarnings("rawtypes")
+	Iterator iterateRightFacts();
     /**
      * Get the match count
      * @return

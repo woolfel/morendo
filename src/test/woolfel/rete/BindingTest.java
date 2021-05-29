@@ -18,13 +18,6 @@ package woolfel.rete;
 
 import org.jamocha.rete.HashedEqBNode;
 import org.jamocha.rete.Binding;
-import org.jamocha.rete.Defclass;
-import org.jamocha.rete.Deftemplate;
-import org.jamocha.rete.Slot;
-
-import woolfel.examples.model.TestBean2;
-import woolfel.examples.model.TestBean3;
-
 import junit.framework.TestCase;
 
 /**
@@ -58,10 +51,6 @@ public class BindingTest extends TestCase {
     }
     
     public void testSingleBinding(){
-        Defclass dc = new Defclass(TestBean2.class);
-        Deftemplate dtemp = (Deftemplate)dc.createDeftemplate("testBean2");
-
-        Slot[] slts = dtemp.getAllSlots();
 
         Binding bn = new Binding();
         bn.setLeftRow(0);
@@ -77,10 +66,6 @@ public class BindingTest extends TestCase {
     }
     
     public void testTwoBinding(){
-        Defclass dc = new Defclass(TestBean2.class);
-        Deftemplate dtemp = (Deftemplate)dc.createDeftemplate("testBean2");
-
-        Slot[] slts = dtemp.getAllSlots();
 
         Binding bn = new Binding();
         bn.setLeftRow(0);
@@ -101,15 +86,6 @@ public class BindingTest extends TestCase {
     }
 
     public void testThreeBinding(){
-        Defclass dc = new Defclass(TestBean2.class);
-        Deftemplate dtemp = (Deftemplate)dc.createDeftemplate("testBean2");
-        
-        Defclass dc2 = new Defclass(TestBean3.class);
-        Deftemplate dtemp2 = (Deftemplate)dc.createDeftemplate("testBean3");
-        
-
-        Slot[] slts = dtemp.getAllSlots();
-        Slot[] slts2 = dtemp2.getAllSlots();
 
         Binding bn = new Binding();
         bn.setLeftRow(0);
@@ -135,15 +111,6 @@ public class BindingTest extends TestCase {
     }
     
     public void testThreeBinding2(){
-        Defclass dc = new Defclass(TestBean2.class);
-        Deftemplate dtemp = (Deftemplate)dc.createDeftemplate("testBean2");
-        
-        Defclass dc2 = new Defclass(TestBean3.class);
-        Deftemplate dtemp2 = (Deftemplate)dc.createDeftemplate("testBean3");
-        
-
-        Slot[] slts = dtemp.getAllSlots();
-        Slot[] slts2 = dtemp2.getAllSlots();
 
         Binding bn = new Binding();
         bn.setLeftRow(0);

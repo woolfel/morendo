@@ -28,6 +28,8 @@ import org.jamocha.rule.Rule;
  */
 public abstract class TerminalNode extends BaseNode {
 
+	private static final long serialVersionUID = 1L;
+	
 	protected Rule theRule = null;
 
 	/**

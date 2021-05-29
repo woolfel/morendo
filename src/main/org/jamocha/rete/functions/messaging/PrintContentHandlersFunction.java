@@ -38,6 +38,7 @@ public class PrintContentHandlersFunction implements Function {
 	public PrintContentHandlersFunction() {
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Iterator iterator = ContentHandlerRegistry.keyIterator();
 		while (iterator.hasNext()) {
@@ -53,6 +54,7 @@ public class PrintContentHandlersFunction implements Function {
 		return PRINT_CONTENT_HANDLERS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

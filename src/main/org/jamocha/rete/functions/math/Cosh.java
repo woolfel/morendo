@@ -38,6 +38,10 @@ import org.jamocha.rete.ValueParam;
  */
 public class Cosh implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String COSH = "cosh";
 
 	/**
@@ -75,6 +79,7 @@ public class Cosh implements Function, Serializable {
 		return COSH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

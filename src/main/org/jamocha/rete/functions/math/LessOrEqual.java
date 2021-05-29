@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class LessOrEqual implements Function, Serializable {
 
-	public static final String LESSOREQUAL = "lessOrEqual";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String LESSOREQUAL = "lessOrEqual";
+
+	
 	public LessOrEqual() {
 		super();
 	}
@@ -52,7 +55,7 @@ public class LessOrEqual implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean eval = false;
+		Boolean eval = Boolean.FALSE;
 		BigDecimal left = null;
 		BigDecimal right = null;
 		if (params != null) {
@@ -77,7 +80,7 @@ public class LessOrEqual implements Function, Serializable {
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(eval));
+				Constants.BOOLEAN_OBJECT, eval);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -86,6 +89,7 @@ public class LessOrEqual implements Function, Serializable {
 		return LESSOREQUAL;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}

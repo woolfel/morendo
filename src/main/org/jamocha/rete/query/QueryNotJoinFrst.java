@@ -54,7 +54,8 @@ public class QueryNotJoinFrst extends QueryBaseNot {
     /**
      * clear will clear the lists
      */
-    public void clear(WorkingMemory mem){
+    @SuppressWarnings("rawtypes")
+	public void clear(WorkingMemory mem){
         Map rightmem = (Map)mem.getQueryRightMemory(this);
         Map leftmem = (Map)mem.getQueryBetaMemory(this);
         Iterator itr = leftmem.keySet().iterator();
@@ -78,7 +79,8 @@ public class QueryNotJoinFrst extends QueryBaseNot {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
         Map leftmem = (Map)mem.getQueryBetaMemory(this);
@@ -92,7 +94,8 @@ public class QueryNotJoinFrst extends QueryBaseNot {
      * @param factInstance
      * @param engine
      */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
         // we only proceed if the fact hasn't already entered
@@ -110,7 +113,8 @@ public class QueryNotJoinFrst extends QueryBaseNot {
      * @param mem
      * @throws AssertException
      */
-    public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
+    @SuppressWarnings("rawtypes")
+	public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
         Map rightmem = (Map)mem.getQueryRightMemory(this);
         if (rightmem.size() == 0){
             Index index = new Index(new Fact[0]);

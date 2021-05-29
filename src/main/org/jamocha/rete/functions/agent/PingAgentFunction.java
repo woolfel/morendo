@@ -74,6 +74,7 @@ public class PingAgentFunction implements Function {
 		return PING_AGENT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class};
 	}

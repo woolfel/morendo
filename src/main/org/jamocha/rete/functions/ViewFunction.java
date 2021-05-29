@@ -73,6 +73,7 @@ public class ViewFunction implements Function, Serializable {
 		return VIEW;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

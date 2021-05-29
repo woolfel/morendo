@@ -12,6 +12,7 @@ public class MessagingFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 	
 	public MessagingFunctions() {
@@ -21,10 +22,12 @@ public class MessagingFunctions implements FunctionGroup {
 		return MessagingFunctions.class.getSimpleName();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		try {
 			CloseMessagingClientFunction closeClient = new CloseMessagingClientFunction();

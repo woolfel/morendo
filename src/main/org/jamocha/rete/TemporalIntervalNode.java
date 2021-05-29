@@ -24,10 +24,16 @@ import org.jamocha.rete.util.NodeUtils;
  */
 public class TemporalIntervalNode extends AbstractTemporalNode {
 
-    private int interval = 0;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int interval = 0;
     private long lastTime = 0;
     private long nextTime = 0;
-    private Map partialMatches = null;
+    @SuppressWarnings("rawtypes")
+	private Map partialMatches = null;
     private Function function = null;
     private BigDecimal count = new BigDecimal(0);
     private ValueParam p1 = new ValueParam();
@@ -40,7 +46,8 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
         this.nextTime = lastTime + interval;
     }
 
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
         long time = getRightTime();
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -67,7 +74,8 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
         this.propogateAssert(engine,mem);
     }
 
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
         long time = getLeftTime();
         TemporalHashedAlphaMem rightmem = (TemporalHashedAlphaMem) mem.getBetaRightMemory(this);
@@ -99,7 +107,8 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
     /**
      * retract will evaluate and propogate retract immediately
      */
-    public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
             throws RetractException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
         leftmem.remove(linx);
@@ -121,7 +130,8 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
     /**
      * retract will evaluate and propogate retract immediately
      */
-    public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws RetractException {
         long time = getLeftTime();
         EqHashIndex inx = new EqHashIndex(NodeUtils.getRightValues(this.binds,rfact));
@@ -157,7 +167,8 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
         return eval;
     }
      
-    protected void propogateAssert(Rete engine, WorkingMemory mem) 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	protected void propogateAssert(Rete engine, WorkingMemory mem) 
     throws AssertException {
         long now = System.currentTimeMillis();
         // if we have partial matches and the current time is greater than
@@ -187,7 +198,8 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
      * method will iterate over the partial matches and remove any that are expired
      * @param index
      */
-    protected void removeFromPartialMatches(Index index) {
+    @SuppressWarnings("rawtypes")
+	protected void removeFromPartialMatches(Index index) {
     	Collection c = this.partialMatches.values();
     	Iterator itr = c.iterator();
     	while (itr.hasNext()) {
@@ -198,7 +210,8 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
     	}
     }
     
-    protected void removeFromPartialMatches(Fact fact) {
+    @SuppressWarnings("rawtypes")
+	protected void removeFromPartialMatches(Fact fact) {
     	Collection c = this.partialMatches.values();
     	Iterator itr = c.iterator();
     	while (itr.hasNext()) {

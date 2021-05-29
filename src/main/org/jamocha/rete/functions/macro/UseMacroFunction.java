@@ -23,7 +23,7 @@ public class UseMacroFunction implements Function {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean use = false;
+		Boolean use = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				if (params[idx] instanceof ValueParam) {
@@ -32,10 +32,10 @@ public class UseMacroFunction implements Function {
 					defclass.loadMacros(engine.getCurrentFocus().getModuleClassLoader());
 				}
 			}
-			use = true;
+			use = Boolean.TRUE;
 		}
 		DefaultReturnVector rv = new DefaultReturnVector();
-		DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(use));
+		DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, use);
 		rv.addReturnValue(rval);
 		return rv;
 	}
@@ -44,6 +44,7 @@ public class UseMacroFunction implements Function {
 		return USE_MACRO;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

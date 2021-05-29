@@ -33,6 +33,7 @@ public class BetaOnlyImpl implements BetaMemory {
 
 	protected Index index = null;
 
+	@SuppressWarnings("rawtypes")
 	protected Map matches = null;
 	
 	protected Fact onlyMatch = null;
@@ -67,6 +68,7 @@ public class BetaOnlyImpl implements BetaMemory {
 	 * the right input that matched
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public Iterator iterateRightFacts() {
 		return this.matches.keySet().iterator();
 	}
@@ -85,6 +87,7 @@ public class BetaOnlyImpl implements BetaMemory {
 	 * Add a match to the list
 	 * @param rightfacts
 	 */
+	@SuppressWarnings("unchecked")
 	public void addMatch(Fact rightfact) {
 		this.matches.put(rightfact, null);
 	}
@@ -121,6 +124,7 @@ public class BetaOnlyImpl implements BetaMemory {
 	 * The implementation will append the facts for the left followed
 	 * by double colon "::" and then the matches from the right
 	 */
+	@SuppressWarnings("rawtypes")
 	public String toPPString() {
 		StringBuffer buf = new StringBuffer();
 		for (int idx = 0; idx < this.index.getFacts().length; idx++) {

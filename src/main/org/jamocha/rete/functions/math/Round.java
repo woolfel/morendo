@@ -37,11 +37,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Round implements Function, Serializable {
 
-	public static final String ROUND = "round";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String ROUND = "round";
+
+
 	public Round() {
 		super();
 	}
@@ -52,7 +55,7 @@ public class Round implements Function, Serializable {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		BigDecimal bdval = new BigDecimal(0);
-		BigDecimal bd = new BigDecimal(0);
+		// BigDecimal bd = new BigDecimal(0); Unused 
 		if (params.length == 1) {
 			if (params[0] instanceof ValueParam) {
 				ValueParam n = (ValueParam) params[0];
@@ -61,7 +64,7 @@ public class Round implements Function, Serializable {
 				bdval = new BigDecimal( params[0].getValue(engine, Constants.BIG_DECIMAL).toString() );
 			}
 			int bdh = bdval.intValue();
-			bdval = bdval.valueOf(bdh);
+			bdval = BigDecimal.valueOf(bdh);
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(Constants.BIG_DECIMAL,
@@ -74,6 +77,7 @@ public class Round implements Function, Serializable {
 		return ROUND;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

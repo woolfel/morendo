@@ -52,6 +52,7 @@ public class CreateSetFunction implements Serializable, Function {
 		return CREATE_SET;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}

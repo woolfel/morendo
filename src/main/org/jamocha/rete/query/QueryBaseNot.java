@@ -6,6 +6,11 @@ import org.jamocha.rete.exception.AssertException;
 
 public abstract class QueryBaseNot extends QueryBaseJoin {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public QueryBaseNot(int nodeId) {
 		super(nodeId);
 	}

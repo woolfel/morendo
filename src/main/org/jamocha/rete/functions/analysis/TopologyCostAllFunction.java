@@ -55,6 +55,7 @@ public class TopologyCostAllFunction implements Function, Serializable {
 		return Constants.RETURN_VOID_TYPE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
         Collection modules = engine.getWorkingMemory().getModules();
@@ -75,6 +76,7 @@ public class TopologyCostAllFunction implements Function, Serializable {
 		return TOPOLOGY_COST_ALL;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

@@ -52,7 +52,7 @@ public class EqSecondFunction extends AbstractTimeFunction implements Function {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean eval = false;
+		Boolean eval = Boolean.FALSE;
 		if (params != null && params.length == 2) {
 			Date date1 = null;
 			if (params[0] instanceof ValueParam) {
@@ -75,13 +75,13 @@ public class EqSecondFunction extends AbstractTimeFunction implements Function {
 						calendar1.get(Calendar.HOUR_OF_DAY) == calendar2.get(Calendar.HOUR_OF_DAY) &&
 						calendar1.get(Calendar.MINUTE) == calendar2.get(Calendar.MINUTE) &&
 						calendar1.get(Calendar.SECOND) == calendar2.get(Calendar.SECOND)) {
-					eval = true;
+					eval = Boolean.TRUE;
 				}
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = 
-			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, new Boolean(eval));
+			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, eval);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -90,6 +90,7 @@ public class EqSecondFunction extends AbstractTimeFunction implements Function {
 		return EQ_SECOND;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{Date.class, Date.class};
 	}

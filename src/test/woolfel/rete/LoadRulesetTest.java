@@ -11,8 +11,8 @@ import java.util.Iterator;
 
 import org.jamocha.rete.Rete;
 import org.jamocha.rule.Defrule;
-import org.jamocha.rete.*;
-import org.jamocha.rule.*;
+// import org.jamocha.rete.*;
+// import org.jamocha.rule.*;
 
 import junit.framework.TestCase;
 
@@ -39,7 +39,8 @@ public class LoadRulesetTest extends TestCase {
 		super(arg0);
 	}
 
-    public void testLoadJoinSample13() {
+    @SuppressWarnings("rawtypes")
+	public void testLoadJoinSample13() {
         Rete engine = new Rete();
         engine.loadRuleset("./benchmark_files/join_sample13.clp");
         Collection rules = engine.getCurrentFocus().getAllRules();
@@ -52,7 +53,8 @@ public class LoadRulesetTest extends TestCase {
         assertEquals(0,count);
     }
 
-    public void testLoadTest() {
+    @SuppressWarnings("rawtypes")
+	public void testLoadTest() {
         Rete engine = new Rete();
         engine.loadRuleset("./benchmark_files/test.clp");
         Collection rules = engine.getCurrentFocus().getAllRules();

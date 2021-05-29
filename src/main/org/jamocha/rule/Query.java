@@ -83,9 +83,11 @@ public interface Query extends Serializable {
     void addCondition(Condition cond);
     Condition[] getConditions();
     void addJoinNode(QueryBaseJoin node);
-    List getJoins();
+    @SuppressWarnings("rawtypes")
+	List getJoins();
     void addNotNode(QueryBaseNot node);
-    List getNotNodes();
+    @SuppressWarnings("rawtypes")
+	List getNotNodes();
     /**
      * The method should return the last node in the rule, not counting
      * the terminal node.
@@ -121,7 +123,8 @@ public interface Query extends Serializable {
      * Get a iterator to the Binding objects
      * @return
      */
-    Iterator getBindingIterator();
+    @SuppressWarnings("rawtypes")
+	Iterator getBindingIterator();
     /**
      * Get a count of the Binding
      * @return
@@ -137,7 +140,8 @@ public interface Query extends Serializable {
      * set the variables for the query
      * @param variables
      */
-    void setQueryParameters(List variables);
+    @SuppressWarnings("rawtypes")
+	void setQueryParameters(List variables);
     /**
      * Return a pretty print formatted string for the rule.
      * @return
@@ -154,5 +158,6 @@ public interface Query extends Serializable {
      * @param memory
      * @return
      */
-    List executeQuery(Rete engine, WorkingMemory memory, Parameter[] parameters);
+    @SuppressWarnings("rawtypes")
+	List executeQuery(Rete engine, WorkingMemory memory, Parameter[] parameters);
 }

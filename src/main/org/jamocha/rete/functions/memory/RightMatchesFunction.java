@@ -51,11 +51,14 @@ import org.jamocha.rete.functions.BaseMatchFunction;
  */
 public class RightMatchesFunction extends BaseMatchFunction implements Function, Serializable {
 
-	public static final String RIGHT_MATCHES = "right-matches";
-	
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String RIGHT_MATCHES = "right-matches";
+	
+
 	public RightMatchesFunction() {
 		super();
 	}
@@ -69,7 +72,8 @@ public class RightMatchesFunction extends BaseMatchFunction implements Function,
 		return new DefaultReturnVector();
 	}
 
-    protected void printRightMatches(Rete engine) {
+    @SuppressWarnings("rawtypes")
+	protected void printRightMatches(Rete engine) {
         DefaultWM wm = (DefaultWM)engine.getWorkingMemory();
         ArrayList betaNodes = this.getSortedBetaNodes(wm);
         for (int idx=0; idx < betaNodes.size(); idx++) {
@@ -80,10 +84,11 @@ public class RightMatchesFunction extends BaseMatchFunction implements Function,
         }
     }
     
-    public void printBetaNodeDetailInfo(BaseJoin betaNode, Rete engine, DefaultWM wm) {
+    @SuppressWarnings("rawtypes")
+	public void printBetaNodeDetailInfo(BaseJoin betaNode, Rete engine, DefaultWM wm) {
         StringBuffer buf = new StringBuffer();
         buf.append(betaNode.toPPString());
-        Map lmem = (Map)wm.getBetaLeftMemory(betaNode);
+        // Map lmem = (Map)wm.getBetaLeftMemory(betaNode); Unused
         Object rmem = wm.getBetaRightMemory(betaNode);
         buf.append(" - right memories:" + Constants.LINEBREAK);
         // now iterate over the right memories
@@ -118,6 +123,7 @@ public class RightMatchesFunction extends BaseMatchFunction implements Function,
 		return RIGHT_MATCHES;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

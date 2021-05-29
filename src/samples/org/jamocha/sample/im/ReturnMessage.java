@@ -20,6 +20,11 @@ import org.jamocha.rete.ReturnVector;
  */
 public class ReturnMessage implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String RETURN_MESSAGE = "return-msg";
 	
 	public ReturnMessage() {
@@ -47,6 +52,7 @@ public class ReturnMessage implements Function, Serializable {
 		return RETURN_MESSAGE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{Object.class};
 	}

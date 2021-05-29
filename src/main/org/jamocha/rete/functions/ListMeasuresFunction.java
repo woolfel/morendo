@@ -22,6 +22,7 @@ public class ListMeasuresFunction implements Function {
 		super();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		List measures = engine.getAllMeasures();
 		int counter = 0;
@@ -40,6 +41,7 @@ public class ListMeasuresFunction implements Function {
 		return MEASURES;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

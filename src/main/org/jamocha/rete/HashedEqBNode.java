@@ -47,7 +47,8 @@ public class HashedEqBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
         leftmem.put(linx, linx);
@@ -71,7 +72,8 @@ public class HashedEqBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem
                 .getBetaRightMemory(this);
@@ -101,7 +103,8 @@ public class HashedEqBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
             throws RetractException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
         leftmem.remove(linx);
@@ -128,7 +131,8 @@ public class HashedEqBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
+    @SuppressWarnings("rawtypes")
+	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws RetractException {
         EqHashIndex inx = new EqHashIndex(NodeUtils.getRightValues(this.binds,rfact));
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem

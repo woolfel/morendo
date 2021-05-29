@@ -135,13 +135,7 @@ public class BasicClient implements MessageClient {
 			this.CLIENTTHREAD = null;
 		} catch (Exception e){
 			log.warn(e);
-		} finally {
-			try{
-				this.finalize();
-			} catch (Throwable e){
-				// do nothing
-			}
-		}
+		} 
 	}
 
 	public void connect() {

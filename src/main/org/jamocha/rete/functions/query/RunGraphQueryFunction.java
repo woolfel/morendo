@@ -8,7 +8,6 @@ import org.jamocha.rete.Constants;
 import org.jamocha.rete.DefaultReturnValue;
 import org.jamocha.rete.DefaultReturnVector;
 import org.jamocha.rete.Deffact;
-import org.jamocha.rete.Fact;
 import org.jamocha.rete.Function;
 import org.jamocha.rete.Parameter;
 import org.jamocha.rete.Rete;
@@ -35,6 +34,7 @@ public class RunGraphQueryFunction implements Function {
 	public RunGraphQueryFunction() {
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		List results = new ArrayList();
@@ -60,6 +60,7 @@ public class RunGraphQueryFunction implements Function {
 		return RUN_QUERY;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String[].class};
 	}

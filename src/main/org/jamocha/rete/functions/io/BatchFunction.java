@@ -88,11 +88,11 @@ public class BatchFunction implements Function, Serializable {
                 } catch (FileNotFoundException e) {
 					// we should report the error
 					rv.addReturnValue(new DefaultReturnValue(
-							Constants.BOOLEAN_OBJECT, new Boolean(false)));
+							Constants.BOOLEAN_OBJECT, Boolean.FALSE));
                     engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
                 } catch (IOException e) {
                     rv.addReturnValue(new DefaultReturnValue(
-                            Constants.BOOLEAN_OBJECT, new Boolean(false)));
+                            Constants.BOOLEAN_OBJECT, Boolean.FALSE));
                     engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
 				}
 			}
@@ -126,7 +126,7 @@ public class BatchFunction implements Function, Serializable {
 			}
 			if (rv != null) {
 				rv.addReturnValue(new DefaultReturnValue(
-						Constants.BOOLEAN_OBJECT, new Boolean(true)));
+						Constants.BOOLEAN_OBJECT, Boolean.TRUE));
 			}
 		} catch (ParseException e) {
             engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
@@ -137,6 +137,7 @@ public class BatchFunction implements Function, Serializable {
 		return BATCH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

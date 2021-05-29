@@ -91,6 +91,7 @@ public class QueryTestNode extends QueryBaseJoin {
 	 * Assert will first pass the facts to the parameters. Once the
 	 * parameters are set, it should call execute to get the result.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
 		Map leftmem = (Map) mem.getQueryBetaMemory(this);
@@ -120,6 +121,7 @@ public class QueryTestNode extends QueryBaseJoin {
 	/**
 	 * clear the memory
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		((Map) mem.getBetaLeftMemory(this)).clear();
 	}

@@ -28,6 +28,11 @@ import org.jamocha.rete.ReturnVector;
 
 public class MemoryFreeFunction implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String MEMORY_FREE = "mem-free";
 	
 	public MemoryFreeFunction() {
@@ -59,6 +64,7 @@ public class MemoryFreeFunction implements Function, Serializable {
 		return MEMORY_FREE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

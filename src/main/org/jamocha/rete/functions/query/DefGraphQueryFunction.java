@@ -23,16 +23,16 @@ public class DefGraphQueryFunction implements Function {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean add = true;
+		Boolean add = Boolean.TRUE;
 		if (params.length == 1 && params[0].getValue() instanceof GraphQuery) {
 			GraphQuery query = (GraphQuery) params[0].getValue();
 			add = engine.getGraphQueryCompiler().addQuery(query);
 		} else {
-			add = false;
+			add = Boolean.FALSE;
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(add));
+				Constants.BOOLEAN_OBJECT, add);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -41,6 +41,7 @@ public class DefGraphQueryFunction implements Function {
 		return DEFQUERY;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

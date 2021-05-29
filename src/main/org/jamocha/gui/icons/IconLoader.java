@@ -14,10 +14,12 @@ public class IconLoader {
 		return getImageIcon(name, IconLoader.class, "png");
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static ImageIcon getImageIcon(String name, Class clazz) {
 		return getImageIcon(name, clazz, "png");
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static synchronized ImageIcon getImageIcon(String name, Class clazz,
 			String extension) {
 		ImageIcon icon = _iconCache.get(name);

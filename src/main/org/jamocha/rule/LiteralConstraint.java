@@ -30,13 +30,16 @@ import org.jamocha.rete.Constants;
  */
 public class LiteralConstraint implements Constraint {
 
-    protected String name;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	protected String name;
     protected Object value;
     protected boolean negated = false;
     
-	/**
-	 * 
-	 */
+
 	public LiteralConstraint() {
 		super();
 	}

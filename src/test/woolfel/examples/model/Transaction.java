@@ -10,6 +10,10 @@ import java.util.ArrayList;
  */
 public class Transaction extends Security {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String accountId = null;
 	protected double buyPrice;
 	protected String purchaseDate = null;
@@ -17,7 +21,8 @@ public class Transaction extends Security {
 	protected double total;
 	protected String transactionId = null;
 			
-    protected ArrayList listeners = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	protected ArrayList listeners = new ArrayList();
 
     public Transaction() {
 		super();
@@ -37,9 +42,9 @@ public class Transaction extends Security {
     
     public void setBuyPrice(double price) {
     	if (price != this.buyPrice) {
-    		Double old = new Double(this.buyPrice);
+    		Double old = Double.valueOf(this.buyPrice);
     		this.buyPrice = price;
-    		this.notifyListener("buyPrice",old,new Double(this.buyPrice));
+    		this.notifyListener("buyPrice",old, Double.valueOf(this.buyPrice));
     	}
     }
     
@@ -61,9 +66,9 @@ public class Transaction extends Security {
     
     public void setShares(double shares) {
     	if (shares != this.shares) {
-    		Double old = new Double(this.shares);
+    		Double old = Double.valueOf(this.shares);
     		this.shares = shares;
-    		this.notifyListener("shares",old,new Double(this.shares));
+    		this.notifyListener("shares",old, Double.valueOf(this.shares));
     	}
     }
     
@@ -73,9 +78,9 @@ public class Transaction extends Security {
     
     public void setTotal(double value) {
     	if (value != this.total) {
-    		Double old = new Double(this.total);
+    		Double old = Double.valueOf(this.total);
     		this.total = value;
-    		this.notifyListener("total",old,new Double(this.total));
+    		this.notifyListener("total",old, Double.valueOf(this.total));
     	}
     }
     
@@ -95,7 +100,8 @@ public class Transaction extends Security {
     	return this.transactionId;
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener){
+    @SuppressWarnings("unchecked")
+	public void addPropertyChangeListener(PropertyChangeListener listener){
         this.listeners.add(listener);
     }
     

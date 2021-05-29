@@ -55,6 +55,7 @@ public class TemplatesFunction implements Function, Serializable {
 		return Constants.RETURN_VOID_TYPE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Collection templates = engine.getCurrentFocus().getTemplates();
 		int count = templates.size();
@@ -68,6 +69,7 @@ public class TemplatesFunction implements Function, Serializable {
 		return rv;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

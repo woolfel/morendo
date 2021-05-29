@@ -46,7 +46,8 @@ public interface Condition extends Serializable, Print {
      * TestConditions, it should only be 1 node.
      * @return
      */    
-    List getNodes();
+    @SuppressWarnings("rawtypes")
+	List getNodes();
     /**
      * When the rule is compiled, we add the node to the condition,
      * so that we can print out the matches for a given rule.
@@ -73,7 +74,8 @@ public interface Condition extends Serializable, Print {
      * and PredicateConstraint (isPredicateJoin==true)
      * @return
      */
-    List getBindConstraints();
+    @SuppressWarnings("rawtypes")
+	List getBindConstraints();
     /**
      * obtain the compiler this condition
      * @return

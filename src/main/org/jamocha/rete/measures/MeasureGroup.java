@@ -23,5 +23,6 @@ import org.jamocha.rete.Rete;
 public interface MeasureGroup {
 	String getGroupName();
 	void loadMeasures(Rete engine);
+	@SuppressWarnings("rawtypes")
 	List getMeasures();
 }

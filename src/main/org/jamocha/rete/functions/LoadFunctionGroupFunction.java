@@ -52,22 +52,22 @@ public class LoadFunctionGroupFunction implements Function, Serializable {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean load = false;
+		Boolean load = Boolean.FALSE;
 		DefaultReturnVector ret = new DefaultReturnVector();
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				try {
 					String func = params[idx].getStringValue();
 					engine.declareFunctionGroup(func);
-					load = true;
+					load = Boolean.TRUE;
 				} catch (ClassNotFoundException e) {
 					engine.writeMessage(e.getMessage());
-					load = false;
+					load = Boolean.TRUE;
 				}
 			}
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(load));
+				Constants.BOOLEAN_OBJECT, load);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -76,6 +76,7 @@ public class LoadFunctionGroupFunction implements Function, Serializable {
 		return LOAD_FGROUP;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

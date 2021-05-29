@@ -13,7 +13,9 @@ public class Message {
 	private String senderId;
 	private String receiverId;
 	private String text;
+	@SuppressWarnings("rawtypes")
 	private List images;
+	@SuppressWarnings("rawtypes")
 	private List files;
 	private Calendar sendTime;
 	private int messageStatus;
@@ -40,15 +42,19 @@ public class Message {
 	public void setText(String text) {
 		this.text = text;
 	}
+	@SuppressWarnings("rawtypes")
 	public List getImages() {
 		return images;
 	}
+	@SuppressWarnings("rawtypes")
 	public void setImages(List images) {
 		this.images = images;
 	}
+	@SuppressWarnings("rawtypes")
 	public List getFiles() {
 		return files;
 	}
+	@SuppressWarnings("rawtypes")
 	public void setFiles(List files) {
 		this.files = files;
 	}

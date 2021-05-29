@@ -39,6 +39,7 @@ public class PrintAgentsFunction implements Function {
 		super();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		List agents = AgentRegistry.getAgents();
 		Iterator iterator = agents.iterator();
@@ -61,6 +62,7 @@ public class PrintAgentsFunction implements Function {
 		return PRINT_AGENTS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

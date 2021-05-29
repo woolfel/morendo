@@ -25,6 +25,11 @@ package org.jamocha.rete;
 public abstract class BaseAlpha2 extends BaseAlpha {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * @param id
 	 */
 	public BaseAlpha2(int id) {

@@ -66,6 +66,7 @@ public interface Function extends Serializable {
 	 * it can take one or more numbers and add them.
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	Class[] getParameter();
 
 	/**

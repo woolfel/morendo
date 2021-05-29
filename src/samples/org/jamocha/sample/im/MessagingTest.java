@@ -15,6 +15,7 @@ public class MessagingTest extends TestCase {
 	public MessagingTest() {
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void testMessageFilter() {
 		this.engine = setupEngine();
 		if (this.engine == null) {
@@ -78,6 +79,7 @@ public class MessagingTest extends TestCase {
 		return usr;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BuddyList createBuddies() {
 		BuddyList buddies = new BuddyList();
 		buddies.setUserId("john.doe");
@@ -90,6 +92,7 @@ public class MessagingTest extends TestCase {
 		return buddies;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BlockList createBlock() {
 		BlockList block = new BlockList();
 		block.setUserId("john.doe");

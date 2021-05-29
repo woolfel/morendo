@@ -71,6 +71,7 @@ public class SetStrategyFunction implements Function, Serializable {
 		return SET_STRATEGY;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

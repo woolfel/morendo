@@ -17,7 +17,6 @@
 package org.jamocha.rete.functions.time;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import org.jamocha.rete.Constants;
@@ -27,7 +26,6 @@ import org.jamocha.rete.Function;
 import org.jamocha.rete.Parameter;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.ReturnVector;
-import org.jamocha.rete.ShellBoundParam;
 
 
 /**
@@ -37,7 +35,11 @@ import org.jamocha.rete.ShellBoundParam;
  */
 public class NowFunction implements Function, Serializable {
 
-    public static final String NOW = "now";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final String NOW = "now";
 
     /**
 	 * 
@@ -68,6 +70,7 @@ public class NowFunction implements Function, Serializable {
 		return NOW;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
         return new Class[0];
 	}

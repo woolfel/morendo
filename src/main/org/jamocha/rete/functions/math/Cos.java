@@ -38,6 +38,10 @@ import org.jamocha.rete.ValueParam;
  */
 public class Cos implements Function, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String COS = "cos";
 
 	/**
@@ -75,6 +79,7 @@ public class Cos implements Function, Serializable {
 		return COS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

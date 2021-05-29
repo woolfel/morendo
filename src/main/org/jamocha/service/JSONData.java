@@ -37,6 +37,7 @@ public class JSONData<T> implements InitialData {
 	private transient Logger log = LogFactory.createLogger(JSONData.class);
 	private String name = null;
 	private String url;
+	@SuppressWarnings("rawtypes")
 	private List data = null;
 	@JsonIgnore
 	private static ObjectMapper mapper = new ObjectMapper();
@@ -80,10 +81,12 @@ public class JSONData<T> implements InitialData {
 		return this.data;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void setData(List data) {
 		this.data = data;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean loadData(Rete engine) {
 		if (data == null && this.name != null) {
@@ -129,6 +132,7 @@ public class JSONData<T> implements InitialData {
 		return false;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@JsonIgnore
 	public List<T> loadJsonData(String url, Class T) {
 		Reader reader;

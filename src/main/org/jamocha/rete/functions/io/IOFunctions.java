@@ -36,6 +36,7 @@ public class IOFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 
 	/**
@@ -49,6 +50,7 @@ public class IOFunctions implements FunctionGroup, Serializable {
 		return (IOFunctions.class.getSimpleName());
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		BatchFunction b = new BatchFunction();
 		engine.declareFunction(b);
@@ -80,6 +82,7 @@ public class IOFunctions implements FunctionGroup, Serializable {
 		
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}

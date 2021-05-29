@@ -41,7 +41,8 @@ public interface ReturnVector extends Serializable {
      * ReturnVector extends Iterator.
      * @return
      */
-    Iterator getIterator();
+    @SuppressWarnings("rawtypes")
+	Iterator getIterator();
 
 	ReturnValue firstReturnValue();
 	

@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Log10 implements Function, Serializable {
 
-	public static final String LOG10 = "log10";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String LOG10 = "log10";
+
+
 	public Log10() {
 		super();
 	}
@@ -61,7 +64,7 @@ public class Log10 implements Function, Serializable {
 				bdval = new BigDecimal( params[0].getValue(engine, Constants.BIG_DECIMAL).toString());
 			}
 			double bdh = Math.log10(bdval.doubleValue());
-			bdval = bdval.valueOf(bdh);	
+			bdval = BigDecimal.valueOf(bdh);	
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(Constants.BIG_DECIMAL,
@@ -74,6 +77,7 @@ public class Log10 implements Function, Serializable {
 		return LOG10;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

@@ -51,6 +51,7 @@ public class QueryMultipleJoin extends QueryBaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
 		Map leftmem = (Map) mem.getBetaRightMemory(this);
@@ -74,6 +75,7 @@ public class QueryMultipleJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -92,6 +94,7 @@ public class QueryMultipleJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings("rawtypes")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem

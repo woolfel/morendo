@@ -46,6 +46,7 @@ public class ListFunctionsFunction implements Function, Serializable {
 		return Constants.RETURN_VOID_TYPE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		if (params != null && params.length > 0) {
 			java.util.HashMap<String,String> groups = new java.util.HashMap<String,String>();
@@ -98,6 +99,7 @@ public class ListFunctionsFunction implements Function, Serializable {
 		return LIST_FUNCTIONS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

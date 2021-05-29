@@ -12,6 +12,7 @@ public class JsonDataTest extends TestCase {
 	public JsonDataTest() {
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testLoadJson() {
 		JSONData jdata = new JSONData();

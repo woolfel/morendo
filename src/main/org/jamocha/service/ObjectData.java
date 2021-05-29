@@ -103,6 +103,7 @@ public class ObjectData implements InitialData {
 		this.url = url;
 	}
 
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	private void loadFromURL() {
 		if (this.url != null) {
@@ -117,6 +118,7 @@ public class ObjectData implements InitialData {
 	 * @param url
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	@JsonIgnore
 	public static List loadObjectData(String url) {
 		Reader reader;
@@ -152,6 +154,7 @@ public class ObjectData implements InitialData {
 	 * @param filename
 	 * @param data
 	 */
+	@SuppressWarnings("rawtypes")
 	@JsonIgnore
 	public static void saveObjectData(String filename, List data) {
 		FileWriter writer;

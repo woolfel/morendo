@@ -31,7 +31,12 @@ import org.jamocha.rule.Rule;
  */
 public class TemporalTNode extends TerminalNode2 {
 
-    private boolean temporal = false;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private boolean temporal = false;
     
     /**
      * @param id
@@ -55,7 +60,8 @@ public class TemporalTNode extends TerminalNode2 {
      * @param facts
      * @param engine
      */
-    public void assertFacts(Index inx, Rete engine, WorkingMemory mem) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void assertFacts(Index inx, Rete engine, WorkingMemory mem) {
         // first check the facts and make sure they didn't expire
         if (checkFacts(inx,engine,mem)) {
             LinkedActivation act = new LinkedActivation(this.theRule, inx);

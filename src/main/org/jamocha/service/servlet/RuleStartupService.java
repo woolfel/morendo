@@ -17,7 +17,7 @@
 
 package org.jamocha.service.servlet;
 
-import java.io.IOException;
+// import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,8 +39,8 @@ import org.jamocha.service.RuleService;
 import org.jamocha.service.ServiceAdministration;
 import org.jamocha.service.ServiceConfiguration;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+// import com.fasterxml.jackson.core.JsonParseException;
+// import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RuleStartupService implements ServletContextListener, RuleService {
@@ -53,13 +53,16 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 	private long totalRulesFired = 0;
 	private String serviceName = null;
 	private List<RuleApplicationImpl> applications = new ArrayList<RuleApplicationImpl>();
+	@SuppressWarnings("rawtypes")
 	private Map applicationMap = new HashMap();
+	@SuppressWarnings("rawtypes")
 	private Map engineMap = new HashMap();
 	protected ServiceConfiguration serviceConfiguration = null;
 	private ServletServiceAdmin administration = null;
 	protected ServletContext servletContext = null;
 	private static ObjectMapper mapper = new ObjectMapper();
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public RuleStartupService() {
 		applications = new ArrayList();
 		administration = new ServletServiceAdmin(this);
@@ -90,6 +93,7 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void close() {
 		servletContext.log("--- Start closing RuleService ---");
 		Iterator itr = this.engineMap.keySet().iterator();
@@ -122,6 +126,7 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		return averageRulesFired;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public EngineContext getEngine(String applicationName, String version) {
 		String key = applicationName + "::" + version;
 		List queue = (List)this.engineMap.get(key);
@@ -156,6 +161,7 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		return requests;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getRuleApplications() {
 		return applications;
 	}
@@ -172,6 +178,7 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		return totalRulesFired;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initialize() {
 		this.servletContext.log("--- Start initializing RuleService ---");
 		for (int idx=0; idx < applications.size(); idx++) {
@@ -211,16 +218,19 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		this.averageRulesFired = this.totalRulesFired/this.requests;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void queueEngine(String application, String version, org.jamocha.rete.Rete engine) {
 		String key = application + "::" + version;
 		List queue = (List)this.engineMap.get(key);
 		queue.add(engine);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Map getRuleApplicationMap() {
 		return this.applicationMap;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Map getEngineMap() {
 		return this.engineMap;
 	}

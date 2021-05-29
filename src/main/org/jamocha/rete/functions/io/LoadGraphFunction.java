@@ -40,7 +40,6 @@ import org.jamocha.rete.Parameter;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.ReturnVector;
 import org.jamocha.rete.ValueParam;
-import org.jamocha.rete.exception.AssertException;
 
 
 /**
@@ -71,9 +70,10 @@ public class LoadGraphFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
-		boolean loaded = true;
+		// boolean loaded = true; Unused
 		List facts = new ArrayList();
 		if (params != null && params.length > 0) {
 			for (int idx = 0; idx < params.length; idx++) {
@@ -106,22 +106,22 @@ public class LoadGraphFunction implements Function, Serializable {
 						Deffact fact = (Deffact) tmpl.createFact(
 								(Object[]) vp[1].getValue(), -1);
 						facts.add(fact);
-						//engine.assertFact(fact);
+						// engine.assertFact(fact);
 					}
 				} catch (FileNotFoundException e) {
-					loaded = false;
+					// loaded = false;
 					engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
 				} catch (ParseException e) {
-					loaded = false;
+					// loaded = false;
 					engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
 				} catch (IOException e) {
-                    loaded = false;
+                    // loaded = false;
                     engine.writeMessage(e.getMessage() + Constants.LINEBREAK,Constants.DEFAULT_OUTPUT);
                 }
 			}
-		} else {
+		} /* else {
 			loaded = false;
-		}
+		} */
 		Deffact[] farray = new Deffact[facts.size()];
 		farray = (Deffact[])facts.toArray(farray);
 		DefaultReturnValue drv = new DefaultReturnValue(
@@ -134,6 +134,7 @@ public class LoadGraphFunction implements Function, Serializable {
 		return LOAD;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}

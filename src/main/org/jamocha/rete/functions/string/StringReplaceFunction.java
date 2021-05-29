@@ -35,11 +35,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class StringReplaceFunction implements Function, Serializable {
 
-	public static final String STRING_REPLACE = "str-replace";
-	
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String STRING_REPLACE = "str-replace";
+	
+
 	public StringReplaceFunction() {
 		super();
 	}
@@ -79,6 +82,7 @@ public class StringReplaceFunction implements Function, Serializable {
 		return STRING_REPLACE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class,ValueParam.class};
 	}

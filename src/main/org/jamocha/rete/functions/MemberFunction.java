@@ -34,6 +34,7 @@ public class MemberFunction implements Function, Serializable {
 		super();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Object o = null;
 		Object ro = null;
@@ -124,6 +125,7 @@ public class MemberFunction implements Function, Serializable {
 		return MEMBER;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

@@ -40,7 +40,6 @@ import org.jamocha.rete.query.QueryLIANode;
 import org.jamocha.rete.query.QueryObjTypeNode;
 import org.jamocha.rete.query.QueryOrAlphaNode;
 import org.jamocha.rete.query.QueryParameterNode;
-import org.jamocha.rete.query.QueryResultNode;
 import org.jamocha.rete.query.QueryRootNode;
 import org.jamocha.rule.*;
 
@@ -58,9 +57,11 @@ public class GraphQueryCompiler implements QueryCompiler {
 	 */
 	private static final long serialVersionUID = 1L;
     private Rete engine = null;
-    private Map objectTypeNodesMap = null;
+    @SuppressWarnings("rawtypes")
+	private Map objectTypeNodesMap = null;
     
-    private ArrayList listener = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	private ArrayList listener = new ArrayList();
     protected boolean validate = true;
     protected TemplateValidation tval = null;
     
@@ -77,6 +78,7 @@ public class GraphQueryCompiler implements QueryCompiler {
      * @param engine
      * @param inputNodes
      */
+	@SuppressWarnings("rawtypes")
 	public GraphQueryCompiler(Rete engine) {
 		super();
         this.engine = engine;
@@ -84,6 +86,7 @@ public class GraphQueryCompiler implements QueryCompiler {
         this.tval = new TemplateValidation(engine);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void setupObjectNodes() {
 		if (this.objectTypeNodesMap.size() == 0) {
 			Deftemplate gdt = this.engine.findDeftemplate(Graph.class);
@@ -140,54 +143,39 @@ public class GraphQueryCompiler implements QueryCompiler {
 		QueryRootNode queryRoot = engine.getRootNode().createQueryRoot(engine);
 		currentQuery.setQueryNetwork(queryRoot);
         this.setupObjectNodes();
-		if (true) {
-			if (this.currentQuery.getConditions() != null && this.currentQuery.getConditions().length > 0) {
-	            try {
-	                Condition[] conds = this.getRuleConditions(this.currentQuery);
-	                // first we create the constraints, before creating the Conditional
-	                // elements which include joins
-                    // we use a counter and only increment it to make sure the
-                    // row index of the bindings are accurate. this makes it simpler
-                    // for the rule compiler and compileJoins is cleaner and does
-                    // less work.
-                    int counter = 0;
-	                for (int idx=0; idx < conds.length; idx++) {
-	                    Condition con = conds[idx];
-	                    // compile object conditions
-	                    //implement in the ObjectConditionCompiler.compile or ExistConditionCompiler.compile
-	                    con.getCompiler(this).compile(con, counter, this.currentQuery);
-	                    
-                        if ((con instanceof ObjectCondition)&&(!((ObjectCondition)con).getNegated())) {
-                            counter++;
-                        }
-	                }
-                    // now we compile the joins
-	                compileJoins(this.currentQuery,conds);
-	                
-	                BaseNode last = this.currentQuery.getLastNode();
-	                GraphResultNode resultNode = new GraphResultNode(engine.nextNodeId());
-	                last.addSuccessorNode(resultNode, engine, null);
-	                currentQuery.setQueryResultNode(resultNode);
-	                
-	                engine.declareGraphQuery(this.currentQuery);
-	                
-	        		this.currentQuery = null;
-	                return true;
-	            } catch (AssertException e) {
-	                CompileEvent ce = new CompileEvent(this.currentQuery,CompileEvent.INVALID_RULE);
-	                ce.setMessage(Messages.getString("RuleCompiler.assert.error")); //$NON-NLS-1$
-	                this.notifyListener(ce);
-	                log.debug(e);
-	        		this.currentQuery = null;
-	                return false;
-	            }
-            }
-            return false;
+		if (this.currentQuery.getConditions() != null && this.currentQuery.getConditions().length > 0) {
+			try {
+				Condition[] conds = this.getRuleConditions(this.currentQuery);
+				int counter = 0;
+				for (int idx = 0; idx < conds.length; idx++) {
+					Condition con = conds[idx];
+					con.getCompiler(this).compile(con, counter, this.currentQuery);
+					if ((con instanceof ObjectCondition) && (!((ObjectCondition) con).getNegated())) {
+						counter++;
+					}
+				}
+				compileJoins(this.currentQuery, conds);
+				BaseNode last = this.currentQuery.getLastNode();
+				GraphResultNode resultNode = new GraphResultNode(engine.nextNodeId());
+				last.addSuccessorNode(resultNode, engine, null);
+				currentQuery.setQueryResultNode(resultNode);
+				engine.declareGraphQuery(this.currentQuery);
+				this.currentQuery = null;
+				return true;
+			} catch (AssertException e) {
+				CompileEvent ce = new CompileEvent(this.currentQuery, CompileEvent.INVALID_RULE);
+				ce.setMessage(Messages.getString("RuleCompiler.assert.error"));
+				this.notifyListener(ce);
+				log.debug(e);
+				this.currentQuery = null;
+				return false;
+			}
 		}
-        return false;
+		return false;
 	}
 
-    public Condition[] getRuleConditions(Query query) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public Condition[] getRuleConditions(Query query) {
         Condition[] conditions = query.getConditions();
         ArrayList conditionList = new ArrayList();
         boolean hasAnd = false;
@@ -214,6 +202,7 @@ public class GraphQueryCompiler implements QueryCompiler {
      * or the key already exists, the compiler will not add it to the
      * network.
 	 */
+	@SuppressWarnings("unchecked")
 	public void addObjectTypeNode(QueryObjTypeNode node) {
         if (!this.objectTypeNodesMap.containsKey(node.getDeftemplate())) {
             this.objectTypeNodesMap.put(node.getDeftemplate(),node);
@@ -250,7 +239,8 @@ public class GraphQueryCompiler implements QueryCompiler {
      * @param templateName
      * @return
      */
-    public QueryObjTypeNode findObjectTypeNode(String templateName) {
+    @SuppressWarnings("rawtypes")
+	public QueryObjTypeNode findObjectTypeNode(String templateName) {
         Iterator itr = this.objectTypeNodesMap.keySet().iterator();
         Template tmpl = null;
         while (itr.hasNext()) {
@@ -275,6 +265,7 @@ public class GraphQueryCompiler implements QueryCompiler {
      * Implementation will check to see if the 
 	 * @see org.jamocha.rete.RuleCompiler#addListener(org.jamocha.rete.CompilerListener)
 	 */
+	@SuppressWarnings("unchecked")
 	public void addListener(CompilerListener listener) {
         if (!this.listener.contains(listener)) {
             this.listener.add(listener);
@@ -441,7 +432,8 @@ public class GraphQueryCompiler implements QueryCompiler {
      * @param position
      * @return
      */
-    public QueryBaseAlpha compileConstraint(PredicateConstraint cnstr,
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public QueryBaseAlpha compileConstraint(PredicateConstraint cnstr,
             Template templ, Query query, int position) {
     	QueryBaseAlphaCondition current = null;
         // Queries are different than rules in that the value will be
@@ -501,7 +493,8 @@ public class GraphQueryCompiler implements QueryCompiler {
                 // we need to notify listeners the function wasn't found
                 CompileEvent ce = 
                     new CompileEvent(this,CompileEvent.FUNCTION_NOT_FOUND);
-                ce.setMessage(FUNCTION_NOT_FOUND + " " + f.getReturnType()); //$NON-NLS-1$
+                // ce.setMessage(FUNCTION_NOT_FOUND + " " + f.getReturnType()); //$NON-NLS-1$
+                ce.setMessage(FUNCTION_NOT_FOUND + " Null return type"); // TODO
                 this.notifyListener(ce);
             }
     	}
@@ -632,7 +625,8 @@ public class GraphQueryCompiler implements QueryCompiler {
      * what kind of event it is and calling the appropriate method.
      * @param event
      */
-    public void notifyListener(CompileEvent event) {
+    @SuppressWarnings("rawtypes")
+	public void notifyListener(CompileEvent event) {
         Iterator itr = this.listener.iterator();
         //engine.writeMessage(event.getMessage());
         while (itr.hasNext()) {
@@ -648,6 +642,7 @@ public class GraphQueryCompiler implements QueryCompiler {
         }
     }
 
+	@SuppressWarnings("rawtypes")
 	public Map getObjectTypeNodeMap() {
 		return objectTypeNodesMap;
 	}

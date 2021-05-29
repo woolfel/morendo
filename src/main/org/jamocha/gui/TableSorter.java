@@ -45,6 +45,7 @@ public class TableSorter extends TableMap {
 
 	private boolean ascending = true;
 
+	@SuppressWarnings("unused")
 	private int compares;
 
 	public TableSorter() {
@@ -60,6 +61,7 @@ public class TableSorter extends TableMap {
 		reallocateIndexes();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public int compareRowsByColumn(int row1, int row2, int column) {
 		Class type = model.getColumnClass(column);
 		TableModel data = model;
@@ -244,7 +246,7 @@ public class TableSorter extends TableMap {
 	public void sortByColumn(int column, boolean ascending) {
 		this.ascending = ascending;
 		sortingColumns.removeAllElements();
-		sortingColumns.addElement(new Integer(column));
+		sortingColumns.addElement(Integer.valueOf(column));
 		sort(this);
 		super.tableChanged(new TableModelEvent(this));
 	}
@@ -259,7 +261,7 @@ public class TableSorter extends TableMap {
 				int viewColumn = columnModel.getColumnIndexAtX(e.getX());
 				int column = tableView.convertColumnIndexToModel(viewColumn);
 				if (e.getClickCount() == 1 && column != -1) {
-					int shiftPressed = e.getModifiers() & InputEvent.SHIFT_MASK;
+					int shiftPressed = e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK;
 					boolean ascending = (shiftPressed == 0);
 					sorter.sortByColumn(column, ascending);
 				}

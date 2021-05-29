@@ -56,18 +56,17 @@ public class AnyEqFunction implements Function, Serializable {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-		boolean eq = false;
+		Boolean eq = Boolean.FALSE;
 		if (params != null && params.length > 1) {
 			Object constant = params[0].getValue(engine, Constants.OBJECT_TYPE);
 			for (int idx=1; idx < params.length; idx++) {
 				if (constant.equals(params[idx].getValue(engine, Constants.OBJECT_TYPE))) {
-					eq = true;
+					eq = Boolean.TRUE;
 					break;
 				}
 			}
 		}
-		DefaultReturnValue rv = new DefaultReturnValue(Constants.BOOLEAN_OBJECT,
-				new Boolean(eq));
+		DefaultReturnValue rv = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, eq);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -76,6 +75,7 @@ public class AnyEqFunction implements Function, Serializable {
 		return ANYEQUAL;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class,BoundParam.class};
 	}

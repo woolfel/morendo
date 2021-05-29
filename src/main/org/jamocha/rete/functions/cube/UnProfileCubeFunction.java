@@ -22,20 +22,19 @@ public class UnProfileCubeFunction implements Function {
 	}
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		boolean profile = false;
+		Boolean profile = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				String cubename = params[idx].getStringValue();
 				Cube c = engine.getCube(cubename);
 				if (c != null) {
 					c.setProfileQuery(false);
-					profile = true;
+					profile = Boolean.TRUE;
 				}
 			}
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
-		DefaultReturnValue rv = new DefaultReturnValue(Constants.BOOLEAN_OBJECT,
-				new Boolean(profile));
+		DefaultReturnValue rv = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, profile);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -44,6 +43,7 @@ public class UnProfileCubeFunction implements Function {
 		return UNPROFILE_CUBE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{String.class};
 	}

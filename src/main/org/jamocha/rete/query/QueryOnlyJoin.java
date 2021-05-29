@@ -53,6 +53,7 @@ public class QueryOnlyJoin extends QueryBaseNot {
 	/**
 	 * clear will clear the lists
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		Map rightmem = (Map) mem.getBetaRightMemory(this);
 		Map leftmem = (Map) mem.getBetaRightMemory(this);
@@ -76,6 +77,7 @@ public class QueryOnlyJoin extends QueryBaseNot {
 	 * @param factInstance
 	 * @param engine
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -96,6 +98,7 @@ public class QueryOnlyJoin extends QueryBaseNot {
         rightmem.addPartialMatch(inx, rfact, engine);
     }
 	
+	@SuppressWarnings("rawtypes")
 	public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
         Map leftmem = (Map) mem.getBetaLeftMemory(this);
         Iterator itr = leftmem.values().iterator();

@@ -55,6 +55,7 @@ public class TemporalCalculation implements Serializable {
 	 * @param rules
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public boolean calcuateDistance(Rete engine, Collection rules) {
 		// iterate over the rules and look at each conditional element
 		Iterator itr = rules.iterator();

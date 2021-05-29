@@ -26,6 +26,7 @@ import java.util.HashMap;
  * ConversioUtils has a methods for autoboxing primitive types
  * with the Object equivalent.
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class ConversionUtils {
 
     private static HashMap OPR_MAP;
@@ -44,7 +45,8 @@ public class ConversionUtils {
         OPR_MAP.put(String.valueOf(Constants.NOTEQUAL),Constants.NOTEQUAL_STRING);
     }
     
-    private static HashMap STROPR_MAP = null;
+    @SuppressWarnings("unused")
+	private static HashMap STROPR_MAP = null;
     
     static {
         STROPR_MAP = new HashMap();
@@ -66,7 +68,7 @@ public class ConversionUtils {
      * @return
      */
     public static Object convert(int val){
-        return new Integer(val);
+        return Integer.valueOf(val);
     }
     
     /**
@@ -75,7 +77,7 @@ public class ConversionUtils {
      * @return
      */
     public static Object convert(short val){
-        return new Short(val);
+        return Short.valueOf(val);
     }
     
     /**
@@ -84,7 +86,7 @@ public class ConversionUtils {
      * @return
      */
     public static Object convert(float val){
-        return new Float(val);
+        return Float.valueOf(val);
     }
     
     /**
@@ -93,7 +95,7 @@ public class ConversionUtils {
      * @return
      */
     public static Object convert(long val){
-        return new Long(val);
+        return Long.valueOf(val);
     }
     
     /**
@@ -102,7 +104,7 @@ public class ConversionUtils {
      * @return
      */
     public static Object convert(double val){
-        return new Double(val);
+        return Double.valueOf(val);
     }
     
     /**
@@ -111,29 +113,29 @@ public class ConversionUtils {
      * @return
      */
     public static Object convert(byte val){
-        return new Byte(val);
+        return Byte.valueOf(val);
     }
     
     public static Object convert(int type, Object val) {
     	if (type == Constants.INT_PRIM_TYPE || type == Constants.INTEGER_OBJECT) {
     		if (val instanceof BigDecimal) {
-    			return new Integer(((BigDecimal)val).intValue());
+    			return Integer.valueOf(((BigDecimal)val).intValue());
     		}
     	} else if (type == Constants.SHORT_PRIM_TYPE || type == Constants.SHORT_OBJECT) {
     		if (val instanceof BigDecimal) {
-    			return new Short(((BigDecimal)val).shortValue());
+    			return Short.valueOf(((BigDecimal)val).shortValue());
     		}
     	} else if (type == Constants.FLOAT_PRIM_TYPE || type == Constants.FLOAT_OBJECT) {
     		if (val instanceof BigDecimal) {
-    			return new Float(((BigDecimal)val).floatValue());
+    			return Float.valueOf(((BigDecimal)val).floatValue());
     		}
     	} else if (type == Constants.LONG_PRIM_TYPE || type == Constants.LONG_OBJECT) {
     		if (val instanceof BigDecimal) {
-    			return new Long(((BigDecimal)val).longValue());
+    			return Long.valueOf(((BigDecimal)val).longValue());
     		}
     	} else if (type == Constants.DOUBLE_PRIM_TYPE || type == Constants.DOUBLE_OBJECT) {
     		if (val instanceof BigDecimal) {
-    			return new Double(((BigDecimal)val).doubleValue());
+    			return Double.valueOf(((BigDecimal)val).doubleValue());
     		}
     	}
     	return val;

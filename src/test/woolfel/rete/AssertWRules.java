@@ -23,15 +23,12 @@ import java.util.List;
 import java.util.Random;
 
 import org.jamocha.parser.clips.CLIPSParser;
-import org.jamocha.rete.BoundParam;
-import org.jamocha.rete.Constants;
 import org.jamocha.rete.Deftemplate;
 import org.jamocha.rete.Function;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.ReturnValue;
 import org.jamocha.rete.ReturnVector;
 import org.jamocha.rete.exception.AssertException;
-import org.jamocha.rete.exception.CompileRuleException;
 import org.jamocha.rule.Defrule;
 import org.jamocha.rule.FunctionAction;
 
@@ -53,7 +50,8 @@ public class AssertWRules {
 		super();
 	}
 
-    public void parse(Rete engine, CLIPSParser parser, List factlist) {
+    @SuppressWarnings("rawtypes")
+	public void parse(Rete engine, CLIPSParser parser, List factlist) {
 		Object itm = null;
 		try {
 			while ((itm = parser.basicExpr()) != null) {
@@ -67,7 +65,7 @@ public class AssertWRules {
 					engine.declareTemplate(dt);
 				} else if (itm instanceof FunctionAction) {
 					FunctionAction fa = (FunctionAction) itm;
-
+					System.out.println("FunctionAction reached???? " + fa.getFunctionName());
 				} else if (itm instanceof Function) {
 					ReturnVector rv = ((Function) itm).executeFunction(engine,
 							null);
@@ -83,7 +81,8 @@ public class AssertWRules {
 		}
 	}    
     
-    public static void main(String args[]) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void main(String args[]) {
         String rulefile = "./benchmark_files/account_5.clp";
 
         ArrayList objects = new ArrayList();
@@ -130,7 +129,7 @@ public class AssertWRules {
             try {
                 FileInputStream freader = new FileInputStream(rulefile);
                 CLIPSParser parser = new CLIPSParser(engine,freader);
-                Object item = null;
+                // Object item = null;
                 ArrayList list = new ArrayList();
                 long start = System.currentTimeMillis();
                 awr.parse(engine,parser,list);

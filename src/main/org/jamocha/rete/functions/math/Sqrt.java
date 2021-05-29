@@ -38,11 +38,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Sqrt implements Function, Serializable {
 
-	public static final String SQRT = "sqrt";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String SQRT = "sqrt";
+
+
 	public Sqrt() {
 		super();
 	}
@@ -61,7 +64,7 @@ public class Sqrt implements Function, Serializable {
 	            bdval = new BigDecimal(params[0].getValue(engine, Constants.BIG_DECIMAL).toString());
 			}
 			bdh = Math.sqrt(bdval.doubleValue());
-			bdval = bdval.valueOf(bdh);
+			bdval = BigDecimal.valueOf(bdh);
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(Constants.BIG_DECIMAL,
@@ -74,6 +77,7 @@ public class Sqrt implements Function, Serializable {
 		return SQRT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

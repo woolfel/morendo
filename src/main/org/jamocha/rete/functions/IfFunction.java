@@ -118,6 +118,7 @@ public class IfFunction implements Function, Serializable {
 		return IF;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

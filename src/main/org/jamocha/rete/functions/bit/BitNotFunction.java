@@ -35,7 +35,7 @@ public class BitNotFunction implements Function {
 			}
 			value = ~value;
 		}
-		DefaultReturnValue returnValue = new DefaultReturnValue(Constants.INTEGER_OBJECT, new Integer(value));
+		DefaultReturnValue returnValue = new DefaultReturnValue(Constants.INTEGER_OBJECT, Integer.valueOf(value));
 		returnVector.addReturnValue(returnValue);
 		return returnVector;
 	}
@@ -44,6 +44,7 @@ public class BitNotFunction implements Function {
 		return BIT_NOT;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class, ValueParam.class};
 	}

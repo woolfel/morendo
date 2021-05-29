@@ -12,6 +12,7 @@ public class InitServiceTest extends TestCase {
 		// TODO Auto-generated constructor stub
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testInitialize() {
 		RuleService service = RuleServiceImpl.createInstance("./samples/configuration/sample_config.json");
@@ -22,6 +23,7 @@ public class InitServiceTest extends TestCase {
 		assertTrue( applications.size() == 1 );
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void testGetEngineContext() {
 		RuleService service = RuleServiceImpl.createInstance("./samples/configuration/sample_config.json");
 		service.initialize();
@@ -33,6 +35,7 @@ public class InitServiceTest extends TestCase {
 		assertNotNull(context);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void testReloadFunction() {
 		RuleService service = RuleServiceImpl.createInstance("./samples/configuration/sample_config.json");
 		service.initialize();

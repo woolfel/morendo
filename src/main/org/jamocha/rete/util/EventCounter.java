@@ -35,10 +35,14 @@ import org.jamocha.rete.EngineEventListener;
  */
 public class EventCounter implements EngineEventListener {
 
-    private ArrayList asserts = new ArrayList();
-    private ArrayList retracts = new ArrayList();
-    private ArrayList profiles = new ArrayList();
-    private Map nodeFilter = new HashMap();
+    @SuppressWarnings("rawtypes")
+	private ArrayList asserts = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	private ArrayList retracts = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	private ArrayList profiles = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	private Map nodeFilter = new HashMap();
     
 	/**
 	 * 
@@ -50,6 +54,7 @@ public class EventCounter implements EngineEventListener {
 	/* (non-Javadoc)
 	 * @see woolfel.engine.rete.EngineEventListener#eventOccurred(woolfel.engine.rete.EngineEvent)
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void eventOccurred(EngineEvent event) {
         if (event.getEventType() == EngineEvent.ASSERT_EVENT) {
             asserts.add(event);
@@ -90,11 +95,13 @@ public class EventCounter implements EngineEventListener {
      * To listen to a specific node, add the node to the filter
      * @param node
      */
-    public void addNodeFilter(BaseNode node) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public void addNodeFilter(BaseNode node) {
         this.nodeFilter.put(node,new ArrayList());
     }
     
-    public List getNodeEvents(BaseNode node) {
+    @SuppressWarnings("rawtypes")
+	public List getNodeEvents(BaseNode node) {
         return (List)this.nodeFilter.get(node);
     }
 }

@@ -75,6 +75,7 @@ public class AgentStatusResponseFunction implements Function {
 		return AGENT_STATUS_RESPONSE;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{long.class, long.class};
 	}

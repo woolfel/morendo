@@ -37,11 +37,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class Oddp implements Function, Serializable {
 
-	public static final String ODDP = "oddp";
-
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String ODDP = "oddp";
+
+	
 	public Oddp() {
 		super();
 	}
@@ -52,18 +55,18 @@ public class Oddp implements Function, Serializable {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		BigDecimal bdval = new BigDecimal(0);
-		boolean eval = false;
+		Boolean eval = Boolean.FALSE;
 		if (params.length == 1) {
             bdval = (BigDecimal)params[0].getValue(engine, Constants.BIG_DECIMAL);
 			double bdh = bdval.doubleValue();
 			if (bdh % 2 == 1){
-				eval = true;
+				eval = Boolean.TRUE;
 			}
 
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.BOOLEAN_OBJECT, new Boolean(eval));
+				Constants.BOOLEAN_OBJECT, eval);
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -72,6 +75,7 @@ public class Oddp implements Function, Serializable {
 		return ODDP;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}

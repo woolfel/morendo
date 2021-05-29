@@ -50,7 +50,6 @@ import org.jamocha.rete.ObjectTypeNode;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.RootNode;
 import org.jamocha.rete.TerminalNode;
-import org.jamocha.rete.WorkingMemory;
 
 /**
  * @author Josef Alexander Hahn
@@ -77,7 +76,8 @@ public class Visualiser implements ActionListener, MouseListener, EngineEventLis
 	protected final int nodeHorizontal=45;
 	protected final int nodeVertical=16;
 	protected SimpleAttributeSet even,odd,actAttributes;
-    protected Hashtable coordinates = new Hashtable();
+    @SuppressWarnings("rawtypes")
+	protected Hashtable coordinates = new Hashtable();
 	
 	protected Color getBackgroundColorForNode(ViewGraphNode node) {
 		Color bg=Color.black;
@@ -104,6 +104,7 @@ public class Visualiser implements ActionListener, MouseListener, EngineEventLis
 		radar.addPrimitive(p);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void getCorrespondingTerminalNodes(ViewGraphNode root, Set target){
 		BaseNode n=root.getReteNode();
 		if (n instanceof TerminalNode) target.add(n);
@@ -118,6 +119,7 @@ public class Visualiser implements ActionListener, MouseListener, EngineEventLis
 		myFrame=frame;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Shape makeShapeFromNode(ViewGraphNode act, LinkedList<ViewGraphNode> queue){
 		Color bg=getBackgroundColorForNode(act);
 		Color border=getBorderColorForNode(act);

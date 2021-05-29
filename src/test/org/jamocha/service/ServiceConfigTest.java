@@ -12,6 +12,7 @@ public class ServiceConfigTest extends TestCase {
 		super();
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSaveServiceConfig() {
 		ServiceConfiguration config = new ServiceConfiguration();
 		config.setServiceName("sample");
@@ -59,6 +60,7 @@ public class ServiceConfigTest extends TestCase {
 		RuleServiceImpl.saveConfiguration("./samples/configuration/test_config.json", config);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSaveServiceConfig2() {
 		ServiceConfiguration config = new ServiceConfiguration();
 		config.setServiceName("sample");
@@ -103,6 +105,7 @@ public class ServiceConfigTest extends TestCase {
 		RuleServiceImpl.saveConfiguration("./samples/configuration/test_config2.json", config);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSaveObjectData() {
 		ArrayList list = new ArrayList();
 		Hobby hobby1 = new Hobby();

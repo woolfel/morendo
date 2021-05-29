@@ -40,14 +40,16 @@ public class ExistCondition extends ObjectCondition {
 		super();
 	}
 
-    public void addConstraint(Constraint con) {
+    @SuppressWarnings("unchecked")
+	public void addConstraint(Constraint con) {
         this.constraints.add(con);
         if (con instanceof BoundConstraint) {
         	((BoundConstraint)con).setBindableConstraint(false);
         }
     }
     
-    public void addConstraint(Constraint con, int position) {
+    @SuppressWarnings("unchecked")
+	public void addConstraint(Constraint con, int position) {
         this.constraints.add(0,con);
         if (con instanceof BoundConstraint) {
         	((BoundConstraint)con).setBindableConstraint(false);
@@ -72,7 +74,8 @@ public class ExistCondition extends ObjectCondition {
 	}
 
 	public ConditionCompiler getCompiler(RuleCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).existConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.existConditionCompiler;
 	}
     
     public static ExistCondition newExistCondition(ObjectCondition cond) {

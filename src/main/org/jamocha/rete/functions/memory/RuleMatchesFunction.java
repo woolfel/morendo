@@ -33,12 +33,18 @@ import org.jamocha.rule.Defrule;
 
 public class RuleMatchesFunction extends BaseMatchFunction implements Function, Serializable {
 
-    public static final String RULE_MATCHES = "rule-matches";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String RULE_MATCHES = "rule-matches";
     
     public RuleMatchesFunction() {
     }
 
-    public ReturnVector executeFunction(Rete engine, Parameter[] params) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
         if (params != null && params.length > 0) {
             ArrayList rules = new ArrayList();
             for (int idx=0; idx < params.length; idx++) {
@@ -59,7 +65,8 @@ public class RuleMatchesFunction extends BaseMatchFunction implements Function, 
         return new DefaultReturnVector();
     }
 
-    protected void printRuleMemories(Rete engine, Defrule rule, DefaultWM wm) {
+    @SuppressWarnings("rawtypes")
+	protected void printRuleMemories(Rete engine, Defrule rule, DefaultWM wm) {
         StringBuffer buf = new StringBuffer();
         buf.append(rule.getName() + Constants.LINEBREAK);
         Condition[] conditions = rule.getConditions();
@@ -129,7 +136,8 @@ public class RuleMatchesFunction extends BaseMatchFunction implements Function, 
         return RULE_MATCHES;
     }
 
-    public Class[] getParameter() {
+    @SuppressWarnings("rawtypes")
+	public Class[] getParameter() {
         return new Class[] {String[].class};
     }
 

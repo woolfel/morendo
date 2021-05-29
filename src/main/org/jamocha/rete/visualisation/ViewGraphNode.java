@@ -141,6 +141,7 @@ public class ViewGraphNode {
 	 * Builds a complete Graph by traversing root
 	 * @param root
 	 */
+	@SuppressWarnings("rawtypes")
 	public static ViewGraphNode buildFromRete(RootNode root) {
 		Collection firstLevel=root.getObjectTypeNodes().values();
 		ViewGraphNode res=new ViewGraphNode();

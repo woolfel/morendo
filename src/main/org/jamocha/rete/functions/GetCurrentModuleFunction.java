@@ -63,6 +63,7 @@ public class GetCurrentModuleFunction implements Function, Serializable {
 		return rvector;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[0];
 	}

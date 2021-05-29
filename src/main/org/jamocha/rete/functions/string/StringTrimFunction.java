@@ -35,11 +35,14 @@ import org.jamocha.rete.ValueParam;
  */
 public class StringTrimFunction implements Function, Serializable {
 
-	public static final String STRING_TRIM = "str-trim";
-	
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
+	public static final String STRING_TRIM = "str-trim";
+	
+	
 	public StringTrimFunction() {
 		super();
 	}
@@ -69,6 +72,7 @@ public class StringTrimFunction implements Function, Serializable {
 		return STRING_TRIM;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

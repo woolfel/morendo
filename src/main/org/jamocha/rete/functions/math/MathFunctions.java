@@ -32,6 +32,7 @@ public class MathFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
 	private ArrayList funcs = new ArrayList();
 
 	public MathFunctions() {
@@ -42,6 +43,7 @@ public class MathFunctions implements FunctionGroup {
 		return (MathFunctions.class.getSimpleName());
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		Abs abs = new Abs();
 		engine.declareFunction(abs);
@@ -174,6 +176,7 @@ public class MathFunctions implements FunctionGroup {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List listFunctions() {
 		return funcs;
 	}

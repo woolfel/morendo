@@ -77,6 +77,7 @@ public class NTestNode extends BaseJoin {
 	 * Assert will first pass the facts to the parameters. Once the
 	 * parameters are set, it should call execute to get the result.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
 		Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -103,6 +104,7 @@ public class NTestNode extends BaseJoin {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("rawtypes")
 	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws RetractException {
 		Map leftmem = (Map) mem.getBetaLeftMemory(this);
@@ -131,6 +133,7 @@ public class NTestNode extends BaseJoin {
 	/**
 	 * clear the memory
 	 */
+	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
 		((Map) mem.getBetaLeftMemory(this)).clear();
 	}

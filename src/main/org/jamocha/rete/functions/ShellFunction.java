@@ -68,7 +68,7 @@ public class ShellFunction implements Function, Serializable {
         } else {
         	DefaultReturnVector rv = new DefaultReturnVector();
     		DefaultReturnValue rval = 
-    			new DefaultReturnValue(Constants.BOOLEAN_OBJECT,new Boolean(false));
+    			new DefaultReturnValue(Constants.BOOLEAN_OBJECT, Boolean.FALSE);
     		rv.addReturnValue(rval);
             return rv;
         }
@@ -78,6 +78,7 @@ public class ShellFunction implements Function, Serializable {
 		return funcName;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return this.actualFunction.getParameter();
 	}

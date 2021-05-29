@@ -64,7 +64,7 @@ public class StringLengthFunction implements Function, Serializable {
 		}
 		DefaultReturnVector ret = new DefaultReturnVector();
 		DefaultReturnValue rv = new DefaultReturnValue(
-				Constants.INTEGER_OBJECT, new Integer(len));
+				Constants.INTEGER_OBJECT, Integer.valueOf(len));
 		ret.addReturnValue(rv);
 		return ret;
 	}
@@ -73,6 +73,7 @@ public class StringLengthFunction implements Function, Serializable {
 		return STRING_LENGTH;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Class[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}

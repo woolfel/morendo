@@ -41,14 +41,16 @@ public class MultipleCondition extends ObjectCondition {
 		super();
 	}
 
-    public void addConstraint(Constraint con) {
+    @SuppressWarnings("unchecked")
+	public void addConstraint(Constraint con) {
         this.constraints.add(con);
         if (con instanceof BoundConstraint) {
         	((BoundConstraint)con).setBindableConstraint(false);
         }
     }
     
-    public void addConstraint(Constraint con, int position) {
+    @SuppressWarnings("unchecked")
+	public void addConstraint(Constraint con, int position) {
         this.constraints.add(position,con);
         if (con instanceof BoundConstraint) {
         	((BoundConstraint)con).setBindableConstraint(false);
@@ -73,7 +75,8 @@ public class MultipleCondition extends ObjectCondition {
 	}
 
 	public ConditionCompiler getCompiler(RuleCompiler ruleCompiler) {
-		return CompilerProvider.getInstance(ruleCompiler).multipleConditionCompiler;
+		CompilerProvider.getInstance(ruleCompiler);
+		return CompilerProvider.multipleConditionCompiler;
 	}
     
     public static MultipleCondition newMultipleCondition(ObjectCondition cond) {

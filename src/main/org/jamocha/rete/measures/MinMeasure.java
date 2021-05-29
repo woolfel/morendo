@@ -18,8 +18,6 @@ package org.jamocha.rete.measures;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
-
 import org.jamocha.rete.Cube;
 import org.jamocha.rete.CubeBinding;
 import org.jamocha.rete.Index;
