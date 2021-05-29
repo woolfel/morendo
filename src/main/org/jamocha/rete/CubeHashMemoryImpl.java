@@ -33,26 +33,25 @@ public class CubeHashMemoryImpl implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    @SuppressWarnings("rawtypes")
-	protected Map memory = null;
+   	protected Map<HashIndex, Map<Object, Object>> memory = null;
     
     protected int counter = 0;
     
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	public CubeHashMemoryImpl(String name, Rete engine) {
 		super();
-		memory = engine.newAlphaMemoryMap(name);
+		memory = (Map<HashIndex, Map<Object, Object>>) engine.newAlphaMemoryMap(name);
 	}
 
 	/**
      * addPartialMatch stores the fact with the factId as the
      * key.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public int addPartialMatch(HashIndex index, Object data, Rete engine) {
-		Map matches = (Map)this.memory.get(index);
+		Map<Object, Object> matches = this.memory.get(index);
         int count = 0;
 		if (matches == null) {
 			count = this.addNewPartialMatch(index,data,engine);
@@ -64,9 +63,9 @@ public class CubeHashMemoryImpl implements Serializable {
         return count;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public int addNewPartialMatch(HashIndex index, Object data, Rete engine) {
-		Map matches = engine.newMap();
+		Map<Object, Object> matches = (Map<Object, Object>) engine.newMap();
 		matches.put(data,data);
 		this.memory.put(index,matches);
         return 1;
@@ -75,18 +74,16 @@ public class CubeHashMemoryImpl implements Serializable {
 	/**
      * clear the memory.
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear() {
-		Iterator itr = this.memory.values().iterator();
+		Iterator<Map<Object, Object>> itr = this.memory.values().iterator();
 		while (itr.hasNext()) {
-			((Map)itr.next()).clear();
+			itr.next().clear();
 		}
         this.memory.clear();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public boolean isPartialMatch(HashIndex index, Object data) {
-		Map list = (Map)this.memory.get(index);
+		Map<?, ?> list = this.memory.get(index);
 		if (list != null) {
 			return list.containsKey(data);
 		} else {
@@ -97,9 +94,8 @@ public class CubeHashMemoryImpl implements Serializable {
 	/**
      * remove a partial match from the memory
 	 */
-	@SuppressWarnings("rawtypes")
 	public int removePartialMatch(HashIndex index, Object data) {
-		Map list = (Map)this.memory.get(index);
+		Map<?, ?> list = this.memory.get(index);
         if (list != null) {
             list.remove(data);
             if (list.size() == 0) {
@@ -115,12 +111,11 @@ public class CubeHashMemoryImpl implements Serializable {
     /**
      * Return the number of memories of all hash buckets
      */
-    @SuppressWarnings("rawtypes")
-	public int size() {
-    	Iterator itr = this.memory.keySet().iterator();
+    public int size() {
+    	Iterator<HashIndex> itr = this.memory.keySet().iterator();
     	int count = 0;
     	while (itr.hasNext()) {
-    		Map matches = (Map)this.memory.get(itr.next());
+    		Map<?, ?> matches = this.memory.get(itr.next());
     		count += matches.size();
     	}
         return count;
@@ -133,9 +128,8 @@ public class CubeHashMemoryImpl implements Serializable {
     /**
      * Return an iterator of the values
      */
-    @SuppressWarnings("rawtypes")
-	public Iterator iterator(HashIndex index) {
-    	Map list = (Map)this.memory.get(index);
+    public Iterator<?> iterator(HashIndex index) {
+    	Map<?, ?> list = this.memory.get(index);
 		if (list != null) {
 	        return list.values().iterator();
 		} else {
@@ -143,9 +137,8 @@ public class CubeHashMemoryImpl implements Serializable {
 		}
     }
     
-    @SuppressWarnings("rawtypes")
-	public int count(HashIndex index) {
-    	Map list = (Map)this.memory.get(index);
+    public int count(HashIndex index) {
+    	Map<?, ?> list = this.memory.get(index);
     	if (list != null) {
     		return list.size();
     	} else {
@@ -157,14 +150,13 @@ public class CubeHashMemoryImpl implements Serializable {
      * return an arraylist with all the facts
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public Object[] iterateAll() {
+    public Object[] iterateAll() {
     	Object[] all = new Object[this.counter];
-    	Iterator itr = this.memory.keySet().iterator();
+    	Iterator<HashIndex> itr = this.memory.keySet().iterator();
     	int idx = 0;
     	while (itr.hasNext()) {
-    		Map f = (Map)this.memory.get(itr.next());
-    		Iterator itr2 = f.values().iterator();
+    		Map<?, ?> f = this.memory.get(itr.next());
+    		Iterator<?> itr2 = f.values().iterator();
     		while (itr2.hasNext()) {
         		all[idx] = itr2.next();
         		idx++;

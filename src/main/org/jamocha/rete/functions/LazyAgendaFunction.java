@@ -78,8 +78,7 @@ public class LazyAgendaFunction implements Function, Serializable {
 		return LAZY_AGENDA;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

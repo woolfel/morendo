@@ -33,16 +33,16 @@ public class BetaMemoryImpl implements BetaMemory {
 
 	protected Index index = null;
 
-	@SuppressWarnings("rawtypes")
-	protected Map matches = null;
+	protected Map<Fact, Fact> matches = null;
 
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	public BetaMemoryImpl(Index index, Rete engine) {
 		super();
 		this.index = index;
-		matches = engine.newMap();
+		matches = (Map<Fact, Fact>) engine.newMap();
 	}
 
 	/**
@@ -66,9 +66,8 @@ public class BetaMemoryImpl implements BetaMemory {
 	 * the right input that matched
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	public Iterator iterateRightFacts() {
-		return this.matches.keySet().iterator();
+	public Iterator<Fact> iterateRightFacts() {
+		return (Iterator<Fact>) this.matches.keySet().iterator();
 	}
 
 	/**
@@ -85,7 +84,6 @@ public class BetaMemoryImpl implements BetaMemory {
 	 * Add a match to the list
 	 * @param rightfacts
 	 */
-	@SuppressWarnings("unchecked")
 	public void addMatch(Fact rightfact) {
 		this.matches.put(rightfact, null);
 	}
@@ -113,7 +111,6 @@ public class BetaMemoryImpl implements BetaMemory {
 	 * The implementation will append the facts for the left followed
 	 * by double colon "::" and then the matches from the right
 	 */
-	@SuppressWarnings("rawtypes")
 	public String toPPString() {
 		StringBuffer buf = new StringBuffer();
 		for (int idx = 0; idx < this.index.getFacts().length; idx++) {
@@ -123,7 +120,7 @@ public class BetaMemoryImpl implements BetaMemory {
 			buf.append(this.index.getFacts()[idx].getFactId());
 		}
 		buf.append(": ");
-		Iterator itr = this.matches.keySet().iterator();
+		Iterator<Fact> itr = matches.keySet().iterator();
 		while (itr.hasNext()) {
 			Fact f = (Fact) itr.next();
 			buf.append(f.getFactId() + ", ");

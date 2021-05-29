@@ -138,9 +138,8 @@ public abstract class BaseNode implements Serializable, Print {
 	 * Subclasses need to implement clear and make sure all
 	 * memories are cleared properly.
 	 */
-	@SuppressWarnings("rawtypes")
-	public void clear(WorkingMemory mem) {
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+		public void clear(WorkingMemory mem) {
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
         leftmem.clear();
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl)mem.getBetaRightMemory(this);
         rightmem.clear();

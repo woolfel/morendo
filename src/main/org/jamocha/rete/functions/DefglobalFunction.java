@@ -72,8 +72,7 @@ public class DefglobalFunction implements Serializable, Function {
 		return DEFGLOBAL;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return null;
 	}
 

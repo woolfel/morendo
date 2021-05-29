@@ -83,8 +83,7 @@ public class UnWatchFunction implements Function, Serializable {
 		return UNWATCH;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

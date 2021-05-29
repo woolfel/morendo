@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jamocha.rete.Function;
 import org.jamocha.rete.FunctionGroup;
 import org.jamocha.rete.Rete;
 
@@ -36,8 +37,7 @@ public class BooleanFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private ArrayList funcs = new ArrayList();
+	private ArrayList<Function> funcs = new ArrayList<Function>();
 	
 	public BooleanFunctions() {
 		super();
@@ -47,7 +47,6 @@ public class BooleanFunctions implements FunctionGroup, Serializable {
 		return (BooleanFunctions.class.getSimpleName());
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		NotFunction not = new NotFunction();
 		engine.declareFunction(not);
@@ -62,8 +61,7 @@ public class BooleanFunctions implements FunctionGroup, Serializable {
 		funcs.add(falseFunc);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List listFunctions() {
+	public List<?> listFunctions() {
 		return funcs;
 	}
 

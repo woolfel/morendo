@@ -54,8 +54,7 @@ public class PPrintDefcubeFunction implements Function {
 		return PPDEFCUBE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String.class};
 	}
 

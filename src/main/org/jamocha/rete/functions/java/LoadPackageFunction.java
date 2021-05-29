@@ -53,7 +53,6 @@ public class LoadPackageFunction implements Function, Serializable {
 		this.classnameResolver = classnameResolver;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Object o = null;
 		String classname = null;
@@ -72,7 +71,7 @@ public class LoadPackageFunction implements Function, Serializable {
 				classname = rval.firstReturnValue().getStringValue();
 			}
 			try {
-				Class classDefinition = classnameResolver
+				Class<?> classDefinition = classnameResolver
 						.resolveClass(classname);
 				o = classDefinition.getDeclaredConstructor().newInstance();
 				if(o instanceof FunctionGroup) {
@@ -104,8 +103,7 @@ public class LoadPackageFunction implements Function, Serializable {
 		return FUNCTION_NAME;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

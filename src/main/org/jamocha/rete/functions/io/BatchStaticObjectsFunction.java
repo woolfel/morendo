@@ -130,8 +130,7 @@ public class BatchStaticObjectsFunction implements Function, Serializable {
 		return BATCH;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

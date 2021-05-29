@@ -41,8 +41,7 @@ public class AndCondition implements Condition {
      * 
      */
     private static final long serialVersionUID = 1L;
-    @SuppressWarnings("rawtypes")
-	protected List nestedCE = new ArrayList();
+	protected List<Object> nestedCE = new ArrayList<Object>();
     protected BaseJoin reteNode = null;
     
 	/**
@@ -56,32 +55,27 @@ public class AndCondition implements Condition {
 		return false;
 	}
 
-    @SuppressWarnings("unchecked")
-	public void addNestedConditionElement(Object ce) {
+    public void addNestedConditionElement(Object ce) {
         this.nestedCE.add(ce);
     }
     
-    @SuppressWarnings("unchecked")
-	public void addAll(@SuppressWarnings("rawtypes") java.util.List list) {
+    public void addAll(java.util.List<?> list) {
         if (list != null) {
             this.nestedCE.addAll(list);
         }
     }
     
-    @SuppressWarnings("rawtypes")
-	public List getNestedConditionalElement() {
+	public List<Object> getNestedConditionalElement() {
         return this.nestedCE;
     }
     
-    @SuppressWarnings("unchecked")
-	public Condition[] getConditions() {
+    public Condition[] getConditions() {
         Condition[] conditions = new Condition[this.nestedCE.size()];
-        return (Condition[])this.nestedCE.toArray(conditions);
+        return this.nestedCE.toArray(conditions);
     }
     
-	@SuppressWarnings("rawtypes")
-	public List getNodes() {
-		return new ArrayList();
+	public List<?> getNodes() {
+		return new ArrayList<Object>();
 	}
 
     /**
@@ -139,8 +133,7 @@ public class AndCondition implements Condition {
 		return CompilerProvider.andConditionCompiler;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public List getBindConstraints() {
+	public List<?> getBindConstraints() {
 		return null;
 	}
 }

@@ -82,8 +82,7 @@ public class StringReplaceFunction implements Function, Serializable {
 		return STRING_REPLACE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class,ValueParam.class};
 	}
 

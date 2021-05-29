@@ -48,14 +48,10 @@ public class Defrule implements Rule, Scope, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	protected String name = null;
-    @SuppressWarnings("rawtypes")
-	protected ArrayList conditions = null;
-    @SuppressWarnings("rawtypes")
-	protected ArrayList actions = null;
-    @SuppressWarnings("rawtypes")
-	protected ArrayList modificationActions = null;
-	@SuppressWarnings("rawtypes")
-	protected ArrayList joins = null;
+    protected ArrayList<Condition> conditions = null;
+    protected ArrayList<Action> actions = null;
+    protected ArrayList<Action> modificationActions = null;
+	protected ArrayList<BaseJoin> joins = null;
     protected int salience = 100;
     protected boolean auto = false;
     protected Complexity complex = null;
@@ -67,10 +63,8 @@ public class Defrule implements Rule, Scope, Serializable {
     protected boolean noAgenda = false;
     protected String version = "";
     protected Module themodule = null;
-    @SuppressWarnings("rawtypes")
-	protected Map bindValues = new HashMap();
-	@SuppressWarnings("rawtypes")
-	private LinkedHashMap bindings = new LinkedHashMap();
+    protected Map<Object, Object> bindValues = new HashMap<Object, Object>();
+	private LinkedHashMap<String, Binding> bindings = new LinkedHashMap<String, Binding>();
 	private String comment = "";
 	/**
 	 * by default a rule is active, unless set to false
@@ -105,15 +99,14 @@ public class Defrule implements Rule, Scope, Serializable {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("rawtypes")
 	public Defrule() {
 		super();
         this.complex = ComplexityFactory.newInstance();
         this.complex.setRule(this);
-        conditions = new ArrayList();
-        actions = new ArrayList();
-        joins = new ArrayList();
-        modificationActions = new ArrayList();
+        conditions = new ArrayList<Condition>();
+        actions = new ArrayList<Action>();
+        joins = new ArrayList<BaseJoin>();
+        modificationActions = new ArrayList<Action>();
 	}
 
     public Defrule(String name) {
@@ -254,7 +247,6 @@ public class Defrule implements Rule, Scope, Serializable {
     /* (non-Javadoc)
 	 * @see woolfel.engine.rule.Rule#addCondition(woolfel.engine.rule.Condition)
 	 */
-	@SuppressWarnings("unchecked")
 	public void addCondition(Condition cond) {
         conditions.add(cond);
 	}
@@ -262,7 +254,6 @@ public class Defrule implements Rule, Scope, Serializable {
 	/* (non-Javadoc)
 	 * @see woolfel.engine.rule.Rule#addAction(woolfel.engine.rule.Action)
 	 */
-	@SuppressWarnings("unchecked")
 	public void addAction(Action act) {
         actions.add(act);
 	}
@@ -270,7 +261,6 @@ public class Defrule implements Rule, Scope, Serializable {
 	/* (non-Javadoc)
 	 * @see woolfel.engine.rule.Rule#getConditions()
 	 */
-	@SuppressWarnings("unchecked")
 	public Condition[] getConditions() {
         Condition[] cond = new Condition[conditions.size()];
         conditions.toArray(cond);
@@ -280,21 +270,18 @@ public class Defrule implements Rule, Scope, Serializable {
 	/* (non-Javadoc)
 	 * @see woolfel.engine.rule.Rule#getActions()
 	 */
-	@SuppressWarnings("unchecked")
 	public Action[] getActions() {
         Action[] acts = new Action[actions.size()];
         actions.toArray(acts);
 		return acts;
 	}
 
-    @SuppressWarnings("unchecked")
-	public Action[] getModificationActions() {
+    public Action[] getModificationActions() {
         Action[] acts = new Action[modificationActions.size()];
         modificationActions.toArray(acts);
 		return acts;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void addModificationAction(Action act) {
 		this.modificationActions.add(act);
 	}
@@ -310,27 +297,25 @@ public class Defrule implements Rule, Scope, Serializable {
     /**
      * add join nodes to the rule
      */
-    @SuppressWarnings("unchecked")
-	public void addJoinNode(BaseJoin node) {
+    public void addJoinNode(BaseJoin node) {
         this.joins.add(node);
     }
 
     /**
      * get the array of join nodes
      */
-    @SuppressWarnings("rawtypes")
-	public List getJoins() {
+	public List<BaseJoin> getJoins() {
         return this.joins;
     }
     
     public BaseNode getLastNode() {
         if (this.joins.size() > 0) {
-            return (BaseNode)this.joins.get(this.joins.size() - 1);
+            return this.joins.get(this.joins.size() - 1);
         } else if (conditions.size() > 0) {
             // this means there's only 1 ConditionalElement, so the conditions
             // only has 1 element. in all other cases, there will be atleast
             // 1 join node
-            Condition c = (Condition)this.conditions.get(0);
+            Condition c = this.conditions.get(0);
             if (c instanceof ObjectCondition) {
                 return ((ObjectCondition)c).getLastNode();
             } else if (c instanceof TestCondition) {
@@ -346,8 +331,7 @@ public class Defrule implements Rule, Scope, Serializable {
      * the current implementation simply replaces the existing
      * value if one already exists.
      */
-    @SuppressWarnings("unchecked")
-	public void setBindingValue(Object key, Object value) {
+    public void setBindingValue(Object key, Object value) {
     	this.bindValues.put(key,value);
     }
 
@@ -357,7 +341,7 @@ public class Defrule implements Rule, Scope, Serializable {
     public Object getBindingValue(Object key) {
     	Object val = this.bindValues.get(key);
     	if (val == null) {
-    		Binding bd = (Binding)this.bindings.get(key);
+    		Binding bd = this.bindings.get(key);
     		if (bd != null) {
     			Fact left = this.triggerFacts[bd.getLeftRow()];
     			if (bd.getIsObjectVar()) {
@@ -370,8 +354,7 @@ public class Defrule implements Rule, Scope, Serializable {
     	return val;
     }
  
-    @SuppressWarnings("unchecked")
-	public void setBindingValue(String name, Object value) {
+    public void setBindingValue(String name, Object value) {
         this.bindValues.put(name, value);
     }
     
@@ -405,7 +388,6 @@ public class Defrule implements Rule, Scope, Serializable {
 	 * exist.
 	 * @param bind
 	 */
-	@SuppressWarnings("unchecked")
 	public void addBinding(String key, Binding bind) {
 		if (!this.bindings.containsKey(key)) {
 			this.bindings.put(key,bind);
@@ -418,7 +400,7 @@ public class Defrule implements Rule, Scope, Serializable {
 	 * @return
 	 */
 	public Binding getBinding(String varName) {
-		return (Binding)this.bindings.get(varName);
+		return this.bindings.get(varName);
 	}
 
 	/**
@@ -467,8 +449,7 @@ public class Defrule implements Rule, Scope, Serializable {
 	 * were added to the utility.
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	public Iterator getBindingIterator() {
+	public Iterator<Binding> getBindingIterator() {
 		return this.bindings.values().iterator();
 	}
 	
@@ -513,9 +494,8 @@ public class Defrule implements Rule, Scope, Serializable {
         }
     }
 	
-	@SuppressWarnings("rawtypes")
-	public void setRuleProperties(List props) {
-		Iterator itr = props.iterator();
+	public void setRuleProperties(List<?> props) {
+		Iterator<?> itr = props.iterator();
 		while (itr.hasNext()) {
 			RuleProperty declaration = (RuleProperty) itr.next();
 			if (declaration.getName().equals(RuleProperty.AUTO_FOCUS)) {
@@ -567,19 +547,19 @@ public class Defrule implements Rule, Scope, Serializable {
                 + ") (no-agenda " + this.noAgenda + ") (chaining-direction " + this.direction + ") )" +
 				Constants.LINEBREAK);
 		for (int idx=0; idx < this.conditions.size(); idx++) {
-			Condition c = (Condition)this.conditions.get(idx);
+			Condition c = this.conditions.get(idx);
 			buf.append(c.toPPString());
 		}
 		buf.append("=>" + Constants.LINEBREAK);
 		// now append the actions
 		for (int idx=0; idx < this.actions.size(); idx++) {
-			Action ac = (Action)this.actions.get(idx);
+			Action ac = this.actions.get(idx);
 			buf.append(ac.toPPString());
 		}
 		if (this.modificationActions.size() > 0) {
 			buf.append("<<=" + Constants.LINEBREAK);
 			for (int idx=0; idx < this.modificationActions.size(); idx++) {
-				Action ac = (Action)this.modificationActions.get(idx);
+				Action ac = this.modificationActions.get(idx);
 				buf.append(ac.toPPString());
 			}
 		}
@@ -588,11 +568,10 @@ public class Defrule implements Rule, Scope, Serializable {
 		return buf.toString();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public void clear() {
-		Iterator itr = this.conditions.iterator();
+		Iterator<Condition> itr = this.conditions.iterator();
 		while (itr.hasNext()) {
-			Condition cond = (Condition)itr.next();
+			Condition cond = itr.next();
 			cond.clear();
 		}
 		this.joins.clear();

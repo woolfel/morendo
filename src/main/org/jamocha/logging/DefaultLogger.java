@@ -38,8 +38,7 @@ public class DefaultLogger implements Serializable, org.jamocha.logging.Logger {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("rawtypes")
-	public DefaultLogger(Class theclazz) {
+	public DefaultLogger(Class<?> theclazz) {
 		super();
 		log = Logger.getLogger(theclazz);
 		PropertyConfigurator.configure("log4j.properties");

@@ -76,8 +76,7 @@ public class Visualiser implements ActionListener, MouseListener, EngineEventLis
 	protected final int nodeHorizontal=45;
 	protected final int nodeVertical=16;
 	protected SimpleAttributeSet even,odd,actAttributes;
-    @SuppressWarnings("rawtypes")
-	protected Hashtable coordinates = new Hashtable();
+   	protected Hashtable<String, Shape> coordinates = new Hashtable<String, Shape>();
 	
 	protected Color getBackgroundColorForNode(ViewGraphNode node) {
 		Color bg=Color.black;
@@ -104,11 +103,10 @@ public class Visualiser implements ActionListener, MouseListener, EngineEventLis
 		radar.addPrimitive(p);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected void getCorrespondingTerminalNodes(ViewGraphNode root, Set target){
+	protected void getCorrespondingTerminalNodes(ViewGraphNode root, Set<BaseNode> target){
 		BaseNode n=root.getReteNode();
 		if (n instanceof TerminalNode) target.add(n);
-		Iterator it=root.childs.iterator();
+		Iterator<?> it=root.childs.iterator();
 		while (it.hasNext()) {
 			ViewGraphNode succ=(ViewGraphNode) it.next();
 			getCorrespondingTerminalNodes(succ, target);
@@ -119,13 +117,12 @@ public class Visualiser implements ActionListener, MouseListener, EngineEventLis
 		myFrame=frame;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Shape makeShapeFromNode(ViewGraphNode act, LinkedList<ViewGraphNode> queue){
 		Color bg=getBackgroundColorForNode(act);
 		Color border=getBorderColorForNode(act);
 		String desc="";
 		BaseNode reteNode=act.getReteNode();
-		HashSet terminalNodes=new HashSet();
+		HashSet<BaseNode> terminalNodes=new HashSet<BaseNode>();
 		getCorrespondingTerminalNodes(act, terminalNodes);
 		if (reteNode!=null) desc=String.valueOf(reteNode.getNodeId());
 		Shape s;
@@ -163,7 +160,7 @@ public class Visualiser implements ActionListener, MouseListener, EngineEventLis
 			longdesc+="  Details:"+reteNode.toPPString();
 		}
 		longdesc+="  Rules:";
-		Iterator iter=terminalNodes.iterator();
+		Iterator<BaseNode> iter=terminalNodes.iterator();
 		while (iter.hasNext()) {
 			TerminalNode t=(TerminalNode) iter.next();
 			

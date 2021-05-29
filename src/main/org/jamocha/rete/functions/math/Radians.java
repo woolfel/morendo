@@ -85,8 +85,7 @@ public class Radians implements Function, Serializable {
 		return RADIANS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

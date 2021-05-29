@@ -19,6 +19,7 @@ package org.jamocha.rete.functions.math;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jamocha.rete.Function;
 import org.jamocha.rete.FunctionGroup;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.exception.FunctionException;
@@ -32,8 +33,7 @@ public class MathFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private ArrayList funcs = new ArrayList();
+	private ArrayList<Function> funcs = new ArrayList<Function>();
 
 	public MathFunctions() {
 		super();
@@ -43,7 +43,6 @@ public class MathFunctions implements FunctionGroup {
 		return (MathFunctions.class.getSimpleName());
 	}
 
-	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		Abs abs = new Abs();
 		engine.declareFunction(abs);
@@ -176,8 +175,7 @@ public class MathFunctions implements FunctionGroup {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List listFunctions() {
+	public List<Function> listFunctions() {
 		return funcs;
 	}
 

@@ -42,8 +42,7 @@ public class MedianMeasure implements AggregateMeasure {
 	public MedianMeasure() {
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected BigDecimal calculate(Rete engine, Cube cube, List data) {
+	protected BigDecimal calculate(Rete engine, Cube cube, List<BigDecimal> data) {
 		if (data != null) {
 			java.util.Collections.sort(data);
 			int size = data.size();
@@ -72,13 +71,12 @@ public class MedianMeasure implements AggregateMeasure {
 	/**
 	 * Method extracts the values and call an internal protected method to calculate the median
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BigDecimal calculate(Rete engine, Cube cube, Object[] data, CubeBinding binding) {
 		if (data != null) {
-			ArrayList values = new ArrayList();
+			ArrayList<BigDecimal> values = new ArrayList<BigDecimal>();
 			for (int idx=0; idx < data.length; idx++) {
 				Index facts = (Index)data[idx];
-				Object value = facts.getFacts()[binding.getLeftRow()].getSlotValue(binding.getLeftIndex());
+				BigDecimal value = (BigDecimal) facts.getFacts()[binding.getLeftRow()].getSlotValue(binding.getLeftIndex());
 				values.add(value);
 			}
 			return this.calculate(engine, cube, values);

@@ -35,14 +35,10 @@ import org.jamocha.rete.EngineEventListener;
  */
 public class EventCounter implements EngineEventListener {
 
-    @SuppressWarnings("rawtypes")
-	private ArrayList asserts = new ArrayList();
-    @SuppressWarnings("rawtypes")
-	private ArrayList retracts = new ArrayList();
-    @SuppressWarnings("rawtypes")
-	private ArrayList profiles = new ArrayList();
-    @SuppressWarnings("rawtypes")
-	private Map nodeFilter = new HashMap();
+	private ArrayList<EngineEvent> asserts = new ArrayList<EngineEvent>();
+	private ArrayList<EngineEvent> retracts = new ArrayList<EngineEvent>();
+	private ArrayList<EngineEvent> profiles = new ArrayList<EngineEvent>();
+	private Map<BaseNode, ArrayList<?>> nodeFilter = new HashMap<BaseNode, ArrayList<?>>();
     
 	/**
 	 * 
@@ -54,7 +50,7 @@ public class EventCounter implements EngineEventListener {
 	/* (non-Javadoc)
 	 * @see woolfel.engine.rete.EngineEventListener#eventOccurred(woolfel.engine.rete.EngineEvent)
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings("unchecked")
 	public void eventOccurred(EngineEvent event) {
         if (event.getEventType() == EngineEvent.ASSERT_EVENT) {
             asserts.add(event);
@@ -75,7 +71,7 @@ public class EventCounter implements EngineEventListener {
         }
         Object val = this.nodeFilter.get(event.getSourceNode());
         if (val != null) {
-            ((ArrayList)val).add(event);
+            ((ArrayList<EngineEvent>)val).add(event);
         }
 	}
 
@@ -95,13 +91,11 @@ public class EventCounter implements EngineEventListener {
      * To listen to a specific node, add the node to the filter
      * @param node
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addNodeFilter(BaseNode node) {
-        this.nodeFilter.put(node,new ArrayList());
+        this.nodeFilter.put(node,new ArrayList<Object>());
     }
     
-    @SuppressWarnings("rawtypes")
-	public List getNodeEvents(BaseNode node) {
-        return (List)this.nodeFilter.get(node);
+	public List<?> getNodeEvents(BaseNode node) {
+        return this.nodeFilter.get(node);
     }
 }

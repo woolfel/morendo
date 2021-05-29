@@ -60,8 +60,7 @@ public class GetStrategyFunction implements Function, Serializable {
 		return GET_STRATEGY;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

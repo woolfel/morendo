@@ -86,8 +86,7 @@ public class EqMonthFunction extends AbstractTimeFunction implements Function {
 		return EQ_MONTH;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Date.class, Date.class};
 	}
 

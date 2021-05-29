@@ -80,8 +80,7 @@ public class BetweenFunction extends AbstractTimeFunction implements Function, S
 		return BETWEEN;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
         return new Class[]{Object.class,Object.class,Object.class};
 	}
 

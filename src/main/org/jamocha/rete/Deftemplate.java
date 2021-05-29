@@ -297,10 +297,9 @@ public class Deftemplate implements Template, Serializable {
 	 * @param id
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	public Fact createFact(List data, long id) {
+	public Fact createFact(List<?> data, long id) {
 		BaseSlot[] values = cloneAllSlots();
-		Iterator itr = data.iterator();
+		Iterator<?> itr = data.iterator();
 		while (itr.hasNext()) {
 			Slot s = (Slot) itr.next();
 			for (int idx = 0; idx < values.length; idx++) {
@@ -323,10 +322,9 @@ public class Deftemplate implements Template, Serializable {
 		return newfact;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Fact createFact(Object[] data, long id) {
 		BaseSlot[] values = cloneAllSlots();
-        ArrayList bslots = new ArrayList();
+        ArrayList<Slot> bslots = new ArrayList<Slot>();
         boolean hasbinding = false;
 		for (int idz=0; idz < data.length; idz++) {
 			Slot s = (Slot) data[idz];
@@ -339,7 +337,7 @@ public class Deftemplate implements Template, Serializable {
                         Object[] mvals = ms.getValue();
                         for (int mdx=0; mdx < mvals.length; mdx++) {
                             if (mvals[mdx] instanceof BoundParam) {
-                                bslots.add(ms.clone());
+                                bslots.add((Slot) ms.clone());
                                 hasbinding = true;
                                 break;
                             }
@@ -366,7 +364,7 @@ public class Deftemplate implements Template, Serializable {
 		Deffact newfact = new Deffact(this, null, values, id);
         if (hasbinding) {
             Slot[] slts2 = new Slot[bslots.size()];
-            newfact.boundSlots = (Slot[])bslots.toArray(slts2);
+            newfact.boundSlots = bslots.toArray(slts2);
             newfact.hasBinding = true;
         }
 		// we call this to create the string used to map the fact.

@@ -58,8 +58,7 @@ public class MemoryTotalFunction implements Function, Serializable {
 		return MEMORY_TOTAL;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

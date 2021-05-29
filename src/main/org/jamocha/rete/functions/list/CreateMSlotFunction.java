@@ -30,10 +30,9 @@ public class CreateMSlotFunction implements Serializable, Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-		List list = new ArrayList();
+		List<Object> list = new ArrayList<Object>();
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				if (params[idx] instanceof ValueParam) {
@@ -45,7 +44,7 @@ public class CreateMSlotFunction implements Serializable, Function {
 			}
 			if (params[0].getValue() instanceof String) {
 				String[] mval = new String[params.length];
-				mval = (String[])list.toArray(mval);
+				mval = list.toArray(mval);
 				DefaultReturnValue rv = new DefaultReturnValue(Constants.ARRAY_TYPE,
 						mval);
 				ret.addReturnValue(rv);
@@ -68,8 +67,7 @@ public class CreateMSlotFunction implements Serializable, Function {
 		return CREATE_MULTISLOT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}
 

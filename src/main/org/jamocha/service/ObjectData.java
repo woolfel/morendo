@@ -103,7 +103,6 @@ public class ObjectData implements InitialData {
 		this.url = url;
 	}
 
-	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	private void loadFromURL() {
 		if (this.url != null) {
@@ -118,16 +117,16 @@ public class ObjectData implements InitialData {
 	 * @param url
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
-	public static List loadObjectData(String url) {
+	public static List<Object> loadObjectData(String url) {
 		Reader reader;
 		try {
 			if (url.startsWith("http://")) {
 				try {
 					URL urlObject = new URL(url);
 					InputStream input = urlObject.openStream();
-					List data = mapper.readValue(input, List.class);
+					List<Object> data = mapper.readValue(input, List.class);
 					return data;
 				} catch (MalformedURLException e) {
 					Logger log = LogFactory.createLogger(ObjectData.class);
@@ -138,7 +137,7 @@ public class ObjectData implements InitialData {
 				}
 			} else {
 				reader = new FileReader(url);
-				List data = mapper.readValue(reader, List.class);
+				List<Object> data = mapper.readValue(reader, List.class);
 				return data;
 			}
 		} catch (Exception e) {
@@ -154,9 +153,8 @@ public class ObjectData implements InitialData {
 	 * @param filename
 	 * @param data
 	 */
-	@SuppressWarnings("rawtypes")
 	@JsonIgnore
-	public static void saveObjectData(String filename, List data) {
+	public static void saveObjectData(String filename, List<?> data) {
 		FileWriter writer;
 		try {
 			writer = new FileWriter(filename);

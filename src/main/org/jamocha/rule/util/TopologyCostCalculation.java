@@ -59,7 +59,6 @@ public class TopologyCostCalculation {
     	}
     }
     
-    @SuppressWarnings("rawtypes")
 	public void calculateWithoutOptimization(Rete engine, Defrule r, RootNode root) {
         Condition[] conditions = r.getConditions();
         // first we add the size for the object type nodes
@@ -81,7 +80,7 @@ public class TopologyCostCalculation {
         for (int idx=0; idx < conditions.length; idx++) {
             if (conditions[idx] instanceof ObjectCondition) {
                 ObjectCondition oc = (ObjectCondition)conditions[idx];
-                List nodes = oc.getNodes();
+                List<?> nodes = oc.getNodes();
                 if (nodes.size() > 1) {
                     for (int idz=1; idz < nodes.size(); idz++) {
                         BaseNode node = (BaseNode)nodes.get(idz);
@@ -92,8 +91,8 @@ public class TopologyCostCalculation {
                 }
             }
         }
-        List joins = r.getJoins();
-        Iterator joinItr = joins.iterator();
+        List<?> joins = r.getJoins();
+        Iterator<?> joinItr = joins.iterator();
         while (joinItr.hasNext()) {
             BaseJoin join = (BaseJoin)joinItr.next();
             cost = cost + 4;
@@ -106,7 +105,7 @@ public class TopologyCostCalculation {
         r.setCostValue(cost);
     }
     
-    @SuppressWarnings("rawtypes")
+	
 	public void calculateWithOptimization(Rete engine, Defrule r, RootNode root) {
         Condition[] conditions = r.getConditions();
         // first we add the size for the object type nodes
@@ -128,7 +127,7 @@ public class TopologyCostCalculation {
         for (int idx=0; idx < conditions.length; idx++) {
             if (conditions[idx] instanceof ObjectCondition) {
                 ObjectCondition oc = (ObjectCondition)conditions[idx];
-                List nodes = oc.getNodes();
+                List<?> nodes = oc.getNodes();
                 if (nodes.size() > 1) {
                     for (int idz=1; idz < nodes.size(); idz++) {
                         BaseNode node = (BaseNode)nodes.get(idz);
@@ -139,8 +138,8 @@ public class TopologyCostCalculation {
                 }
             }
         }
-        List joins = r.getJoins();
-        Iterator joinItr = joins.iterator();
+        List<?> joins = r.getJoins();
+        Iterator<?> joinItr = joins.iterator();
         while (joinItr.hasNext()) {
             BaseJoin join = (BaseJoin)joinItr.next();
             cost = cost + 4;

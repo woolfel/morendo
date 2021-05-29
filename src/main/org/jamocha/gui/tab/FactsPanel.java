@@ -116,9 +116,9 @@ public class FactsPanel extends AbstractJamochaPanel implements ActionListener,
 		initPopupMenu();
 	}
 
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	private void initFactsList() {
-		List<Fact> facts = gui.getEngine().getAllFacts();
+		List<Fact> facts = (List<Fact>) gui.getEngine().getAllFacts();
 		dataModel.setFacts(facts);
 		factsTable.getColumnModel().getColumn(0).setPreferredWidth(50);
 		factsTable.getColumnModel().getColumn(1).setPreferredWidth(
@@ -203,8 +203,7 @@ public class FactsPanel extends AbstractJamochaPanel implements ActionListener,
 			return false;
 		}
 
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		public Class getColumnClass(int aColumn) {
+		public Class<?> getColumnClass(int aColumn) {
 			if (aColumn == 0)
 				return java.lang.Number.class;
 			else if (aColumn == 1)

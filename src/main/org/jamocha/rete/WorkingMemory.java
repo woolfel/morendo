@@ -45,8 +45,7 @@ public interface WorkingMemory extends Serializable {
     public void assertTemporalObject(Object data, String template, Date effective, 
     		Date expiration, boolean statc) throws AssertException;
     
-    @SuppressWarnings("rawtypes")
-	void assertObjects(List objs) throws AssertException;
+   	void assertObjects(List<?> objs) throws AssertException;
     
 	void retractFact(Fact fact) throws RetractException;
     
@@ -57,24 +56,19 @@ public interface WorkingMemory extends Serializable {
     
     public Agenda getAgenda();
     
-    @SuppressWarnings("rawtypes")
-	public Map getDeffactMap();
+    public Map<?, ?> getDeffactMap();
     
     public DefglobalMap getDefglobals();
     
-    @SuppressWarnings("rawtypes")
-	public List getAllFacts();
+    public List<?> getAllFacts();
     
-    @SuppressWarnings("rawtypes")
-	public List getDeffacts();
+    public List<?> getDeffacts();
     
     public Fact getFactById(long id);
     
-    @SuppressWarnings("rawtypes")
-	public List getObjects();
+    public List<?> getObjects();
     
-    @SuppressWarnings("rawtypes")
-	public List getInitialFacts();
+    public List<?> getInitialFacts();
     
     public boolean profileAssert();
 
@@ -105,17 +99,14 @@ public interface WorkingMemory extends Serializable {
     void popScope();
     
     /// ----- methods for getting the Fact map  ----- ///
-    @SuppressWarnings("rawtypes")
-	Map getDynamicFacts();
-    @SuppressWarnings("rawtypes")
-	Map getStaticFacts();
+    Map<?, ?> getDynamicFacts();
+    Map<?, ?> getStaticFacts();
     
     /// ----- methods related to cube ----- ///
     void addCube(Cube cube);
     Cube getCube(String name);
     Cube removeCube(String name);
-    @SuppressWarnings("rawtypes")
-	List getCubes();
+    List<?> getCubes();
     
     /// ----- methods related to module ----- ///
     public Module addModule(String name);
@@ -124,8 +115,7 @@ public interface WorkingMemory extends Serializable {
     public Module getMain();
     public Module removeModule(String name);
     public void setCurrentModule(Module mod);
-    @SuppressWarnings("rawtypes")
-	public Collection getModules();
+    public Collection<?> getModules();
     
     /// ----- method for Strategy ----- ///
     public Strategy getStrategy();

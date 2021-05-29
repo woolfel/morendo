@@ -55,9 +55,8 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
 	 * all the memories. if parameters are passed, the output will be
 	 * filtered.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		HashMap filter = new HashMap();
+		HashMap<String, ?> filter = new HashMap<String, Object>();
 		if (params != null && params.length > 0) {
 			// now we populate the filter
 			for (int idx=0; idx < params.length; idx++) {
@@ -72,24 +71,22 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
 		return new DefaultReturnVector();
 	}
 
-    @SuppressWarnings("rawtypes")
-	protected void printMemoriesByNodes(Rete engine, HashMap filter) {
+    protected void printMemoriesByNodes(Rete engine, HashMap<String, ?> filter) {
         DefaultWM wm = (DefaultWM)engine.getWorkingMemory();
-        ArrayList alphaNodes = this.getSortedAlphaNodes(wm);
+        ArrayList<?> alphaNodes = this.getSortedAlphaNodes(wm);
         for (int idx=0; idx < alphaNodes.size(); idx++) {
             this.printAlphaNodeInfo((BaseAlpha)alphaNodes.get(idx), engine, wm);
         }
         
         // now get the beta nodes into a list and sort it
-        ArrayList betaNodes = this.getSortedBetaNodes(wm);
+        ArrayList<?> betaNodes = this.getSortedBetaNodes(wm);
         
         for (int idx=0; idx < betaNodes.size(); idx++) {
             this.printBetaNodeInfo((BaseJoin)betaNodes.get(idx), engine, wm);
         }
     }
     
-    @SuppressWarnings("rawtypes")
-	protected void printMemoryForRule(Rete engine, HashMap filter) {
+    protected void printMemoryForRule(Rete engine, HashMap<?, ?> filter) {
     }
     
     protected void printAlphaNodeInfo(BaseAlpha alphaNode, Rete engine, DefaultWM wm) {
@@ -103,11 +100,10 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
         }
     }
     
-    @SuppressWarnings("rawtypes")
-	protected void printBetaNodeInfo(BaseJoin betaNode, Rete engine, DefaultWM wm) {
+    protected void printBetaNodeInfo(BaseJoin betaNode, Rete engine, DefaultWM wm) {
         StringBuffer buf = new StringBuffer();
         buf.append(betaNode.toPPString());
-        Map lmem = (Map)wm.getBetaLeftMemory(betaNode);
+        Map<?, ?> lmem = (Map<?, ?>)wm.getBetaLeftMemory(betaNode);
         Object rmem = wm.getBetaRightMemory(betaNode);
         buf.append(" - left memory count:" + lmem.size());
         // we need to check which type of node it is
@@ -118,7 +114,7 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
             HashedNeqAlphaMemory haneqMem = (HashedNeqAlphaMemory)rmem;
             buf.append(" / right memory count:" + haneqMem.size());
         } else if (betaNode instanceof ExistJoin || betaNode instanceof NotJoin) {
-            Map rmMem = (Map)rmem;
+            Map<?, ?> rmMem = (Map<?, ?>)rmem;
             buf.append(" / right memory count:" + rmMem.size());
         }
         buf.append(Constants.LINEBREAK);
@@ -129,8 +125,7 @@ public class MatchesFunction extends BaseMatchFunction implements Function, Seri
 		return MATCHES;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] {String[].class};
 	}
 

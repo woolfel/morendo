@@ -74,8 +74,7 @@ public class LoadFunctionsFunction implements Function, Serializable {
 		return LOAD_FUNCTION;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

@@ -40,8 +40,7 @@ public class OrCondition implements Condition {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@SuppressWarnings("rawtypes")
-	protected List nestedCE = new ArrayList();
+	protected List<Object> nestedCE = new ArrayList<Object>();
     protected BaseJoin reteNode = null;
     
 	/**
@@ -63,19 +62,16 @@ public class OrCondition implements Condition {
 		}
 	}
 
-    @SuppressWarnings("unchecked")
-	public void addNestedConditionElement(Object ce) {
+    public void addNestedConditionElement(Object ce) {
         this.nestedCE.add(ce);
     }
     
-    @SuppressWarnings("rawtypes")
-	public List getNestedConditionalElement() {
+    public List<Object> getNestedConditionalElement() {
         return this.nestedCE;
     }
     
-	@SuppressWarnings("rawtypes")
-	public List getNodes() {
-		return new ArrayList();
+	public List<?> getNodes() {
+		return new ArrayList<Object>();
 	}
 
     /**
@@ -117,8 +113,7 @@ public class OrCondition implements Condition {
 		return null;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public List getBindConstraints() {
+	public List<?> getBindConstraints() {
 		// TODO Auto-generated method stub
 		return null;
 	}

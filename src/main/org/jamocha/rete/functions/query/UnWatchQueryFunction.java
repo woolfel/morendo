@@ -43,8 +43,7 @@ public class UnWatchQueryFunction implements Function {
 		return WATCH_QUERY;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String.class, String.class};
 	}
 

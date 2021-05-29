@@ -76,8 +76,7 @@ public class AfterFunction extends AbstractTimeFunction implements Function, Ser
 		return AFTER;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Object.class, Object.class};
 	}
 

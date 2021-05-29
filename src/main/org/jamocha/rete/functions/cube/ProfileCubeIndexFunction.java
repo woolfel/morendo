@@ -59,8 +59,7 @@ public class ProfileCubeIndexFunction implements Function {
 		return PROFILE_CUBE_INDEX;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String.class};
 	}
 

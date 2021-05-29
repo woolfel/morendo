@@ -32,11 +32,10 @@ public class UnionFunction implements Serializable, Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		Object[] value = null;
-		ArrayList list = new ArrayList();
+		ArrayList<Object> list = new ArrayList<Object>();
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				Object v = params[idx].getValue(engine, Constants.OBJECT_TYPE);
@@ -62,8 +61,7 @@ public class UnionFunction implements Serializable, Function {
 		return UNION;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}
 

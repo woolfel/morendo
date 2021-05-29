@@ -32,30 +32,30 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
 	private int interval = 0;
     private long lastTime = 0;
     private long nextTime = 0;
-    @SuppressWarnings("rawtypes")
-	private Map partialMatches = null;
+   	private Map<Object, Object> partialMatches = null;
     private Function function = null;
     private BigDecimal count = new BigDecimal(0);
     private ValueParam p1 = new ValueParam();
     private Parameter[] params = null;
     
-    public TemporalIntervalNode(int id, Rete engine) {
+    @SuppressWarnings("unchecked")
+	public TemporalIntervalNode(int id, Rete engine) {
         super(id);
-        partialMatches = engine.newLinkedHashmap(String.valueOf(getNodeId()));
+        partialMatches = (Map<Object, Object>) engine.newLinkedHashmap(String.valueOf(getNodeId()));
         this.lastTime = System.currentTimeMillis();
         this.nextTime = lastTime + interval;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
         long time = getRightTime();
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<Index, Index> leftmem = (Map<Index, Index>) mem.getBetaLeftMemory(this);
         leftmem.put(linx, linx);
         EqHashIndex inx = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));
         TemporalHashedAlphaMem rightmem = (TemporalHashedAlphaMem) mem
                 .getBetaRightMemory(this);
-        Iterator itr = rightmem.iterator(inx);
+        Iterator<?> itr = rightmem.iterator(inx);
         if (itr != null) {
             while (itr.hasNext()) {
                 Fact vl = (Fact) itr.next();
@@ -74,7 +74,6 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
         this.propogateAssert(engine,mem);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
         long time = getLeftTime();
@@ -84,12 +83,12 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
         rightmem.addPartialMatch(inx, rfact, engine);
         // now that we've added the facts to the list, we
         // proceed with evaluating the fact
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
         // since there may be key collisions, we iterate over the
         // values of the HashMap. If we used keySet to iterate,
         // we could encounter a ClassCastException in the case of
         // key collision.
-        Iterator itr = leftmem.values().iterator();
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()) {
             Index linx = (Index) itr.next();
             if (this.evaluate(linx.getFacts(), rfact, time)) {
@@ -107,10 +106,9 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
     /**
      * retract will evaluate and propogate retract immediately
      */
-    @SuppressWarnings("rawtypes")
 	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
             throws RetractException {
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
         leftmem.remove(linx);
         EqHashIndex eqinx = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));
         TemporalHashedAlphaMem rightmem = (TemporalHashedAlphaMem) mem
@@ -119,7 +117,7 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
         // now we propogate the retract. To do that, we have
         // merge each item in the list with the Fact array
         // and call retract in the successor nodes
-        Iterator itr = rightmem.iterator(eqinx);
+        Iterator<?> itr = rightmem.iterator(eqinx);
         if (itr != null) {
             while (itr.hasNext()) {
                 propagateRetract(linx.add((Fact) itr.next()), engine, mem);
@@ -130,7 +128,6 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
     /**
      * retract will evaluate and propogate retract immediately
      */
-    @SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws RetractException {
         long time = getLeftTime();
@@ -140,8 +137,8 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
         // first we remove the fact from the right
         rightmem.removePartialMatch(inx, rfact);
         // now we see the left memory matched and remove it also
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
-        Iterator itr = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()) {
             Index linx = (Index) itr.next();
             if (this.evaluate(linx.getFacts(), rfact,time)) {
@@ -167,19 +164,18 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
         return eval;
     }
      
-    @SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void propogateAssert(Rete engine, WorkingMemory mem) 
     throws AssertException {
         long now = System.currentTimeMillis();
         // if we have partial matches and the current time is greater than
         // the last time + interval
         if (now > nextTime) {
-        	List proplist = new ArrayList();
+        	List<?> proplist = new ArrayList<Object>();
         	// if the function is not null, we do additional filter
         	if (this.function != null) {
-        		((ValueParam)params[1]).setValue(new ArrayList(this.partialMatches.values()));
+        		((ValueParam)params[1]).setValue(new ArrayList<Object>(this.partialMatches.values()));
         		ReturnVector rv = this.function.executeFunction(engine, params);
-        		proplist = (List)rv.firstReturnValue().getValue();
+        		proplist = (List<?>)rv.firstReturnValue().getValue();
         	}
         	if (proplist.size() > 0) {
         		for (int idx=0; idx < proplist.size(); idx++) {
@@ -198,10 +194,9 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
      * method will iterate over the partial matches and remove any that are expired
      * @param index
      */
-    @SuppressWarnings("rawtypes")
 	protected void removeFromPartialMatches(Index index) {
-    	Collection c = this.partialMatches.values();
-    	Iterator itr = c.iterator();
+    	Collection<?> c = this.partialMatches.values();
+    	Iterator<?> itr = c.iterator();
     	while (itr.hasNext()) {
     		Index pindex = (Index)itr.next();
     		if (pindex.partialMatch(index)) {
@@ -210,10 +205,9 @@ public class TemporalIntervalNode extends AbstractTemporalNode {
     	}
     }
     
-    @SuppressWarnings("rawtypes")
 	protected void removeFromPartialMatches(Fact fact) {
-    	Collection c = this.partialMatches.values();
-    	Iterator itr = c.iterator();
+    	Collection<?> c = this.partialMatches.values();
+    	Iterator<?> itr = c.iterator();
     	while (itr.hasNext()) {
     		Index pindex = (Index)itr.next();
     		if (pindex.partialMatch(fact)) {

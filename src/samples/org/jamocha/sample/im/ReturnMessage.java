@@ -52,8 +52,7 @@ public class ReturnMessage implements Function, Serializable {
 		return RETURN_MESSAGE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Object.class};
 	}
 

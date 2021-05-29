@@ -32,8 +32,7 @@ public class QueryResultNode extends BaseNode {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	protected ArrayList results = new ArrayList();
+	protected ArrayList<Object> results = new ArrayList<Object>();
 	private volatile Defquery query = null;
 	
 	public QueryResultNode(int id) {
@@ -48,13 +47,11 @@ public class QueryResultNode extends BaseNode {
 		this.query = query;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void addResult(Index facts, Rete engine, WorkingMemory mem) {
 		results.add(facts.getFacts());
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public List getResults() {
+	public List<?> getResults() {
 		return this.results;
 	}
 	

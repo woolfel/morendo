@@ -94,8 +94,7 @@ public interface RuleApplication extends Configuration {
 	boolean reinitializeEngine(org.jamocha.rete.Rete engine);
 	
 	ClassLoader getClassLoaders();
-	@SuppressWarnings("rawtypes")
-	Class findClass(String className);
+	Class<?> findClass(String className);
 	
 	void close();
 	

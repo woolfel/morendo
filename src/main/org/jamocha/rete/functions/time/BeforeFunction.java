@@ -76,8 +76,7 @@ public class BeforeFunction extends AbstractTimeFunction implements Function, Se
 		return BEFORE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Object.class, Object.class};
 	}
 

@@ -68,8 +68,7 @@ public class SetFocusFunction implements Function, Serializable {
 		return SET_FOCUS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

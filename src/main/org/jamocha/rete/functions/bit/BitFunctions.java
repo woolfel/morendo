@@ -3,6 +3,7 @@ package org.jamocha.rete.functions.bit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jamocha.rete.Function;
 import org.jamocha.rete.FunctionGroup;
 import org.jamocha.rete.Rete;
 
@@ -12,8 +13,7 @@ public class BitFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private List funcs = new ArrayList();
+	private List<Function> funcs = new ArrayList<Function>();
 
 	public BitFunctions() {
 	}
@@ -22,12 +22,10 @@ public class BitFunctions implements FunctionGroup {
 		return BitFunctions.class.getSimpleName();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List listFunctions() {
+	public List<Function> listFunctions() {
 		return funcs;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		BitAndFunction bitand = new BitAndFunction();
 		engine.declareFunction(bitand);

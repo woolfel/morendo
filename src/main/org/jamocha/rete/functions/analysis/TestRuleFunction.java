@@ -56,18 +56,17 @@ public class TestRuleFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		if (params != null && params.length == 1) {
 			// String rlz = params[0].getStringValue(); Unused
 			Defrule r = (Defrule)engine.getCurrentFocus().findRule(
 					params[0].getStringValue());
-			ArrayList facts = GenerateFacts.generateFacts(r,engine);
+			ArrayList<?> facts = GenerateFacts.generateFacts(r,engine);
 			if (facts.size() > 0) {
 				try {
 					engine.setWatch(Rete.WATCH_ALL);
-					Iterator itr = facts.iterator();
+					Iterator<?> itr = facts.iterator();
 					while (itr.hasNext()) {
 						Object data = itr.next();
 						if (data instanceof Deffact) {
@@ -96,8 +95,7 @@ public class TestRuleFunction implements Function, Serializable {
 	/**
 	 * The function does not take any parameters
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

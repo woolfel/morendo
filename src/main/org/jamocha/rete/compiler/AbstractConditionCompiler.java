@@ -145,10 +145,9 @@ public abstract class AbstractConditionCompiler implements ConditionCompiler{
 	 * @param hasPredicateJoin
 	 * @return
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	final Binding[] getBindings(Condition condition, Rule rule, int position) {
 		ObjectCondition oc = getObjectCondition(condition);
-		List Constraints = oc.getBindConstraints();
+		List<?> Constraints = oc.getBindConstraints();
 		Template tmpl = oc.getTemplate();
 		Binding[] binds = new Binding[Constraints.size()];
 		for (int idz = 0; idz < Constraints.size(); idz++) {
@@ -240,10 +239,9 @@ public abstract class AbstractConditionCompiler implements ConditionCompiler{
 		return binds;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	final Binding[] getBindings(Condition condition, Query query, int position) {
 		ObjectCondition oc = getObjectCondition(condition);
-		List Constraints = oc.getBindConstraints();
+		List<?> Constraints = oc.getBindConstraints();
 		Template tmpl = oc.getTemplate();
 		Binding[] binds = new Binding[Constraints.size()];
 		for (int idz = 0; idz < Constraints.size(); idz++) {

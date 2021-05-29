@@ -56,8 +56,7 @@ public class BitAndFunction implements Function {
 		return BIT_AND;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class, ValueParam.class};
 	}
 

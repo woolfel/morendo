@@ -43,8 +43,7 @@ public class ProfileCubeFunction implements Function {
 		return PROFILE_CUBE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String.class};
 	}
 

@@ -33,10 +33,8 @@ import java.util.List;
  * @author Peter Lin
  */
 public interface ServiceAdministration {
-	@SuppressWarnings("rawtypes")
-	List getRuleApplications();
-	@SuppressWarnings("rawtypes")
-	List getEngines(String applicationName, String version);
+	List<?> getRuleApplications();
+	List<?> getEngines(String applicationName, String version);
 	RuleApplication getApplication(String applicationName, String version);
 	/**
 	 * Reload a specific rule application in the service. Concrete

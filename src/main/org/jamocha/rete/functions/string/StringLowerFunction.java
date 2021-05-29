@@ -74,8 +74,7 @@ public class StringLowerFunction implements Function, Serializable {
 		return STRING_LOWER;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

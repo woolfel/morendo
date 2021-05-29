@@ -82,8 +82,7 @@ public class Floor implements Function, Serializable {
 		return FLOOR;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

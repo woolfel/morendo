@@ -45,11 +45,10 @@ public class ExistPredJoin extends BaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
-	@SuppressWarnings("rawtypes")
-	public void clear(WorkingMemory mem) {
-		Map rightmem = (Map) mem.getBetaRightMemory(this);
-		Map leftmem = (Map) mem.getBetaRightMemory(this);
-		Iterator itr = leftmem.keySet().iterator();
+		public void clear(WorkingMemory mem) {
+		Map<?, ?> rightmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+		Iterator<?> itr = leftmem.keySet().iterator();
 		// first we iterate over the list for each fact
 		// and clear it.
 		while (itr.hasNext()) {
@@ -69,14 +68,14 @@ public class ExistPredJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<Index, BetaMemory> leftmem = (Map<Index, BetaMemory>) mem.getBetaLeftMemory(this);
         BetaMemory bmem = new BetaMemoryImpl(linx, engine);
         leftmem.put(linx, bmem);
-        Map rightmem = (Map)mem.getBetaRightMemory(this);
-        Iterator itr = rightmem.keySet().iterator();
+        Map<?, ?> rightmem = (Map<?, ?>)mem.getBetaRightMemory(this);
+        Iterator<?> itr = rightmem.keySet().iterator();
         if (itr != null) {
             while (itr.hasNext()) {
                 Fact vl = (Fact) itr.next();
@@ -97,13 +96,13 @@ public class ExistPredJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
-        Map rightmem = (Map)mem.getBetaRightMemory(this);
+        Map<Fact, Fact> rightmem = (Map<Fact, Fact>)mem.getBetaRightMemory(this);
         rightmem.put(rfact, rfact);
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
-        Iterator itr = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()) {
             BetaMemory bmem = (BetaMemory) itr.next();
             if (this.evaluate(bmem.getLeftFacts(), rfact, engine)) {
@@ -128,8 +127,7 @@ public class ExistPredJoin extends BaseJoin {
 	 */
 	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws RetractException {
-		@SuppressWarnings("rawtypes")
-		Map leftmem = (Map) mem.getBetaLeftMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
         leftmem.remove(linx);
         propagateRetract(linx, engine, mem);
 	}
@@ -142,13 +140,12 @@ public class ExistPredJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws RetractException {
-        Map rightmem = (Map)mem.getBetaRightMemory(this);
+        Map<?, ?> rightmem = (Map<?, ?>)mem.getBetaRightMemory(this);
         rightmem.remove(rfact);
-        Map leftmem = (Map)mem.getBetaLeftMemory(this);
-        Iterator itr = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()){
             BetaMemory bmem = (BetaMemory)itr.next();
             if (this.evaluate(bmem.getLeftFacts(), rfact, engine)){

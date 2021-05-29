@@ -46,8 +46,7 @@ public class PrintProfileCubeIndexFunction implements Function {
 		return PRINT_PROFILE_CUBE_INDEX;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

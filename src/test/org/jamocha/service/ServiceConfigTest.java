@@ -12,7 +12,6 @@ public class ServiceConfigTest extends TestCase {
 		super();
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSaveServiceConfig() {
 		ServiceConfiguration config = new ServiceConfiguration();
 		config.setServiceName("sample");
@@ -24,14 +23,14 @@ public class ServiceConfigTest extends TestCase {
 		app1.setInitialPool(1);
 		app1.setName("test");
 		
-		app1.setFunctionGroups(new ArrayList());
-		app1.setObjectData(new ArrayList());
-		app1.setRulesets(new ArrayList());
-		app1.setModels(new ArrayList());
+		app1.setFunctionGroups(new ArrayList<FunctionPackage>());
+		app1.setObjectData(new ArrayList<ObjectData>());
+		app1.setRulesets(new ArrayList<ClipsRuleset>());
+		app1.setModels(new ArrayList<ObjectModel>());
 		
 		ObjectModel model1 = new ObjectModel();
 		app1.getModels().add(model1);
-		ArrayList classList = new ArrayList();
+		ArrayList<String> classList = new ArrayList<String>();
 		model1.setClassList(classList);
 		classList.add("woolfel.examples.model.Account");
 		classList.add("woolfel.examples.model.Account2");
@@ -49,37 +48,36 @@ public class ServiceConfigTest extends TestCase {
 		app1.getClipsData().add(initialData1);
 		initialData1.setURL("./samples/data/data.dat");
 		
-		JSONData jdata = new JSONData();
+		JSONData<?> jdata = new JSONData<>();
 		jdata.setName("org.jamocha.examples.model.Account");
 		jdata.setUrl("./samples/configuration/data.json");
 		
-		List<JSONData> jsondata1 = new ArrayList<JSONData>();
+		List<JSONData<?>> jsondata1 = new ArrayList<JSONData<?>>();
 		jsondata1.add(jdata);
 		app1.setJsonData(jsondata1);
 		
 		RuleServiceImpl.saveConfiguration("./samples/configuration/test_config.json", config);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSaveServiceConfig2() {
 		ServiceConfiguration config = new ServiceConfiguration();
 		config.setServiceName("sample");
 		RuleApplicationBean app1 = new RuleApplicationBean();
-		config.setApplications(new ArrayList());
+		config.setApplications(new ArrayList<RuleApplicationBean>());
 		config.getApplications().add(app1);
 		app1.setMinPool(1);
 		app1.setMaxPool(10);
 		app1.setInitialPool(1);
 		app1.setName("test");
 		
-		app1.setFunctionGroups(new ArrayList());
-		app1.setObjectData(new ArrayList());
-		app1.setRulesets(new ArrayList());
-		app1.setModels(new ArrayList());
+		app1.setFunctionGroups(new ArrayList<FunctionPackage>());
+		app1.setObjectData(new ArrayList<ObjectData>());
+		app1.setRulesets(new ArrayList<ClipsRuleset>());
+		app1.setModels(new ArrayList<ObjectModel>());
 		
 		ObjectModel model1 = new ObjectModel();
 		app1.getModels().add(model1);
-		ArrayList classList = new ArrayList();
+		ArrayList<String> classList = new ArrayList<String>();
 		model1.setClassList(classList);
 		classList.add("woolfel.examples.model.Account");
 		classList.add("woolfel.examples.model.Account2");
@@ -105,9 +103,8 @@ public class ServiceConfigTest extends TestCase {
 		RuleServiceImpl.saveConfiguration("./samples/configuration/test_config2.json", config);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSaveObjectData() {
-		ArrayList list = new ArrayList();
+		ArrayList<Hobby> list = new ArrayList<Hobby>();
 		Hobby hobby1 = new Hobby();
 		list.add(hobby1);
 		hobby1.setName("Hiking");

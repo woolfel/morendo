@@ -53,8 +53,7 @@ public class OrFunction implements Function, Serializable {
 		return OR;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ ValueParam[].class };
 	}
 

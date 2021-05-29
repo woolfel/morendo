@@ -34,8 +34,7 @@ public class RuleApplicationImpl implements RuleApplication {
 	private String version = null;
 	private List<ObjectModel> models = null;
 	private List<ObjectData> objectData = null;
-	@SuppressWarnings("rawtypes")
-	private List<JSONData> jsonData = null;
+	private List<JSONData<?>> jsonData = null;
 	private List<ClipsInitialData> clipsData = null;
 	private List<FunctionPackage> functionGroups = null;
 	private List<ClipsRuleset> rulesets = new ArrayList<ClipsRuleset>();
@@ -43,9 +42,8 @@ public class RuleApplicationImpl implements RuleApplication {
 	 * FunctionGroup just lists the names, we keep the
 	 * instances in a list to make it easier to reload.
 	 */
-	@SuppressWarnings("rawtypes")
 	@JsonIgnore
-	private List functionInstances = new ArrayList();
+	private List<Object> functionInstances = new ArrayList<Object>();
 	
 	private int minPool;
 	private int maxPool;
@@ -71,7 +69,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		this.clipsData = bean.getClipsData();
 		this.objectData = bean.getObjectData();
 		this.jsonData = bean.getJsonData();
-		this.models = bean.getModels();
+		this.models = (List<ObjectModel>)bean.getModels();
 		this.rulesets = bean.getRulesets();
 	}
 	
@@ -97,13 +95,12 @@ public class RuleApplicationImpl implements RuleApplication {
 	 * data that isn't declared in the models.
 	 * @return
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@JsonIgnore
 	protected URLClassLoader createURLClassLoader() {
-		ArrayList urls = new ArrayList();
+		ArrayList<URL> urls = new ArrayList<URL>();
 		if (this.models != null) {
 			for (int idx=0; idx < models.size(); idx++) {
-				Model m = (Model) models.get(idx);
+				Model m = models.get(idx);
 				if (m instanceof ObjectModel) {
 					((ObjectModel)m).setRuleApplication(this);
 				}
@@ -114,7 +111,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		}
 		if (this.functionGroups != null) {
 			for (int idx=0; idx < functionGroups.size(); idx++) {
-				org.jamocha.service.FunctionPackage functionGroup = (org.jamocha.service.FunctionPackage)functionGroups.get(idx);
+				org.jamocha.service.FunctionPackage functionGroup = functionGroups.get(idx);
 				if (functionGroup.getURLObject() != null) {
 					urls.add(functionGroup.getURLObject());
 				}
@@ -122,7 +119,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		}
 		if (urls.size() > 0) {
 			URL[] urllist = new URL[urls.size()];
-			urllist = (URL[])urls.toArray(urllist);
+			urllist = urls.toArray(urllist);
 			return URLClassLoader.newInstance(urllist, ClassLoader.getSystemClassLoader());
 		} else {
 			// if there aren't any url's it means the jar files are in the WAR package
@@ -138,9 +135,8 @@ public class RuleApplicationImpl implements RuleApplication {
 		return this.classloader;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	@JsonIgnore
-	public Class findClass(String className) {
+	public Class<?> findClass(String className) {
 		try {
 			return this.classloader.loadClass(className);
 		} catch (ClassNotFoundException e) {
@@ -184,7 +180,7 @@ public class RuleApplicationImpl implements RuleApplication {
 	public boolean loadModels(Rete engine) {
 		boolean success = true;
 		for (int idx=0; idx < this.models.size(); idx++) {
-			Model m = (Model)models.get(idx);
+			Model m = models.get(idx);
 			m.loadModel(engine);
 		}
 		return success;
@@ -195,19 +191,18 @@ public class RuleApplicationImpl implements RuleApplication {
 	 * users can group a variety of functions or groups into a logical group.
 	 * Within the rule engine, functions will be added to the main group.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@JsonIgnore
 	public boolean loadFunctionGroups(Rete engine) {
 		if (this.functionInstances == null) {
-			this.functionInstances = new ArrayList();
+			this.functionInstances = new ArrayList<Object>();
 		}
 		boolean success = true;
 		for (int idx=0; idx < this.functionGroups.size(); idx++) {
-			org.jamocha.service.FunctionPackage functionGroup = (org.jamocha.service.FunctionPackage)this.functionGroups.get(idx);
+			org.jamocha.service.FunctionPackage functionGroup = this.functionGroups.get(idx);
 			String[] classnames = functionGroup.getClassNames();
 			for (int fx=0; fx < classnames.length; fx++) {
 				String classname = classnames[fx];
-				Class clzz;
+				Class<?> clzz;
 				try {
 					clzz = classloader.loadClass(classname);
 					log.info("load function group: " + clzz.getName());
@@ -260,7 +255,7 @@ public class RuleApplicationImpl implements RuleApplication {
 	public boolean loadRulesets(Rete engine) {
 		boolean success = true;
 		for (int idx=0; idx < this.rulesets.size(); idx++) {
-			Ruleset ruleset = (Ruleset)this.rulesets.get(idx);
+			Ruleset ruleset = this.rulesets.get(idx);
 			success = ruleset.loadRuleset(engine);
 			if (!success) {
 				break;
@@ -269,12 +264,11 @@ public class RuleApplicationImpl implements RuleApplication {
 		return success;
 	}
 
-	@SuppressWarnings("rawtypes")
 	@JsonIgnore
 	public boolean loadInitialData(Rete engine) {
 		boolean success = true;
 		for (int idx=0; idx < this.objectData.size(); idx++) {
-			InitialData initialData = (InitialData)this.objectData.get(idx);
+			InitialData initialData = this.objectData.get(idx);
 			initialData.loadData(engine);
 		}
 		for (int idx=0; idx < this.clipsData.size(); idx++) {
@@ -282,7 +276,7 @@ public class RuleApplicationImpl implements RuleApplication {
 			initialData.loadData(engine);
 		}
 		for (int idx=0; idx < this.jsonData.size(); idx++) {
-			JSONData jdata = this.jsonData.get(idx);
+			JSONData<?> jdata = this.jsonData.get(idx);
 			jdata.setServletContext(servletCtx);
 			jdata.loadData(engine);
 		}
@@ -336,7 +330,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		boolean reload = false;
 		try {
 			for (int idx=0; idx < this.rulesets.size(); idx++) {
-				Ruleset ruleset = (Ruleset)this.rulesets.get(idx);
+				Ruleset ruleset = this.rulesets.get(idx);
 				reload = ruleset.reloadRuleset(engine);
 				if (!reload) {
 					break;
@@ -353,7 +347,7 @@ public class RuleApplicationImpl implements RuleApplication {
 	public boolean reloadInitialData(Rete engine) {
 		boolean reload = false;
 		for (int idx=0; idx < this.objectData.size(); idx++) {
-			InitialData initialData = (InitialData)this.objectData.get(idx);
+			InitialData initialData = this.objectData.get(idx);
 			reload = initialData.reloadData(engine);
 			if (!reload) {
 				break;
@@ -374,8 +368,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		return this.clipsData;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public List<JSONData> getJsonData() {
+	public List<JSONData<?>> getJsonData() {
 		return this.jsonData;
 	}
 
@@ -419,8 +412,7 @@ public class RuleApplicationImpl implements RuleApplication {
 		this.clipsData = data;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public void setJsonData(List<JSONData> data) {
+	public void setJsonData(List<JSONData<?>> data) {
 		this.jsonData = data;
 	}
 	

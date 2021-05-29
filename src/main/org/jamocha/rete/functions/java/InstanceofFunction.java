@@ -69,8 +69,7 @@ public class InstanceofFunction implements Function, Serializable {
 		return INSTANCEOF;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] {BoundParam.class,BoundParam.class};
 	}
 

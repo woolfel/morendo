@@ -67,15 +67,14 @@ public class CallMethodFunction implements Function, Serializable {
 	/**
 	 * 
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
+		public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Object rtn = null;
 		DefaultReturnVector drv = new DefaultReturnVector();
 		DefaultReturnValue rvalue = null;
 		if (engine != null && params != null && params.length >= 2) {
 			BoundParam bp = (BoundParam) params[0];
 			ValueParam slot = (ValueParam) params[1];
-			ArrayList callparam = new ArrayList();
+			ArrayList<Object> callparam = new ArrayList<Object>();
 			if (params.length > 2) {
 				for (int idx=2; idx < params.length; idx++) {
 					if (params[idx] instanceof BoundParam) {
@@ -135,8 +134,7 @@ public class CallMethodFunction implements Function, Serializable {
 	 * <br/>
 	 * Example: (set-member ?objectVariable slotName value)
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { BoundParam.class, ValueParam.class, ValueParam[].class };
 	}
 

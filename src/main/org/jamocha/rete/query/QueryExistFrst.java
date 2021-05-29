@@ -51,11 +51,10 @@ public class QueryExistFrst extends QueryBaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
-		Map rightmem = (Map) mem.getQueryRightMemory(this);
-		Map leftmem = (Map) mem.getQueryBetaMemory(this);
-		Iterator itr = leftmem.keySet().iterator();
+		Map<?, ?> rightmem = (Map<?, ?>) mem.getQueryRightMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getQueryBetaMemory(this);
+		Iterator<?> itr = leftmem.keySet().iterator();
 		// first we iterate over the list for each fact
 		// and clear it.
 		while (itr.hasNext()) {
@@ -84,13 +83,13 @@ public class QueryExistFrst extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
 		// we only proceed if the fact hasn't already entered
 		// the join node
 		Index inx = new Index(new Fact[] { rfact });
-		Map rightmem = (Map) mem.getQueryRightMemory(this);
+		Map<Index, Fact> rightmem = (Map<Index, Fact>) mem.getQueryRightMemory(this);
 		if (!rightmem.containsKey(inx)) {
 			int count = rightmem.size();
 			rightmem.put(inx, rfact);

@@ -54,8 +54,7 @@ public class BoundConstraint implements Constraint {
      */
     protected boolean isMultislot = false;
     protected boolean intraFactJoin = false;
-    @SuppressWarnings("rawtypes")
-	protected List ifjoins = new ArrayList();
+	protected List<BoundConstraint> ifjoins = new ArrayList<BoundConstraint>();
     /**
      * Be default a variable binding is accessible from the action
      * of the rule unless it's declared by a conditional element
@@ -208,10 +207,9 @@ public class BoundConstraint implements Constraint {
         this.intraFactJoin = intraFactJoin;
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public void addIntrFactJoin(List list) {
+	public void addIntrFactJoin(List<?> list) {
         if (list.size() > 0) {
-            Iterator itr = list.iterator();
+            Iterator<?> itr = list.iterator();
             while (itr.hasNext()) {
                 BoundConstraint bc = (BoundConstraint)itr.next();
                 bc.setName(this.name);

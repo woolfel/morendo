@@ -78,8 +78,7 @@ public class Tan implements Function, Serializable {
 		return TAN;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

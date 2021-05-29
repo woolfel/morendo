@@ -22,8 +22,7 @@ public class RuleApplicationBean implements Configuration {
 	private List<ClipsRuleset> rulesets = new ArrayList<ClipsRuleset>();
 	private List<ObjectData> objectData = new ArrayList<ObjectData>();
 	private List<ClipsInitialData> clipsData = new ArrayList<ClipsInitialData>();
-	@SuppressWarnings("rawtypes")
-	private List<JSONData> jsonData = new ArrayList<JSONData>();
+	private List<JSONData<?>> jsonData = new ArrayList<JSONData<?>>();
 	
 	public RuleApplicationBean() {
 	}
@@ -100,13 +99,11 @@ public class RuleApplicationBean implements Configuration {
 		this.clipsData = clipsData;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List<JSONData> getJsonData() {
+	public List<JSONData<?>> getJsonData() {
 		return jsonData;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setJsonData(List<JSONData> jsonData) {
+	public void setJsonData(List<JSONData<?>> jsonData) {
 		this.jsonData = jsonData;
 	}
 }

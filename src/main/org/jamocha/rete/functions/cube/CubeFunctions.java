@@ -20,6 +20,7 @@ package org.jamocha.rete.functions.cube;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jamocha.rete.Function;
 import org.jamocha.rete.FunctionGroup;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.exception.FunctionException;
@@ -36,8 +37,7 @@ public class CubeFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private ArrayList funcs = new ArrayList();
+	private ArrayList<Function> funcs = new ArrayList<Function>();
 	
 	public CubeFunctions() {
 		super();
@@ -47,7 +47,6 @@ public class CubeFunctions implements FunctionGroup, Serializable {
 		return (CubeFunctions.class.getSimpleName());
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		try {
 	        CubeAddDataFunction upcube = new CubeAddDataFunction();
@@ -94,8 +93,7 @@ public class CubeFunctions implements FunctionGroup, Serializable {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List listFunctions() {
+	public List<Function> listFunctions() {
 		return funcs;
 	}
 

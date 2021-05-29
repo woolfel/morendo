@@ -28,11 +28,10 @@ import org.jamocha.rete.Fact;
  */
 public class IOUtilities {
 	
-	@SuppressWarnings("rawtypes")
-	public static boolean saveFacts(List facts, String output) {
+	public static boolean saveFacts(List<?> facts, String output) {
 		try {
 			FileWriter writer = new FileWriter(output);
-			java.util.Iterator itr = facts.iterator();
+			java.util.Iterator<?> itr = facts.iterator();
 			while (itr.hasNext()) {
 				Fact f = (Fact)itr.next();
 				writer.write(f.toFactString());

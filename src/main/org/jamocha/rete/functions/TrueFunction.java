@@ -64,8 +64,7 @@ public class TrueFunction implements Function, Serializable {
 		return TRUE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

@@ -18,6 +18,7 @@ package org.jamocha.rete;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Iterator;
 
@@ -80,15 +81,15 @@ public class CubeQueryBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
-    	Map leftmem = (Map) mem.getBetaLeftMemory(this);
+    	Map<EqHashIndex, Map<?, ?>> leftmem = (Map<EqHashIndex, Map<?, ?>>) mem.getBetaLeftMemory(this);
     	// first we create the hashIndex and put it in the left memory
         EqHashIndex eqIndex = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));
-        Map values = (Map)leftmem.get(eqIndex);
+        Map<Object, Object> values = (Map<Object, Object>) leftmem.get(eqIndex);
         if (values == null) {
-        	values = engine.newMap();
+        	values = (Map<Object, Object>) engine.newMap();
         	leftmem.put(eqIndex, values);
         }
         values.put(linx, linx);
@@ -100,7 +101,7 @@ public class CubeQueryBNode extends BaseJoin {
         	CubeHashMemoryImpl rightmem = (CubeHashMemoryImpl) mem.getBetaRightMemory(this);
         	if (rightmem.count(eqIndex) > 0) {
         		// cached version already exists, so just propagate
-        		Iterator itr = rightmem.iterator(eqIndex);
+        		Iterator<?> itr = rightmem.iterator(eqIndex);
         		while (itr.hasNext()) {
         			Fact f = (Fact)itr.next();
         			this.propagateAssert(linx.add(f), engine, mem);
@@ -129,7 +130,6 @@ public class CubeQueryBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
     	// first set the reference to CubeFact
@@ -139,16 +139,16 @@ public class CubeQueryBNode extends BaseJoin {
         // query the cube for the data
         Cube cube = (Cube)cubeFact.getObjectInstance();
 
-    	Map leftmem = (Map) mem.getBetaLeftMemory(this);
+    	Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
         // Get the partial matches on the side side using the EqHashIndex as the key
-        Iterator indexItr = leftmem.keySet().iterator();
+        Iterator<?> indexItr = leftmem.keySet().iterator();
         while (indexItr.hasNext()) {
         	EqHashIndex eqIndex = (EqHashIndex)indexItr.next();
-        	Map values = (Map)leftmem.get(eqIndex);
+        	Map<?, ?> values = (Map<?, ?>)leftmem.get(eqIndex);
         	// if the EqHashIndex has values, we execute the query once
         	if (values.size() > 0) {
         		// we create a new 
-        		ArrayList matchValues = new ArrayList(values.values());
+        		ArrayList<?> matchValues = new ArrayList<Object>(values.values());
         		// get the first match, so we can use it to query the cube
         		Index linx = (Index)matchValues.get(0);
     			// create the ResultsetFact
@@ -179,21 +179,20 @@ public class CubeQueryBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings("rawtypes")
 	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
             throws RetractException {
     	// Get the Left memory, which is a Map
-    	Map leftmem = (Map) mem.getBetaLeftMemory(this);
+    	Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
     	// Create the EqHashIndex
         EqHashIndex eqIndex = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));
         // Get the entries matching the EqHashIndex from the Map
-        Map entries = (Map)leftmem.get(eqIndex);
+        Map<?, ?> entries = (Map<?, ?>)leftmem.get(eqIndex);
         // remove the Index from the entries
         entries.remove(linx);
         // Get the CubeHashMemory for the right side
         CubeHashMemoryImpl rightmem = (CubeHashMemoryImpl) mem.getBetaRightMemory(this);
         // get Iterator for the cached ResultsetFact
-        Iterator itr = rightmem.iterator(eqIndex);
+        Iterator<?> itr = rightmem.iterator(eqIndex);
         if (itr != null) {
             while (itr.hasNext()) {
                 propagateRetract(linx.add((Fact) itr.next()), engine, mem);
@@ -207,18 +206,17 @@ public class CubeQueryBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws RetractException {
     	CubeHashMemoryImpl rightmem = (CubeHashMemoryImpl) mem.getBetaRightMemory(this);
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
     	// we iterate over the cache right memories
     	Object[] cachedResults = rightmem.iterateAll();
     	for (int idx=0; idx < cachedResults.length; idx++) {
     		Fact right = (Fact)cachedResults[idx];
     		EqHashIndex eqIndex = new EqHashIndex(NodeUtils.getRightValues(this.binds,right));
-    		Map partialMatches = (Map)leftmem.get(eqIndex);
-    		Iterator pmItr = partialMatches.values().iterator();
+    		Map<?, ?> partialMatches = (Map<?, ?>)leftmem.get(eqIndex);
+    		Iterator<?> pmItr = partialMatches.values().iterator();
     		while (pmItr.hasNext()) {
     			Index match = (Index)pmItr.next();
     			this.propagateRetract(match.add(right), engine, mem);
@@ -226,10 +224,10 @@ public class CubeQueryBNode extends BaseJoin {
     	}
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "unchecked" })
 	protected Object[] queryCube(Index linx, Cube c, Rete engine, WorkingMemory mem, ResultsetFact resultFact) {
-		java.util.Set result = new java.util.HashSet();
-		Map firstResult = null;
+		java.util.Set<Object> result = new java.util.HashSet<Object>();
+		Map<Object, Object> firstResult = null;
 		// execute query
 		if (c.profileQuery()) {
 			ProfileStats.startCubeQuery();
@@ -240,9 +238,9 @@ public class CubeQueryBNode extends BaseJoin {
 			CubeDimension dimension = c.getDimensions()[b.getRightIndex()];
 			String parameter = linx.getFacts()[b.leftrow].getSlotValue(b.leftIndex).toString();
 			resultFact.setSlotValue(b.rightIndex, parameter);
-			firstResult = (Map)dimension.getData(parameter, b.negated());
+			firstResult = (Map<Object, Object>)dimension.getData(parameter, b.negated());
 			if (firstResult != null && firstResult.size() > 0) {
-				result.addAll(firstResult.keySet());
+				result.addAll((Collection<?>) firstResult.keySet());
 			}
 		}
 		
@@ -253,8 +251,8 @@ public class CubeQueryBNode extends BaseJoin {
 				CubeDimension dimension = c.getDimensions()[b.getRightIndex()];
 				String parameter = linx.getFacts()[b.leftrow].getSlotValue(b.leftIndex).toString();
 				resultFact.setSlotValue(b.rightIndex, parameter);
-				Map data = null;
-				data = (Map)dimension.getData(parameter, b.negated());
+				Map<?, ?> data = null;
+				data = (Map<?, ?>)dimension.getData(parameter, b.negated());
 				if (data != null) {
 					result.retainAll(data.keySet());
 				}
@@ -273,8 +271,8 @@ public class CubeQueryBNode extends BaseJoin {
 					parameter = linx.getFacts()[b.getLeftRow()].getSlotValue(b.getLeftIndex());
 				}
 				resultFact.setSlotValue(b.rightIndex, parameter);
-				Map data = null;
-				data = (Map)dimension.getData(parameter, b.getOperator());
+				Map<?, ?> data = null;
+				data = (Map<?, ?>)dimension.getData(parameter, b.getOperator());
 				if (data != null) {
 					result.retainAll(data.keySet());
 				}

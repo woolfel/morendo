@@ -80,8 +80,7 @@ public class Subtract implements Function, Serializable {
 		return SUBTRACT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
         return new Class[] {ValueParam[].class};
 	}
 

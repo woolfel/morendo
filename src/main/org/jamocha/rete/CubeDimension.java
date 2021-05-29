@@ -40,10 +40,8 @@ public interface CubeDimension {
 	public boolean isAutoIndex();
 	public void setAutoIndex(boolean index);
 
-	@SuppressWarnings("rawtypes")
-	public List getDeftemplates();
-	@SuppressWarnings("rawtypes")
-	public void setDeftemplates(List deftemplates);
+	public List<?> getDeftemplates();
+	public void setDeftemplates(List<?> deftemplates);
 	
 	public Binding getBinding();
 	public void setBinding(Binding binding);
@@ -58,10 +56,8 @@ public interface CubeDimension {
 	 * @param index
 	 */
 	public void indexData(Index index, Rete engine);
-	@SuppressWarnings("rawtypes")
-	public Map getData(Object value, boolean negated);
-	@SuppressWarnings("rawtypes")
-	public Map getData(Object value, int operator);
+	public Map<?, ?> getData(Object value, boolean negated);
+	public Map<?, ?> getData(Object value, int operator);
 	
 	boolean profile();
 	void setProfile(boolean profile);

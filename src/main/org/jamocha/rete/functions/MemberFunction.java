@@ -34,12 +34,11 @@ public class MemberFunction implements Function, Serializable {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Object o = null;
 		Object ro = null;
 		String methodname = null;
-		Class [] argsclass = null;
+		Class<?>[] argsclass = null;
 		Object [] args = null;
 		if (params != null) {
 			if (params[0] instanceof ValueParam) {
@@ -94,7 +93,7 @@ public class MemberFunction implements Function, Serializable {
 				}
 			} 
 			try {
-				Class classDefinition = o.getClass();
+				Class<? extends Object> classDefinition = o.getClass();
 				Method method = classDefinition.getMethod(methodname, argsclass);
 				ro = method.invoke(o, args);
 			} catch (IllegalAccessException e) {
@@ -125,8 +124,7 @@ public class MemberFunction implements Function, Serializable {
 		return MEMBER;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

@@ -122,10 +122,9 @@ public class QueryAndAlphaNode extends QueryBaseAlphaCondition {
 	 * @param engine
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
 	public boolean evaluate(Fact factInstance) {
 		boolean equal = true;
-		Iterator itr = ((Slot2)this.slot).getEqualList().iterator();
+		Iterator<?> itr = ((Slot2)this.slot).getEqualList().iterator();
 		Object fval = factInstance.getSlotValue(this.slot.getId());
 		while (itr.hasNext()) {
 			Object mv = itr.next();

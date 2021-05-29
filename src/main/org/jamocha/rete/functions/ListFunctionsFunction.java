@@ -46,15 +46,14 @@ public class ListFunctionsFunction implements Function, Serializable {
 		return Constants.RETURN_VOID_TYPE;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		if (params != null && params.length > 0) {
 			java.util.HashMap<String,String> groups = new java.util.HashMap<String,String>();
 			for (Parameter p: params) {
 				groups.put(p.getStringValue(), null);
 			}
-			List fgroups = engine.getFunctionGroups();
-			Iterator itr = fgroups.iterator();
+			List<?> fgroups = engine.getFunctionGroups();
+			Iterator<?> itr = fgroups.iterator();
 			int counter = 0;
 			while (itr.hasNext()) {
 				// we iterate over the function groups and print out the
@@ -62,7 +61,7 @@ public class ListFunctionsFunction implements Function, Serializable {
 				FunctionGroup fg = (FunctionGroup) itr.next();
 				if (groups.containsKey(fg.getName())) {
 					engine.writeMessage("++++ " + fg.getName() + " ++++" + Constants.LINEBREAK, "t");
-					Iterator listitr = fg.listFunctions().iterator();
+					Iterator<?> listitr = fg.listFunctions().iterator();
 					while (listitr.hasNext()) {
 						Function f = (Function) listitr.next();
 						engine.writeMessage("  " + f.getName() + Constants.LINEBREAK,
@@ -73,15 +72,15 @@ public class ListFunctionsFunction implements Function, Serializable {
 			}
 			engine.writeMessage(counter + " functions" + Constants.LINEBREAK, "t");
 		} else {
-			List fgroups = engine.getFunctionGroups();
-			Iterator itr = fgroups.iterator();
+			List<?> fgroups = engine.getFunctionGroups();
+			Iterator<?> itr = fgroups.iterator();
 			int counter = 0;
 			while (itr.hasNext()) {
 				// we iterate over the function groups and print out the
 				// functions in each group
 				FunctionGroup fg = (FunctionGroup) itr.next();
 				engine.writeMessage("++++ " + fg.getName() + " ++++" + Constants.LINEBREAK, "t");
-				Iterator listitr = fg.listFunctions().iterator();
+				Iterator<?> listitr = fg.listFunctions().iterator();
 				while (listitr.hasNext()) {
 					Function f = (Function) listitr.next();
 					engine.writeMessage("  " + f.getName() + Constants.LINEBREAK,
@@ -99,8 +98,7 @@ public class ListFunctionsFunction implements Function, Serializable {
 		return LIST_FUNCTIONS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

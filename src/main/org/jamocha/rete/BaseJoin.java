@@ -27,7 +27,6 @@ import org.jamocha.rete.exception.RetractException;
  *
  * BaseJoin is the abstract base for all join node classes.
  */
-@SuppressWarnings("rawtypes")
 public abstract class BaseJoin extends BaseNode {
 
     /**
@@ -112,15 +111,15 @@ public abstract class BaseJoin extends BaseNode {
 			throws AssertException {
         if (addNode(node)) {
 			// first, we get the memory for this node
-			Map leftmem = (Map) mem.getBetaLeftMemory(this);
+			Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
 			// now we iterate over the entry set
-			Iterator itr = leftmem.entrySet().iterator();
+			Iterator<?> itr = leftmem.entrySet().iterator();
 			while (itr.hasNext()) {
 				BetaMemory bmem = (BetaMemory) itr.next();
 				Index left = bmem.getIndex();
 				// iterate over the matches
-                Map rightmem = (Map) mem.getBetaRightMemory(this);
-				Iterator ritr = rightmem.keySet().iterator();
+                Map<?, ?> rightmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+				Iterator<?> ritr = rightmem.keySet().iterator();
 				while (ritr.hasNext()) {
 					Fact rfcts = (Fact) ritr.next();
 					// now assert in the new join node
@@ -144,17 +143,17 @@ public abstract class BaseJoin extends BaseNode {
 			WorkingMemory mem) throws AssertException {
         if (addNode(node)) {
 			// first, we get the memory for this node
-			Map leftmem = (Map) mem.getBetaLeftMemory(this);
+			Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
 			// now we iterate over the entry set
-			Iterator itr = leftmem.values().iterator();
+			Iterator<?> itr = leftmem.values().iterator();
 			while (itr.hasNext()) {
 				Object omem = itr.next();
 				if (omem instanceof BetaMemory) {
 					BetaMemory bmem = (BetaMemory) omem;
 					Index left = bmem.getIndex();
 					// iterate over the matches
-                    Map rightmem = (Map) mem.getBetaRightMemory(this);
-                    Iterator ritr = rightmem.keySet().iterator();
+                    Map<?, ?> rightmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+                    Iterator<?> ritr = rightmem.keySet().iterator();
 					while (ritr.hasNext()) {
 						Fact rfcts = (Fact) ritr.next();
 						// merge the left and right fact into a new Array

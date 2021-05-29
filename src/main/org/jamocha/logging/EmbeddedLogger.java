@@ -17,8 +17,7 @@ public class EmbeddedLogger extends DefaultLogger {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("rawtypes")
-	public EmbeddedLogger(Class theclazz) {
+	public EmbeddedLogger(Class<?> theclazz) {
 		super();
 		this.log = Logger.getLogger(theclazz);
 	}

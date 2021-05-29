@@ -49,11 +49,11 @@ public class ModulesFunction implements Function, Serializable {
 		return Constants.STRING_TYPE;
 	}
 
-	@SuppressWarnings("rawtypes")
+
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		Collection modules = engine.getWorkingMemory().getModules();
+		Collection<?> modules = engine.getWorkingMemory().getModules();
 		int count = modules.size();
-		Iterator itr = modules.iterator();
+		Iterator<?> itr = modules.iterator();
 		while (itr.hasNext()) {
 			Module r = (Module) itr.next();
 			engine.writeMessage(r.getModuleName() + Constants.LINEBREAK, "t");
@@ -68,8 +68,7 @@ public class ModulesFunction implements Function, Serializable {
 		return MODULES;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

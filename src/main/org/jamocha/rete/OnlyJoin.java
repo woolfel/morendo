@@ -43,11 +43,10 @@ public class OnlyJoin extends BaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
-		Map rightmem = (Map) mem.getBetaRightMemory(this);
-		Map leftmem = (Map) mem.getBetaRightMemory(this);
-        Iterator itr = leftmem.keySet().iterator();
+		Map<?, ?> rightmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+        Iterator<?> itr = leftmem.keySet().iterator();
         // first we iterate over the list for each fact
         // and clear it.
         while (itr.hasNext()){
@@ -65,17 +64,17 @@ public class OnlyJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<Index, BetaMemory> leftmem = (Map<Index, BetaMemory>) mem.getBetaLeftMemory(this);
         BetaMemory bmem = new BetaMemoryImpl(linx, engine);
         leftmem.put(bmem.getIndex(), bmem);
         EqHashIndex inx = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem
                 .getBetaRightMemory(this);
         if (rightmem.count(inx) == 1) {
-        	Iterator iterator = rightmem.iterator(inx);
+        	Iterator<?> iterator = rightmem.iterator(inx);
         	Fact f = (Fact)iterator.next();
         	bmem.addMatch(f);
             this.propagateAssert(linx.add(f), engine, mem);
@@ -88,17 +87,16 @@ public class OnlyJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem
                 .getBetaRightMemory(this);
         EqHashIndex inx = new EqHashIndex(NodeUtils.getRightValues(this.binds,rfact));
         int after = rightmem.addPartialMatch(inx, rfact, engine);
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
         if (after == 1) {
         	// we propagate assert
-            Iterator itr = leftmem.values().iterator();
+            Iterator<?> itr = leftmem.values().iterator();
             while (itr.hasNext()) {
             	BetaMemory bmem = (BetaMemory) itr.next();
                 if (this.evaluate(bmem.getLeftFacts(), rfact)) {
@@ -108,13 +106,13 @@ public class OnlyJoin extends BaseJoin {
             }
         } else if (after == 2) {
         	// we propagate retract
-            Iterator itr = leftmem.values().iterator();
+            Iterator<?> itr = leftmem.values().iterator();
             while (itr.hasNext()) {
             	BetaMemory bmem = (BetaMemory) itr.next();
                 if (this.evaluate(bmem.getLeftFacts(), rfact)) {
                 	try {
                 		// we need to get the one right fact that matched
-                		Iterator matchedItr = bmem.iterateRightFacts();
+                		Iterator<?> matchedItr = bmem.iterateRightFacts();
                 		Fact matchedFact = (Fact)matchedItr.next();
                 		bmem.removeMatch(matchedFact);
 						this.propagateRetract(bmem.getIndex().add(matchedFact), engine, mem);
@@ -135,13 +133,12 @@ public class OnlyJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void retractLeft(Index inx, Rete engine, WorkingMemory mem)
 			throws RetractException {
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
         BetaMemory bmem = (BetaMemory)leftmem.remove(inx);
         if (bmem.matchCount() == 1) {
-        	Iterator rightItr = bmem.iterateRightFacts();
+        	Iterator<?> rightItr = bmem.iterateRightFacts();
         	Fact matchedFact = (Fact)rightItr.next();
             propagateRetract(inx.add(matchedFact), engine, mem);
         }
@@ -152,7 +149,6 @@ public class OnlyJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws RetractException {
         HashedAlphaMemoryImpl rightmem = 
@@ -160,9 +156,9 @@ public class OnlyJoin extends BaseJoin {
         EqHashIndex inx = new EqHashIndex(NodeUtils.getRightValues(this.binds,rfact));
         // remove the fact from the right
         int after = rightmem.removePartialMatch(inx,rfact);
-        Map leftmem = (Map)mem.getBetaLeftMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
         // first we check to see if the fact is the single match for any partial matches on the left
-        Iterator leftItr = leftmem.values().iterator();
+        Iterator<?> leftItr = leftmem.values().iterator();
         while (leftItr.hasNext()) {
         	BetaMemory bmem = (BetaMemory)leftItr.next();
         	if (bmem.matched(rfact)) {
@@ -171,9 +167,9 @@ public class OnlyJoin extends BaseJoin {
         }
         if (after == 1) {
         	// there's only 1 match, so we have to propagate it down the network
-        	Iterator rightItr = rightmem.iterator(inx);
+        	Iterator<?> rightItr = rightmem.iterator(inx);
         	Fact f = (Fact)rightItr.next();
-        	Iterator valueItr = leftmem.values().iterator();
+        	Iterator<?> valueItr = leftmem.values().iterator();
         	while (valueItr.hasNext()) {
         		BetaMemory bmem = (BetaMemory)valueItr.next();
         		if (this.evaluate(bmem.getLeftFacts(), f)) {

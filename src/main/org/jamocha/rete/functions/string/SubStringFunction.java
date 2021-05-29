@@ -85,8 +85,7 @@ public class SubStringFunction implements Function, Serializable {
 		return SUBSTRING;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class,ValueParam.class};
 	}
 

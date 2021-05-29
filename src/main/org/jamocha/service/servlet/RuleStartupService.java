@@ -53,18 +53,15 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 	private long totalRulesFired = 0;
 	private String serviceName = null;
 	private List<RuleApplicationImpl> applications = new ArrayList<RuleApplicationImpl>();
-	@SuppressWarnings("rawtypes")
-	private Map applicationMap = new HashMap();
-	@SuppressWarnings("rawtypes")
-	private Map engineMap = new HashMap();
+	private Map<String, RuleApplication> applicationMap = new HashMap<String, RuleApplication>();
+	private Map<String, List<Rete>> engineMap = new HashMap<String, List<Rete>>();
 	protected ServiceConfiguration serviceConfiguration = null;
 	private ServletServiceAdmin administration = null;
 	protected ServletContext servletContext = null;
 	private static ObjectMapper mapper = new ObjectMapper();
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public RuleStartupService() {
-		applications = new ArrayList();
+		applications = new ArrayList<RuleApplicationImpl>();
 		administration = new ServletServiceAdmin(this);
 	}
 
@@ -93,15 +90,14 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
 	public void close() {
 		servletContext.log("--- Start closing RuleService ---");
-		Iterator itr = this.engineMap.keySet().iterator();
+		Iterator<String> itr = this.engineMap.keySet().iterator();
 		while (itr.hasNext()) {
-			String key = (String)itr.next();
-			List queue = (List)this.engineMap.remove(key);
+			String key = itr.next();
+			List<?> queue = this.engineMap.remove(key);
 			// first close all the engine instances.
-			Iterator queueItr = queue.iterator();
+			Iterator<?> queueItr = queue.iterator();
 			while (queueItr.hasNext()) {
 				org.jamocha.rete.Rete engine = (org.jamocha.rete.Rete)queueItr.next();
 				engine.close();
@@ -110,8 +106,8 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		}
 		itr = this.applicationMap.keySet().iterator();
 		while (itr.hasNext()) {
-			String key = (String)itr.next();
-			RuleApplication app = (RuleApplication)this.applicationMap.remove(key);
+			String key = itr.next();
+			RuleApplication app = this.applicationMap.remove(key);
 			app.close();
 		}
 		this.applicationMap.clear();
@@ -126,10 +122,9 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		return averageRulesFired;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public EngineContext getEngine(String applicationName, String version) {
 		String key = applicationName + "::" + version;
-		List queue = (List)this.engineMap.get(key);
+		List<?> queue = this.engineMap.get(key);
 		if (queue != null) {
 			org.jamocha.rete.Rete engine = null;
 			if (queue.size() > 0 && (engine = (org.jamocha.rete.Rete)queue.remove(0))!= null) {
@@ -139,7 +134,7 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 				// there isn't any engine in the pool. Check to see if we've reached the
 				// max pool number. If we are below the max, create a new engine instance
 				// and return a new EngineContext.
-				RuleApplication application = (RuleApplication)this.applicationMap.get(key);
+				RuleApplication application = this.applicationMap.get(key);
 				if (application.getCurrentPoolCount() < application.getMaxPool()) {
 					engine = new org.jamocha.rete.Rete();
 					application.initializeEngine(engine);
@@ -161,8 +156,7 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		return requests;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List getRuleApplications() {
+	public List<RuleApplicationImpl> getRuleApplications() {
 		return applications;
 	}
 
@@ -178,14 +172,13 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		return totalRulesFired;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initialize() {
 		this.servletContext.log("--- Start initializing RuleService ---");
 		for (int idx=0; idx < applications.size(); idx++) {
-			RuleApplication application = (RuleApplication)this.applications.get(idx);
+			RuleApplication application = this.applications.get(idx);
 			((RuleApplicationImpl)application).setServletContext(this.servletContext);
 			String key = application.getName() + "::" + application.getVersion();
-			List queue = new ArrayList();
+			List<Rete> queue = new ArrayList<Rete>();
 			this.applicationMap.put(key, application);
 			this.engineMap.put(key, queue);
 			int initialCount = application.getInitialPool();
@@ -218,20 +211,17 @@ public class RuleStartupService implements ServletContextListener, RuleService {
 		this.averageRulesFired = this.totalRulesFired/this.requests;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void queueEngine(String application, String version, org.jamocha.rete.Rete engine) {
 		String key = application + "::" + version;
-		List queue = (List)this.engineMap.get(key);
+		List<Rete> queue = this.engineMap.get(key);
 		queue.add(engine);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Map getRuleApplicationMap() {
+	public Map<String, RuleApplication> getRuleApplicationMap() {
 		return this.applicationMap;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public Map getEngineMap() {
+	public Map<String, List<Rete>> getEngineMap() {
 		return this.engineMap;
 	}
 	

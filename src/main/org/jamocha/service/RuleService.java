@@ -79,6 +79,5 @@ public interface RuleService {
 	 * deployed.
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	List getRuleApplications();
+	List<?> getRuleApplications();
 }

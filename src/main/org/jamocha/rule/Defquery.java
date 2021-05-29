@@ -31,6 +31,7 @@ import org.jamocha.rete.Parameter;
 
 import org.jamocha.rete.WorkingMemory;
 import org.jamocha.rete.exception.AssertException;
+import org.jamocha.rete.query.QueryBaseAlphaCondition;
 import org.jamocha.rete.query.QueryBaseJoin;
 import org.jamocha.rete.query.QueryBaseNot;
 import org.jamocha.rete.query.QueryFuncAlphaNode;
@@ -52,23 +53,17 @@ public class Defquery implements Query, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected String name = null;
-    @SuppressWarnings("rawtypes")
-	protected ArrayList conditions = null;
-	@SuppressWarnings("rawtypes")
-	protected ArrayList joins = null;
-	@SuppressWarnings("rawtypes")
-	protected ArrayList notJoins = null;
-	@SuppressWarnings("rawtypes")
-	protected Map variables = new HashMap();
+    protected ArrayList<Condition> conditions = null;
+	protected ArrayList<QueryBaseJoin> joins = null;
+	protected ArrayList<QueryBaseJoin> notJoins = null;
+	protected Map<String, String> variables = new HashMap<String, String>();
     protected boolean auto = false;
     /**
      * by default noAgenda is false
      */
     protected String version = "";
-    @SuppressWarnings("rawtypes")
-	protected Map bindValues = new HashMap();
-    @SuppressWarnings("rawtypes")
-	protected LinkedHashMap bindings = new LinkedHashMap();
+    protected Map<?, ?> bindValues = new HashMap<Object, Object>();
+    protected LinkedHashMap<String, Binding> bindings = new LinkedHashMap<String, Binding>();
     protected String comment = "";
 
     protected QueryRootNode queryRoot = null;
@@ -77,8 +72,7 @@ public class Defquery implements Query, Serializable {
 	 * We use LinkedHashMap to keep the parameters in the order
 	 * they were declared.
 	 */
-    @SuppressWarnings("rawtypes")
-	protected Map queryParameterNodeMap = new LinkedHashMap();
+    protected Map<String, QueryBaseAlphaCondition> queryParameterNodeMap = new LinkedHashMap<String, QueryBaseAlphaCondition>();
 	
     /**
      * by default watch is off
@@ -90,12 +84,11 @@ public class Defquery implements Query, Serializable {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("rawtypes")
 	public Defquery() {
 		super();
-        conditions = new ArrayList();
-        joins = new ArrayList();
-        notJoins = new ArrayList();
+        conditions = new ArrayList<Condition>();
+        joins = new ArrayList<QueryBaseJoin>();
+        notJoins = new ArrayList<QueryBaseJoin>();
 	}
 
     public Defquery(String name) {
@@ -137,12 +130,10 @@ public class Defquery implements Query, Serializable {
     	}
     }
 
-	@SuppressWarnings("unchecked")
 	public void addCondition(Condition cond) {
         conditions.add(cond);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Condition[] getConditions() {
         Condition[] cond = new Condition[conditions.size()];
         conditions.toArray(cond);
@@ -152,8 +143,7 @@ public class Defquery implements Query, Serializable {
     /**
      * add join nodes to the rule
      */
-    @SuppressWarnings("unchecked")
-	public void addJoinNode(QueryBaseJoin node) {
+    public void addJoinNode(QueryBaseJoin node) {
     	if (node instanceof QueryBaseNot) {
     		this.notJoins.add(node);
     	} else {
@@ -164,29 +154,26 @@ public class Defquery implements Query, Serializable {
     /**
      * get the array of join nodes
      */
-    @SuppressWarnings("rawtypes")
-	public List getJoins() {
+    public List<QueryBaseJoin> getJoins() {
         return this.joins;
     }
     
-    @SuppressWarnings("unchecked")
-	public void addNotNode(QueryBaseNot node) {
+    public void addNotNode(QueryBaseNot node) {
     	this.notJoins.add(node);
     }
     
-    @SuppressWarnings("rawtypes")
-	public List getNotNodes() {
+	public List<QueryBaseJoin> getNotNodes() {
     	return this.notJoins;
     }
     
     public BaseNode getLastNode() {
         if (this.joins.size() > 0) {
-            return (BaseNode)this.joins.get(this.joins.size() - 1);
+            return this.joins.get(this.joins.size() - 1);
         } else if (conditions.size() > 0) {
             // this means there's only 1 ConditionalElement, so the conditions
             // only has 1 element. in all other cases, there will be atleast
             // 1 join node
-            Condition c = (Condition)this.conditions.get(0);
+            Condition c = this.conditions.get(0);
             if (c instanceof ObjectCondition) {
                 return ((ObjectCondition)c).getLastNode();
             } else if (c instanceof TestCondition) {
@@ -203,7 +190,6 @@ public class Defquery implements Query, Serializable {
 	 * exist.
 	 * @param bind
 	 */
-	@SuppressWarnings("unchecked")
 	public void addBinding(String key, Binding bind) {
 		if (!this.bindings.containsKey(key)) {
 			this.bindings.put(key,bind);
@@ -216,7 +202,7 @@ public class Defquery implements Query, Serializable {
 	 * @return
 	 */
 	public Binding getBinding(String varName) {
-		return (Binding)this.bindings.get(varName);
+		return this.bindings.get(varName);
 	}
 
 	/**
@@ -254,8 +240,7 @@ public class Defquery implements Query, Serializable {
 	 * were added to the utility.
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	public Iterator getBindingIterator() {
+	public Iterator<Binding> getBindingIterator() {
 		return this.bindings.values().iterator();
 	}
 	
@@ -269,7 +254,6 @@ public class Defquery implements Query, Serializable {
 		return this.bindings.size();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void addQueryParameterNode(QueryParameterNode parameterNode) {
 		if (this.queryParameterNodeMap.containsKey(parameterNode.getParameterName())) {
 			// only set the node if the parameter was declared
@@ -277,7 +261,6 @@ public class Defquery implements Query, Serializable {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void addQueryFuncNode(QueryFuncAlphaNode funcNode) {
 		if (this.queryParameterNodeMap.containsKey(funcNode.getParameterName())) {
 			this.queryParameterNodeMap.put(funcNode.getParameterName(), funcNode);
@@ -315,9 +298,9 @@ public class Defquery implements Query, Serializable {
         }
     }
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void setQueryParameters(List props) {
-		Iterator itr = props.iterator();
+	@SuppressWarnings({ })
+	public void setQueryParameters(List<?> props) {
+		Iterator<?> itr = props.iterator();
 		while (itr.hasNext()) {
 			String var = (String)itr.next();
 			if (var.startsWith("?")) {
@@ -332,11 +315,11 @@ public class Defquery implements Query, Serializable {
 	 * This method is only used by clone(Rete) method.
 	 * @param variables
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected void setQueryParameters(Map variables) {
-		Iterator itr = variables.keySet().iterator();
+	@SuppressWarnings({ })
+	protected void setQueryParameters(Map<String, QueryBaseAlphaCondition> variables) {
+		Iterator<String> itr = variables.keySet().iterator();
 		while (itr.hasNext()) {
-			String variable = (String)itr.next();
+			String variable = itr.next();
 			this.variables.put(variable, variable);
 			this.queryParameterNodeMap.put(variable, null);
 		}
@@ -365,11 +348,10 @@ public class Defquery implements Query, Serializable {
 		return buf.toString();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public void clear() {
-		Iterator itr = this.conditions.iterator();
+		Iterator<Condition> itr = this.conditions.iterator();
 		while (itr.hasNext()) {
-			Condition cond = (Condition)itr.next();
+			Condition cond = itr.next();
 			cond.clear();
 		}
 		this.joins.clear();
@@ -410,13 +392,13 @@ public class Defquery implements Query, Serializable {
 		this.elapsedTime = time;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List executeQuery(Rete engine, WorkingMemory memory, Parameter[] parameters) {
+	@SuppressWarnings({ })
+	public List<?> executeQuery(Rete engine, WorkingMemory memory, Parameter[] parameters) {
 		if (watch) {
 			startTime = System.currentTimeMillis();
 		}
 		try {
-			ArrayList params = new ArrayList(this.queryParameterNodeMap.values());
+			ArrayList<QueryBaseAlphaCondition> params = new ArrayList<QueryBaseAlphaCondition>(this.queryParameterNodeMap.values());
 			for (int i=0; i < parameters.length; i++) {
 				Object node = params.get(i);
 				if (node instanceof QueryParameterNode) {

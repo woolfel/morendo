@@ -40,16 +40,12 @@ public interface Mapping extends Serializable, Print {
 	String getTemplate();
 	void setTemplate(String template);
 	
-	@SuppressWarnings("rawtypes")
-	List getKeyProperties();
-	@SuppressWarnings("rawtypes")
-	void setKeyProperties(List keyProperties);
+	List<?> getKeyProperties();
+	void setKeyProperties(List<KeyProperty> keyProperties);
 	void addKeyProperty(KeyProperty key);
 	
-	@SuppressWarnings("rawtypes")
-	List getProperties();
-	@SuppressWarnings("rawtypes")
-	void setProperties(List properties);
+	List<?> getProperties();
+	void setProperties(List<Property> properties);
 	void addProperty(Property property);
 	
 	boolean usesCompositeKey();

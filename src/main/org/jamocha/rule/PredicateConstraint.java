@@ -57,8 +57,7 @@ public class PredicateConstraint implements Constraint {
 
     protected Object value = null;
     
-    @SuppressWarnings("rawtypes")
-	protected ArrayList parameters = new ArrayList();
+	protected ArrayList<Object> parameters = new ArrayList<Object>(); // Should be Parameter, but needs re-factor parser
     
     protected boolean isPredicateJoin = false;
     
@@ -119,8 +118,7 @@ public class PredicateConstraint implements Constraint {
     	return this.isPredicateJoin;
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public void addParameters(List params) {
+	public void addParameters(List<Object> params) {
         this.parameters.addAll(params);
         int bcount = 0;
         // we try to set the value
@@ -150,8 +148,7 @@ public class PredicateConstraint implements Constraint {
         }
     }
     
-    @SuppressWarnings("unchecked")
-	public void addParameter(Parameter param) {
+    public void addParameter(Parameter param) {
         this.parameters.add(param);
         if (param instanceof ValueParam) {
             this.setValue( ((ValueParam)param).getValue());
@@ -160,8 +157,7 @@ public class PredicateConstraint implements Constraint {
         }
     }
     
-    @SuppressWarnings("rawtypes")
-	public List getParameters() {
+	public List<?> getParameters() {
         return this.parameters;
     }
     
@@ -213,4 +209,9 @@ public class PredicateConstraint implements Constraint {
         	return buf.toString();
         }
 	}
+
+//	public void addParameters(List<Object> params) {
+		// TODO Auto-generated method stub
+		
+//	}
 }

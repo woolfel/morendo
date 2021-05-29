@@ -66,7 +66,6 @@ public class LoadFactsFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
 		Boolean loaded = Boolean.TRUE;
@@ -90,8 +89,8 @@ public class LoadFactsFunction implements Function, Serializable {
 				try {
                     InputStream inStream = getInputStream(input);
 					CLIPSParser parser = new CLIPSParser(inStream);
-					List data = parser.loadExpr();
-					Iterator itr = data.iterator();
+					List<?> data = parser.loadExpr();
+					Iterator<?> itr = data.iterator();
 					while (itr.hasNext()) {
 						Object val = itr.next();
 						ValueParam[] vp = (ValueParam[])val;
@@ -130,8 +129,7 @@ public class LoadFactsFunction implements Function, Serializable {
 		return LOAD;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

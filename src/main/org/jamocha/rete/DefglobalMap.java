@@ -37,12 +37,12 @@ public class DefglobalMap implements Serializable {
 	/**
 	 * later on we should replace this and have it
 	 */
-	@SuppressWarnings("rawtypes")
-	private Map variables = null;
+	private Map<String, Object> variables = null;
 	
+	@SuppressWarnings("unchecked")
 	public DefglobalMap(Rete engine) {
 		super();
-		variables = engine.newMap();
+		variables = (Map<String, Object>) engine.newMap();
 	}
 
 	/**
@@ -51,7 +51,6 @@ public class DefglobalMap implements Serializable {
 	 * @param name
 	 * @param value
 	 */
-	@SuppressWarnings("unchecked")
 	public void declareDefglobal(String name, Object value) {
 		this.variables.put(name,value);
 	}
@@ -70,8 +69,7 @@ public class DefglobalMap implements Serializable {
 		this.variables.remove(name);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public Iterator getValueIterator() {
+	public Iterator<?> getValueIterator() {
 		return this.variables.values().iterator();
 	}
 	
@@ -81,9 +79,8 @@ public class DefglobalMap implements Serializable {
 	 * calls Object.toString() for the value.
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void printDefglobals(Rete engine) {
-		Iterator itr = this.variables.keySet().iterator();
+		Iterator<String> itr = this.variables.keySet().iterator();
 		while (itr.hasNext()) {
 			String key = (String)itr.next();
 			Object val = this.variables.get(key);

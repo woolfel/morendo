@@ -53,11 +53,10 @@ public class QueryOnlyJoin extends QueryBaseNot {
 	/**
 	 * clear will clear the lists
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
-		Map rightmem = (Map) mem.getBetaRightMemory(this);
-		Map leftmem = (Map) mem.getBetaRightMemory(this);
-		Iterator itr = leftmem.keySet().iterator();
+		Map<?, ?> rightmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+		Iterator<?> itr = leftmem.keySet().iterator();
 		// first we iterate over the list for each fact
 		// and clear it.
 		while (itr.hasNext()) {
@@ -77,10 +76,10 @@ public class QueryOnlyJoin extends QueryBaseNot {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<Index, Index> leftmem = (Map<Index, Index>) mem.getBetaLeftMemory(this);
         leftmem.put(linx, linx);
 	}
 
@@ -98,10 +97,9 @@ public class QueryOnlyJoin extends QueryBaseNot {
         rightmem.addPartialMatch(inx, rfact, engine);
     }
 	
-	@SuppressWarnings("rawtypes")
 	public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
-        Iterator itr = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()) {
             Index linx = (Index) itr.next();
             EqHashIndex inx = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));

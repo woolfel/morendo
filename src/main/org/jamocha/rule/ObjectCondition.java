@@ -47,16 +47,14 @@ public class ObjectCondition extends AbstractCondition {
 		super();
 	}
 	
-    @SuppressWarnings("unchecked")
-	public void addConstraint(Constraint con) {
+    public void addConstraint(Constraint con) {
         this.constraints.add(con);
         if (this.getNegated() && con instanceof BoundConstraint) {
         	((BoundConstraint)con).setBindableConstraint(false);
         }
     }
     
-    @SuppressWarnings("unchecked")
-	public void addConstraint(Constraint con, int position) {
+    public void addConstraint(Constraint con, int position) {
         this.constraints.add(0,con);
         if (this.getNegated() && con instanceof BoundConstraint) {
         	((BoundConstraint)con).setBindableConstraint(false);

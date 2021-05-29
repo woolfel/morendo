@@ -75,8 +75,7 @@ public class AnyEqFunction implements Function, Serializable {
 		return ANYEQUAL;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class,BoundParam.class};
 	}
 

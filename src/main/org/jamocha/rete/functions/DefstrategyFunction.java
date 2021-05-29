@@ -52,12 +52,11 @@ public class DefstrategyFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Boolean def = Boolean.TRUE;
 		if (params.length == 1) {
 			String clazz = params[0].getStringValue();
-            Class clzz;
+            Class<?> clzz;
             try {
                 clzz = Class.forName(clazz);
                 Strategy strat = (Strategy)clzz.getDeclaredConstructor().newInstance();
@@ -100,8 +99,7 @@ public class DefstrategyFunction implements Function, Serializable {
 	 * defclass function expects 3 parameters. (defclass classname,
 	 * templatename, parenttemplate) parent template name is optional.
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class,
 				ValueParam.class };
 	}

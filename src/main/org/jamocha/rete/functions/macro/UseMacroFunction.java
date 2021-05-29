@@ -44,8 +44,7 @@ public class UseMacroFunction implements Function {
 		return USE_MACRO;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

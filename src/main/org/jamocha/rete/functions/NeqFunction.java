@@ -74,8 +74,7 @@ public class NeqFunction implements Function, Serializable {
 		return NEQUAL;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

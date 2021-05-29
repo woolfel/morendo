@@ -45,8 +45,7 @@ public class SetDistinctCount implements Function {
 		return SET_DISTINCT_COUNT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class, ValueParam.class, ValueParam.class};
 	}
 

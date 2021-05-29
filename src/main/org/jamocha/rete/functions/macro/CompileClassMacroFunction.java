@@ -34,8 +34,7 @@ public class CompileClassMacroFunction implements Function {
 		return COMPILE_MACRO;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

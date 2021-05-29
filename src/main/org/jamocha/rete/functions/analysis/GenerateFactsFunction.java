@@ -60,11 +60,10 @@ public class GenerateFactsFunction implements Function, Serializable {
 		return Constants.OBJECT_TYPE;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		boolean echo = false;
-		ArrayList facts = null;
+		ArrayList<?> facts = null;
 		String output = null;
 		if (params != null && params.length >= 1) {
 			Defrule r = (Defrule)engine.getCurrentFocus().findRule(
@@ -82,7 +81,7 @@ public class GenerateFactsFunction implements Function, Serializable {
 			facts = GenerateFacts.generateFacts(r,engine);
 			if (facts.size() > 0) {
 				if (echo) {
-					Iterator itr = facts.iterator();
+					Iterator<?> itr = facts.iterator();
 					while (itr.hasNext()) {
 						Object data = itr.next();
 						if (data instanceof Deffact) {
@@ -116,8 +115,7 @@ public class GenerateFactsFunction implements Function, Serializable {
 	/**
 	 * The function does not take any parameters
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

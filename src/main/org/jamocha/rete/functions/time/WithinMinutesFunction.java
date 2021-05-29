@@ -94,8 +94,7 @@ public class WithinMinutesFunction extends AbstractTimeFunction implements Funct
 		return WITHIN_MINUTES;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Date.class, Date.class};
 	}
 

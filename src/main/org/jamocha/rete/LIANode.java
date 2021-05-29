@@ -108,8 +108,7 @@ public class LIANode extends BaseAlpha {
      * The next node can be an AlphaNode or a LIANode.
      * @param node
      */
-    @SuppressWarnings("rawtypes")
-	public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
+   	public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
     throws AssertException 
     {
         if (addNode(node)) {
@@ -117,7 +116,7 @@ public class LIANode extends BaseAlpha {
             // the new successor only
             AlphaMemory alpha = (AlphaMemory)mem.getAlphaMemory(this);
             if (alpha.size() > 0){
-                Iterator itr = alpha.iterator();
+                Iterator<?> itr = alpha.iterator();
                 while (itr.hasNext()){
                     if (node instanceof BaseAlpha) {
                         BaseAlpha next = (BaseAlpha) node;

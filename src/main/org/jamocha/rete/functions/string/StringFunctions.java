@@ -19,6 +19,7 @@ package org.jamocha.rete.functions.string;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jamocha.rete.Function;
 import org.jamocha.rete.FunctionGroup;
 import org.jamocha.rete.Rete;
 
@@ -29,8 +30,7 @@ public class StringFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private ArrayList funcs = new ArrayList();
+		private ArrayList<Function> funcs = new ArrayList<Function>();
 
 	public StringFunctions() {
 		super();
@@ -40,7 +40,6 @@ public class StringFunctions implements FunctionGroup {
 		return (StringFunctions.class.getSimpleName());
 	}
 
-	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		StringCompareFunction compare = new StringCompareFunction();
 		engine.declareFunction(compare);
@@ -74,8 +73,7 @@ public class StringFunctions implements FunctionGroup {
 		funcs.add(snef);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List listFunctions() {
+	public List<Function> listFunctions() {
 		return funcs;
 	}
 

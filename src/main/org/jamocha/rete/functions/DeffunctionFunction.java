@@ -43,10 +43,8 @@ public class DeffunctionFunction implements Function {
 	protected String name = null;
     protected String ppString = null;
     protected Parameter[] parameters = null;
-    @SuppressWarnings("rawtypes")
-	protected List functions = null;
-    @SuppressWarnings("rawtypes")
-	protected Class[] functionParams = null;
+   	protected List<?> functions = null;
+    protected Class<?>[] functionParams = null;
     protected int returnType;
     
     /**
@@ -88,8 +86,7 @@ public class DeffunctionFunction implements Function {
         return this.name;
     }
 
-    @SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
         return this.functionParams;
     }
 
@@ -105,13 +102,11 @@ public class DeffunctionFunction implements Function {
         return this.ppString;
     }
 
-    @SuppressWarnings("rawtypes")
-	public List getFunction() {
+    public List<?> getFunction() {
         return functions;
     }
 
-    @SuppressWarnings("rawtypes")
-	public void setFunction(List functions) {
+    public void setFunction(List<?> functions) {
         this.functions = functions;
     }
 

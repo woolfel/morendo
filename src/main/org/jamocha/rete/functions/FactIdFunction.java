@@ -74,8 +74,7 @@ public class FactIdFunction implements Function, Serializable {
 		return FACT_ID;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{long.class};
 	}
 

@@ -54,8 +54,7 @@ public class GarbageCollectFunction implements Function, Serializable {
 		return GARBAGE_COLLECT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

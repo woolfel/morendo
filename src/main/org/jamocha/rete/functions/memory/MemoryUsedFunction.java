@@ -62,8 +62,7 @@ public class MemoryUsedFunction implements Function, Serializable {
 		return MEMORY_FREE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

@@ -31,8 +31,7 @@ public class DefaultReturnVector implements ReturnVector {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	protected Vector items = new Vector(2);
+	protected Vector<ReturnValue> items = new Vector<ReturnValue>(2);
 
 
 	/**
@@ -57,8 +56,7 @@ public class DefaultReturnVector implements ReturnVector {
 	 * the implementation returns itself, since ReturnVector extends
 	 * Iterator interface.
 	 */
-	@SuppressWarnings("rawtypes")
-	public Iterator getIterator() {
+	public Iterator<ReturnValue> getIterator() {
 		return getItems().iterator();
 	}
 
@@ -67,27 +65,24 @@ public class DefaultReturnVector implements ReturnVector {
 	 * @return
 	 */
 	public ReturnValue firstReturnValue() {
-		return (ReturnValue) this.getItems().get(0);
+		return this.getItems().get(0);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void addReturnValue(ReturnValue val) {
 		getItems().add(val);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public String toString() {
-		Iterator itr = getIterator();
+		Iterator<ReturnValue> itr = getIterator();
 		StringBuilder sb = new StringBuilder();
 		while (itr.hasNext()) {
-			ReturnValue rval = (ReturnValue) itr.next();
+			ReturnValue rval = itr.next();
 			sb.append(rval.getStringValue()).append('\n');
 		}
 		return sb.toString();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Vector getItems() {
+	public Vector<ReturnValue> getItems() {
 		return items;
 	}
 }

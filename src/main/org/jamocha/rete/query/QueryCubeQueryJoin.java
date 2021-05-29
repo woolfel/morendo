@@ -95,15 +95,15 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
-    	Map leftmem = (Map) mem.getQueryBetaMemory(this);
+    	Map<EqHashIndex, Map<?, ?>> leftmem = (Map<EqHashIndex, Map<?, ?>>) mem.getQueryBetaMemory(this);
     	// first we create the hashIndex and put it in the left memory
         EqHashIndex eqIndex = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));
-        Map values = (Map)leftmem.get(eqIndex);
+        Map<Index,Index> values = (Map<Index, Index>) leftmem.get(eqIndex);
         if (values == null) {
-        	values = engine.newMap();
+        	values = (Map<Index, Index>) engine.newMap();
         	leftmem.put(eqIndex, values);
         }
         values.put(linx, linx);
@@ -115,7 +115,7 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
         	CubeHashMemoryImpl rightmem = (CubeHashMemoryImpl) mem.getQueryRightMemory(this);
         	if (rightmem.count(eqIndex) > 0) {
         		// cached version already exists, so just propagate
-        		Iterator itr = rightmem.iterator(eqIndex);
+        		Iterator<?> itr = rightmem.iterator(eqIndex);
         		while (itr.hasNext()) {
         			Fact f = (Fact)itr.next();
         			this.propogateAssert(linx.add(f), engine, mem);
@@ -144,7 +144,6 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
     	// first set the reference to CubeFact
@@ -154,16 +153,16 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
         // query the cube for the data
         Cube cube = (Cube)cubeFact.getObjectInstance();
 
-    	Map leftmem = (Map) mem.getQueryBetaMemory(this);
+    	Map<?, ?> leftmem = (Map<?, ?>) mem.getQueryBetaMemory(this);
         // Get the partial matches on the side side using the EqHashIndex as the key
-        Iterator indexItr = leftmem.keySet().iterator();
+        Iterator<?> indexItr = leftmem.keySet().iterator();
         while (indexItr.hasNext()) {
         	EqHashIndex eqIndex = (EqHashIndex)indexItr.next();
-        	Map values = (Map)leftmem.get(eqIndex);
+        	Map<?, ?> values = (Map<?, ?>)leftmem.get(eqIndex);
         	// if the EqHashIndex has values, we execute the query once
         	if (values.size() > 0) {
         		// we create a new 
-        		ArrayList matchValues = new ArrayList(values.values());
+        		ArrayList<?> matchValues = new ArrayList<Object>(values.values());
         		// get the first match, so we can use it to query the cube
         		Index linx = (Index)matchValues.get(0);
     			// create the ResultsetFact
@@ -187,10 +186,9 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
         }
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Object[] queryCube(Index linx, Cube c, Rete engine, WorkingMemory mem, ResultsetFact resultFact) {
-		java.util.Set result = new java.util.HashSet();
-		Map firstResult = null;
+		java.util.Set<Object> result = new java.util.HashSet<Object>();
+		Map<?, ?> firstResult = null;
 		// execute query
 		if (c.profileQuery()) {
 			ProfileStats.startCubeQuery();
@@ -201,7 +199,7 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
 			CubeDimension dimension = c.getDimensions()[b.getRightIndex()];
 			String parameter = linx.getFacts()[b.getLeftRow()].getSlotValue(b.getLeftIndex()).toString();
 			resultFact.setSlotValue(b.getRightIndex(), parameter);
-			firstResult = (Map)dimension.getData(parameter, b.negated());
+			firstResult = (Map<?, ?>)dimension.getData(parameter, b.negated());
 			if (firstResult != null && firstResult.size() > 0) {
 				result.addAll(firstResult.keySet());
 			}
@@ -214,8 +212,8 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
 				CubeDimension dimension = c.getDimensions()[b.getRightIndex()];
 				String parameter = linx.getFacts()[b.getLeftRow()].getSlotValue(b.getLeftIndex()).toString();
 				resultFact.setSlotValue(b.getRightIndex(), parameter);
-				Map data = null;
-				data = (Map)dimension.getData(parameter, b.negated());
+				Map<?, ?> data = null;
+				data = (Map<?, ?>)dimension.getData(parameter, b.negated());
 				if (data != null) {
 					result.retainAll(data.keySet());
 				}
@@ -234,8 +232,8 @@ public class QueryCubeQueryJoin extends QueryBaseJoin {
 					parameter = linx.getFacts()[b.getLeftRow()].getSlotValue(b.getLeftIndex());
 				}
 				resultFact.setSlotValue(b.getRightIndex(), parameter);
-				Map data = null;
-				data = (Map)dimension.getData(parameter, b.getOperator());
+				Map<?, ?> data = null;
+				data = (Map<?, ?>)dimension.getData(parameter, b.getOperator());
 				if (data != null) {
 					result.retainAll(data.keySet());
 				}

@@ -22,9 +22,8 @@ public class ListMeasuresFunction implements Function {
 		super();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		List measures = engine.getAllMeasures();
+		List<?> measures = engine.getAllMeasures();
 		int counter = 0;
 		for (int idx=0; idx < measures.size(); idx++) {
 			Measure m = (Measure)measures.get(idx);
@@ -41,8 +40,7 @@ public class ListMeasuresFunction implements Function {
 		return MEASURES;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

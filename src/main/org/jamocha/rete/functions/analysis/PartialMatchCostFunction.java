@@ -44,8 +44,7 @@ public class PartialMatchCostFunction implements Function {
 		return PARTIAL_MATCH_COST;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

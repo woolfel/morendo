@@ -83,8 +83,7 @@ public class WatchFunction implements Function, Serializable {
 		return WATCH;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

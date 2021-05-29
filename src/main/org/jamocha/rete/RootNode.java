@@ -43,15 +43,15 @@ public class RootNode implements Serializable {
      * 
      */
     private static final long serialVersionUID = 1L;
-    @SuppressWarnings("rawtypes")
-	protected Map inputNodes = null;
+   	protected Map<Template, ObjectTypeNode> inputNodes = null;
 
     /**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	public RootNode(Rete engine) {
 		super();
-		inputNodes = engine.newMap();
+		inputNodes = (Map<Template, ObjectTypeNode>) engine.newMap();
 	}
     
     /**
@@ -60,8 +60,7 @@ public class RootNode implements Serializable {
      * doesn't already exist in the network.
      * @param node
      */
-    @SuppressWarnings("unchecked")
-	public void addObjectTypeNode(ObjectTypeNode node) {
+    public void addObjectTypeNode(ObjectTypeNode node) {
         if (!this.inputNodes.containsKey(node.getDeftemplate()) ) {
             this.inputNodes.put(node.getDeftemplate(),node);
         }
@@ -82,8 +81,7 @@ public class RootNode implements Serializable {
      * Return the HashMap with all the ObjectTypeNodes
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public Map getObjectTypeNodes() {
+	public Map<?, ?> getObjectTypeNodes() {
         return this.inputNodes;
     }
     
@@ -164,9 +162,8 @@ public class RootNode implements Serializable {
         }
     }
     
-    @SuppressWarnings("rawtypes")
 	public synchronized void clear() {
-        Iterator itr = this.inputNodes.values().iterator();
+        Iterator<?> itr = this.inputNodes.values().iterator();
         while (itr.hasNext()) {
             ObjectTypeNode otn = (ObjectTypeNode)itr.next();
             otn.clearSuccessors();
@@ -180,10 +177,9 @@ public class RootNode implements Serializable {
      * @param engine
      * @return
      */
-    @SuppressWarnings("rawtypes")
 	public QueryRootNode createQueryRoot(Rete engine) {
     	QueryRootNode queryRoot = new QueryRootNode(engine, this);
-    	Iterator iterator = this.inputNodes.values().iterator();
+    	Iterator<?> iterator = this.inputNodes.values().iterator();
     	while (iterator.hasNext()) {
     		ObjectTypeNode otn = (ObjectTypeNode)iterator.next();
     		queryRoot.addQueryObjTypeNode(otn.createQueryObjTypeNode(engine));

@@ -69,9 +69,8 @@ public class Deffact implements Fact {
 	 * 
 	 * @param util
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void compileBinding(Rule util) {
-		ArrayList list = new ArrayList();
+		ArrayList<BaseSlot> list = new ArrayList<BaseSlot>();
 		for (int idx = 0; idx < this.slots.length; idx++) {
 			if (this.slots[idx].value instanceof BoundParam) {
 				this.hasBinding = true;
@@ -85,7 +84,7 @@ public class Deffact implements Fact {
 			}
 		}
 		if (list.size() > 0) {
-			this.boundSlots = (Slot[]) list.toArray(new Slot[list.size()]);
+			this.boundSlots = list.toArray(new Slot[list.size()]);
 		}
 	}
 

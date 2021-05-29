@@ -26,7 +26,6 @@ import org.jamocha.rete.Function;
 import org.jamocha.rete.Parameter;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.ReturnVector;
-import org.jamocha.rete.functions.math.Log;
 
 public class PrintAgentPerfSummaryFunction implements Function {
 
@@ -40,13 +39,12 @@ public class PrintAgentPerfSummaryFunction implements Function {
 		super();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		List summaries = AgentRegistry.getPerformanceSummaries();
-		Iterator iterator = summaries.iterator();
+		List<?> summaries = AgentRegistry.getPerformanceSummaries();
+		Iterator<?> iterator = summaries.iterator();
 		while (iterator.hasNext()) {
-			Queue queue = (Queue)iterator.next();
-			Iterator perfItr = queue.iterator();
+			Queue<?> queue = (Queue<?>)iterator.next();
+			Iterator<?> perfItr = queue.iterator();
 			String text = null;
 			int x = 0;
 			while (perfItr.hasNext()) {
@@ -74,8 +72,7 @@ public class PrintAgentPerfSummaryFunction implements Function {
 		return PRINT_AGENT_PERF;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

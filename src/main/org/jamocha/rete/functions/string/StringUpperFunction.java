@@ -72,8 +72,7 @@ public class StringUpperFunction implements Function, Serializable {
 		return STRING_UPPER;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

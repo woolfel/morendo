@@ -62,8 +62,7 @@ public class TableMap extends AbstractTableModel implements TableModelListener {
 		return model.getColumnName(aColumn);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Class getColumnClass(int aColumn) {
+	public Class<?> getColumnClass(int aColumn) {
 		return model.getColumnClass(aColumn);
 	}
 

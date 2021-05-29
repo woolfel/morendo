@@ -61,8 +61,7 @@ public class CreateMessageClientFunction implements Function {
 		return CREATE_MESSAGE_CLIENT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String.class,String.class,String.class,String.class,String.class,String.class,String.class};
 	}
 

@@ -48,6 +48,5 @@ public interface AlphaMemory extends Serializable {
 	 * Return an iterator to iterate over the matches.
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	java.util.Iterator iterator();
+	java.util.Iterator<?> iterator();
 }

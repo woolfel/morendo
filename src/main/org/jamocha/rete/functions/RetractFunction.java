@@ -95,8 +95,8 @@ public class RetractFunction implements Function, Serializable {
 		return RETRACT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+
+public Class<?>[] getParameter() {
 		return new Class[] {BoundParam.class};
 	}
 

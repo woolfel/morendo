@@ -90,8 +90,7 @@ public class EqSecondFunction extends AbstractTimeFunction implements Function {
 		return EQ_SECOND;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Date.class, Date.class};
 	}
 

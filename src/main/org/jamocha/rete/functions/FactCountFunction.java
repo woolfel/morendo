@@ -65,8 +65,7 @@ public class FactCountFunction implements Function, Serializable {
 		return FACT_COUNT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

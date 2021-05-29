@@ -26,13 +26,12 @@ import java.util.HashMap;
  * ConversioUtils has a methods for autoboxing primitive types
  * with the Object equivalent.
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
 public class ConversionUtils {
 
-    private static HashMap OPR_MAP;
+    private static HashMap<String, String> OPR_MAP;
     
     static {
-        OPR_MAP = new HashMap();
+        OPR_MAP = new HashMap<String, String>();
         OPR_MAP.put(String.valueOf(Constants.ADD),Constants.ADD_STRING);
         OPR_MAP.put(String.valueOf(Constants.SUBTRACT),Constants.SUBTRACT_STRING);
         OPR_MAP.put(String.valueOf(Constants.MULTIPLY),Constants.MULTIPLY_STRING);
@@ -46,10 +45,10 @@ public class ConversionUtils {
     }
     
     @SuppressWarnings("unused")
-	private static HashMap STROPR_MAP = null;
+	private static HashMap<?, ?> STROPR_MAP = null;
     
     static {
-        STROPR_MAP = new HashMap();
+        STROPR_MAP = new HashMap<Object, Object>();
         OPR_MAP.put(Constants.ADD_STRING,Constants.ADD_SYMBOL);
         OPR_MAP.put(Constants.SUBTRACT_STRING,Constants.SUBTRACT_SYMBOL);
         OPR_MAP.put(Constants.MULTIPLY_STRING,Constants.MULTIPLY_SYMBOL);
@@ -146,7 +145,7 @@ public class ConversionUtils {
      * @return
      */
     public static String getPPOperator(int opr){
-        return (String)OPR_MAP.get(String.valueOf(opr));
+        return OPR_MAP.get(String.valueOf(opr));
     }
     
     /**
@@ -229,7 +228,7 @@ public class ConversionUtils {
      * @param clzz
      * @return
      */
-    public static int getTypeCode(Class clzz){
+    public static int getTypeCode(Class<?> clzz){
         if (clzz.isArray()){
             return Constants.ARRAY_TYPE;
         } else if (clzz.isPrimitive()){

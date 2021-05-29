@@ -51,7 +51,7 @@ public class MLTerminalNode extends TerminalNode2 {
 	 * @param facts
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertFacts(Index inx, Rete engine, WorkingMemory mem) {
 		long time = System.currentTimeMillis();
 		boolean add = true;
@@ -67,7 +67,7 @@ public class MLTerminalNode extends TerminalNode2 {
 			LinkedActivation act = new LinkedActivation(this.theRule, inx);
 			if (!this.noAgenda) {
 				act.setTerminalNode(this);
-				Map tmem = (Map) mem.getTerminalMemory(this);
+				Map<Index, LinkedActivation> tmem = (Map<Index, LinkedActivation>) mem.getTerminalMemory(this);
 				tmem.put(act.getIndex(), act);
 				// add the activation to the current module's activation list.
 				engine.getAgenda().addActivation(act);
@@ -87,11 +87,11 @@ public class MLTerminalNode extends TerminalNode2 {
 	 * @param facts
 	 * @param engine
 	 */
-	@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unused", "unchecked" })
 	public void retractFacts(Index inx, Rete engine, WorkingMemory mem) {
 		long time = System.currentTimeMillis();
-        Map tmem = (Map) mem.getTerminalMemory(this);
-        LinkedActivation act = (LinkedActivation) tmem.remove(inx);
+        Map<Index, ModificationActivation> tmem = (Map<Index, ModificationActivation>) mem.getTerminalMemory(this);
+        LinkedActivation act = tmem.remove(inx);
         if (act != null) {
             engine.getAgenda().removeActivation(act);
         } else {

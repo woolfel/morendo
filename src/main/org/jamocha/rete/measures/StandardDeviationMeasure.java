@@ -35,10 +35,9 @@ public class StandardDeviationMeasure implements AggregateMeasure {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BigDecimal calculate(Rete engine, Cube cube, Object[] data, CubeBinding binding) {
 		if (data != null) {
-			ArrayList values = new ArrayList();
+			ArrayList<Object> values = new ArrayList<Object>();
 			for (int idx=0; idx < data.length; idx++) {
 				Index facts = (Index)data[idx];
 				Object value = facts.getFacts()[binding.getLeftRow()].getSlotValue(binding.getLeftIndex());
@@ -64,8 +63,7 @@ public class StandardDeviationMeasure implements AggregateMeasure {
 	 * @param data
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	protected BigDecimal calculate(Rete engine, Cube cube, List data) {
+	protected BigDecimal calculate(Rete engine, Cube cube, List<Object> data) {
 		// first calculate the average
 		BigDecimal sum = new BigDecimal(0);
 		for (int idx=0; idx < data.size(); idx++) {

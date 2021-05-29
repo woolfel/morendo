@@ -90,8 +90,7 @@ public class BindFunction implements Function, Serializable {
 	 * The function takes 2 parameters. The first is the name of the variable
 	 * and the second is some value. At the moment, the function does not hand
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}
 

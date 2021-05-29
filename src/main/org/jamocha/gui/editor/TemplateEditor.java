@@ -47,8 +47,7 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 
 	private JTextField nameField;
 
-	@SuppressWarnings("rawtypes")
-	private JComboBox moduleBox;
+	private JComboBox<?> moduleBox;
 
 	private JButton reloadButtonDumpAreaTemplate;
 
@@ -62,7 +61,6 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 
 	private List<EditorRow> rows = new LinkedList<EditorRow>();
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public TemplateEditor(Rete engine) {
 		super(engine);
 		setSize(600, 500);
@@ -82,13 +80,13 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 		add(buttonPanel, BorderLayout.SOUTH);
 
 		nameField = new JTextField(15);
-		Collection modules = engine.getWorkingMemory().getModules();
+		Collection<?> modules = engine.getWorkingMemory().getModules();
 		String[] moduleNames = new String[modules.size()];
 		int i = 0;
 		for (Object obj : modules) {
 			moduleNames[i++] = ((Module) obj).getModuleName();
 		}
-		moduleBox = new JComboBox(moduleNames);
+		moduleBox = new JComboBox<Object>(moduleNames);
 
 
 		addSlotButton = new JButton("Add Slot", IconLoader.getImageIcon("add"));
@@ -252,8 +250,7 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 		parent.add(label);
 	}
 
-	@SuppressWarnings("rawtypes")
-	private void addTypesCombo(JPanel parent, JComboBox combo,
+	private void addTypesCombo(JPanel parent, JComboBox<?> combo,
 			GridBagLayout gridbag, GridBagConstraints c, int row) {
 		c.gridx = 2;
 		c.gridy = row;
@@ -274,10 +271,9 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 		parent.add(field);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private JComboBox getNewTypesCombo() {
+	private JComboBox<?> getNewTypesCombo() {
 		String[] types = new String[]{"STRING","LONG","DOUBLE","OBJECT","MULTISLOT"};
-		JComboBox box = new JComboBox(types);
+		JComboBox<?> box = new JComboBox<Object>(types);
 		return box;
 	}
 
@@ -287,14 +283,12 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 
 		private JLabel rowLabel;
 
-		@SuppressWarnings("rawtypes")
-		private JComboBox typeBox;
+		private JComboBox<?> typeBox;
 
 		private JTextField nameField;
 
-		@SuppressWarnings("rawtypes")
 		private EditorRow(DeleteButton deleteButton, JLabel rowLabel,
-				JComboBox typeBox, JTextField nameField) {
+				JComboBox<?> typeBox, JTextField nameField) {
 			this.deleteButton = deleteButton;
 			this.rowLabel = rowLabel;
 			this.typeBox = typeBox;

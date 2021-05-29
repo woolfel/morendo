@@ -74,8 +74,7 @@ public class ListDirectoryFunction implements Function, Serializable {
 		return LIST_DIR;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

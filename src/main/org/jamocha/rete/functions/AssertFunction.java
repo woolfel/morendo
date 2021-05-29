@@ -103,8 +103,7 @@ public class AssertFunction implements RuleFunction, Serializable {
 	 * beginner guide, assert only takes facts and returns the id of the
 	 * fact. For objects, there's (assert-object ?binding).
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

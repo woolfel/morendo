@@ -65,8 +65,7 @@ public class ExitFunction implements Function, Serializable {
 	 * the function does not take any parameters. If parameters are passed,
 	 * the function ignores them.
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

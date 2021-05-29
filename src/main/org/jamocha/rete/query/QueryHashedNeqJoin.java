@@ -54,12 +54,11 @@ public class QueryHashedNeqJoin extends QueryBaseJoin {
     /**
      * clear will clear the lists
      */
-    @SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem){
-        Map leftmem = (Map)mem.getQueryBetaMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getQueryBetaMemory(this);
         HashedNeqAlphaMemory rightmem = 
         	(HashedNeqAlphaMemory)mem.getQueryRightMemory(this);
-        Iterator itr = leftmem.keySet().iterator();
+        Iterator<?> itr = leftmem.keySet().iterator();
         // first we iterate over the list for each fact
         // and clear it.
         while (itr.hasNext()){
@@ -79,11 +78,11 @@ public class QueryHashedNeqJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
+        Map<Index, Index> leftmem = (Map<Index, Index>) mem.getQueryBetaMemory(this);
 
 		leftmem.put(linx, linx);
 		// need to think the getLeftValues through better to
@@ -106,7 +105,6 @@ public class QueryHashedNeqJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-    @SuppressWarnings("rawtypes")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
@@ -118,12 +116,12 @@ public class QueryHashedNeqJoin extends QueryBaseJoin {
 		// now that we've added the facts to the list, we
 		// proceed with evaluating the fact
 		// else we compare the fact to all facts in the left
-		Map leftmem = (Map) mem.getQueryBetaMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getQueryBetaMemory(this);
 		// since there may be key collisions, we iterate over the
 		// values of the HashMap. If we used keySet to iterate,
 		// we could encounter a ClassCastException in the case of
 		// key collision.
-		Iterator itr = leftmem.values().iterator();
+		Iterator<?> itr = leftmem.values().iterator();
 		while (itr.hasNext()) {
 			Index linx = (Index) itr.next();
 			if (this.evaluate(linx.getFacts(), rfact)) {

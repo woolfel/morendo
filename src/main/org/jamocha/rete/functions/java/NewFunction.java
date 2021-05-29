@@ -54,7 +54,6 @@ public class NewFunction implements Function, Serializable {
 		this.classnameResolver = classnameResolver;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Object o = null;
 		String classname = null;
@@ -92,10 +91,10 @@ public class NewFunction implements Function, Serializable {
 				}
 			} 
 			try {
-				Class classDefinition = classnameResolver.resolveClass(classname);
-				Constructor foundConstructor = null;
-				for(Constructor constructor : classDefinition.getConstructors() ) {
-					Class[] parameterClasses = constructor.getParameterTypes();
+				Class<?> classDefinition = classnameResolver.resolveClass(classname);
+				Constructor<?> foundConstructor = null;
+				for(Constructor<?> constructor : classDefinition.getConstructors() ) {
+					Class<?>[] parameterClasses = constructor.getParameterTypes();
 					if(parameterClasses.length == args.length) {
 						boolean match = true;
 						for(int i=0; i<parameterClasses.length; ++i) {
@@ -135,8 +134,7 @@ public class NewFunction implements Function, Serializable {
 		return NEW;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

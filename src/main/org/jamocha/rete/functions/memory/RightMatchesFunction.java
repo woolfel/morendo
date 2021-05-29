@@ -72,10 +72,9 @@ public class RightMatchesFunction extends BaseMatchFunction implements Function,
 		return new DefaultReturnVector();
 	}
 
-    @SuppressWarnings("rawtypes")
-	protected void printRightMatches(Rete engine) {
+    	protected void printRightMatches(Rete engine) {
         DefaultWM wm = (DefaultWM)engine.getWorkingMemory();
-        ArrayList betaNodes = this.getSortedBetaNodes(wm);
+        ArrayList<?> betaNodes = this.getSortedBetaNodes(wm);
         for (int idx=0; idx < betaNodes.size(); idx++) {
             BaseJoin join = (BaseJoin)betaNodes.get(idx);
             if (!(join instanceof ZJBetaNode)) {
@@ -84,8 +83,7 @@ public class RightMatchesFunction extends BaseMatchFunction implements Function,
         }
     }
     
-    @SuppressWarnings("rawtypes")
-	public void printBetaNodeDetailInfo(BaseJoin betaNode, Rete engine, DefaultWM wm) {
+    public void printBetaNodeDetailInfo(BaseJoin betaNode, Rete engine, DefaultWM wm) {
         StringBuffer buf = new StringBuffer();
         buf.append(betaNode.toPPString());
         // Map lmem = (Map)wm.getBetaLeftMemory(betaNode); Unused
@@ -107,8 +105,8 @@ public class RightMatchesFunction extends BaseMatchFunction implements Function,
                 buf.append("\t" + f.toFactString() + Constants.LINEBREAK);
             }
         } else if (betaNode instanceof ExistJoin || betaNode instanceof NotJoin) {
-            Map rmMem = (Map)rmem;
-            Iterator itr = rmMem.keySet().iterator();
+            Map<?, ?> rmMem = (Map<?, ?>)rmem;
+            Iterator<?> itr = rmMem.keySet().iterator();
             while (itr.hasNext()) {
                 Fact f = (Fact)itr.next();
                 buf.append("\t" + f.toFactString() + Constants.LINEBREAK);
@@ -123,8 +121,7 @@ public class RightMatchesFunction extends BaseMatchFunction implements Function,
 		return RIGHT_MATCHES;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

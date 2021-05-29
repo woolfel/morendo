@@ -59,8 +59,8 @@ public class ResetObjectsFunction implements Function, Serializable {
 		return RESET_OBJECTS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

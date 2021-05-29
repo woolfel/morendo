@@ -24,14 +24,13 @@ public class RegisterContentHandlerFunction implements Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
+		public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Boolean register = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			for (int i=0; i < params.length; i++) {
 				String name = params[i].getStringValue();
 				try {
-					Class clzz = Class.forName(name);
+					Class<?> clzz = Class.forName(name);
 					ContentHandler handler = (ContentHandler)clzz.getDeclaredConstructor().newInstance();
 					String[] types = handler.getMessageTypes();
 					for (int x=0; x < types.length; x++) {
@@ -59,8 +58,7 @@ public class RegisterContentHandlerFunction implements Function {
 		return REGISTER_CONTENT_HANDLER;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String.class};
 	}
 

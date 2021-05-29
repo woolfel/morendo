@@ -51,17 +51,17 @@ public class QueryRootNode implements Serializable {
      * 
      */
     private static final long serialVersionUID = 1L;
-    @SuppressWarnings("rawtypes")
-	protected Map queryObjTypeNodeMap = null;
+	protected Map<Template, QueryObjTypeNode> queryObjTypeNodeMap = null;
     protected RootNode root = null;
     protected QueryObjTypeNode initialFactObjTypeNode = null;
 
     /**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	public QueryRootNode(Rete engine, RootNode root) {
 		super();
-		queryObjTypeNodeMap = engine.newMap();
+		queryObjTypeNodeMap = (Map<Template, QueryObjTypeNode>) engine.newMap();
 		this.root = root;
 	}
     
@@ -75,8 +75,7 @@ public class QueryRootNode implements Serializable {
      * doesn't already exist in the network.
      * @param node
      */
-    @SuppressWarnings("unchecked")
-	public void addQueryObjTypeNode(QueryObjTypeNode node) {
+    public void addQueryObjTypeNode(QueryObjTypeNode node) {
     	if (node.getDeftemplate().getName().equals(Constants.INITIAL_FACT)) {
     		this.initialFactObjTypeNode = node;
     	} else {
@@ -101,8 +100,7 @@ public class QueryRootNode implements Serializable {
      * Return the HashMap with all the ObjectTypeNodes
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public Map getQueryObjTypeNodes() {
+	public Map<Template, QueryObjTypeNode> getQueryObjTypeNodes() {
         return this.queryObjTypeNodeMap;
     }
     
@@ -125,7 +123,6 @@ public class QueryRootNode implements Serializable {
      * @param mem
      * @throws AssertException
      */
-    @SuppressWarnings("rawtypes")
 	public synchronized void assertObject(Fact fact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
@@ -135,7 +132,7 @@ public class QueryRootNode implements Serializable {
                 qotn.assertFact(fact,engine,mem);
     		}
     	} else {
-        	Iterator iterator = this.queryObjTypeNodeMap.keySet().iterator();
+        	Iterator<Template> iterator = this.queryObjTypeNodeMap.keySet().iterator();
         	while (iterator.hasNext()) {
         		Template template = (Template)iterator.next();
             	QueryObjTypeNode qotn = (QueryObjTypeNode)this.queryObjTypeNodeMap.get(template);
@@ -189,9 +186,8 @@ public class QueryRootNode implements Serializable {
     {
     }
     
-    @SuppressWarnings("rawtypes")
 	public synchronized void clear() {
-        Iterator itr = this.queryObjTypeNodeMap.values().iterator();
+        Iterator<?> itr = this.queryObjTypeNodeMap.values().iterator();
         while (itr.hasNext()) {
             ObjectTypeNode otn = (ObjectTypeNode)itr.next();
             otn.clearSuccessors();
@@ -207,10 +203,9 @@ public class QueryRootNode implements Serializable {
      * @param query
      * @return
      */
-    @SuppressWarnings("rawtypes")
 	public QueryRootNode clone(Rete engine, Defquery query) {
     	QueryRootNode clone = new QueryRootNode(engine, this.root);
-    	Iterator iterator = this.queryObjTypeNodeMap.values().iterator();
+    	Iterator<QueryObjTypeNode> iterator = this.queryObjTypeNodeMap.values().iterator();
     	while (iterator.hasNext()) {
     		QueryObjTypeNode qotn = (QueryObjTypeNode)iterator.next();
     		clone.addQueryObjTypeNode(qotn.clone(engine, query));

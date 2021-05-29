@@ -31,12 +31,11 @@ public class DeleteRangeFunction implements Serializable, Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		Object value = new Object[0];
 		if (params != null && params.length > 0) {
-			List rlist = new ArrayList();
+			List<Object> rlist = new ArrayList<Object>();
 			Object list = null;
 			if (params[0] instanceof ValueParam) {
 				list = params[0].getValue();
@@ -86,8 +85,7 @@ public class DeleteRangeFunction implements Serializable, Function {
 		return DELETE_RANGE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}
 

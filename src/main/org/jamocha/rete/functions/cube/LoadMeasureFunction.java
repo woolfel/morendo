@@ -39,14 +39,13 @@ public class LoadMeasureFunction implements Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Boolean load = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				String className = params[idx].getStringValue();
 				try {
-					Class clzz = Class.forName(className);
+					Class<?> clzz = Class.forName(className);
 					Measure measure = (Measure)clzz.getDeclaredConstructor().newInstance();
 					engine.declareMeasure(measure);
 					load = Boolean.TRUE;
@@ -78,8 +77,7 @@ public class LoadMeasureFunction implements Function {
 		return LOAD_MEASURE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String[].class};
 	}
 

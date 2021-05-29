@@ -25,6 +25,7 @@ import org.jamocha.rete.Rete;
 import org.jamocha.rete.WorkingMemory;
 import org.jamocha.rete.exception.AssertException;
 import org.jamocha.rete.query.QueryBaseAlpha;
+import org.jamocha.rete.query.QueryBaseAlphaCondition;
 import org.jamocha.rete.query.QueryBaseJoin;
 import org.jamocha.rete.query.QueryFuncAlphaNode;
 import org.jamocha.rete.query.QueryParameterNode;
@@ -82,14 +83,13 @@ public class GraphQuery extends Defquery {
     /**
      * 
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public List executeQuery(Rete engine, WorkingMemory memory, Parameter[] parameters) {
+	public List<?> executeQuery(Rete engine, WorkingMemory memory, Parameter[] parameters) {
 		if (watch) {
 			startTime = System.currentTimeMillis();
 		}
 		try {
-			ArrayList params = new ArrayList(this.queryParameterNodeMap.values());
+			ArrayList<QueryBaseAlphaCondition> params = new ArrayList<QueryBaseAlphaCondition>(this.queryParameterNodeMap.values());
 			for (int i=0; i < parameters.length; i++) {
 				Object node = params.get(i);
 				if (node instanceof QueryParameterNode) {

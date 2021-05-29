@@ -73,8 +73,7 @@ public class DefruleFunction implements Function, Serializable {
 	 * the input parameter is a single ValueParam containing a Defrule
 	 * instance.
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

@@ -64,8 +64,7 @@ public class FalseFunction implements Function, Serializable {
 		return FALSE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

@@ -73,8 +73,7 @@ public class Add implements Function, Serializable {
 		return ADD;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

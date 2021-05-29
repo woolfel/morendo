@@ -31,7 +31,6 @@ public class IntersectionFunction implements Serializable, Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		Object[] result = null;
@@ -39,8 +38,8 @@ public class IntersectionFunction implements Serializable, Function {
 			Object array1 = params[0].getValue(engine, Constants.OBJECT_TYPE);
 			Object array2 = params[1].getValue(engine, Constants.OBJECT_TYPE);
 			if (array1 instanceof Object[] && array2 instanceof Object[]) {
-				Set set1 = convertToList((Object[])array1);
-				Set set2 = convertToList((Object[])array2);
+				Set<Object> set1 = convertToList((Object[])array1);
+				Set<Object> set2 = convertToList((Object[])array2);
 				set1.retainAll(set2);
 				result = set1.toArray();
 			}
@@ -52,9 +51,8 @@ public class IntersectionFunction implements Serializable, Function {
 		return ret;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Set convertToList(Object[] array) {
-		Set data = new HashSet();
+	protected Set<Object> convertToList(Object[] array) {
+		Set<Object> data = new HashSet<Object>();
 		for (int idx=0; idx < array.length; idx++) {
 			data.add(array[idx]);
 		}
@@ -64,8 +62,7 @@ public class IntersectionFunction implements Serializable, Function {
 		return INTERSECTION;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}
 

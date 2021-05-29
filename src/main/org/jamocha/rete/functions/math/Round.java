@@ -77,8 +77,7 @@ public class Round implements Function, Serializable {
 		return ROUND;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

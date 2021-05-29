@@ -48,8 +48,7 @@ public class StringContainsFunction implements Function, Serializable {
         return STRING_CONTAINS;
     }
 
-    @SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
         return new Class[]{ValueParam.class,ValueParam.class};
     }
 

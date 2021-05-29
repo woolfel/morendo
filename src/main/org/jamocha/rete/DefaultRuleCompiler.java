@@ -17,6 +17,7 @@
 package org.jamocha.rete;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -41,12 +42,10 @@ public class DefaultRuleCompiler implements RuleCompiler {
 	private static final long serialVersionUID = 1L;
 	private WorkingMemory memory = null;
     private Rete engine = null;
-    @SuppressWarnings("rawtypes")
-	private Map inputnodes = null;
+	private Map<Template, ObjectTypeNode> inputnodes = null;
     private Module currentMod = null;
     
-    @SuppressWarnings("rawtypes")
-	private ArrayList listener = new ArrayList();
+	private ArrayList<CompilerListener> listener = new ArrayList<CompilerListener>();
     protected boolean validate = true;
     protected TemplateValidation tval = null;
     
@@ -60,8 +59,7 @@ public class DefaultRuleCompiler implements RuleCompiler {
     protected Logger log = LogFactory.createLogger(DefaultRuleCompiler.class);
 
     
-	@SuppressWarnings("rawtypes")
-	public DefaultRuleCompiler(Rete engine, Map inputNodes) {
+	public DefaultRuleCompiler(Rete engine, Map<Template, ObjectTypeNode> inputNodes) {
 		super();
         this.engine = engine;
         this.inputnodes = inputNodes;
@@ -167,7 +165,7 @@ public class DefaultRuleCompiler implements RuleCompiler {
 	        } else if (rule.getConditions().length == 0){
                 this.setModule(rule);
                 // the rule has no LHS, this means it only has actions
-                BaseNode last = (BaseNode)this.inputnodes.get(engine.initFact);
+                BaseNode last = this.inputnodes.get(engine.initFact);
                 TerminalNode tnode = createTerminalNode(rule);
                 compileActions(rule,rule.getActions());
                 attachTerminalNode(last,tnode);
@@ -190,15 +188,15 @@ public class DefaultRuleCompiler implements RuleCompiler {
 		}
 	}
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public Condition[] getRuleConditions(Rule rule) {
         Condition[] conditions = rule.getConditions();
-        ArrayList conditionList = new ArrayList();
+        ArrayList<Condition> conditionList = new ArrayList<Condition>();
         boolean hasAnd = false;
         for (int idx=0; idx < conditions.length; idx++) {
             if (conditions[idx] instanceof AndCondition) {
                 AndCondition and = (AndCondition)conditions[idx];
-                conditionList.addAll(and.getNestedConditionalElement());
+                conditionList.addAll((Collection<? extends Condition>) and.getNestedConditionalElement());
                 hasAnd = true;
             } else {
                 conditionList.add(conditions[idx]);
@@ -207,7 +205,7 @@ public class DefaultRuleCompiler implements RuleCompiler {
         if (hasAnd) {
             // we create a new array of conditions from the ArrayList
             Condition[] newlist = new Condition[conditionList.size()];
-            conditions = (Condition[])conditionList.toArray(newlist);
+            conditions = conditionList.toArray(newlist);
         }
         return conditions;
     }
@@ -259,7 +257,6 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * or the key already exists, the compiler will not add it to the
      * network.
 	 */
-	@SuppressWarnings("unchecked")
 	public void addObjectTypeNode(ObjectTypeNode node) {
         if (!this.inputnodes.containsKey(node.getDeftemplate())) {
             this.inputnodes.put(node.getDeftemplate(),node);
@@ -289,7 +286,7 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * if the ObjectTypeNode does not exist, the method will return null.
 	 */
 	public ObjectTypeNode getObjectTypeNode(Template template) {
-		return (ObjectTypeNode)this.inputnodes.get(template);
+		return this.inputnodes.get(template);
 	}
     
     /**
@@ -297,18 +294,17 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * @param templateName
      * @return
      */
-    @SuppressWarnings("rawtypes")
 	public ObjectTypeNode findObjectTypeNode(String templateName) {
-        Iterator itr = this.inputnodes.keySet().iterator();
+        Iterator<Template> itr = this.inputnodes.keySet().iterator();
         Template tmpl = null;
         while (itr.hasNext()) {
-            tmpl = (Template)itr.next();
+            tmpl = itr.next();
             if (tmpl.getName().equals(templateName)) {
                 break;
             }
         }
         if (tmpl != null) {
-            return (ObjectTypeNode)this.inputnodes.get(tmpl);
+            return this.inputnodes.get(tmpl);
         } else {
         	log.debug(Messages.getString("RuleCompiler.deftemplate.error")); //$NON-NLS-1$
             return null;
@@ -319,7 +315,6 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * Implementation will check to see if the 
 	 * @see org.jamocha.rete.RuleCompiler#addListener(org.jamocha.rete.CompilerListener)
 	 */
-	@SuppressWarnings("unchecked")
 	public void addListener(CompilerListener listener) {
         if (!this.listener.contains(listener)) {
             this.listener.add(listener);
@@ -502,7 +497,6 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * @param position
      * @return
      */
-    @SuppressWarnings("unchecked")
 	public BaseAlpha compileConstraint(PredicateConstraint cnstr,
             Template templ, Rule rule, int position) {
         BaseAlpha current = null;
@@ -714,12 +708,11 @@ public class DefaultRuleCompiler implements RuleCompiler {
      * what kind of event it is and calling the appropriate method.
      * @param event
      */
-    @SuppressWarnings("rawtypes")
 	public void notifyListener(CompileEvent event) {
-        Iterator itr = this.listener.iterator();
+        Iterator<CompilerListener> itr = this.listener.iterator();
         //engine.writeMessage(event.getMessage());
         while (itr.hasNext()) {
-            CompilerListener listen = (CompilerListener)itr.next();
+            CompilerListener listen = itr.next();
             int etype = event.getEventType();
             if (etype == CompileEvent.ADD_RULE_EVENT) {
                 listen.ruleAdded(event);
@@ -731,8 +724,7 @@ public class DefaultRuleCompiler implements RuleCompiler {
         }
     }
 
-	@SuppressWarnings("rawtypes")
-	public Map getInputnodes() {
+	public Map<Template, ObjectTypeNode> getInputnodes() {
 		return inputnodes;
 	}
 }

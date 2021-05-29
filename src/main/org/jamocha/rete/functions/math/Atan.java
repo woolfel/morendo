@@ -79,8 +79,7 @@ public class Atan implements Function, Serializable {
 		return ATAN;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

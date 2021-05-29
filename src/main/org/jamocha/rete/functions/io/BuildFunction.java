@@ -109,8 +109,7 @@ public class BuildFunction implements Function, Serializable {
 		return BUILD;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

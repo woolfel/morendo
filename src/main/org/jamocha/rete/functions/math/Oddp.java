@@ -75,8 +75,7 @@ public class Oddp implements Function, Serializable {
 		return ODDP;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

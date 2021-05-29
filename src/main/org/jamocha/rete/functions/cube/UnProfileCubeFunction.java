@@ -43,8 +43,7 @@ public class UnProfileCubeFunction implements Function {
 		return UNPROFILE_CUBE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String.class};
 	}
 

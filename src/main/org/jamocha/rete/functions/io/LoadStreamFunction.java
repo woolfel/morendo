@@ -123,8 +123,7 @@ public class LoadStreamFunction implements Function, Serializable {
 		return LOAD_STREAM;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

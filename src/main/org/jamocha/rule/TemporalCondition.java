@@ -90,8 +90,7 @@ public class TemporalCondition extends ObjectCondition {
         this.parameters = parameters;
     }
     
-    @SuppressWarnings("rawtypes")
-	public void addFunction(List list) {
+	public void addFunction(List<?> list) {
         if (list.size() > 0) {
             Object[] array = list.toArray();
             ValueParam vp = (ValueParam)array[0];

@@ -62,21 +62,17 @@ public class FactEditor extends AbstractJamochaEditor implements
 
 	private JButton reloadButtondumpAreaFact;
 
-	@SuppressWarnings("rawtypes")
-	private JList moduleList;
+	private JList<String> moduleList;
 
-	@SuppressWarnings("rawtypes")
-	private JList templateList;
+	private JList<String> templateList;
 
 	private JTextArea dumpAreaTemplate = new JTextArea();
 
 	private JTextArea dumpAreaFact = new JTextArea();
 
-	@SuppressWarnings("rawtypes")
-	private DefaultListModel moduleListModel = new DefaultListModel();
+	private DefaultListModel<String> moduleListModel = new DefaultListModel<String>();
 
-	@SuppressWarnings("rawtypes")
-	private DefaultListModel templateListModel = new DefaultListModel();
+	private DefaultListModel<String> templateListModel = new DefaultListModel<String>();
 
 	private StringChannel channel;
 
@@ -132,7 +128,6 @@ public class FactEditor extends AbstractJamochaEditor implements
 		setVisible(true);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initPreselectionPanel() {
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -140,10 +135,10 @@ public class FactEditor extends AbstractJamochaEditor implements
 		preselectionPanel.setBorder(BorderFactory
 				.createTitledBorder("Module and Template Selection"));
 		c.fill = GridBagConstraints.BOTH;
-		moduleList = new JList(moduleListModel);
+		moduleList = new JList<String>(moduleListModel);
 		moduleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		moduleList.getSelectionModel().addListSelectionListener(this);
-		Collection modules = engine.getWorkingMemory().getModules();
+		Collection<?> modules = engine.getWorkingMemory().getModules();
 		for (Object obj : modules) {
 			Module mod = (Module) obj;
 			moduleListModel.addElement(mod.getModuleName());
@@ -158,7 +153,7 @@ public class FactEditor extends AbstractJamochaEditor implements
 		// c.gridwidth = GridBagConstraints.RELATIVE;
 		gridbag.setConstraints(modulePanel, c);
 		preselectionPanel.add(modulePanel);
-		templateList = new JList(templateListModel);
+		templateList = new JList<String>(templateListModel);
 		templateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		templateList.getSelectionModel().addListSelectionListener(this);
 		initTemplateList();
@@ -185,13 +180,12 @@ public class FactEditor extends AbstractJamochaEditor implements
 
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initTemplateList() {
 		templateListModel.clear();
 		Module module = engine.getWorkingMemory().findModule(
 				String.valueOf(moduleList.getSelectedValue()));
 		if (module != null) {
-			Collection templates = module.getTemplates();
+			Collection<?> templates = module.getTemplates();
 			for (Object obj : templates) {
 				Template tmp = (Template) obj;
 				if (!module.getModuleName().equals("MAIN")
@@ -202,7 +196,6 @@ public class FactEditor extends AbstractJamochaEditor implements
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
 	private void initFactEditPanel() {
 		factComponents.clear();
 		GridBagLayout gridbag = new GridBagLayout();
@@ -241,7 +234,7 @@ public class FactEditor extends AbstractJamochaEditor implements
 				} else if (slots[i].getValueType() == Constants.FACT_TYPE) {
 					// TODO Fact-Selector
 
-					JComboBox factBox = new JComboBox();
+					JComboBox<?> factBox = new JComboBox<Object>();
 					factComponents.put(slots[i], factBox);
 				} else {
 					JTextField textField = new JTextField();
@@ -348,7 +341,6 @@ public class FactEditor extends AbstractJamochaEditor implements
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
 	private String getCurrentFactAssertionString(boolean print) {
 		Module module = engine.getWorkingMemory().findModule(
 				String.valueOf(moduleList.getSelectedValue()));
@@ -362,7 +354,7 @@ public class FactEditor extends AbstractJamochaEditor implements
 				res.append("\n\t");
 			res.append("(" + slot.getName() + " ");
 			if (slot instanceof MultiSlot) {
-				Object[] values = ((DefaultListModel) ((JList) currComponent)
+				Object[] values = ((DefaultListModel<?>) ((JList<?>) currComponent)
 						.getModel()).toArray();
 				for (int i = 0; i < values.length; ++i) {
 					if (i > 0)
@@ -387,11 +379,9 @@ public class FactEditor extends AbstractJamochaEditor implements
 	private final class MultiSlotEditor implements ActionListener,
 			PopupMenuListener {
 
-		@SuppressWarnings("rawtypes")
-		private JList list;
+		private JList<String> list;
 
-		@SuppressWarnings("rawtypes")
-		private DefaultListModel listModel = new DefaultListModel();
+		private DefaultListModel<String> listModel = new DefaultListModel<String>();
 
 		private JPopupMenu popupMenu;
 
@@ -401,7 +391,7 @@ public class FactEditor extends AbstractJamochaEditor implements
 
 		private JMenuItem deleteMenuItem;
 
-		@SuppressWarnings({ "rawtypes", "unchecked" })
+		@SuppressWarnings({ })
 		private MultiSlotEditor() {
 			popupMenu = new JPopupMenu();
 			addMenuItem = new JMenuItem("add value", IconLoader
@@ -417,17 +407,15 @@ public class FactEditor extends AbstractJamochaEditor implements
 			popupMenu.add(editMenuItem);
 			popupMenu.add(deleteMenuItem);
 			popupMenu.addPopupMenuListener(this);
-			list = new JList(listModel);
+			list = new JList<String>(listModel);
 			list.setVisibleRowCount(4);
 			list.setComponentPopupMenu(popupMenu);
 		}
 
-		@SuppressWarnings("rawtypes")
-		private JList getList() {
+		private JList<String> getList() {
 			return list;
 		}
 
-		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource() == addMenuItem) {
 				String value = JOptionPane.showInputDialog("Enter the value:");

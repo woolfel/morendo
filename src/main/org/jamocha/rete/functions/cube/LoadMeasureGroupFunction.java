@@ -39,14 +39,13 @@ public class LoadMeasureGroupFunction implements Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Boolean load = Boolean.FALSE;
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				String className = params[idx].getStringValue();
 				try {
-					Class clzz = Class.forName(className);
+					Class<?> clzz = Class.forName(className);
 					MeasureGroup mGroup = (MeasureGroup)clzz.getDeclaredConstructor().newInstance();
 					engine.declareMeasureGroup(mGroup);
 					load = Boolean.TRUE;
@@ -74,8 +73,7 @@ public class LoadMeasureGroupFunction implements Function {
 		return LOAD_MEASURE_GROUP;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String[].class};
 	}
 

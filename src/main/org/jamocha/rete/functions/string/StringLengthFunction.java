@@ -73,8 +73,7 @@ public class StringLengthFunction implements Function, Serializable {
 		return STRING_LENGTH;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 
