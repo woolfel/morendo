@@ -118,6 +118,7 @@ public class ObjectData implements InitialData {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	@JsonIgnore
 	public static List<Object> loadObjectData(String url) {
 		Reader reader;

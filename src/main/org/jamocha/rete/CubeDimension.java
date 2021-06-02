@@ -40,8 +40,8 @@ public interface CubeDimension {
 	public boolean isAutoIndex();
 	public void setAutoIndex(boolean index);
 
-	public List<?> getDeftemplates();
-	public void setDeftemplates(List<?> deftemplates);
+	public List<Deftemplate> getDeftemplates();
+	public void setDeftemplates(List<Deftemplate> deftemplates);
 	
 	public Binding getBinding();
 	public void setBinding(Binding binding);

@@ -60,9 +60,9 @@ public interface WorkingMemory extends Serializable {
     
     public DefglobalMap getDefglobals();
     
-    public List<?> getAllFacts();
+    public List<Fact> getAllFacts();
     
-    public List<?> getDeffacts();
+    public List<Fact> getDeffacts();
     
     public Fact getFactById(long id);
     
@@ -115,7 +115,7 @@ public interface WorkingMemory extends Serializable {
     public Module getMain();
     public Module removeModule(String name);
     public void setCurrentModule(Module mod);
-    public Collection<?> getModules();
+    public Collection<Module> getModules();
     
     /// ----- method for Strategy ----- ///
     public Strategy getStrategy();

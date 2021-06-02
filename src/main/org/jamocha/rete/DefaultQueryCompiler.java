@@ -147,15 +147,15 @@ public class DefaultQueryCompiler implements QueryCompiler {
 		return false;
 	}
 
-    @SuppressWarnings({ "unchecked" })
+    /* Eclipse will compile with ConditionsList as Arraylist<Condition and cast for addAll. JDK does not */
 	public Condition[] getRuleConditions(Query query) {
         Condition[] conditions = query.getConditions();
-        ArrayList<Condition> conditionList = new ArrayList<Condition>();
+        ArrayList<Object> conditionList = new ArrayList<Object>();
         boolean hasAnd = false;
         for (int idx=0; idx < conditions.length; idx++) {
             if (conditions[idx] instanceof AndCondition) {
                 AndCondition and = (AndCondition)conditions[idx];
-                conditionList.addAll((Collection<? extends Condition>) and.getNestedConditionalElement());
+                conditionList.addAll((Collection<?>) and.getNestedConditionalElement());
                 hasAnd = true;
             } else {
                 conditionList.add(conditions[idx]);

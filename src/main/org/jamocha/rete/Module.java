@@ -113,7 +113,7 @@ public interface Module extends Serializable {
      * Return the Deftemplates in a collection
      * @return
      */
-    Collection<?> getTemplates();
+    Collection<Template> getTemplates();
     /**
      * return the number of actual deftemplates declared
      * using deftemplate or objects

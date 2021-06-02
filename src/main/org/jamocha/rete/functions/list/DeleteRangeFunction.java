@@ -44,7 +44,7 @@ public class DeleteRangeFunction implements Serializable, Function {
 			}
 			int startIndex = 0;
 			if (params[1] instanceof ValueParam) {
-				startIndex = params[1].getBigDecimalValue().intValue();
+				startIndex = params[1].getBigDecimalValue().intValue() ;
 			} else if (params[1] instanceof BoundParam) {
 				Object bval = ((BoundParam)params[1]).getValue(engine, Constants.INT_PRIM_TYPE);
 				startIndex = ((BigDecimal)bval).intValue();
@@ -56,6 +56,9 @@ public class DeleteRangeFunction implements Serializable, Function {
 				Object bval = ((BoundParam)params[2]).getValue(engine, Constants.INT_PRIM_TYPE);
 				endIndex = ((BigDecimal)bval).intValue();
 			}
+			//Make 1 bases
+			startIndex--;
+			endIndex--; 
 			if (list.getClass().isArray()) {
 				Object[] r = (Object[])list;
 				if (r.length >= startIndex) {

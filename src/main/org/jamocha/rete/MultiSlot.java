@@ -73,6 +73,13 @@ public class MultiSlot extends Slot {
 	 */
 	public void setValueType(int type) {
 	}
+	
+	/**
+	 *  Always return ARRAY_TYPE if asked 
+	 */
+	public int getValueType() {
+		return Constants.ARRAY_TYPE;
+	}
 
 	public String valueToString() {
 		return this.value.toString();

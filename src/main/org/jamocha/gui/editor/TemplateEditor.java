@@ -215,13 +215,14 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 				
 			} else {
 				res.append("slot " + row.nameField.getText());
-				if (print)
-					res.append("\n");
-				res.append("        (type " + row.typeBox.getSelectedItem().toString()
-						+ ")");
+				if (!row.typeBox.getSelectedItem().toString().equals("NONE")) {
+					if (print)
+						res.append("\n");
+					res.append("        (type " + row.typeBox.getSelectedItem().toString() + ")");
 				if (print)
 					res.append("\n");
 				res.append("    )");
+				} else res.append(")");
 			}
 			if (print)
 				res.append("\n");
@@ -272,7 +273,7 @@ public class TemplateEditor extends AbstractJamochaEditor implements
 	}
 
 	private JComboBox<?> getNewTypesCombo() {
-		String[] types = new String[]{"STRING","LONG","DOUBLE","OBJECT","MULTISLOT"};
+		String[] types = new String[]{"NONE","STRING","LONG","DOUBLE","OBJECT","MULTISLOT"};
 		JComboBox<?> box = new JComboBox<Object>(types);
 		return box;
 	}

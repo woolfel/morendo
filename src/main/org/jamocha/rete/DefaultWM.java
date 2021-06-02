@@ -100,7 +100,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
     /**
      * The ArrayList for the modules.
      */
-    protected Map<Object, Object> modules = null;
+    protected Map<Object, Module> modules = null;
     protected Map<Object, Object> cubes = null;
     protected Hashtable<Object, Object> contexts = new Hashtable<Object, Object>();
     protected ArrayList<?> focusStack = new ArrayList<Object>();
@@ -125,7 +125,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         staticFacts = (Map<Object, Object>) engine.newLocalMap();
         dynamicFacts = (Map<Object, Object>) engine.newLocalMap();
         deffactMap = (Map<Object, Object>) engine.newLocalMap();
-        modules = (Map<Object, Object>) engine.newLocalMap();
+        modules = (Map<Object, Module>) engine.newLocalMap();
         cubes = (Map<Object, Object>) engine.newLocalMap();
         queryRightMemories = (Map<Object, Object>) engine.newLocalMap();
         queryLeftMemories = (Map<Object, Object>) engine.newLocalMap();
@@ -162,7 +162,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         }
     }
     
-	public Collection<?> getModules() {
+	public Collection<Module> getModules() {
         return this.modules.values();
     }
     
@@ -663,7 +663,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         }
     }
 
-    	public Map<?, ?> getDeffactMap() {
+    	public Map<?, Object> getDeffactMap() {
         return this.deffactMap;
     }
 
@@ -671,18 +671,18 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return this.defglobals;
     }
 
-	public List<Object> getAllFacts() {
-        ArrayList<Object> facts = new ArrayList<Object>();
+	public List<Fact> getAllFacts() {
+        ArrayList<Fact> facts = new ArrayList<Fact>();
         facts.addAll(this.getDeffacts());
         return facts;
     }
     
-	public List<Object> getDeffacts() {
-        ArrayList<Object> objects = new ArrayList<Object>();
-        Iterator<?> itr = this.getDeffactMap().values().iterator();
+	public List<Fact> getDeffacts() {
+        ArrayList<Fact> objects = new ArrayList<Fact>();
+        Iterator<Object> itr = this.getDeffactMap().values().iterator();
         while (itr.hasNext()) {
             Object fact = itr.next();
-            objects.add(fact);
+            objects.add((Fact) fact);
         }
         return objects;
     }

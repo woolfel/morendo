@@ -222,9 +222,8 @@ public class Defcube implements Cube {
 	 * compileObject bindings is responsible for iterating over the
 	 * ObjectConditions and creating the bindings
 	 */
-	@SuppressWarnings("unused")
 	protected void compileBindings(Rete engine) {
-		int counter = 0;
+		// int counter = 0;
 		for (int idx=0; idx < this.objectConditionList.size(); idx++) {
 			ObjectCondition oc = (ObjectCondition)this.objectConditionList.get(idx);
 			Constraint[] constraints = oc.getConstraints();
@@ -241,7 +240,7 @@ public class Defcube implements Cube {
 					binding.setSlotName(bc.getName());
 					addBinding(binding);
 				}
-				counter++;
+				//counter++;
 			}
 		}
 	}

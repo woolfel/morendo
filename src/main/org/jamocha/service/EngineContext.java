@@ -19,6 +19,7 @@ package org.jamocha.service;
 
 import java.util.List;
 
+import org.jamocha.rete.Fact;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.exception.AssertException;
 import org.jamocha.rete.exception.RetractException;
@@ -49,7 +50,7 @@ public interface EngineContext {
 	 * @param isStatic
 	 * @param isShadowed
 	 */
-	void assertObject(Object data, boolean isStatic, boolean isShadowed) throws AssertException;
+	void assertObject(Fact data, boolean isStatic, boolean isShadowed) throws AssertException;
 
 	/**
 	 * Add a list of java objects to the rule engine
@@ -57,7 +58,7 @@ public interface EngineContext {
 	 * @param isStatic
 	 * @param isShadowed
 	 */
-	void asssertObjects(List<?> data, boolean isStatic, boolean isShadowed) throws AssertException;
+	void asssertObjects(List<Fact> data, boolean isStatic, boolean isShadowed) throws AssertException;
 
 	/**
 	 * Remove the object from the rule engine

@@ -37,7 +37,7 @@ public class JSONData<T> implements InitialData {
 	private transient Logger log = LogFactory.createLogger(JSONData.class);
 	private String name = null;
 	private String url;
-	private List<?> data = null;
+	private List<Object> data = null;
 	@JsonIgnore
 	private static ObjectMapper mapper = new ObjectMapper();
 	@JsonIgnore
@@ -80,7 +80,7 @@ public class JSONData<T> implements InitialData {
 		return this.data;
 	}
 	
-	public void setData(List<?> data) {
+	public void setData(List<Object> data) {
 		this.data = data;
 	}
 
@@ -90,7 +90,7 @@ public class JSONData<T> implements InitialData {
 			try {
 				Class<?> rootclz = Class.forName(this.name);
 				if (rootclz != null && this.url != null) {
-					data = loadJsonData(this.url, rootclz);
+					data = (List<Object>) loadJsonData(this.url, rootclz);
 				}
 			} catch (ClassNotFoundException e) {
 				log.warn(e.getMessage());
@@ -130,15 +130,16 @@ public class JSONData<T> implements InitialData {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
-	public List<T> loadJsonData(String url, Class<?> T) {
+	public List<Object> loadJsonData(String url, Class<?> T) {
 		Reader reader;
 		try {
 			if (url.startsWith("http://")) {
 				try {
 					URL urlObject = new URL(url);
 					InputStream input = urlObject.openStream();
-					List<T> data = mapper.readValue(input, new TypeReference<List<T>>(){});
+					List<Object> data = (List<Object>) mapper.readValue(input, new TypeReference<List<T>>(){});
 					return data;
 				} catch (MalformedURLException e) {
 					Logger log = LogFactory.createLogger(JSONData.class);
@@ -149,11 +150,11 @@ public class JSONData<T> implements InitialData {
 				}
 			} else if (url.startsWith("/WEB-INF")) {
 				InputStream input = this.servletCtx.getResourceAsStream(url);
-				List<T> data = mapper.readValue(input, new TypeReference<List<T>>(){});
+				List<Object> data = (List<Object>) mapper.readValue(input, new TypeReference<List<T>>(){});
 				return data;
 			} else {
 				reader = new FileReader(url);
-				List<T> data = mapper.readValue(reader, new TypeReference<List<T>>(){});
+				List<Object> data = (List<Object>) mapper.readValue(reader, new TypeReference<List<T>>(){});
 				return data;
 			}
 		} catch (Exception e) {

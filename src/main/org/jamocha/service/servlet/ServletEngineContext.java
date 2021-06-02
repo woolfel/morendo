@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.jamocha.rete.Fact;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.exception.AssertException;
 import org.jamocha.rete.exception.RetractException;
@@ -57,7 +58,7 @@ public class ServletEngineContext implements EngineContext {
 		return this.engine;
 	}
 	
-	public void assertObject(Object data, boolean isStatic, boolean isShadowed)
+	public void assertObject(Fact data, boolean isStatic, boolean isShadowed)
 			throws AssertException {
 		try {
 			objectList.add(data);
@@ -68,10 +69,10 @@ public class ServletEngineContext implements EngineContext {
 		}
 	}
 
-	public void asssertObjects(List<?> data, boolean isStatic, boolean isShadowed)
+	public void asssertObjects(List<Fact> data, boolean isStatic, boolean isShadowed)
 			throws AssertException {
 		objectList.addAll(data);
-		Iterator<?> itr = data.iterator();
+		Iterator<Fact> itr = data.iterator();
 		while (itr.hasNext()) {
 			try {
 				engine.assertObject(itr.next(), null, isStatic, isShadowed);

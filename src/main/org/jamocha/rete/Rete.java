@@ -1289,7 +1289,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 	 * 
 	 * @return
 	 */
-	public List<?> getAllFacts() {
+	public List<Fact> getAllFacts() {
 		return this.workingMem.getAllFacts();
 	}
 

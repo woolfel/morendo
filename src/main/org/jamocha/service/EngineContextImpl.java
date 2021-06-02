@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jamocha.logging.LogFactory;
 import org.jamocha.logging.Logger;
+import org.jamocha.rete.Fact;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.exception.AssertException;
 import org.jamocha.rete.exception.RetractException;
@@ -35,7 +36,7 @@ public class EngineContextImpl implements EngineContext {
 		return this.engine;
 	}
 
-	public void assertObject(Object data, boolean isStatic, boolean isShadowed) throws AssertException {
+	public void assertObject(Fact data, boolean isStatic, boolean isShadowed) throws AssertException {
 		try {
 			engine.assertObject(data, null, isStatic, isShadowed);
 		} catch (AssertException e) {
@@ -44,8 +45,8 @@ public class EngineContextImpl implements EngineContext {
 		}
 	}
 
-	public void asssertObjects(List<?> data, boolean isStatic, boolean isShadowed) throws AssertException {
-		Iterator<?> itr = data.iterator();
+	public void asssertObjects(List<Fact> data, boolean isStatic, boolean isShadowed) throws AssertException {
+		Iterator<Fact> itr = data.iterator();
 		while (itr.hasNext()) {
 			try {
 				engine.assertObject(itr.next(), null, isStatic, isShadowed);

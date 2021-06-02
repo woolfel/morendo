@@ -30,7 +30,7 @@ public class Defdimension implements CubeDimension {
 	private boolean joined = false;
 	private boolean autoIndex = false;
 	private Binding binding = null;
-	private List<?> deftemplates = new ArrayList<>();
+	private List<Deftemplate> deftemplates = new ArrayList<Deftemplate>();
 	private String variableName;
 	private Map<Object, Object> tokenIndex = null;
 	private boolean profile = false;
@@ -57,11 +57,11 @@ public class Defdimension implements CubeDimension {
 		this.joined = joined;
 	}
 
-	public List<?> getDeftemplates() {
+	public List<Deftemplate> getDeftemplates() {
 		return deftemplates;
 	}
 
-	public void setDeftemplates(List<?> deftemplates) {
+	public void setDeftemplates(List<Deftemplate> deftemplates) {
 		this.deftemplates = deftemplates;
 	}
 	

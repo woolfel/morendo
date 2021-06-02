@@ -57,7 +57,7 @@ public class Defmodule implements Module, Serializable {
 	 * activation is added to the module, the class should
 	 * check to see if the rule is in the module first.
 	 */
-	protected Map<String, Serializable> rules = null;
+	protected Map<String, Rule> rules = null;
 
 	/**
 	 * A simple List of the activations for the given module
@@ -69,7 +69,7 @@ public class Defmodule implements Module, Serializable {
 	 * from the shell, or the defclass if it was created from
 	 * an Object.
 	 */
-	protected Map<String, Serializable> deftemplates = null;
+	protected Map<String, Template> deftemplates = null;
 	/**
 	 * we have a second HashMap that maps the class to the
 	 * deftemplate instance.
@@ -89,8 +89,8 @@ public class Defmodule implements Module, Serializable {
 	public Defmodule(String name, Rete engine) {
 		super();
 		this.name = name;
-		rules = (Map<String, Serializable>) engine.newLocalMap();
-		deftemplates = (Map<String, Serializable>) engine.newLocalMap();
+		rules = (Map<String, Rule>) engine.newLocalMap();
+		deftemplates = (Map<String, Template>) engine.newLocalMap();
 		classToDeftemplates = (Map<String, Serializable>) engine.newLocalMap();
 		// activations = new ArrayActivationList(strat);
 		activations = new LinkedActivationList();
@@ -168,7 +168,7 @@ public class Defmodule implements Module, Serializable {
 	 */
 	public void clear() {
 		this.activations.clear();
-		Iterator<Serializable> itr = this.rules.values().iterator();
+		Iterator<Rule> itr = this.rules.values().iterator();
 		while (itr.hasNext()) {
 			Defrule rl = (Defrule) itr.next();
 			rl.clear();
@@ -186,7 +186,7 @@ public class Defmodule implements Module, Serializable {
 	}
 
 	public void removeAllRules(Rete engine, WorkingMemory mem) {
-		Iterator<Serializable> itr = this.rules.values().iterator();
+		Iterator<Rule> itr = this.rules.values().iterator();
 		while (itr.hasNext()) {
 			Defrule rl = (Defrule) itr.next();
 			this.removeRule(rl, engine, mem);
@@ -255,7 +255,7 @@ public class Defmodule implements Module, Serializable {
 	/**
 	 * implementation returns the Values of the HashMap
 	 */
-	public Collection<Serializable> getAllRules() {
+	public Collection<Rule> getAllRules() {
 		return this.rules.values();
 	}
 
@@ -353,7 +353,7 @@ public class Defmodule implements Module, Serializable {
 	 * number of entries will not correspond to the number of
 	 * actual deftemplates
 	 */
-	public Collection<Serializable> getTemplates() {
+	public Collection<Template> getTemplates() {
 		return this.deftemplates.values();
 	}
 
