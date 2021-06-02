@@ -56,8 +56,7 @@ public class BitOrFunction implements Function {
 		return BIT_OR;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class, ValueParam.class};
 	}
 

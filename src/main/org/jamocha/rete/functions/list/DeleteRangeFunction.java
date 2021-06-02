@@ -31,12 +31,11 @@ public class DeleteRangeFunction implements Serializable, Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		Object value = new Object[0];
 		if (params != null && params.length > 0) {
-			List rlist = new ArrayList();
+			List<Object> rlist = new ArrayList<Object>();
 			Object list = null;
 			if (params[0] instanceof ValueParam) {
 				list = params[0].getValue();
@@ -45,7 +44,7 @@ public class DeleteRangeFunction implements Serializable, Function {
 			}
 			int startIndex = 0;
 			if (params[1] instanceof ValueParam) {
-				startIndex = params[1].getBigDecimalValue().intValue();
+				startIndex = params[1].getBigDecimalValue().intValue() ;
 			} else if (params[1] instanceof BoundParam) {
 				Object bval = ((BoundParam)params[1]).getValue(engine, Constants.INT_PRIM_TYPE);
 				startIndex = ((BigDecimal)bval).intValue();
@@ -57,6 +56,9 @@ public class DeleteRangeFunction implements Serializable, Function {
 				Object bval = ((BoundParam)params[2]).getValue(engine, Constants.INT_PRIM_TYPE);
 				endIndex = ((BigDecimal)bval).intValue();
 			}
+			//Make 1 bases
+			startIndex--;
+			endIndex--; 
 			if (list.getClass().isArray()) {
 				Object[] r = (Object[])list;
 				if (r.length >= startIndex) {
@@ -86,8 +88,7 @@ public class DeleteRangeFunction implements Serializable, Function {
 		return DELETE_RANGE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}
 

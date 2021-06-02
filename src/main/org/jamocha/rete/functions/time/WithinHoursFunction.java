@@ -94,8 +94,7 @@ public class WithinHoursFunction extends AbstractTimeFunction implements Functio
 		return WITHIN_HOURS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Date.class, Date.class};
 	}
 

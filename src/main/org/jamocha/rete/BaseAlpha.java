@@ -117,8 +117,7 @@ public abstract class BaseAlpha extends BaseNode {
      * The next node can be an AlphaNode or a LIANode.
      * @param node
      */
-    @SuppressWarnings("rawtypes")
-	public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
+   	public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
     throws AssertException 
     {
         if (addNode(node)) {
@@ -126,7 +125,7 @@ public abstract class BaseAlpha extends BaseNode {
             // the new successor only
             AlphaMemory alpha = (AlphaMemory)mem.getAlphaMemory(this);
             if (alpha.size() > 0){
-                Iterator itr = alpha.iterator();
+                Iterator<?> itr = alpha.iterator();
                 while (itr.hasNext()){
                     if (node instanceof BaseAlpha) {
                         BaseAlpha next = (BaseAlpha) node;
@@ -151,15 +150,14 @@ public abstract class BaseAlpha extends BaseNode {
      * @param mem
      * @throws AssertException
      */
-    @SuppressWarnings("rawtypes")
-	public void removeSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
+    public void removeSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
     throws RetractException
     {
         if (removeNode(node)) {
             // we retract the memories first, before removing the node
             AlphaMemory alpha = (AlphaMemory)mem.getAlphaMemory(this);
             if (alpha.size() > 0) {
-                Iterator itr = alpha.iterator();
+                Iterator<?> itr = alpha.iterator();
                 while (itr.hasNext()) {
                     if (node instanceof BaseAlpha) {
                         BaseAlpha next = (BaseAlpha)node;

@@ -53,7 +53,7 @@ public class TerminalNode3 extends TerminalNode2 {
 	 * @param facts
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertFacts(Index inx, Rete engine, WorkingMemory mem) {
 		long time = System.currentTimeMillis();
 		if (this.theRule.getExpirationDate() > 0
@@ -61,7 +61,7 @@ public class TerminalNode3 extends TerminalNode2 {
 				&& time < this.theRule.getExpirationDate()) {
 			LinkedActivation act = new LinkedActivation(this.theRule, inx);
 			act.setTerminalNode(this);
-			Map tmem = (Map) mem.getTerminalMemory(this);
+			Map<Index, LinkedActivation> tmem = (Map<Index, LinkedActivation>) mem.getTerminalMemory(this);
 			tmem.put(act.getIndex(), act);
 			// add the activation to the current module's activation list.
 			engine.getAgenda().addActivation(act);
@@ -76,9 +76,8 @@ public class TerminalNode3 extends TerminalNode2 {
 	 * @param facts
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void retractFacts(Index inx, Rete engine, WorkingMemory mem) {
-        Map tmem = (Map) mem.getTerminalMemory(this);
+        Map<?, ?> tmem = (Map<?, ?>) mem.getTerminalMemory(this);
         LinkedActivation act = (LinkedActivation) tmem.remove(inx);
         if (act != null) {
             engine.getAgenda().removeActivation(act);

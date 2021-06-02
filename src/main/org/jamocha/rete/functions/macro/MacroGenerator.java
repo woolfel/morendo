@@ -103,8 +103,7 @@ public class MacroGenerator {
 		buf.append("}" + Constants.LINEBREAK);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public void generateWriteMethod(StringBuffer buf, String castClassName, String propertyName, Class propertyType) {
+	public void generateWriteMethod(StringBuffer buf, String castClassName, String propertyName, Class<?> propertyType) {
 		writeTabs(buf);
 		buf.append("public void setProperty(Object instance, Object value) {" + Constants.LINEBREAK);
 		pushTab();
@@ -118,8 +117,7 @@ public class MacroGenerator {
 		buf.append("}" + Constants.LINEBREAK);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	protected String formattedPropertyType(Class propertyType) {
+	protected String formattedPropertyType(Class<?> propertyType) {
 		if (propertyType.getName() == "int") {
 			return "Integer";
 		} else if (propertyType.getName() == "short") {

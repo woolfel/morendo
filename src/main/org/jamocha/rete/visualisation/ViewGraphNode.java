@@ -141,12 +141,11 @@ public class ViewGraphNode {
 	 * Builds a complete Graph by traversing root
 	 * @param root
 	 */
-	@SuppressWarnings("rawtypes")
 	public static ViewGraphNode buildFromRete(RootNode root) {
-		Collection firstLevel=root.getObjectTypeNodes().values();
+		Collection<?> firstLevel=root.getObjectTypeNodes().values();
 		ViewGraphNode res=new ViewGraphNode();
 		Hashtable<BaseNode,ViewGraphNode> ht=new Hashtable<BaseNode,ViewGraphNode>();
-		for (Iterator iter = firstLevel.iterator(); iter.hasNext();) {
+		for (Iterator<?> iter = firstLevel.iterator(); iter.hasNext();) {
 			BaseNode b=(BaseNode)iter.next();
             res.addToChilds(buildFromRete(b,ht));
 		}

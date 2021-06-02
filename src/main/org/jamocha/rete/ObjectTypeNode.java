@@ -58,8 +58,7 @@ public class ObjectTypeNode extends BaseAlpha implements Serializable {
     /**
      * HashMap entries for unique AlphaNodes
      */
-    @SuppressWarnings("rawtypes")
-	private Map nodeHashMap = null;
+	private Map<CompositeIndex, AlphaNode> nodeHashMap = null;
     
     /**
      * Second ArrayList for all nodes that do not use ==, null operators
@@ -79,10 +78,11 @@ public class ObjectTypeNode extends BaseAlpha implements Serializable {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	public ObjectTypeNode(int id, Template deftemp, Rete engine) {
 		super(id);
         this.deftemplate = deftemp;
-        nodeHashMap = engine.newLocalMap();
+        nodeHashMap = (Map<CompositeIndex, AlphaNode>) engine.newLocalMap();
 	}
 
     public Template getDeftemplate(){
@@ -151,7 +151,7 @@ public class ObjectTypeNode extends BaseAlpha implements Serializable {
     			CompositeIndex compIndex = new CompositeIndex(
     					slots[idx].getName(), Constants.EQUAL, slotValue);
     			
-    			BaseNode node = (BaseNode)this.nodeHashMap.get(compIndex);
+    			BaseNode node = this.nodeHashMap.get(compIndex);
     			if (node != null) {
     	            if (node instanceof BaseAlpha){
     	                ((BaseAlpha)node).assertFact(fact,engine,mem);
@@ -271,8 +271,7 @@ public class ObjectTypeNode extends BaseAlpha implements Serializable {
     /**
      * Add a successor node
      */
-    @SuppressWarnings("unchecked")
-	public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
+    public void addSuccessorNode(BaseNode node, Rete engine, WorkingMemory mem) 
     throws AssertException 
     {
     	if (node instanceof AlphaNode) {
@@ -299,8 +298,7 @@ public class ObjectTypeNode extends BaseAlpha implements Serializable {
         // the new successor only
         AlphaMemory alpha = (AlphaMemory)mem.getAlphaMemory(this);
         if (alpha.size() > 0){
-            @SuppressWarnings("rawtypes")
-			Iterator itr = alpha.iterator();
+            Iterator<?> itr = alpha.iterator();
             while (itr.hasNext()){
                 Fact f = (Fact)itr.next();
                 if (node instanceof BaseAlpha) {

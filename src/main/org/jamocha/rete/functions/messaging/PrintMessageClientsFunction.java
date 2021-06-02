@@ -23,10 +23,9 @@ public class PrintMessageClientsFunction implements Function {
 		super();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
+		public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefglobalMap globals = engine.getDefglobalMap();
-		Iterator iterator = globals.getValueIterator();
+		Iterator<?> iterator = globals.getValueIterator();
 		while (iterator.hasNext()) {
 			Object value = iterator.next();
 			if (value instanceof MessageClient) {
@@ -48,8 +47,7 @@ public class PrintMessageClientsFunction implements Function {
 		return PRINT_MSG_CLIENTS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

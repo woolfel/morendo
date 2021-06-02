@@ -60,7 +60,6 @@ public class PrintFunction implements Function, Serializable {
      * if multiple output streams are set, the message will be printed to
      * all of them.
 	 */
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
         // print out some stuff
         if (params.length > 0) {
@@ -73,7 +72,7 @@ public class PrintFunction implements Function, Serializable {
             			Object[] ary = (Object[])v;
                 		writeArray(ary,engine,output,false);
             		} else if (v instanceof ArrayList) {
-            			writeList((ArrayList)v, engine, output, false);
+            			writeList((ArrayList<?>)v, engine, output, false);
             		} else {
                 		engine.writeMessage(v.toString(),output);
             		}
@@ -112,8 +111,7 @@ public class PrintFunction implements Function, Serializable {
 		}
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public void writeList(ArrayList array, Rete engine, String output, boolean linebreak) {
+	public void writeList(ArrayList<?> array, Rete engine, String output, boolean linebreak) {
 		for (int i=0; i < array.size(); i++) {
 			Object val = array.get(i);
 			if (val instanceof Fact) {
@@ -144,8 +142,7 @@ public class PrintFunction implements Function, Serializable {
      * If a function doesn't take any parameters, the method should return
      * null instead.
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] {ValueParam[].class};
 	}
 

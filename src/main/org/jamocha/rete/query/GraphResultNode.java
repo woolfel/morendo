@@ -51,7 +51,6 @@ public class GraphResultNode extends QueryResultNode {
 		this.gquery = query;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void addResult(Index facts, Rete engine, WorkingMemory mem) {
 		if (this.watch) {

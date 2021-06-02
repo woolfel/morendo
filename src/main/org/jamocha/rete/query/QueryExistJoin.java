@@ -54,11 +54,10 @@ public class QueryExistJoin extends QueryBaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
-		Map rightmem = (Map) mem.getQueryRightMemory(this);
-		Map leftmem = (Map) mem.getQueryBetaMemory(this);
-		Iterator itr = leftmem.keySet().iterator();
+		Map<?, ?> rightmem = (Map<?, ?>) mem.getQueryRightMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getQueryBetaMemory(this);
+		Iterator<?> itr = leftmem.keySet().iterator();
 		// first we iterate over the list for each fact
 		// and clear it.
 		while (itr.hasNext()) {
@@ -78,10 +77,10 @@ public class QueryExistJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
+        Map<Index, Index> leftmem = (Map<Index, Index>) mem.getQueryBetaMemory(this);
         leftmem.put(linx, linx);
         EqHashIndex inx = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem.getQueryRightMemory(this);
@@ -96,14 +95,13 @@ public class QueryExistJoin extends QueryBaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem.getQueryRightMemory(this);
         EqHashIndex inx = new EqHashIndex(NodeUtils.getRightValues(this.binds,rfact));
         int after = rightmem.addPartialMatch(inx, rfact, engine);
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
-        Iterator itr = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getQueryBetaMemory(this);
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()) {
             Index linx = (Index) itr.next();
             if (this.evaluate(linx.getFacts(), rfact)) {

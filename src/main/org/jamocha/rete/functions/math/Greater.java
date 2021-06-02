@@ -93,8 +93,7 @@ public class Greater implements Function, Serializable {
 		return GREATER;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}
 

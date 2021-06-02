@@ -33,26 +33,26 @@ public class HashedAlphaMemoryImpl implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    @SuppressWarnings("rawtypes")
-	protected Map memory = null;
+	protected Map<HashIndex, Map<?, ?>> memory = null;
     
     protected int counter = 0;
     
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	public HashedAlphaMemoryImpl(String name, Rete engine) {
 		super();
-		memory = engine.newAlphaMemoryMap(name);
+		memory = (Map<HashIndex, Map<?, ?>>) engine.newAlphaMemoryMap(name);
 	}
 
 	/**
      * addPartialMatch stores the fact with the factId as the
      * key.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public int addPartialMatch(HashIndex index, Fact fact, Rete engine) {
-		Map matches = (Map)this.memory.get(index);
+		Map<Fact, Fact> matches = (Map<Fact, Fact>)this.memory.get(index);
         int count = 0;
 		if (matches == null) {
 			count = this.addNewPartialMatch(index,fact,engine);
@@ -64,9 +64,9 @@ public class HashedAlphaMemoryImpl implements Serializable {
         return count;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public int addNewPartialMatch(HashIndex index, Fact fact, Rete engine) {
-		Map matches = engine.newMap();
+		Map<Fact, Fact> matches = (Map<Fact, Fact>) engine.newMap();
 		matches.put(fact,fact);
 		this.memory.put(index,matches);
         return 1;
@@ -75,18 +75,16 @@ public class HashedAlphaMemoryImpl implements Serializable {
 	/**
      * clear the memory.
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear() {
-		Iterator itr = this.memory.values().iterator();
+		Iterator<?> itr = this.memory.values().iterator();
 		while (itr.hasNext()) {
-			((Map)itr.next()).clear();
+			((Map<?, ?>)itr.next()).clear();
 		}
         this.memory.clear();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public boolean isPartialMatch(HashIndex index, Fact fact) {
-		Map list = (Map)this.memory.get(index);
+		Map<?, ?> list = (Map<?, ?>)this.memory.get(index);
 		if (list != null) {
 			return list.containsKey(fact);
 		} else {
@@ -97,9 +95,8 @@ public class HashedAlphaMemoryImpl implements Serializable {
 	/**
      * remove a partial match from the memory
 	 */
-	@SuppressWarnings("rawtypes")
 	public int removePartialMatch(HashIndex index, Fact fact) {
-		Map list = (Map)this.memory.get(index);
+		Map<?, ?> list = (Map<?, ?>)this.memory.get(index);
         if (list != null) {
             list.remove(fact);
             if (list.size() == 0) {
@@ -115,12 +112,11 @@ public class HashedAlphaMemoryImpl implements Serializable {
     /**
      * Return the number of memories of all hash buckets
      */
-    @SuppressWarnings("rawtypes")
 	public int size() {
-    	Iterator itr = this.memory.keySet().iterator();
+    	Iterator<?> itr = this.memory.keySet().iterator();
     	int count = 0;
     	while (itr.hasNext()) {
-    		Map matches = (Map)this.memory.get(itr.next());
+    		Map<?, ?> matches = (Map<?, ?>)this.memory.get(itr.next());
     		count += matches.size();
     	}
         return count;
@@ -133,9 +129,8 @@ public class HashedAlphaMemoryImpl implements Serializable {
     /**
      * Return an iterator of the values
      */
-    @SuppressWarnings("rawtypes")
-	public Iterator iterator(HashIndex index) {
-    	Map list = (Map)this.memory.get(index);
+	public Iterator<?> iterator(HashIndex index) {
+    	Map<?, ?> list = (Map<?, ?>)this.memory.get(index);
 		if (list != null) {
 	        return list.values().iterator();
 		} else {
@@ -143,9 +138,8 @@ public class HashedAlphaMemoryImpl implements Serializable {
 		}
     }
     
-    @SuppressWarnings("rawtypes")
 	public int count(HashIndex index) {
-    	Map list = (Map)this.memory.get(index);
+    	Map<?, ?> list = (Map<?, ?>)this.memory.get(index);
     	if (list != null) {
     		return list.size();
     	} else {
@@ -157,14 +151,13 @@ public class HashedAlphaMemoryImpl implements Serializable {
      * return an arraylist with all the facts
      * @return
      */
-    @SuppressWarnings("rawtypes")
 	public Object[] iterateAll() {
     	Object[] all = new Object[this.counter];
-    	Iterator itr = this.memory.keySet().iterator();
+    	Iterator<?> itr = this.memory.keySet().iterator();
     	int idx = 0;
     	while (itr.hasNext()) {
-    		Map f = (Map)this.memory.get(itr.next());
-    		Iterator itr2 = f.values().iterator();
+    		Map<?, ?> f = (Map<?, ?>)this.memory.get(itr.next());
+    		Iterator<?> itr2 = f.values().iterator();
     		while (itr2.hasNext()) {
         		all[idx] = itr2.next();
         		idx++;
@@ -173,8 +166,7 @@ public class HashedAlphaMemoryImpl implements Serializable {
     	return all;
     }
     
-    @SuppressWarnings("rawtypes")
-	public Iterator iterateIndexKeys() {
+	public Iterator<?> iterateIndexKeys() {
     	return this.memory.keySet().iterator();
     }
 }

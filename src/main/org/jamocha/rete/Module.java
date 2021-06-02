@@ -113,8 +113,7 @@ public interface Module extends Serializable {
      * Return the Deftemplates in a collection
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	Collection getTemplates();
+    Collection<Template> getTemplates();
     /**
      * return the number of actual deftemplates declared
      * using deftemplate or objects
@@ -125,8 +124,7 @@ public interface Module extends Serializable {
      * Return a list of all the rules in this module
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	Collection getAllRules();
+    Collection<?> getAllRules();
     /**
      * Return the rule count
      * @return

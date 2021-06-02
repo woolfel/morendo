@@ -55,10 +55,9 @@ public class FactsFunction implements Function, Serializable {
 		return Constants.RETURN_VOID_TYPE;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
         boolean filter = false;
-        HashMap objects = new HashMap();
+        HashMap<Object, Object> objects = new HashMap<Object, Object>();
         int count = 0;
         if (params != null && params.length > 0) {
             filter = true;
@@ -66,7 +65,7 @@ public class FactsFunction implements Function, Serializable {
                 objects.put(params[idx].getValue(), null);
             }
         }
-		List facts = engine.getAllFacts();
+		List<?> facts = engine.getAllFacts();
 		Object[] sorted = FactUtils.sortFacts(facts);
 		for (int idx = 0; idx < sorted.length; idx++) {
 			Fact ft = (Fact) sorted[idx];
@@ -89,8 +88,7 @@ public class FactsFunction implements Function, Serializable {
 		return FACTS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

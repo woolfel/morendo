@@ -34,8 +34,7 @@ public class JarClassMacroFunction implements Function {
 		return JAR_MACRO;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

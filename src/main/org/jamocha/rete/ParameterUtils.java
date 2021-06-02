@@ -28,8 +28,7 @@ public class ParameterUtils {
 	 * @param list
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	public static Parameter[] convertParameters(java.util.List list) {
+	public static Parameter[] convertParameters(java.util.List<?> list) {
 		Parameter[] pms = new Parameter[list.size()];
 		for (int idx=0; idx < list.size(); idx++) {
 			pms[idx] = (Parameter)list.get(idx);
@@ -44,8 +43,7 @@ public class ParameterUtils {
 	 * @param list
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	public static Parameter[] slotToParameters(List list) {
+	public static Parameter[] slotToParameters(List<?> list) {
 		Parameter[] pms = new Parameter[list.size()];
 		for (int idx=0; idx < list.size(); idx++) {
 			if (list.get(idx) instanceof Slot) {

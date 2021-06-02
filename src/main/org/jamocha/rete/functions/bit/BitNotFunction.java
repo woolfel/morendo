@@ -44,8 +44,7 @@ public class BitNotFunction implements Function {
 		return BIT_NOT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class, ValueParam.class};
 	}
 

@@ -34,10 +34,9 @@ public class RunGraphQueryFunction implements Function {
 	public RunGraphQueryFunction() {
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-		List results = new ArrayList();
+		List<?> results = new ArrayList<Object>();
 		if (params.length > 0) {
 			String bindname = ((BoundParam)params[0]).getVariableName();
 			String name = params[1].getStringValue();
@@ -60,8 +59,7 @@ public class RunGraphQueryFunction implements Function {
 		return RUN_QUERY;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String[].class};
 	}
 

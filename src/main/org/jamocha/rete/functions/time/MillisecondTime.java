@@ -69,8 +69,7 @@ public class MillisecondTime implements Function, Serializable {
 		return MSTIME;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
         return new Class[] {String[].class};
 	}
 

@@ -71,8 +71,7 @@ public class AgentPerfSummaryFunction implements Function {
 		return AGENT_PERF_SUMMARY;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String[].class};
 	}
 

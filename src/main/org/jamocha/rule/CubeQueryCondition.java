@@ -25,10 +25,9 @@ public class CubeQueryCondition extends ObjectCondition {
 		return CompilerProvider.getInstance(ruleCompiler).cubeQueryConditionCompiler;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List getQueryConstraints() {
-        ArrayList binds = new ArrayList();
-        Iterator itr = constraints.iterator();
+	public List<Object> getQueryConstraints() {
+        ArrayList<Object> binds = new ArrayList<Object>();
+        Iterator<?> itr = constraints.iterator();
         while (itr.hasNext()) {
             Object c = itr.next();
             if (c instanceof BoundConstraint) {

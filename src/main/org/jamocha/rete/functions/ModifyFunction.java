@@ -139,8 +139,7 @@ public class ModifyFunction implements RuleFunction, Serializable {
 	 * <br/>
      * Example: (modify ?boundVariable (slotName value)* )
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] {BoundParam.class,SlotParam[].class};
 	}
 

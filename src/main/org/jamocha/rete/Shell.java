@@ -40,7 +40,6 @@ public class Shell {
     /**
      * run is the main method for the shell.
      */
-	@SuppressWarnings("rawtypes")
 	public void run() {
 		List<MessageEvent> msgEvents = new ArrayList<MessageEvent>();
 		boolean printPrompt = false;

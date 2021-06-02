@@ -72,8 +72,7 @@ public class StringTrimFunction implements Function, Serializable {
 		return STRING_TRIM;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

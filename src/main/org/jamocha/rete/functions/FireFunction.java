@@ -75,8 +75,7 @@ public class FireFunction implements Function, Serializable {
 		return FIRE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

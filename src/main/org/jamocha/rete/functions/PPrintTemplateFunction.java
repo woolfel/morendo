@@ -61,9 +61,8 @@ public class PPrintTemplateFunction implements Function, Serializable {
 	 * template names. The definition in CLIPS beginners guide states the 
 	 * function does the following: (ppdeftemplate &lt;deftemplate-name>)
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		HashMap filter = new HashMap();
+		HashMap<Object, Object> filter = new HashMap<Object, Object>();
 		if (params != null && params.length > 0) {
 			for (int idx=0; idx < params.length; idx++) {
 				if (params[idx] instanceof ValueParam) {
@@ -72,8 +71,8 @@ public class PPrintTemplateFunction implements Function, Serializable {
 				}
 			}
 		}
-		Collection templ = engine.getCurrentFocus().getTemplates();
-		Iterator itr = templ.iterator();
+		Collection<?> templ = engine.getCurrentFocus().getTemplates();
+		Iterator<?> itr = templ.iterator();
 		while (itr.hasNext()) {
 			Template tp = (Template)itr.next();
 			if (filter.get(tp.getName()) != null) {
@@ -87,8 +86,7 @@ public class PPrintTemplateFunction implements Function, Serializable {
 		return PPTEMPLATES;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String.class};
 	}
 

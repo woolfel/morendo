@@ -60,11 +60,10 @@ public class QueryFuncJoin extends QueryBaseJoin {
     /**
      * clear will clear the lists
      */
-    @SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getQueryBetaMemory(this);
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem.getQueryRightMemory(this);
-        Iterator itr = leftmem.keySet().iterator();
+        Iterator<?> itr = leftmem.keySet().iterator();
         // first we iterate over the list for each fact
         // and clear it.
         while (itr.hasNext()) {
@@ -85,14 +84,14 @@ public class QueryFuncJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
+        Map<Index, BetaMemory> leftmem = (Map<Index, BetaMemory>) mem.getQueryBetaMemory(this);
         BetaMemory bmem = new BetaMemoryImpl(linx, engine);
         leftmem.put(linx, bmem);
-        Map rightmem = (Map)mem.getQueryRightMemory(this);
-        Iterator itr = rightmem.keySet().iterator();
+        Map<?, ?> rightmem = (Map<?, ?>)mem.getQueryRightMemory(this);
+        Iterator<?> itr = rightmem.keySet().iterator();
         if (itr != null) {
             while (itr.hasNext()) {
                 Fact vl = (Fact) itr.next();
@@ -111,13 +110,13 @@ public class QueryFuncJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
-        Map rightmem = (Map)mem.getQueryBetaMemory(this);
+        Map<Fact, Fact> rightmem = (Map<Fact, Fact>)mem.getQueryBetaMemory(this);
         rightmem.put(rfact, rfact);
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
-        Iterator itr = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getQueryBetaMemory(this);
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()) {
             BetaMemory bmem = (BetaMemory) itr.next();
             if (this.evaluate(bmem.getLeftFacts(), rfact, engine)) {

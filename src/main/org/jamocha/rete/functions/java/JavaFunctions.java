@@ -19,6 +19,7 @@ package org.jamocha.rete.functions.java;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jamocha.rete.Function;
 import org.jamocha.rete.FunctionGroup;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.functions.MemberFunction;
@@ -29,8 +30,7 @@ public class JavaFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private ArrayList funcs = new ArrayList();
+	private ArrayList<Function> funcs = new ArrayList<Function>();
 	
 	public JavaFunctions() {
 		super();
@@ -40,7 +40,6 @@ public class JavaFunctions implements FunctionGroup {
 		return (JavaFunctions.class.getSimpleName());
 	}
 
-	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		ClassnameResolver classnameResolver = new ClassnameResolver(engine);
 		CallMethodFunction callm = new CallMethodFunction();
@@ -72,8 +71,7 @@ public class JavaFunctions implements FunctionGroup {
 		funcs.add(setm);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List listFunctions() {
+	public List<Function> listFunctions() {
 		return funcs;
 	}
 

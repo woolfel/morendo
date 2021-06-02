@@ -47,25 +47,21 @@ public class Defclass implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private Class OBJECT_CLASS = null;
+	private Class<?> OBJECT_CLASS = null;
 	private BeanInfo INFO = null;
 	private PropertyDescriptor[] PROPS = null;
 	private boolean ISBEAN = false;
 	private Method addListener = null;
 	private Method removeListener = null;
-	@SuppressWarnings("rawtypes")
-	private Map methods = new HashMap();
-	@SuppressWarnings("rawtypes")
-	private Map callMethods = new HashMap();
+	private Map<String, PropertyDescriptor> methods = new HashMap<String, PropertyDescriptor>();
+	private Map<String, Method> callMethods = new HashMap<String, Method>();
 	private PropertyMacros[] macros = null;
 	private boolean useMacros = false;
 
 	/**
 	 * 
 	 */
-	@SuppressWarnings("rawtypes")
-	public Defclass(Class obj) {
+	public Defclass(Class<?> obj) {
 		super();
 		this.OBJECT_CLASS = obj;
 		init();
@@ -77,13 +73,12 @@ public class Defclass implements Serializable {
 	 * and removePropertyChangeListener(java.beans.PropertyChangeListener).
 	 * We don't require the classes extend PropertyChangeSupport.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void init() {
 		try {
 			this.INFO = Introspector.getBeanInfo(this.OBJECT_CLASS);
 			// we have to filter out the class PropertyDescriptor
 			PropertyDescriptor[] pd = this.INFO.getPropertyDescriptors();
-			ArrayList list = new ArrayList();
+			ArrayList<PropertyDescriptor> list = new ArrayList<PropertyDescriptor>();
 			for (int idx = 0; idx < pd.length; idx++) {
 				if (pd[idx].getName().equals("class")) {
 					// don't add
@@ -95,7 +90,7 @@ public class Defclass implements Serializable {
 				}
 			}
 			PropertyDescriptor[] newpd = new PropertyDescriptor[list.size()];
-			this.PROPS = (PropertyDescriptor[]) list.toArray(newpd);
+			this.PROPS = list.toArray(newpd);
 			// logic for filtering the PropertyDescriptors
 			if (this.checkBean()) {
 				this.ISBEAN = true;
@@ -133,7 +128,6 @@ public class Defclass implements Serializable {
 	/**
 	 * method will try to look up add and remove property change listener.
 	 */
-	@SuppressWarnings("unchecked")
 	protected void getUtilMethods() {
 		try {
 			// since a class may inherit the addListener method from
@@ -189,8 +183,7 @@ public class Defclass implements Serializable {
 		return this.INFO;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class getClassObject() {
+	public Class<?> getClassObject() {
 		return this.OBJECT_CLASS;
 	}
 
@@ -320,9 +313,8 @@ public class Defclass implements Serializable {
 	 * that template inheritance works correctly.
 	 * @param parent
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void reOrderDescriptors(Template parent) {
-		ArrayList desc = null;
+		ArrayList<String> desc = null;
 		boolean add = false;
 		BaseSlot[] pslots = parent.getAllSlots();
 		PropertyDescriptor[] newprops = new PropertyDescriptor[this.PROPS.length];
@@ -330,7 +322,7 @@ public class Defclass implements Serializable {
 		// are in the same column
 		// now check to see if the new class has more fields
 		if (newprops.length > pslots.length) {
-			desc = new ArrayList();
+			desc = new ArrayList<String>();
 			add = true;
 		}
 		for (int idx = 0; idx < pslots.length; idx++) {
@@ -340,7 +332,7 @@ public class Defclass implements Serializable {
 			}
 		}
 		if (add) {
-			ArrayList newfields = new ArrayList();
+			ArrayList<PropertyDescriptor> newfields = new ArrayList<PropertyDescriptor>();
 			for (int idz = 0; idz < this.PROPS.length; idz++) {
 				if (!desc.contains(this.PROPS[idz].getName())) {
 					// we add it to the new fields
@@ -350,7 +342,7 @@ public class Defclass implements Serializable {
 			int c = 0;
 			// now we start from where parent slots left off
 			for (int n = pslots.length; n < newprops.length; n++) {
-				newprops[n] = (PropertyDescriptor) newfields.get(c);
+				newprops[n] = newfields.get(c);
 				c++;
 			}
 		}
@@ -419,10 +411,10 @@ public class Defclass implements Serializable {
 		}
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+
 	public Method getCallMethod(String name, Object[] parameters) {
 		String key = name + "(";
-		Class[] cparams = new Class[0];
+		Class<?>[] cparams = new Class[0];
 		if (parameters != null) {
 			cparams = new Class[parameters.length];
 			for (int idx=0; idx < parameters.length; idx++) {
@@ -434,7 +426,7 @@ public class Defclass implements Serializable {
 			}
 		}
 		key += ")";
-		Method m = (Method)this.callMethods.get(key);
+		Method m = this.callMethods.get(key);
 		if (m != null) {
 			return m;
 		} else {
@@ -452,23 +444,22 @@ public class Defclass implements Serializable {
 	 * set the use macro flag to true and set the macros. If it failed
 	 * for any reason, use macros will stay off.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void loadMacros(ClassLoader cl) {
 		String packageName = OBJECT_CLASS.getName().toLowerCase();
-		ArrayList macrolist = new ArrayList();
+		ArrayList<PropertyMacros> macrolist = new ArrayList<PropertyMacros>();
 		for (int idx=0; idx < PROPS.length; idx++) {
 			PropertyMacros macro = new PropertyMacros();
 			try {
 				String pname = PROPS[idx].getName();
 				String formattedName = pname.substring(0,1).toUpperCase() + pname.substring(1);
 				String read = packageName + ".Read" + formattedName;
-				Class rclzz = cl.loadClass(read);
+				Class<?> rclzz = cl.loadClass(read);
 				ReadMacro rmacro = (ReadMacro)rclzz.getDeclaredConstructor().newInstance();
 				macro.setReadMacro(rmacro);
 				
 				// create the write macro
 				String write = packageName + ".Write" + formattedName;
-				Class wclzz = cl.loadClass(write);
+				Class<?> wclzz = cl.loadClass(write);
 				WriteMacro wmacro = (WriteMacro)wclzz.getDeclaredConstructor().newInstance();
 				macro.setWriteMacro(wmacro);
 			} catch (ClassNotFoundException exc) {
@@ -482,7 +473,7 @@ public class Defclass implements Serializable {
 		// otherwise don't set the macros or the flag
 		if (PROPS.length == macrolist.size()) {
 			PropertyMacros[] allmacros = new PropertyMacros[PROPS.length];
-			allmacros = (PropertyMacros[])macrolist.toArray(allmacros);
+			allmacros = macrolist.toArray(allmacros);
 			this.macros = allmacros;
 			this.useMacros = true;
 		}
@@ -501,7 +492,7 @@ public class Defclass implements Serializable {
 		dcl.ISBEAN = this.ISBEAN;
 		dcl.PROPS = this.PROPS;
 		dcl.removeListener = this.removeListener;
-		dcl.methods = engine.newLocalMap();
+		dcl.methods = (Map<String, PropertyDescriptor>) engine.newLocalMap();
 		dcl.methods.putAll(this.methods);
 		return dcl;
 	}

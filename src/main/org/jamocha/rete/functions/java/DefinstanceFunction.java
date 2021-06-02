@@ -59,7 +59,6 @@ public class DefinstanceFunction implements Function, Serializable {
 		return Constants.STRING_TYPE;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		String asrt = "";
 		Object instance = null;
@@ -77,7 +76,7 @@ public class DefinstanceFunction implements Function, Serializable {
 								FunctionParam2 fp = (FunctionParam2)parameters[idx];
 								String slotname = fp.getFunctionName();
 								ValueParam paramVal = (ValueParam)fp.getParameters()[0];
-								Class returnType = defclass.getReadMethod(slotname).getReturnType();
+								Class<?> returnType = defclass.getReadMethod(slotname).getReturnType();
 								Object value = getTypedValue(paramVal, returnType);
 								defclass.getWriteMethod(slotname).invoke(instance, new Object[]{value});
 							}
@@ -139,8 +138,7 @@ public class DefinstanceFunction implements Function, Serializable {
 		return ret;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	protected Object getTypedValue(ValueParam param, Class clzz) {
+	protected Object getTypedValue(ValueParam param, Class<?> clzz) {
 		if (clzz == String.class) {
 			return param.getStringValue();
 		} else if (clzz == int.class || clzz == Integer.class) {
@@ -169,8 +167,7 @@ public class DefinstanceFunction implements Function, Serializable {
 	/**
 	 * The function expects a single BoundParam that is an object binding
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { BoundParam.class, ValueParam.class };
 	}
 

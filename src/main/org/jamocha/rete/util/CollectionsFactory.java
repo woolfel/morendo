@@ -39,44 +39,36 @@ public class CollectionsFactory {
 		factory = new CollectionsFactory();
 	}
 	
-    @SuppressWarnings("rawtypes")
-	public static Map newAlphaMemoryMap(String name) {
-        return new HashMap();
+	public static Map<?, ?> newAlphaMemoryMap(String name) {
+        return new HashMap<Object, Object>();
     }
     
-    @SuppressWarnings("rawtypes")
-	public static Map newLinkedHashmap(String name) {
-        return new LinkedHashMap();
+	public static Map<?, ?> newLinkedHashmap(String name) {
+        return new LinkedHashMap<Object, Object>();
     }
     
-    @SuppressWarnings("rawtypes")
-	public static Map newBetaMemoryMap(String name) {
-        return new HashMap();
+	public static Map<?, ?> newBetaMemoryMap(String name) {
+        return new HashMap<Object, Object>();
     }
     
-    @SuppressWarnings("rawtypes")
-	public static Map newTerminalMap() {
-    	return new HashMap();
+	public static Map<?, ?> newTerminalMap() {
+    	return new HashMap<Object, Object>();
     }
     
-    @SuppressWarnings("rawtypes")
-	public static Map newClusterableMap(String name) {
-        return new HashMap();
+	public static Map<?, ?> newClusterableMap(String name) {
+        return new HashMap<Object, Object>();
     }
     
-    @SuppressWarnings("rawtypes")
-	public static Map newMap() {
-    	return new HashMap();
+	public static Map<?, ?> newMap() {
+    	return new HashMap<Object, Object>();
     }
     
-    @SuppressWarnings("rawtypes")
-	public static Map newHashMap() {
-    	return new HashMap();
+	public static Map<?, ?> newHashMap() {
+    	return new HashMap<Object, Object>();
     }
     
-    @SuppressWarnings("rawtypes")
-	public static Map newNodeMap(String name) {
-        return new HashMap();
+	public static Map<?, ?> newNodeMap(String name) {
+        return new HashMap<Object, Object>();
     }
     
     /**
@@ -86,14 +78,12 @@ public class CollectionsFactory {
      * JCache compliant product like Tangosol's Coherence.
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public static Map localMap() {
-    	return new HashMap();
+	public static Map<?, ?> localMap() {
+    	return new HashMap<Object, Object>();
     }
     
-    @SuppressWarnings("rawtypes")
-	public static java.util.Map javaHashMap() {
-    	return new java.util.HashMap();
+	public static java.util.Map<?, ?> javaHashMap() {
+    	return new java.util.HashMap<Object, Object>();
     }
     
     public static org.jamocha.rete.util.Map getCustomMap() {

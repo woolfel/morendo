@@ -55,15 +55,14 @@ public class TopologyCostAllFunction implements Function, Serializable {
 		return Constants.RETURN_VOID_TYPE;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
-        Collection modules = engine.getWorkingMemory().getModules();
-        Iterator itr = modules.iterator();
+        Collection<?> modules = engine.getWorkingMemory().getModules();
+        Iterator<?> itr = modules.iterator();
         while (itr.hasNext()) {
             Module m = (Module)itr.next();
-            Collection rules = m.getAllRules();
-            Iterator itrRules = rules.iterator();
+            Collection<?> rules = m.getAllRules();
+            Iterator<?> itrRules = rules.iterator();
             while (itrRules.hasNext()) {
                 Defrule r = (Defrule)itrRules.next();
                 costFunction.calculateCost(engine, r, engine.getRootNode());
@@ -76,8 +75,7 @@ public class TopologyCostAllFunction implements Function, Serializable {
 		return TOPOLOGY_COST_ALL;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

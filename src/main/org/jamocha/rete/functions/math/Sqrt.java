@@ -77,8 +77,7 @@ public class Sqrt implements Function, Serializable {
 		return SQRT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

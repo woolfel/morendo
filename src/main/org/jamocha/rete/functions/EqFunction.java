@@ -114,8 +114,7 @@ public class EqFunction implements Function, Serializable {
 		return EQUAL;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

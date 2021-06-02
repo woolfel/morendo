@@ -26,13 +26,11 @@ import org.jamocha.rete.Strategy;
  * @author woolfel
  *
  */
-@SuppressWarnings("unchecked")
 public class Strategies {
     public static Strategy DEPTH = new DepthStrategy();
     public static Strategy BREADTH = new BreadthStrategy();
     public static Strategy RECENCY = new RecencyStrategy();
-    @SuppressWarnings("rawtypes")
-	private static HashMap registry = new HashMap();
+	private static HashMap<String, Strategy> registry = new HashMap<String, Strategy>();
     static {
         registry.put(DEPTH.getName(), DEPTH);
         registry.put(BREADTH.getName(), BREADTH);
@@ -46,6 +44,6 @@ public class Strategies {
     }
     
     public static Strategy getStrategy(String key) {
-        return (Strategy)registry.get(key);
+        return registry.get(key);
     }
 }

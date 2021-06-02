@@ -85,8 +85,7 @@ public class EqYearFunction extends AbstractTimeFunction implements Function {
 		return EQ_YEAR;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Date.class, Date.class};
 	}
 

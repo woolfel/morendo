@@ -44,12 +44,11 @@ public class HashedNotEqNJoin extends BaseJoin {
     /**
      * clear will clear the lists
      */
-    @SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem){
-        Map leftmem = (Map)mem.getBetaLeftMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
         HashedNeqAlphaMemory rightmem = 
         	(HashedNeqAlphaMemory)mem.getBetaRightMemory(this);
-        Iterator itr = leftmem.keySet().iterator();
+        Iterator<?> itr = leftmem.keySet().iterator();
         // first we iterate over the list for each fact
         // and clear it.
         while (itr.hasNext()){
@@ -69,11 +68,11 @@ public class HashedNotEqNJoin extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<Index, Index> leftmem = (Map<Index, Index>) mem.getBetaLeftMemory(this);
 
 		leftmem.put(linx, linx);
 		// need to think the getLeftValues through better to
@@ -92,7 +91,6 @@ public class HashedNotEqNJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-    @SuppressWarnings("rawtypes")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
@@ -103,8 +101,8 @@ public class HashedNotEqNJoin extends BaseJoin {
 
 		rightmem.addPartialMatch(inx, rfact, engine);
         boolean zm = rightmem.zeroMatch(inx);
-		Map leftmem = (Map) mem.getBetaLeftMemory(this);
-		Iterator itr = leftmem.values().iterator();
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
+		Iterator<?> itr = leftmem.values().iterator();
 		while (itr.hasNext()) {
 			Index linx = (Index) itr.next();
 			if (this.evaluate(linx.getFacts(), rfact)) {
@@ -125,11 +123,10 @@ public class HashedNotEqNJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-    @SuppressWarnings("rawtypes")
 	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
     throws RetractException
     {
-        Map leftmem = (Map)mem.getBetaLeftMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
         leftmem.remove(linx);
         propagateRetract(linx,engine,mem);
     }
@@ -142,7 +139,6 @@ public class HashedNotEqNJoin extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws RetractException
     {
@@ -152,8 +148,8 @@ public class HashedNotEqNJoin extends BaseJoin {
         rightmem.removePartialMatch(inx,rfact);
         boolean zm = rightmem.zeroMatch(inx);
         // now we see the left memory matched and remove it also
-        Map leftmem = (Map)mem.getBetaLeftMemory(this);
-        Iterator itr = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()){
             Index linx = (Index)itr.next();
             if (this.evaluate(linx.getFacts(), rfact)){

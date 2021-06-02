@@ -2,9 +2,12 @@ package org.jamocha.service.servlet;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 import javax.servlet.ServletContext;
 
+import org.jamocha.rete.Rete;
 import org.jamocha.service.RuleApplication;
 import org.jamocha.service.ServiceAdministration;
 import org.jamocha.service.ServiceConfiguration;
@@ -30,22 +33,19 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		String key = applicationName + "::" + version;
 		return (RuleApplication)this.ruleService.getRuleApplicationMap().get(key);	}
 
-	@SuppressWarnings("rawtypes")
 	public int getEnginePoolCount(String ruleApplication, String version) {
 		String key = ruleApplication + "::" + version;
-		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().get(key);
-		return queue.size();
+		Object queue = this.ruleService.getEngineMap().get(key);
+		return ((Map<?, ?>) queue).size();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List getEngines(String applicationName, String version) {
+	public List<?> getEngines(String applicationName, String version) {
 		String key = applicationName + "::" + version;
-		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().get(key);
-		return new java.util.ArrayList(queue);
+		java.util.PriorityQueue<?> queue = (PriorityQueue<?>) this.ruleService.getEngineMap().get(key);
+		return new java.util.ArrayList<Object>(queue);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List getRuleApplications() {
+	public List<?> getRuleApplications() {
 		return this.ruleService.getRuleApplications();
 	}
 
@@ -53,23 +53,23 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		return ruleService.getServiceConfiguration();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void reinitialize(String ruleApplication, String version) {
 		servletContext.log("--- Start reinitializing rule application: " + ruleApplication + " " + version);
 		String key = ruleApplication + "::" + version;
-		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().remove(key);
+		java.util.PriorityQueue<Rete> queue = (PriorityQueue<Rete>) this.ruleService.getEngineMap().remove(key);
 		// first close all the engine instances.
-		Iterator itr = queue.iterator();
+		Iterator<Rete> itr = queue.iterator();
 		while (itr.hasNext()) {
-			org.jamocha.rete.Rete engine = (org.jamocha.rete.Rete)itr.next();
+			org.jamocha.rete.Rete engine = itr.next();
 			engine.close();
 		}
 		queue.clear();
 		
 		// Now reload the RuleApplication and recreate the engine instances
 		RuleApplication app = (RuleApplication)this.ruleService.getRuleApplicationMap().get(key);
-		queue = new java.util.PriorityQueue();
-		this.ruleService.getEngineMap().put(ruleApplication, queue);
+		queue = new java.util.PriorityQueue<Rete>();
+		this.ruleService.getEngineMap().put(ruleApplication, (List<Rete>) queue);
 		for (int idx=0; idx < app.getInitialPool(); idx++) {
 			org.jamocha.rete.Rete engine = new org.jamocha.rete.Rete();
 			queue.add(engine);
@@ -78,14 +78,13 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		servletContext.log("--- Finished reinitializing rule application: " + ruleApplication + " " + version);
 	}
 
-	@SuppressWarnings("rawtypes")
 	public boolean reloadFunctionPackage(String ruleApplication, String version) {
 		servletContext.log("--- Start reloading Function Package: " + ruleApplication + " " + version);
 		boolean reload = false;
 		String key = ruleApplication + "::" + version;
 		RuleApplication app = (RuleApplication)this.ruleService.getRuleApplicationMap().get(key);
-		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().remove(key);
-		Iterator iterator = queue.iterator();
+		java.util.PriorityQueue<?> queue = (PriorityQueue<?>) this.ruleService.getEngineMap().remove(key);
+		Iterator<?> iterator = queue.iterator();
 		while (iterator.hasNext()) {
 			org.jamocha.rete.Rete engine = (org.jamocha.rete.Rete)iterator.next();
 			reload = app.reloadFunctionGroups(engine);
@@ -97,14 +96,13 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		return reload;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public boolean reloadInitialData(String ruleApplication, String version) {
 		servletContext.log("--- Start reloading Initial Data: " + ruleApplication + " " + version);
 		boolean reload = false;
 		String key = ruleApplication + "::" + version;
 		RuleApplication app = (RuleApplication)this.ruleService.getRuleApplicationMap().get(key);
-		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().remove(key);
-		Iterator iterator = queue.iterator();
+		java.util.PriorityQueue<?> queue = (PriorityQueue<?>) this.ruleService.getEngineMap().remove(key);
+		Iterator<?> iterator = queue.iterator();
 		while (iterator.hasNext()) {
 			org.jamocha.rete.Rete engine = (org.jamocha.rete.Rete)iterator.next();
 			reload = app.reloadInitialData(engine);
@@ -116,14 +114,13 @@ public class ServletServiceAdmin implements ServiceAdministration {
 		return reload;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public boolean reloadRuleset(String ruleApplication, String version) {
 		servletContext.log("--- Start reloading Ruleset: " + ruleApplication + " " + version);
 		boolean reload = false;
 		String key = ruleApplication + "::" + version;
 		RuleApplication app = (RuleApplication)this.ruleService.getRuleApplicationMap().get(key);
-		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.ruleService.getEngineMap().remove(key);
-		Iterator iterator = queue.iterator();
+		java.util.PriorityQueue<?> queue = (PriorityQueue<?>) this.ruleService.getEngineMap().remove(key);
+		Iterator<?> iterator = queue.iterator();
 		while (iterator.hasNext()) {
 			org.jamocha.rete.Rete engine = (org.jamocha.rete.Rete)iterator.next();
 			reload = app.reloadRulesets(engine);

@@ -108,9 +108,8 @@ public class FunctionsPanel extends AbstractJamochaPanel implements ActionListen
 	}
 
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void initFunctionsList() {
-		Collection c = gui.getEngine().getAllFunctions();
+		private void initFunctionsList() {
+		Collection<?> c = gui.getEngine().getAllFunctions();
 		Function[] func = (Function[]) c.toArray(new Function[0]);
 		List<Function> funcs = new ArrayList<Function>();
 		boolean larger = false;
@@ -194,8 +193,7 @@ public class FunctionsPanel extends AbstractJamochaPanel implements ActionListen
 			return false;
 		}
 
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		public Class getColumnClass(int aColumn) {
+		public Class<?> getColumnClass(int aColumn) {
 			if (aColumn == 0)
 				return java.lang.String.class;
 			else

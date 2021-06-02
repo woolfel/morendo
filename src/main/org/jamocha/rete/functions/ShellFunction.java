@@ -78,8 +78,7 @@ public class ShellFunction implements Function, Serializable {
 		return funcName;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return this.actualFunction.getParameter();
 	}
 

@@ -77,8 +77,7 @@ public class Abs implements Function, Serializable {
 		return ABS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

@@ -57,11 +57,9 @@ public class GraphQueryCompiler implements QueryCompiler {
 	 */
 	private static final long serialVersionUID = 1L;
     private Rete engine = null;
-    @SuppressWarnings("rawtypes")
-	private Map objectTypeNodesMap = null;
+   	private Map<Template, QueryObjTypeNode> objectTypeNodesMap = null;
     
-    @SuppressWarnings("rawtypes")
-	private ArrayList listener = new ArrayList();
+    private ArrayList<CompilerListener> listener = new ArrayList<CompilerListener>();
     protected boolean validate = true;
     protected TemplateValidation tval = null;
     
@@ -78,15 +76,13 @@ public class GraphQueryCompiler implements QueryCompiler {
      * @param engine
      * @param inputNodes
      */
-	@SuppressWarnings("rawtypes")
 	public GraphQueryCompiler(Rete engine) {
 		super();
         this.engine = engine;
-        this.objectTypeNodesMap = new HashMap();
+        this.objectTypeNodesMap = new HashMap<Template, QueryObjTypeNode>();
         this.tval = new TemplateValidation(engine);
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void setupObjectNodes() {
 		if (this.objectTypeNodesMap.size() == 0) {
 			Deftemplate gdt = this.engine.findDeftemplate(Graph.class);
@@ -174,10 +170,9 @@ public class GraphQueryCompiler implements QueryCompiler {
 		return false;
 	}
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public Condition[] getRuleConditions(Query query) {
         Condition[] conditions = query.getConditions();
-        ArrayList conditionList = new ArrayList();
+        ArrayList<Object> conditionList = new ArrayList<Object>();
         boolean hasAnd = false;
         for (int idx=0; idx < conditions.length; idx++) {
             if (conditions[idx] instanceof AndCondition) {
@@ -191,7 +186,7 @@ public class GraphQueryCompiler implements QueryCompiler {
         if (hasAnd) {
             // we create a new array of conditions from the ArrayList
             Condition[] newlist = new Condition[conditionList.size()];
-            conditions = (Condition[])conditionList.toArray(newlist);
+            conditions = conditionList.toArray(newlist);
         }
         return conditions;
     }
@@ -202,7 +197,6 @@ public class GraphQueryCompiler implements QueryCompiler {
      * or the key already exists, the compiler will not add it to the
      * network.
 	 */
-	@SuppressWarnings("unchecked")
 	public void addObjectTypeNode(QueryObjTypeNode node) {
         if (!this.objectTypeNodesMap.containsKey(node.getDeftemplate())) {
             this.objectTypeNodesMap.put(node.getDeftemplate(),node);
@@ -231,7 +225,7 @@ public class GraphQueryCompiler implements QueryCompiler {
      * if the ObjectTypeNode does not exist, the method will return null.
 	 */
 	public QueryObjTypeNode getObjectTypeNode(Template template) {
-		return (QueryObjTypeNode)this.objectTypeNodesMap.get(template);
+		return this.objectTypeNodesMap.get(template);
 	}
     
     /**
@@ -239,18 +233,17 @@ public class GraphQueryCompiler implements QueryCompiler {
      * @param templateName
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public QueryObjTypeNode findObjectTypeNode(String templateName) {
-        Iterator itr = this.objectTypeNodesMap.keySet().iterator();
+    public QueryObjTypeNode findObjectTypeNode(String templateName) {
+        Iterator<Template> itr = this.objectTypeNodesMap.keySet().iterator();
         Template tmpl = null;
         while (itr.hasNext()) {
-            tmpl = (Template)itr.next();
+            tmpl = itr.next();
             if (tmpl.getName().equals(templateName)) {
                 break;
             }
         }
         if (tmpl != null) {
-            return (QueryObjTypeNode)this.objectTypeNodesMap.get(tmpl);
+            return this.objectTypeNodesMap.get(tmpl);
         } else {
         	log.debug(Messages.getString("RuleCompiler.deftemplate.error")); //$NON-NLS-1$
             return null;
@@ -265,7 +258,6 @@ public class GraphQueryCompiler implements QueryCompiler {
      * Implementation will check to see if the 
 	 * @see org.jamocha.rete.RuleCompiler#addListener(org.jamocha.rete.CompilerListener)
 	 */
-	@SuppressWarnings("unchecked")
 	public void addListener(CompilerListener listener) {
         if (!this.listener.contains(listener)) {
             this.listener.add(listener);
@@ -432,7 +424,6 @@ public class GraphQueryCompiler implements QueryCompiler {
      * @param position
      * @return
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public QueryBaseAlpha compileConstraint(PredicateConstraint cnstr,
             Template templ, Query query, int position) {
     	QueryBaseAlphaCondition current = null;
@@ -451,7 +442,7 @@ public class GraphQueryCompiler implements QueryCompiler {
             node.setOperator(oprCode);
             // get the Parameter that is the variable declared for the query
             String variable = null;
-            List params = cnstr.getParameters();
+            List<?> params = cnstr.getParameters();
             for (int i=0; i < params.size(); i++) {
             	BoundParam p = (BoundParam)params.get(i);
             	String var = p.getVariableName();
@@ -625,12 +616,11 @@ public class GraphQueryCompiler implements QueryCompiler {
      * what kind of event it is and calling the appropriate method.
      * @param event
      */
-    @SuppressWarnings("rawtypes")
-	public void notifyListener(CompileEvent event) {
-        Iterator itr = this.listener.iterator();
+    public void notifyListener(CompileEvent event) {
+        Iterator<CompilerListener> itr = this.listener.iterator();
         //engine.writeMessage(event.getMessage());
         while (itr.hasNext()) {
-            CompilerListener listen = (CompilerListener)itr.next();
+            CompilerListener listen = itr.next();
             int etype = event.getEventType();
             if (etype == CompileEvent.ADD_RULE_EVENT) {
                 listen.ruleAdded(event);
@@ -642,8 +632,7 @@ public class GraphQueryCompiler implements QueryCompiler {
         }
     }
 
-	@SuppressWarnings("rawtypes")
-	public Map getObjectTypeNodeMap() {
+	public Map<Template, QueryObjTypeNode> getObjectTypeNodeMap() {
 		return objectTypeNodesMap;
 	}
 }

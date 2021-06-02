@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jamocha.logging.LogFactory;
 import org.jamocha.logging.Logger;
+import org.jamocha.rete.Fact;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.exception.AssertException;
 import org.jamocha.rete.exception.RetractException;
@@ -19,8 +20,7 @@ public class EngineContextImpl implements EngineContext {
 	private String version = null;
 	private long startTime = 0;
 	private long endTime = 0;
-	@SuppressWarnings("rawtypes")
-	private List objectList = new ArrayList();
+	private List<?> objectList = new ArrayList<Object>();
 	
 	public EngineContextImpl(RuleServiceImpl service, org.jamocha.rete.Rete engine, String name, String version) {
 		this.ruleService = service;
@@ -36,7 +36,7 @@ public class EngineContextImpl implements EngineContext {
 		return this.engine;
 	}
 
-	public void assertObject(Object data, boolean isStatic, boolean isShadowed) throws AssertException {
+	public void assertObject(Fact data, boolean isStatic, boolean isShadowed) throws AssertException {
 		try {
 			engine.assertObject(data, null, isStatic, isShadowed);
 		} catch (AssertException e) {
@@ -45,9 +45,8 @@ public class EngineContextImpl implements EngineContext {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void asssertObjects(List data, boolean isStatic, boolean isShadowed) throws AssertException {
-		Iterator itr = data.iterator();
+	public void asssertObjects(List<Fact> data, boolean isStatic, boolean isShadowed) throws AssertException {
+		Iterator<Fact> itr = data.iterator();
 		while (itr.hasNext()) {
 			try {
 				engine.assertObject(itr.next(), null, isStatic, isShadowed);
@@ -58,13 +57,12 @@ public class EngineContextImpl implements EngineContext {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
 	public void close() {
 		this.endTime = System.currentTimeMillis();
 		long elapsedTime = endTime - startTime;
 		int count = engine.getRulesFiredCount();
 		this.ruleService.updateStatistics(elapsedTime, count);
-		Iterator itr = objectList.iterator();
+		Iterator<?> itr = objectList.iterator();
 		while (itr.hasNext()) {
 			try {
 				this.engine.retractObject(itr.next());
@@ -84,8 +82,7 @@ public class EngineContextImpl implements EngineContext {
 		return this.applicationName;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List getObjects() {
+	public List<?> getObjects() {
 		return engine.getObjects();
 	}
 
@@ -101,9 +98,8 @@ public class EngineContextImpl implements EngineContext {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void modifyObjects(List data) throws AssertException, RetractException {
-		Iterator itr = data.iterator();
+	public void modifyObjects(List<?> data) throws AssertException, RetractException {
+		Iterator<?> itr = data.iterator();
 		while (itr.hasNext()) {
 			try {
 				engine.modifyObject(itr.next());
@@ -126,9 +122,8 @@ public class EngineContextImpl implements EngineContext {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void removeObjects(List data) throws RetractException {
-		Iterator itr = data.iterator();
+	public void removeObjects(List<?> data) throws RetractException {
+		Iterator<?> itr = data.iterator();
 		while (itr.hasNext()) {
 			try {
 				engine.retractObject(itr.next());

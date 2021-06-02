@@ -41,8 +41,7 @@ public class AddRuleStatusFunction implements Function {
 		return ADD_RULE_STATUS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String[].class};
 	}
 

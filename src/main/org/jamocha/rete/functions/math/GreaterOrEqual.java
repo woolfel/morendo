@@ -89,8 +89,7 @@ public class GreaterOrEqual implements Function, Serializable {
 		return GREATEROREQUAL;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}
 

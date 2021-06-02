@@ -30,18 +30,17 @@ public class MapContainsFunction implements Function, Serializable {
 		super();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
 		Object rl = null;
 		String key = null;
 		Boolean contain = Boolean.FALSE;
 		if (params != null && params.length == 2) {
-			Map map = null;
+			Map<?, ?> map = null;
 			rl = params[0].getValue();
 			key = params[1].getStringValue();
 			if (rl instanceof Map) {
-				map = (Map)rl;
+				map = (Map<?, ?>)rl;
 			}
 			if (map != null && key != null) {
 				contain = map.containsKey(key);
@@ -57,8 +56,7 @@ public class MapContainsFunction implements Function, Serializable {
 		return MAPCONTAINS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}
 

@@ -43,16 +43,16 @@ public class HashedNeqAlphaMemory extends HashedAlphaMemoryImpl {
      * addPartialMatch stores the fact with the factId as the
      * key.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public int addPartialMatch(NotEqHashIndex index, Fact fact, Rete engine) {
-		Map matches = (Map)this.memory.get(index);
+		Map<HashIndex, Map<?, ?>> matches = (Map<HashIndex, Map<?, ?>>) this.memory.get(index);
         int count = 0;
 		if (matches == null) {
 			count = this.addNewPartialMatch(index,fact, engine);
 		} else {
-			Map submatch = (Map)matches.get(index.getSubIndex());
+			Map<Fact, Fact> submatch = (Map<Fact, Fact>)matches.get(index.getSubIndex());
 			if (submatch == null) {
-				submatch = engine.newMap();
+				submatch = (Map<Fact, Fact>)engine.newMap();
 				submatch.put(fact,fact);
 				matches.put(index.getSubIndex(),submatch);
                 count = matches.size();
@@ -65,10 +65,10 @@ public class HashedNeqAlphaMemory extends HashedAlphaMemoryImpl {
         return count;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public int addNewPartialMatch(NotEqHashIndex index, Fact fact, Rete engine) {
-		Map matches = engine.newMap();
-		Map submatch = engine.newMap();
+		Map<HashIndex, Map<?, ?>> matches = (Map<HashIndex, Map<?, ?>>)engine.newMap();
+		Map<Fact, Fact> submatch = (Map<Fact, Fact>)engine.newMap();
 		submatch.put(fact,fact);
 		matches.put(index.getSubIndex(),submatch);
 		this.memory.put(index,matches);
@@ -78,16 +78,15 @@ public class HashedNeqAlphaMemory extends HashedAlphaMemoryImpl {
 	/**
      * clear the memory.
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear() {
-		Iterator itr = this.memory.keySet().iterator();
+		Iterator<HashIndex> itr = this.memory.keySet().iterator();
 		while (itr.hasNext()) {
 			Object key = itr.next();
-			Map matches = (Map)this.memory.get(key);
-			Iterator itr2 = matches.keySet().iterator();
+			Map<?, ?> matches = (Map<?, ?>) this.memory.get(key);
+			Iterator<?> itr2 = matches.keySet().iterator();
 			while (itr2.hasNext()) {
 				Object subkey = itr2.next();
-				Map submatch = (Map)matches.get(subkey);
+				Map<?, ?> submatch = (Map<?, ?>)matches.get(subkey);
 				submatch.clear();
 			}
 			matches.clear();
@@ -95,11 +94,11 @@ public class HashedNeqAlphaMemory extends HashedAlphaMemoryImpl {
         this.memory.clear();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public boolean isPartialMatch(NotEqHashIndex index, Fact fact) {
-		Map match = (Map)this.memory.get(index);
+		@SuppressWarnings("unchecked")
+		Map<HashIndex,Map<?, ?>> match = (Map<HashIndex, Map<?, ?>>) this.memory.get(index);
 		if (match != null) {
-			Map submatch = (Map)match.get(index.getSubIndex());
+			Map<?, ?> submatch = (Map<?, ?>)match.get(index.getSubIndex());
 			if (submatch != null) {
 				return submatch.containsKey(fact);
 			} else {
@@ -113,11 +112,11 @@ public class HashedNeqAlphaMemory extends HashedAlphaMemoryImpl {
 	/**
      * remove a partial match from the memory
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings("unchecked")
 	public int removePartialMatch(NotEqHashIndex index, Fact fact) {
-		Map match = (Map)this.memory.get(index);
+		Map<HashIndex,Map<?, ?>> match = (Map<HashIndex, Map<?, ?>>) this.memory.get(index);
 		if (match != null) {
-			Map submatch = (Map)match.get(index.getSubIndex());
+			Map<?, ?> submatch = (Map<?, ?>)match.get(index.getSubIndex());
 			submatch.remove(fact);
 			if (submatch.size() == 0) {
 				match.remove(index.getSubIndex());
@@ -131,16 +130,16 @@ public class HashedNeqAlphaMemory extends HashedAlphaMemoryImpl {
     /**
      * Return the number of memories of all hash buckets
      */
-    @SuppressWarnings("rawtypes")
+	@SuppressWarnings("unchecked")
 	public int size() {
-    	Iterator itr = this.memory.keySet().iterator();
+    	Iterator<HashIndex> itr = this.memory.keySet().iterator();
     	int count = 0;
     	while (itr.hasNext()) {
-    		Map matches = (Map)this.memory.get(itr.next());
-    		Iterator itr2 = matches.keySet().iterator();
+    		Map<HashIndex,Map<?, ?>> matches = (Map<HashIndex,Map<?, ?>>) this.memory.get(itr.next());
+    		Iterator<?> itr2 = matches.keySet().iterator();
     		while (itr2.hasNext()) {
     			EqHashIndex ehi = (EqHashIndex)itr2.next();
-                Map submatch = (Map)matches.get(ehi);
+                Map<?, ?> submatch = (Map<?, ?>)matches.get(ehi);
         		count += submatch.size();
     		}
     	}
@@ -154,22 +153,22 @@ public class HashedNeqAlphaMemory extends HashedAlphaMemoryImpl {
     /**
      * Return an iterator of the values
      */
-    @SuppressWarnings("rawtypes")
+   	@SuppressWarnings("unchecked")
 	public Object[] iterator(NotEqHashIndex index) {
-    	Map matches = (Map)this.memory.get(index);
+    	Map<HashIndex,Map<?, ?>> matches = (Map<HashIndex, Map<?, ?>>) this.memory.get(index);
     	Object[] list = new Object[this.counter];
     	Object[] trim = null;
     	int idz = 0;
 		if (matches != null) {
-			Iterator itr = matches.keySet().iterator();
+			Iterator<?> itr = matches.keySet().iterator();
 			while (itr.hasNext()) {
 				Object key = itr.next();
 				// if the key doesn't match the subindex, we
 				// add it to the list. If it matches, we exclude
 				// it.
 				if (!index.getSubIndex().equals(key)) {
-					Map submatch = (Map)matches.get(key);
-					Iterator itr2 = submatch.keySet().iterator();
+					Map<?, ?> submatch = (Map<?, ?>)matches.get(key);
+					Iterator<?> itr2 = submatch.keySet().iterator();
 					while (itr2.hasNext()) {
 						list[idz] = itr2.next();
 						idz++;
@@ -192,18 +191,18 @@ public class HashedNeqAlphaMemory extends HashedAlphaMemoryImpl {
      * @param index
      * @return
      */
-    @SuppressWarnings("rawtypes")
+   	@SuppressWarnings("unchecked")
 	public boolean zeroMatch(NotEqHashIndex index) {
-        Map matches = (Map)this.memory.get(index);
+    	Map<HashIndex,Map<?, ?>> matches = (Map<HashIndex, Map<?, ?>>) this.memory.get(index);
         int idz = 0;
         if (matches != null) {
-            Iterator itr = matches.keySet().iterator();
+            Iterator<?> itr = matches.keySet().iterator();
             while (itr.hasNext()) {
                 Object key = itr.next();
                 // if the key doesn't match the subindex, add it to the
                 // counter.
                 if (!index.getSubIndex().equals(key)) {
-                    Map submatch = (Map)matches.get(key);
+                    Map<?, ?> submatch = (Map<?, ?>)matches.get(key);
                     idz += submatch.size();
                 }
                 if (idz > 0) {
@@ -220,17 +219,17 @@ public class HashedNeqAlphaMemory extends HashedAlphaMemoryImpl {
      * return an arraylist with all the facts
      * @return
      */
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
 	public Object[] iterateAll() {
     	Object[] facts = new Object[this.counter];
-    	Iterator itr = this.memory.keySet().iterator();
+    	Iterator<HashIndex> itr = this.memory.keySet().iterator();
     	int idx = 0;
     	while (itr.hasNext()) {
-    		Map matches = (Map)this.memory.get(itr.next());
-    		Iterator itr2 = matches.keySet().iterator();
+    		Map<HashIndex,Map<?, ?>> matches = (Map<HashIndex, Map<?, ?>>) this.memory.get(itr.next());
+    		Iterator<?> itr2 = matches.keySet().iterator();
     		while (itr2.hasNext()) {
-    			Map submatch = (Map)matches.get(itr2.next());
-    			Iterator itr3 = submatch.values().iterator();
+    			Map<?, ?> submatch = (Map<?, ?>)matches.get(itr2.next());
+    			Iterator<?> itr3 = submatch.values().iterator();
     			while (itr3.hasNext()) {
         			facts[idx] = itr3.next();
         			idx++;

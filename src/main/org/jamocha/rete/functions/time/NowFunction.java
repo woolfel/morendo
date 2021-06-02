@@ -70,8 +70,7 @@ public class NowFunction implements Function, Serializable {
 		return NOW;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
         return new Class[0];
 	}
 

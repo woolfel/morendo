@@ -48,8 +48,7 @@ public class InterpretedFunction implements Function, Scope {
      * function.
      */
     private Parameter[][] functionParams = null;
-    @SuppressWarnings("rawtypes")
-	private HashMap bindings = new HashMap();
+	private HashMap<String, Object> bindings = new HashMap<String, Object>();
 
     /**
      * 
@@ -69,8 +68,7 @@ public class InterpretedFunction implements Function, Scope {
     /* (non-Javadoc)
      * @see org.jamocha.rete.Function#executeFunction(org.jamocha.rete.Rete, org.jamocha.rete.Parameter[])
      */
-    @SuppressWarnings("unchecked")
-	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
+    public ReturnVector executeFunction(Rete engine, Parameter[] params) {
         // the first thing we do is set the values
         DefaultReturnVector ret = new DefaultReturnVector();
         if (params.length == this.inputParams.length) {
@@ -100,8 +98,9 @@ public class InterpretedFunction implements Function, Scope {
         return this.name;
     }
 
-    @SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+
+
+  public Class<?>[] getParameter() {
         return new Class[]{BoundParam.class};
     }
 
@@ -129,8 +128,7 @@ public class InterpretedFunction implements Function, Scope {
         return this.bindings.get(var);
     }
     
-    @SuppressWarnings("unchecked")
-	public void setBindingValue(String name, Object value) {
+    public void setBindingValue(String name, Object value) {
         this.bindings.put(name, value);
     }
 }

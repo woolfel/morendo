@@ -70,11 +70,10 @@ public class LoadGraphFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
 		// boolean loaded = true; Unused
-		List facts = new ArrayList();
+		List<Deffact> facts = new ArrayList<Deffact>();
 		if (params != null && params.length > 0) {
 			for (int idx = 0; idx < params.length; idx++) {
 				String input = null;
@@ -95,8 +94,8 @@ public class LoadGraphFunction implements Function, Serializable {
 				try {
                     InputStream inStream = getInputStream(input);
 					CLIPSParser parser = new CLIPSParser(inStream);
-					List data = parser.loadExpr();
-					Iterator itr = data.iterator();
+					List<?> data = parser.loadExpr();
+					Iterator<?> itr = data.iterator();
 					while (itr.hasNext()) {
 						Object val = itr.next();
 						ValueParam[] vp = (ValueParam[])val;
@@ -123,7 +122,7 @@ public class LoadGraphFunction implements Function, Serializable {
 			loaded = false;
 		} */
 		Deffact[] farray = new Deffact[facts.size()];
-		farray = (Deffact[])facts.toArray(farray);
+		farray = facts.toArray(farray);
 		DefaultReturnValue drv = new DefaultReturnValue(
 				Constants.OBJECT_TYPE, farray);
 		rv.addReturnValue(drv);
@@ -134,8 +133,7 @@ public class LoadGraphFunction implements Function, Serializable {
 		return LOAD;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

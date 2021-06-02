@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.jamocha.rete.Fact;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.exception.AssertException;
 import org.jamocha.rete.exception.RetractException;
@@ -36,8 +37,7 @@ public class ServletEngineContext implements EngineContext {
 	private String version = null;
 	private long startTime = 0;
 	private long endTime = 0;
-	@SuppressWarnings("rawtypes")
-	private List objectList = new ArrayList();
+	private List<Object> objectList = new ArrayList<Object>();
 	private ServletContext servletContext = null;
 	
 	protected ServletEngineContext() {
@@ -58,8 +58,7 @@ public class ServletEngineContext implements EngineContext {
 		return this.engine;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void assertObject(Object data, boolean isStatic, boolean isShadowed)
+	public void assertObject(Fact data, boolean isStatic, boolean isShadowed)
 			throws AssertException {
 		try {
 			objectList.add(data);
@@ -70,11 +69,10 @@ public class ServletEngineContext implements EngineContext {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void asssertObjects(List data, boolean isStatic, boolean isShadowed)
+	public void asssertObjects(List<Fact> data, boolean isStatic, boolean isShadowed)
 			throws AssertException {
 		objectList.addAll(data);
-		Iterator itr = data.iterator();
+		Iterator<Fact> itr = data.iterator();
 		while (itr.hasNext()) {
 			try {
 				engine.assertObject(itr.next(), null, isStatic, isShadowed);
@@ -85,13 +83,12 @@ public class ServletEngineContext implements EngineContext {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
 	public void close() {
 		this.endTime = System.currentTimeMillis();
 		long elapsedTime = endTime - startTime;
 		int count = engine.getRulesFiredCount();
 		this.ruleService.updateStatistics(elapsedTime, count);
-		Iterator itr = objectList.iterator();
+		Iterator<Object> itr = objectList.iterator();
 		while (itr.hasNext()) {
 			try {
 				this.engine.retractObject(itr.next());
@@ -111,8 +108,7 @@ public class ServletEngineContext implements EngineContext {
 		return this.applicationName;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List getObjects() {
+	public List<?> getObjects() {
 		return engine.getObjects();
 	}
 
@@ -129,10 +125,9 @@ public class ServletEngineContext implements EngineContext {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void modifyObjects(List data) throws AssertException,
+	public void modifyObjects(List<?> data) throws AssertException,
 			RetractException {
-		Iterator itr = data.iterator();
+		Iterator<?> itr = data.iterator();
 		while (itr.hasNext()) {
 			try {
 				engine.modifyObject(itr.next());
@@ -155,9 +150,8 @@ public class ServletEngineContext implements EngineContext {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void removeObjects(List data) throws RetractException {
-		Iterator itr = data.iterator();
+	public void removeObjects(List<?> data) throws RetractException {
+		Iterator<?> itr = data.iterator();
 		while (itr.hasNext()) {
 			try {
 				engine.retractObject(itr.next());

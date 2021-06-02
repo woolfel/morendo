@@ -79,8 +79,7 @@ public class Min implements Function, Serializable {
 		return MIN;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

@@ -25,15 +25,12 @@ package org.jamocha.rule;
  * @author Peter Lin
  */
 public class ComplexityFactory {
-	@SuppressWarnings("rawtypes")
-	private static Class complexityClazz = null;
+	private static Class<?> complexityClazz = null;
 	
-	@SuppressWarnings("rawtypes")
-	public static void setComplexityClass(Class clzz) {
+	public static void setComplexityClass(Class<?> clzz) {
 		complexityClazz = clzz;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static Complexity newInstance() {
 		if (complexityClazz == null) {
 			return new DefaultComplexity();

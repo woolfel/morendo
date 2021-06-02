@@ -56,14 +56,14 @@ public class QueryHashedEqJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
             throws AssertException {
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
+        Map<Index, Index> leftmem = (Map<Index, Index>) mem.getQueryBetaMemory(this);
         leftmem.put(linx, linx);
         EqHashIndex inx = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem.getQueryRightMemory(this);
-        Iterator itr = rightmem.iterator(inx);
+        Iterator<?> itr = rightmem.iterator(inx);
     	if (this.watch) {
     		engine.writeMessage("QueryHashedEqJoin (" + this.nodeID + ") - assertLeft:: " + 
     				linx.toPPString() + Constants.LINEBREAK);
@@ -84,7 +84,6 @@ public class QueryHashedEqJoin extends QueryBaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings("rawtypes")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
             throws AssertException {
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem.getQueryRightMemory(this);
@@ -93,12 +92,12 @@ public class QueryHashedEqJoin extends QueryBaseJoin {
         rightmem.addPartialMatch(inx, rfact, engine);
         // now that we've added the facts to the list, we
         // proceed with evaluating the fact
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getQueryBetaMemory(this);
         // since there may be key collisions, we iterate over the
         // values of the HashMap. If we used keySet to iterate,
         // we could encounter a ClassCastException in the case of
         // key collision.
-        Iterator itr = leftmem.values().iterator();
+        Iterator<?> itr = leftmem.values().iterator();
     	if (this.watch) {
     		engine.writeMessage("QueryHashedEqJoin (" + this.nodeID + ") - assertRight::Rmem:: " + 
     				rfact.toFactString() + Constants.LINEBREAK);

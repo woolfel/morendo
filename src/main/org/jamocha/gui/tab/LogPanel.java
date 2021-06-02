@@ -321,8 +321,7 @@ public class LogPanel extends AbstractJamochaPanel implements ActionListener,
 			return false;
 		}
 
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		public Class getColumnClass(int aColumn) {
+		public Class<String> getColumnClass(int aColumn) {
 			return java.lang.String.class;
 		}
 

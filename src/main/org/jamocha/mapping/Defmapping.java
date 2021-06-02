@@ -26,11 +26,9 @@ public class Defmapping implements Mapping {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String className;
-	@SuppressWarnings("rawtypes")
-	private List keyProperties = new ArrayList();
+	private List<KeyProperty> keyProperties = new ArrayList<KeyProperty>();
 	private String mappingName;
-	@SuppressWarnings("rawtypes")
-	private List properties = new ArrayList();
+	private List<Property> properties = new ArrayList<Property>();
 	private String sqlQuery;
 	private String tableName;
 	private String template;
@@ -46,13 +44,11 @@ public class Defmapping implements Mapping {
 		this.className = className;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List getKeyProperties() {
+	public List<KeyProperty> getKeyProperties() {
 		return keyProperties;
 	}
-
-	@SuppressWarnings("rawtypes")
-	public void setKeyProperties(List keyProperties) {
+  
+	public void setKeyProperties(List<KeyProperty> keyProperties) {
 		this.keyProperties = keyProperties;
 	}
 
@@ -64,13 +60,11 @@ public class Defmapping implements Mapping {
 		this.mappingName = mappingName;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List getProperties() {
+	public List<Property> getProperties() {
 		return properties;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setProperties(List properties) {
+	public void setProperties(List<Property> properties) {
 		this.properties = properties;
 	}
 
@@ -102,12 +96,10 @@ public class Defmapping implements Mapping {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void addKeyProperty(KeyProperty key) {
 		keyProperties.add(key);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void addProperty(Property property) {
 		properties.add(property);
 	}

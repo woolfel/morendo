@@ -53,8 +53,7 @@ public class TestCondition implements Condition {
 	private static final long serialVersionUID = 1L;
 	protected Function func = null;
     protected TestNode node = null;
-    @SuppressWarnings("rawtypes")
-	protected ArrayList binds = new ArrayList();
+	protected ArrayList<Object> binds = new ArrayList<Object>();
     protected boolean negated = false;
 
     
@@ -96,9 +95,8 @@ public class TestCondition implements Condition {
      * the current implementation creates a new ArrayList, adds the
      * TestNode to it and returns the list.
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public List getNodes() {
-        List n = new ArrayList();
+	public List<TestNode> getNodes() {
+        List<TestNode> n = new ArrayList<TestNode>();
         n.add(node);
         return n;
     }    
@@ -148,8 +146,7 @@ public class TestCondition implements Condition {
      * return an List of the bindings. in the case of TestCondition, the
      * bindings are BoundParam
      */
-	@SuppressWarnings("rawtypes")
-	public List getBindConstraints() {
+	public List<Object> getBindConstraints() {
 		return binds;
 	}
     

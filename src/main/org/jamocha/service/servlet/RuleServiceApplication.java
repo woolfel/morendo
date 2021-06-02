@@ -31,6 +31,8 @@ import org.jamocha.logging.Logger;
 import org.jamocha.rete.Function;
 import org.jamocha.rete.Rete;
 import org.jamocha.service.ClipsInitialData;
+import org.jamocha.service.ClipsRuleset;
+import org.jamocha.service.FunctionPackage;
 import org.jamocha.service.InitialData;
 import org.jamocha.service.Model;
 import org.jamocha.service.ObjectData;
@@ -52,20 +54,16 @@ public class RuleServiceApplication implements RuleApplication {
 	private transient Logger log = LogFactory.createLogger(RuleServiceApplication.class);
 	private String applicationName = null;
 	private String version = null;
-	@SuppressWarnings("rawtypes")
-	private List models = null;
+	private List<ObjectModel> models = null;
 	private List<ObjectData> objectData = null;
 	private List<ClipsInitialData> clipsData = null;
-	@SuppressWarnings("rawtypes")
-	private List functionGroups = null;
-	@SuppressWarnings("rawtypes")
-	private List rulesets = new ArrayList();
+	private List<FunctionPackage> functionGroups = null;
+	private List<ClipsRuleset> rulesets = new ArrayList<ClipsRuleset>();
 	/**
 	 * FunctionGroup just lists the names, we keep the
 	 * instances in a list to make it easier to reload.
 	 */
-	@SuppressWarnings("rawtypes")
-	private List functionInstances = new ArrayList();
+	private List<Object> functionInstances = new ArrayList<Object>();
 	
 	private int minPool;
 	private int maxPool;
@@ -94,12 +92,11 @@ public class RuleServiceApplication implements RuleApplication {
 	 * data that isn't declared in the models.
 	 * @return
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected URLClassLoader createURLClassLoader() {
-		ArrayList urls = new ArrayList();
+		ArrayList<URL> urls = new ArrayList<URL>();
 		if (this.models != null) {
 			for (int idx=0; idx < models.size(); idx++) {
-				Model m = (Model) models.get(idx);
+				Model m = models.get(idx);
 				if (m instanceof ObjectModel) {
 					((ObjectModel)m).setRuleApplication(this);
 				}
@@ -117,7 +114,7 @@ public class RuleServiceApplication implements RuleApplication {
 			}
 		}
 		URL[] urllist = new URL[urls.size()];
-		urllist = (URL[])urls.toArray(urllist);
+		urllist = urls.toArray(urllist);
 		return URLClassLoader.newInstance(urllist, RuleServiceApplication.class.getClassLoader());
 	}
 	
@@ -125,8 +122,7 @@ public class RuleServiceApplication implements RuleApplication {
 		return this.classloader;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public Class findClass(String className) {
+	public Class<?> findClass(String className) {
 		try {
 			return this.classloader.loadClass(className);
 		} catch (ClassNotFoundException e) {
@@ -168,7 +164,7 @@ public class RuleServiceApplication implements RuleApplication {
 	public boolean loadModels(Rete engine) {
 		boolean success = true;
 		for (int idx=0; idx < this.models.size(); idx++) {
-			Model m = (Model)models.get(idx);
+			Model m = models.get(idx);
 			m.loadModel(engine);
 		}
 		return success;
@@ -179,10 +175,9 @@ public class RuleServiceApplication implements RuleApplication {
 	 * users can group a variety of functions or groups into a logical group.
 	 * Within the rule engine, functions will be added to the main group.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public boolean loadFunctionGroups(Rete engine) {
 		if (this.functionInstances == null) {
-			this.functionInstances = new ArrayList();
+			this.functionInstances = new ArrayList<Object>();
 		}
 		boolean success = true;
 		for (int idx=0; idx < this.functionGroups.size(); idx++) {
@@ -190,7 +185,7 @@ public class RuleServiceApplication implements RuleApplication {
 			String[] classnames = functionGroup.getClassNames();
 			for (int fx=0; fx < classnames.length; fx++) {
 				String classname = classnames[fx];
-				Class clzz;
+				Class<?> clzz;
 				try {
 					clzz = classloader.loadClass(classname);
 					if (clzz != null) {
@@ -254,7 +249,7 @@ public class RuleServiceApplication implements RuleApplication {
 		boolean success = true;
 		if (this.objectData != null) {
 			for (int idx=0; idx < this.objectData.size(); idx++) {
-				InitialData initialData = (InitialData)this.objectData.get(idx);
+				InitialData initialData = this.objectData.get(idx);
 				initialData.loadData(engine);
 			}
 		}
@@ -319,7 +314,7 @@ public class RuleServiceApplication implements RuleApplication {
 	public boolean reloadInitialData(Rete engine) {
 		boolean reload = false;
 		for (int idx=0; idx < this.objectData.size(); idx++) {
-			InitialData initialData = (InitialData)this.objectData.get(idx);
+			InitialData initialData = this.objectData.get(idx);
 			reload = initialData.reloadData(engine);
 			if (!reload) {
 				break;
@@ -328,13 +323,11 @@ public class RuleServiceApplication implements RuleApplication {
 		return reload;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List getFunctionGroups() {
-		return this.functionGroups;
+	public List<FunctionPackage> getFunctionGroups() {
+		return (List<FunctionPackage>) this.functionGroups;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List getObjectData() {
+	public List<ObjectData> getObjectData() {
 		return this.objectData;
 	}
 
@@ -350,8 +343,7 @@ public class RuleServiceApplication implements RuleApplication {
 		return minPool;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List getModels() {
+	public List<ObjectModel> getModels() {
 		return this.models;
 	}
 
@@ -359,8 +351,7 @@ public class RuleServiceApplication implements RuleApplication {
 		return this.applicationName;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List getRulesets() {
+	public List<ClipsRuleset> getRulesets() {
 		return this.rulesets;
 	}
 
@@ -368,13 +359,11 @@ public class RuleServiceApplication implements RuleApplication {
 		return this.version;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public void setFunctionGroups(List functionGroups) {
+	public void setFunctionGroups(List<FunctionPackage> functionGroups) {
 		this.functionGroups = functionGroups;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void setObjectData(List data) {
+	public void setObjectData(List<ObjectData> data) {
 		this.objectData = data;
 	}
 
@@ -398,8 +387,7 @@ public class RuleServiceApplication implements RuleApplication {
 		this.minPool = min;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setModels(List models) {
+	public void setModels(List<ObjectModel> models) {
 		this.models = models;
 	}
 
@@ -407,8 +395,7 @@ public class RuleServiceApplication implements RuleApplication {
 		this.applicationName = name;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setRulesets(List rulesets) {
+	public void setRulesets(List<ClipsRuleset> rulesets) {
 		this.rulesets = rulesets;
 	}
 

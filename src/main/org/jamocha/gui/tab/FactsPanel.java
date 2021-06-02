@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,7 +47,6 @@ import org.jamocha.gui.icons.IconLoader;
 import org.jamocha.rete.BaseSlot;
 import org.jamocha.rete.Constants;
 import org.jamocha.rete.Fact;
-import org.jamocha.rete.MultiSlot;
 import org.jamocha.rete.exception.RetractException;
 
 /**
@@ -116,9 +116,8 @@ public class FactsPanel extends AbstractJamochaPanel implements ActionListener,
 		initPopupMenu();
 	}
 
-	@SuppressWarnings("unchecked")
 	private void initFactsList() {
-		List<Fact> facts = gui.getEngine().getAllFacts();
+		List<Fact> facts = (List<Fact>) gui.getEngine().getAllFacts();
 		dataModel.setFacts(facts);
 		factsTable.getColumnModel().getColumn(0).setPreferredWidth(50);
 		factsTable.getColumnModel().getColumn(1).setPreferredWidth(
@@ -203,8 +202,7 @@ public class FactsPanel extends AbstractJamochaPanel implements ActionListener,
 			return false;
 		}
 
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		public Class getColumnClass(int aColumn) {
+		public Class<?> getColumnClass(int aColumn) {
 			if (aColumn == 0)
 				return java.lang.Number.class;
 			else if (aColumn == 1)
@@ -245,13 +243,9 @@ public class FactsPanel extends AbstractJamochaPanel implements ActionListener,
 					BaseSlot[] slots = fact.getDeftemplate().getAllSlots();
 					for (BaseSlot slot : slots) {
 						buffer.append("\n    (" + slot.getName() + " ");
-						if (slot.getValueType() == Constants.ARRAY_TYPE) {
-                            MultiSlot ms = (MultiSlot)slot;
-							for (int i = 0; i < ms.getValue().length; ++i) {
-									if (i > 0)
-										buffer.append(" ");
-									buffer.append(ms.getValue()[i].toString());
-								}
+						if (slot.getValueType() == Constants.ARRAY_TYPE) { 
+							//Just turn the array into a string
+							buffer.append(Arrays.toString((Object[])fact.getSlotValue(slot.getId())));
 						} else {
 							String value = fact.getSlotValue(slot.getId())
 									.toString();

@@ -153,10 +153,9 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 	/**
 	 * method compiles ObjectConditions
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BaseJoin compileJoin(Condition condition, int position, Rule rule, Condition previousCond) {
-		ArrayList dbindings = new ArrayList();
-		ArrayList mbindings = new ArrayList();
+		ArrayList<CubeBinding> dbindings = new ArrayList<CubeBinding>();
+		ArrayList<CubeBinding> mbindings = new ArrayList<CubeBinding>();
         getCubeBindings(condition,rule,position,dbindings,mbindings);
         ObjectCondition oc = (ObjectCondition)condition;
         BaseJoin joinNode = null;
@@ -170,9 +169,9 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 
         // now set the cube bindings
         CubeBinding[] dmnBindings = new CubeBinding[dbindings.size()];
-        dmnBindings = (CubeBinding[])dbindings.toArray(dmnBindings);
+        dmnBindings = dbindings.toArray(dmnBindings);
         CubeBinding[] msrBindings = new CubeBinding[mbindings.size()];
-        msrBindings = (CubeBinding[])mbindings.toArray(msrBindings);
+        msrBindings = mbindings.toArray(msrBindings);
         // set all the bindings
         joinNode.setBindings(binds);
         ((CubeQueryBNode)joinNode).setNumericBindings(nbinds);
@@ -181,10 +180,9 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 		return joinNode;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public QueryBaseJoin compileJoin(Condition condition, int position, Query rule, Condition previousCond) {
-		ArrayList dbindings = new ArrayList();
-		ArrayList mbindings = new ArrayList();
+		ArrayList<CubeBinding> dbindings = new ArrayList<CubeBinding>();
+		ArrayList<CubeBinding> mbindings = new ArrayList<CubeBinding>();
         getCubeBindings(condition,rule,position,dbindings,mbindings);
         ObjectCondition oc = (ObjectCondition)condition;
         QueryBaseJoin joinNode = null;
@@ -198,9 +196,9 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 
         // now set the cube bindings
         CubeBinding[] dmnBindings = new CubeBinding[dbindings.size()];
-        dmnBindings = (CubeBinding[])dbindings.toArray(dmnBindings);
+        dmnBindings = dbindings.toArray(dmnBindings);
         CubeBinding[] msrBindings = new CubeBinding[mbindings.size()];
-        msrBindings = (CubeBinding[])mbindings.toArray(msrBindings);
+        msrBindings = mbindings.toArray(msrBindings);
         // set all the bindings
         joinNode.setBindings(binds);
         ((QueryCubeQueryJoin)joinNode).setNumericBindings(nbinds);
@@ -228,12 +226,11 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 	public void compileSingleCE(Query query) throws AssertException{
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Binding[] getLeftBindings(Condition condition, Rule rule, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
-	       List Constraints = cqcond.getQueryConstraints();
+	       List<?> Constraints = cqcond.getQueryConstraints();
 	       Template tmpl = cqcond.getTemplate();
-	       ArrayList bindlist = new ArrayList();
+	       ArrayList<Binding> bindlist = new ArrayList<Binding>();
         for (int idz=0; idz < Constraints.size(); idz++) {
             Object cst = Constraints.get(idz);
             if (cst instanceof BoundConstraint) {
@@ -258,16 +255,15 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
             }
         }
         Binding[] binds = new Binding[bindlist.size()];
-        binds = (Binding[])bindlist.toArray(binds);
+        binds = bindlist.toArray(binds);
         return binds;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Binding[] getLeftBindings(Condition condition, Query query, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
-	       List Constraints = cqcond.getQueryConstraints();
+	       List<?> Constraints = cqcond.getQueryConstraints();
 	       Template tmpl = cqcond.getTemplate();
-	       ArrayList bindlist = new ArrayList();
+	       ArrayList<Binding> bindlist = new ArrayList<Binding>();
         for (int idz=0; idz < Constraints.size(); idz++) {
             Object cst = Constraints.get(idz);
             if (cst instanceof BoundConstraint) {
@@ -292,16 +288,15 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
             }
         }
         Binding[] binds = new Binding[bindlist.size()];
-        binds = (Binding[])bindlist.toArray(binds);
+        binds = bindlist.toArray(binds);
         return binds;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Binding[] getNumericBindings(Condition condition, Rule rule, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
-		List Constraints = cqcond.getQueryConstraints();
+		List<?> Constraints = cqcond.getQueryConstraints();
 		Template tmpl = cqcond.getTemplate();
-		ArrayList bindlist = new ArrayList();
+		ArrayList<Binding> bindlist = new ArrayList<Binding>();
 		for (int idz=0; idz < Constraints.size(); idz++) {
 			Object cst = Constraints.get(idz);
 	   		if (cst instanceof PredicateConstraint) {
@@ -322,16 +317,15 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 	   		}
 		}
 		Binding[] binds = new Binding[bindlist.size()];
-		binds = (Binding[])bindlist.toArray(binds);
+		binds = bindlist.toArray(binds);
 		return binds;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Binding[] getNumericBindings(Condition condition, Query query, int position) {
 		CubeQueryCondition cqcond = (CubeQueryCondition)getObjectCondition(condition);
-		List Constraints = cqcond.getQueryConstraints();
+		List<?> Constraints = cqcond.getQueryConstraints();
 		Template tmpl = cqcond.getTemplate();
-		ArrayList bindlist = new ArrayList();
+		ArrayList<Binding> bindlist = new ArrayList<Binding>();
 		for (int idz=0; idz < Constraints.size(); idz++) {
 			Object cst = Constraints.get(idz);
 	   		if (cst instanceof PredicateConstraint) {
@@ -352,12 +346,11 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 	   		}
 		}
 		Binding[] binds = new Binding[bindlist.size()];
-		binds = (Binding[])bindlist.toArray(binds);
+		binds = bindlist.toArray(binds);
 		return binds;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void getCubeBindings(Condition condition, Rule rule, int position, ArrayList dimensionBinding, ArrayList measureBinding) {
+	public void getCubeBindings(Condition condition, Rule rule, int position, ArrayList<CubeBinding> dimensionBinding, ArrayList<CubeBinding> measureBinding) {
 		CubeQueryCondition cqcondition = (CubeQueryCondition)condition;
 		Cube cube = this.ruleCompiler.getEngine().getCube(cqcondition.getTemplateName());
 		Constraint[] constraints = cqcondition.getConstraints();
@@ -388,8 +381,7 @@ public class CubeQueryConditionCompiler extends AbstractConditionCompiler{
 		}
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void getCubeBindings(Condition condition, Query query, int position, ArrayList dimensionBinding, ArrayList measureBinding) {
+	public void getCubeBindings(Condition condition, Query query, int position, ArrayList<CubeBinding> dimensionBinding, ArrayList<CubeBinding> measureBinding) {
 		CubeQueryCondition cqcondition = (CubeQueryCondition)condition;
 		Cube cube = this.queryCompiler.getEngine().getCube(cqcondition.getTemplateName());
 		Constraint[] constraints = cqcondition.getConstraints();

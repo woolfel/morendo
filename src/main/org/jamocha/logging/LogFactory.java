@@ -18,8 +18,7 @@ public class LogFactory {
 	}
 
 	
-	@SuppressWarnings("rawtypes")
-	public static Logger createLogger(Class clazz) {
+	public static Logger createLogger(Class<?> clazz) {
 		if (mode == LOG4J) {
 			if (!configuredLog4J) {
 				PropertyConfigurator.configure("log4j.properties");

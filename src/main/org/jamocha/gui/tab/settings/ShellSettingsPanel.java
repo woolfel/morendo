@@ -43,11 +43,9 @@ public class ShellSettingsPanel extends AbstractSettingsPanel implements
 
 	private static final long serialVersionUID = -7136144663514250335L;
 
-	@SuppressWarnings("rawtypes")
-	private JComboBox fonts;
+	private JComboBox<?> fonts;
 
-	@SuppressWarnings("rawtypes")
-	private JComboBox fontsizes;
+	private JComboBox<?> fontsizes;
 
 	private JButton fontColorChooserButton;
 
@@ -57,7 +55,6 @@ public class ShellSettingsPanel extends AbstractSettingsPanel implements
 
 	private JTextField backgroundColorChooserPreview;
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ShellSettingsPanel(JamochaGui gui) {
 		super(gui);
 		GridBagLayout gridbag = new GridBagLayout();
@@ -70,7 +67,7 @@ public class ShellSettingsPanel extends AbstractSettingsPanel implements
 		GraphicsEnvironment ge = GraphicsEnvironment
 				.getLocalGraphicsEnvironment();
 		Font allFonts[] = ge.getAllFonts();
-		fonts = new JComboBox(allFonts);
+		fonts = new JComboBox<Object>(allFonts);
 		Font selFont = null;
 		String selFontName = gui.getPreferences().get("shell.font", "Courier");
 		for (Font curFont : allFonts) {
@@ -91,7 +88,7 @@ public class ShellSettingsPanel extends AbstractSettingsPanel implements
 		for (int i = 0; i < sizes.length; ++i) {
 			sizes[i] = 8 + i;
 		}
-		fontsizes = new JComboBox(sizes);
+		fontsizes = new JComboBox<Object>(sizes);
 		fontsizes.setSelectedItem(gui.getPreferences().getInt("shell.fontsize",
 				12));
 		addInputComponent(this, fontsizes, gridbag, c, 1);
@@ -145,8 +142,7 @@ public class ShellSettingsPanel extends AbstractSettingsPanel implements
 			super();
 		}
 
-		@SuppressWarnings("rawtypes")
-		public Component getListCellRendererComponent(JList list, Object value,
+		public Component getListCellRendererComponent(JList<?> list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
 			super.getListCellRendererComponent(list, value, index, isSelected,
 					cellHasFocus);

@@ -50,12 +50,11 @@ public class QueryHashedNeqNot extends QueryBaseNot {
     /**
      * clear will clear the lists
      */
-    @SuppressWarnings("rawtypes")
-	public void clear(WorkingMemory mem){
-        Map leftmem = (Map)mem.getQueryBetaMemory(this);
+    	public void clear(WorkingMemory mem){
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getQueryBetaMemory(this);
         HashedNeqAlphaMemory rightmem = 
         	(HashedNeqAlphaMemory)mem.getQueryRightMemory(this);
-        Iterator itr = leftmem.keySet().iterator();
+        Iterator<?> itr = leftmem.keySet().iterator();
         // first we iterate over the list for each fact
         // and clear it.
         while (itr.hasNext()){
@@ -75,11 +74,11 @@ public class QueryHashedNeqNot extends QueryBaseNot {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
+        Map<Index, Index> leftmem = (Map<Index, Index>) mem.getQueryBetaMemory(this);
 		leftmem.put(linx, linx);
     }
 
@@ -102,10 +101,9 @@ public class QueryHashedNeqNot extends QueryBaseNot {
      * ExecuteJoin will perform an index join and propogate the partial matches
      * down the query network.
      */
-    @SuppressWarnings("rawtypes")
 	public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
-        Map leftmem = (Map) mem.getQueryBetaMemory(this);
-        Iterator iterator = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getQueryBetaMemory(this);
+        Iterator<?> iterator = leftmem.values().iterator();
         while (iterator.hasNext()) {
     		Index index = (Index)iterator.next();
     		NotEqHashIndex inx = new NotEqHashIndex(NodeUtils.getLeftBindValues(this.binds,index.getFacts()));

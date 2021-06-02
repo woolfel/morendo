@@ -62,8 +62,7 @@ public class LengthFunction implements Serializable, Function {
 		return LENGTH;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}
 

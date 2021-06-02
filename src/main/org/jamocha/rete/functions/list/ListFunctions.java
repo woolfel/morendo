@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jamocha.rete.Function;
 import org.jamocha.rete.FunctionGroup;
 import org.jamocha.rete.Rete;
 
@@ -13,8 +14,7 @@ public class ListFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private ArrayList funcs = new ArrayList();
+	private ArrayList<Function> funcs = new ArrayList<Function>();
 	
 	public ListFunctions() {
 		super();
@@ -24,12 +24,10 @@ public class ListFunctions implements FunctionGroup, Serializable {
 		return ListFunctions.class.getSimpleName();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List listFunctions() {
+	public List<Function> listFunctions() {
 		return funcs;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		BottomFunction btm = new BottomFunction();
 		funcs.add(btm);

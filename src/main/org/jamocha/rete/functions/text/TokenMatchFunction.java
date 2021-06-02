@@ -96,8 +96,7 @@ public class TokenMatchFunction implements Function, Serializable {
 		return TOKENMATCH;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class,BoundParam.class,ValueParam.class};
 	}
 

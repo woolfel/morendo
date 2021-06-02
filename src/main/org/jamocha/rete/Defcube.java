@@ -43,34 +43,28 @@ public class Defcube implements Cube {
 	private Measure[] measures;
 	private String description;
 	private String name;
-	@SuppressWarnings("rawtypes")
-	private List objectConditionList = null;
-	@SuppressWarnings("rawtypes")
-	private Map bindings = null;
-	@SuppressWarnings("rawtypes")
-	private Map bindingsByName = null;
+	private List<?> objectConditionList = null;
+	private Map<String, Object> bindings = null;
+	private Map<String, Object> bindingsByName = null;
 	private Deftemplate[] templates = null;
-	@SuppressWarnings("rawtypes")
-	private Map dataset = null;
-	@SuppressWarnings("rawtypes")
-	private Map dimensionMap = null;
-	@SuppressWarnings("rawtypes")
-	private Map dimensionMapByBinding = null;
-	@SuppressWarnings("rawtypes")
-	private Map measureMap = null;
+	private Map<Index, Index> dataset = null;
+	private Map<String, Object> dimensionMap = null;
+	private Map<String, Object> dimensionMapByBinding = null;
+	private Map<String, Object> measureMap = null;
 	private Defrule updateRule = null;
 	private boolean compileSuccessful = true;
 	private boolean profile = false;
 	private boolean profileIndex = false;
 	
+	@SuppressWarnings("unchecked")
 	public Defcube(Rete engine) {
 		super();
-		bindings = engine.newLocalMap();
-		bindingsByName = engine.newLocalMap();
-		dataset = engine.newMap();
-		dimensionMap = engine.newLocalMap();
-		dimensionMapByBinding = engine.newLocalMap();
-		measureMap = engine.newLocalMap();
+		bindings = (Map<String, Object>) engine.newLocalMap();
+		bindingsByName = (Map<String, Object>) engine.newLocalMap();
+		dataset = (Map<Index, Index>) engine.newMap();
+		dimensionMap = (Map<String, Object>) engine.newLocalMap();
+		dimensionMapByBinding = (Map<String, Object>) engine.newLocalMap();
+		measureMap = (Map<String, Object>) engine.newLocalMap();
 	}
 	
 	public CubeDimension[] getDimensions() {
@@ -121,20 +115,17 @@ public class Defcube implements Cube {
 		return (Defmeasure)measureMap.get(name);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void setDimensions(List list) {
+	public void setDimensions(List<?> list) {
 		CubeDimension[] dimens = new CubeDimension[list.size()];
 		this.dimensions = (CubeDimension[])list.toArray(dimens);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void setDefmeasures(List list) {
+	public void setDefmeasures(List<?> list) {
 		Defmeasure[] mrs = new Defmeasure[list.size()];
 		this.defmeasures = (Defmeasure[])list.toArray(mrs);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public void setDeftemplates(List list) {
+	public void setDeftemplates(List<?> list) {
 		objectConditionList = list;
 	}
 	
@@ -161,7 +152,6 @@ public class Defcube implements Cube {
 	 * Add data to the cube. It expects a fact array from the
 	 * generated cube rule.
 	 */
-	@SuppressWarnings("unchecked")
 	public void addData(Fact[] data, Rete engine) {
 		Index index = new Index((Fact[])data);
 		dataset.put(index, index);
@@ -199,9 +189,8 @@ public class Defcube implements Cube {
 	/**
 	 * Method is responsible for 
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public boolean compileCube(Rete engine) {
-		ArrayList templatelist = new ArrayList();
+		ArrayList<Deftemplate> templatelist = new ArrayList<Deftemplate>();
 		for (int idx=0; idx < objectConditionList.size(); idx++) {
 			ObjectCondition oc = (ObjectCondition)this.objectConditionList.get(idx);
 			Deftemplate templ = (Deftemplate)engine.getCurrentFocus().getTemplate(oc.getTemplateName());
@@ -212,7 +201,7 @@ public class Defcube implements Cube {
 			templatelist.add(templ);
 		}
 		Deftemplate[] tpl = new Deftemplate[this.objectConditionList.size()];
-		this.templates = (Deftemplate[])templatelist.toArray(tpl);
+		this.templates = templatelist.toArray(tpl);
 		compileBindings(engine);
 		if (this.compileSuccessful) {
 			configureDimensions(engine);
@@ -233,9 +222,8 @@ public class Defcube implements Cube {
 	 * compileObject bindings is responsible for iterating over the
 	 * ObjectConditions and creating the bindings
 	 */
-	@SuppressWarnings("unused")
 	protected void compileBindings(Rete engine) {
-		int counter = 0;
+		// int counter = 0;
 		for (int idx=0; idx < this.objectConditionList.size(); idx++) {
 			ObjectCondition oc = (ObjectCondition)this.objectConditionList.get(idx);
 			Constraint[] constraints = oc.getConstraints();
@@ -252,7 +240,7 @@ public class Defcube implements Cube {
 					binding.setSlotName(bc.getName());
 					addBinding(binding);
 				}
-				counter++;
+				//counter++;
 			}
 		}
 	}
@@ -265,7 +253,6 @@ public class Defcube implements Cube {
 		return (CubeBinding)bindingsByName.get(slotName);
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void addBinding(CubeBinding binding) {
 		CubeBinding b = (CubeBinding)bindings.get(binding.getVarName());
 		if (b == null) {
@@ -276,12 +263,10 @@ public class Defcube implements Cube {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void addMeasureBinding(CubeBinding binding) {
 		bindingsByName.put(binding.getSlotName(), binding);
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void configureDimensions(Rete engine) {
 		for (int idx=0; idx < dimensions.length; idx++) {
 			CubeDimension dimension = dimensions[idx];
@@ -301,7 +286,6 @@ public class Defcube implements Cube {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void configureMeasures(Rete engine) {
 		int dimensionsize = this.dimensions.length;
 		for (int idx=0; idx < this.defmeasures.length; idx++) {

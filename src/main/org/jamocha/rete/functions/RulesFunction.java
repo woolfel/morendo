@@ -55,11 +55,10 @@ public class RulesFunction implements Function, Serializable {
 		return Constants.RETURN_VOID_TYPE;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		Collection rules = engine.getCurrentFocus().getAllRules();
+		Collection<?> rules = engine.getCurrentFocus().getAllRules();
 		int count = rules.size();
-		Iterator itr = rules.iterator();
+		Iterator<?> itr = rules.iterator();
 		while (itr.hasNext()) {
 			Rule r = (Rule)itr.next();
 			engine.writeMessage(r.getName() + " \"" + r.getComment() +
@@ -74,8 +73,7 @@ public class RulesFunction implements Function, Serializable {
 		return rv;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

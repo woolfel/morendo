@@ -61,18 +61,12 @@ public class DefaultWM implements WorkingMemory, Serializable {
 
     protected RootNode root = null;
 
-    @SuppressWarnings("rawtypes")
-	protected Map alphaMemories = null;
-    @SuppressWarnings("rawtypes")
-	protected Map betaLeftMemories = null;
-    @SuppressWarnings("rawtypes")
-	protected Map betaRightMemories = null;
-    @SuppressWarnings("rawtypes")
-	protected Map terminalMemories = null;
-    @SuppressWarnings("rawtypes")
-	protected Map queryLeftMemories = null;
-    @SuppressWarnings("rawtypes")
-	protected Map queryRightMemories = null;
+	protected Map<Object, Object> alphaMemories = null;
+    protected Map<Object, Object> betaLeftMemories = null;
+	protected Map<Object, Object> betaRightMemories = null;
+	protected Map<Object, Object> terminalMemories = null;
+	protected Map<Object, Object> queryLeftMemories = null;
+	protected Map<Object, Object> queryRightMemories = null;
     protected RuleCompiler compiler = null;
 
     /**
@@ -81,21 +75,18 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * rule engine is notified of changes, it will check this list. If the
      * object instance is in this list, we ignore it.
      */
-    @SuppressWarnings("rawtypes")
-	protected Map staticFacts = null;
+    protected Map<Object, Object> staticFacts = null;
     /**
      * We keep a map of the dynamic object instances. When the rule engine is
      * notified
      */
-    @SuppressWarnings("rawtypes")
-	protected Map dynamicFacts = null;
+    protected Map<Object, Object> dynamicFacts = null;
     /**
      * We use a HashMap to make it easy to determine if an existing deffact
      * already exists in the working memory. this is only used for deffacts and
      * not for objects
      */
-    @SuppressWarnings("rawtypes")
-	protected Map deffactMap = null;
+    protected Map<Object, Object> deffactMap = null;
     /**
      * Container for Defglobals
      */
@@ -103,26 +94,20 @@ public class DefaultWM implements WorkingMemory, Serializable {
     /**
      * The initial facts the rule engine needs at startup
      */
-    @SuppressWarnings("rawtypes")
-	protected ArrayList initialFacts = new ArrayList();
+    protected ArrayList<?> initialFacts = new ArrayList<Object>();
 
     private Agenda agenda = null;
     /**
      * The ArrayList for the modules.
      */
-    @SuppressWarnings("rawtypes")
-	protected Map modules = null;
-    @SuppressWarnings("rawtypes")
-	protected Map cubes = null;
-    @SuppressWarnings("rawtypes")
-	protected Hashtable contexts = new Hashtable();
-    @SuppressWarnings("rawtypes")
-	protected ArrayList focusStack = new ArrayList();
+    protected Map<Object, Module> modules = null;
+    protected Map<Object, Object> cubes = null;
+    protected Hashtable<Object, Object> contexts = new Hashtable<Object, Object>();
+    protected ArrayList<?> focusStack = new ArrayList<Object>();
     private Module main = null;
     private Module currentModule = null;
     private Strategy theStrat = null;
-    @SuppressWarnings("rawtypes")
-	private Stack scopes = new Stack();
+    private Stack<Scope> scopes = new Stack<Scope>();
 
     private boolean watchFact = false;
     private boolean watchRules = false;
@@ -130,19 +115,20 @@ public class DefaultWM implements WorkingMemory, Serializable {
     private boolean profileAssert = false;
     private boolean profileRetract = false;
     
-    public DefaultWM(Rete engine, RootNode node, RuleCompiler compiler) {
+    @SuppressWarnings("unchecked")
+	public DefaultWM(Rete engine, RootNode node, RuleCompiler compiler) {
         this.engine = engine;
-        alphaMemories = engine.newMap();
-        betaLeftMemories = engine.newMap();
-        betaRightMemories = engine.newMap();
-        terminalMemories = engine.newMap();
-        staticFacts = engine.newLocalMap();
-        dynamicFacts = engine.newLocalMap();
-        deffactMap = engine.newLocalMap();
-        modules = engine.newLocalMap();
-        cubes = engine.newLocalMap();
-        queryRightMemories = engine.newLocalMap();
-        queryLeftMemories = engine.newLocalMap();
+        alphaMemories = (Map<Object, Object>) engine.newMap();
+        betaLeftMemories = (Map<Object, Object>) engine.newMap();
+        betaRightMemories = (Map<Object, Object>) engine.newMap();
+        terminalMemories = (Map<Object, Object>) engine.newMap();
+        staticFacts = (Map<Object, Object>) engine.newLocalMap();
+        dynamicFacts = (Map<Object, Object>) engine.newLocalMap();
+        deffactMap = (Map<Object, Object>) engine.newLocalMap();
+        modules = (Map<Object, Module>) engine.newLocalMap();
+        cubes = (Map<Object, Object>) engine.newLocalMap();
+        queryRightMemories = (Map<Object, Object>) engine.newLocalMap();
+        queryLeftMemories = (Map<Object, Object>) engine.newLocalMap();
         this.defglobals = new DefglobalMap(engine);
         this.root = node;
         this.compiler = compiler;
@@ -159,8 +145,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         this.currentModule = main;
     }
 
-    @SuppressWarnings("unchecked")
-	public Module addModule(String name) {
+    public Module addModule(String name) {
         Module mod = findModule(name);
         if (mod == null) {
             mod = new Defmodule(name, engine);
@@ -170,21 +155,18 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return mod;
     }
     
-    @SuppressWarnings("unchecked")
-	public void addModule(Module mod) {
+    public void addModule(Module mod) {
         if (mod != null) {
             this.modules.put(mod.getModuleName(), mod);
             this.setCurrentModule(mod);
         }
     }
     
-    @SuppressWarnings("rawtypes")
-	public Collection getModules() {
+	public Collection<Module> getModules() {
         return this.modules.values();
     }
     
-    @SuppressWarnings("unchecked")
-	public void addCube(Cube cube) {
+    public void addCube(Cube cube) {
     	if (!cubes.containsKey(cube.getName())) {
     		cubes.put(cube.getName(), cube);
     	}
@@ -198,12 +180,10 @@ public class DefaultWM implements WorkingMemory, Serializable {
     	return (Cube)cubes.remove(name);
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public List getCubes() {
-    	return new ArrayList(this.cubes.keySet());
+	public List<?> getCubes() {
+    	return new ArrayList<Object>(this.cubes.keySet());
     }
     
-    @SuppressWarnings("unchecked")
 	public void assertFact(Fact fact) throws AssertException {
         Fact f = (Fact)fact;
         if (!this.containsFact(f)) {
@@ -246,7 +226,6 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * @param shadow
      * @throws AssertException
      */
-    @SuppressWarnings("unchecked")
 	public void assertObject(Object data, String template, boolean statc,
             boolean shadow) throws AssertException {
         Defclass dc = null;
@@ -297,7 +276,6 @@ public class DefaultWM implements WorkingMemory, Serializable {
     /**
      * Method is used to assert temporal facts, which have effective and expiration time
      */
-    @SuppressWarnings("unchecked")
 	public void assertTemporalObject(Object data, String template, Date effective, 
     		Date expiration, boolean statc) throws AssertException {
         Defclass dc = null;
@@ -344,45 +322,43 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * @param objs
      * @throws AssertException
      */
-    @SuppressWarnings("rawtypes")
-	public void assertObjects(List objs) throws AssertException {
-        Iterator itr = objs.iterator();
+	public void assertObjects(List<?> objs) throws AssertException {
+        Iterator<?> itr = objs.iterator();
         while (itr.hasNext()) {
         	Object fact = itr.next();
             assertObject(fact, null, false, true);
         }
     }
 
-    @SuppressWarnings("rawtypes")
 	public void clear() {
-        Iterator amitr = this.alphaMemories.values().iterator();
+        Iterator<?> amitr = this.alphaMemories.values().iterator();
         while (amitr.hasNext()) {
             AlphaMemory am = (AlphaMemory) amitr.next();
             am.clear();
         }
         this.alphaMemories.clear();
         // aggressivley clear the memories
-        Iterator blitr = this.betaLeftMemories.values().iterator();
+        Iterator<?> blitr = this.betaLeftMemories.values().iterator();
         while (blitr.hasNext()) {
             Object bval = blitr.next();
             if (bval instanceof Map) {
-                Map lmem = (Map) bval;
+                Map<?, ?> lmem = (Map<?, ?>) bval;
                 // now iterate over the betamemories
-                Iterator bmitr = lmem.keySet().iterator();
+                Iterator<?> bmitr = lmem.keySet().iterator();
                 while (bmitr.hasNext()) {
                 	Object value = bmitr.next();
                 	if (value instanceof Index) {
                         Index indx = (Index) value;
                         indx.clear();
                 	} else if (value instanceof Map) {
-                		((Map)value).clear();
+                		((Map<?, ?>)value).clear();
                 	}
                 }
                 lmem.clear();
             }
         }
         this.betaLeftMemories.clear();
-        Iterator britr = this.betaRightMemories.values().iterator();
+        Iterator<?> britr = this.betaRightMemories.values().iterator();
         while (britr.hasNext()) {
             Object val = britr.next();
             if (val instanceof HashedAlphaMemoryImpl) {
@@ -392,7 +368,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
             } else if (val instanceof CubeHashMemoryImpl) {
             	((CubeHashMemoryImpl)val).clear();
             } else {
-                Map mem = (Map) val;
+                Map<?, ?> mem = (Map<?, ?>) val;
                 mem.clear();
             }
         }
@@ -403,8 +379,8 @@ public class DefaultWM implements WorkingMemory, Serializable {
         this.contexts.clear();
         this.agenda.clear();
         this.main.clear();
-        Collection mods = this.modules.values();
-        Iterator mitr = mods.iterator();
+        Collection<?> mods = this.modules.values();
+        Iterator<?> mitr = mods.iterator();
         while (mitr.hasNext()) {
         	((Module)mitr.next()).clear();
         }
@@ -416,12 +392,11 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * clear the deffacts from the working memory. This does not include facts
      * asserted using assertObject.
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void clearFacts() {
 		if (this.deffactMap.size() > 0) {
 			try {
-				List facts = new ArrayList(this.deffactMap.keySet());
-				Iterator itr = facts.iterator();
+				List<?> facts = new ArrayList<Object>(this.deffactMap.keySet());
+				Iterator<?> itr = facts.iterator();
 				while (itr.hasNext()) {
 					Object obj = itr.next();
 					if (obj instanceof EqualityIndex) {
@@ -442,12 +417,11 @@ public class DefaultWM implements WorkingMemory, Serializable {
     /**
      * Clear the objects from the working memory
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public synchronized void clearObjects() {
         if (this.getDynamicFacts().size() > 0) {
             try {
-            	ArrayList objects = new ArrayList(this.dynamicFacts.keySet());
-                Iterator itr = objects.iterator();
+            	ArrayList<?> objects = new ArrayList<Object>(this.dynamicFacts.keySet());
+                Iterator<?> itr = objects.iterator();
                 while (itr.hasNext()) {
                     Object obj = itr.next();
                     retractObject(obj);
@@ -458,8 +432,8 @@ public class DefaultWM implements WorkingMemory, Serializable {
         }
         if (this.getStaticFacts().size() > 0) {
             try {
-            	ArrayList objects = new ArrayList(this.getStaticFacts().keySet());
-                Iterator itr = objects.iterator();
+            	ArrayList<?> objects = new ArrayList<Object>(this.getStaticFacts().keySet());
+                Iterator<?> itr = objects.iterator();
                 while (itr.hasNext()) {
                     Object obj = itr.next();
                     retractObject(obj);
@@ -479,8 +453,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * @param id
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	protected Fact createFact(Object data, Defclass dclass, String template,
+    protected Fact createFact(Object data, Defclass dclass, String template,
             long id, boolean temporal) throws AssertException {
         Fact ft = null;
         Template dft = null;
@@ -497,7 +470,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         // if the deftemplate is null, check the other modules
         if (dft == null) {
             // get the entry set from the agenda and iterate
-            Iterator itr = this.modules.values().iterator();
+            Iterator<?> itr = this.modules.values().iterator();
             while (itr.hasNext()) {
                 Module mod = (Module) itr.next();
                 if (mod.containsTemplate(dclass)) {
@@ -544,8 +517,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * and the value is the memory for it
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public Map getAllAlphaMemories() {
+    public Map<?, ?> getAllAlphaMemories() {
         return this.alphaMemories;
     }
     
@@ -553,8 +525,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * The current implementation will try to find the memory for the node.
      * If it doesn't find it, it will create a new one.
      */
-    @SuppressWarnings("unchecked")
-	public Object getAlphaMemory(Object key) {
+    public Object getAlphaMemory(Object key) {
         Object m = this.alphaMemories.get(key);
         if (m == null) {
             String mname = "alphamem" + ((BaseNode) key).nodeID;
@@ -569,8 +540,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * and the value is the memory for it
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public Map getAllBetaLeftMemories() {
+    public Map<?, ?> getAllBetaLeftMemories() {
         return this.betaLeftMemories;
     }
     
@@ -579,8 +549,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * If it doesn't find it, it will create a new Left memory, which is
      * HashMap.
      */
-    @SuppressWarnings("unchecked")
-	public Object getBetaLeftMemory(Object key) {
+    public Object getBetaLeftMemory(Object key) {
         Object m = this.betaLeftMemories.get(key);
         if (m == null) {
             String mname = "blmem" + ((BaseNode) key).nodeID;
@@ -590,8 +559,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return m;
     }
     
-    @SuppressWarnings("unchecked")
-	public Object getQueryBetaMemory(Object key) {
+    public Object getQueryBetaMemory(Object key) {
     	Object m = this.queryLeftMemories.get(key);
     	if (m == null) {
     		String mname = "query" + ((BaseNode) key).nodeID;
@@ -601,8 +569,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
     	return m;
     }
 
-    @SuppressWarnings("rawtypes")
-	public Map getAllBetaRightMemories() {
+    public Map<?, ?> getAllBetaRightMemories() {
         return this.betaRightMemories;
     }
     
@@ -612,7 +579,6 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * appropriate AlphaMemory for the node. Since right memories are
      * hashed, it creates the appropriate type of Hashed memory.
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
 	public Object getBetaRightMemory(Object key) {
         Object val = this.betaRightMemories.get(key);
         if (val != null) {
@@ -644,14 +610,13 @@ public class DefaultWM implements WorkingMemory, Serializable {
             	return alpha;
             } else {
                 String mname = "brmem" + ((BaseNode) key).nodeID;
-                Map right = engine.newAlphaMemoryMap(mname);
+                Map<?, ?> right = engine.newAlphaMemoryMap(mname);
                 this.betaRightMemories.put(key, right);
                 return right;
             }
         }
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public Object getQueryRightMemory(Object key) {
     	Object val = this.queryRightMemories.get(key);
     	if (val != null) {
@@ -678,7 +643,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
             	return alpha;
             } else {
                 String mname = "brmem" + ((BaseNode) key).nodeID;
-                Map right = engine.newAlphaMemoryMap(mname);
+                Map<?, ?> right = engine.newAlphaMemoryMap(mname);
                 this.queryRightMemories.put(key, right);
                 return right;
         	}
@@ -691,15 +656,14 @@ public class DefaultWM implements WorkingMemory, Serializable {
     
     public Object getBinding(String name) {
         if (!this.scopes.isEmpty() && !name.startsWith("*")) {
-            Object val =  ((Scope)this.scopes.peek()).getBindingValue(name);
+            Object val =  this.scopes.peek().getBindingValue(name);
             return val;
         } else {
             return this.getDefglobals().getValue(name);
         }
     }
 
-    @SuppressWarnings("rawtypes")
-	public Map getDeffactMap() {
+    	public Map<?, Object> getDeffactMap() {
         return this.deffactMap;
     }
 
@@ -707,28 +671,25 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return this.defglobals;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public List getAllFacts() {
-        ArrayList facts = new ArrayList();
+	public List<Fact> getAllFacts() {
+        ArrayList<Fact> facts = new ArrayList<Fact>();
         facts.addAll(this.getDeffacts());
         return facts;
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public List getDeffacts() {
-        ArrayList objects = new ArrayList();
-        Iterator itr = this.getDeffactMap().values().iterator();
+	public List<Fact> getDeffacts() {
+        ArrayList<Fact> objects = new ArrayList<Fact>();
+        Iterator<Object> itr = this.getDeffactMap().values().iterator();
         while (itr.hasNext()) {
             Object fact = itr.next();
-            objects.add(fact);
+            objects.add((Fact) fact);
         }
         return objects;
     }
     
-    @SuppressWarnings("rawtypes")
 	public Fact getFactById(long id) {
         Fact df = null;
-        Iterator itr = this.getDeffactMap().values().iterator();
+        Iterator<?> itr = this.getDeffactMap().values().iterator();
         while (itr.hasNext()) {
             df = (Deffact)itr.next();
             if (df.getFactId() == id) {
@@ -738,7 +699,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         // now search the object facts
         if (df == null) {
             // check dynamic facts
-            Iterator itr2 = this.getDynamicFacts().values().iterator();
+            Iterator<?> itr2 = this.getDynamicFacts().values().iterator();
             while (itr2.hasNext()) {
                 df = (Fact)itr2.next();
                 if (df.getFactId() == id) {
@@ -758,10 +719,9 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return null;
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public List getObjects() {
-        ArrayList objects = new ArrayList();
-        Iterator itr = this.getDynamicFacts().keySet().iterator();
+   	public List<Object> getObjects() {
+        ArrayList<Object> objects = new ArrayList<Object>();
+        Iterator<?> itr = this.getDynamicFacts().keySet().iterator();
         while (itr.hasNext()) {
             Object key = itr.next();
             if (!(key instanceof Fact)) {
@@ -778,8 +738,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return objects;
     }
     
-    @SuppressWarnings("rawtypes")
-	public List getInitialFacts() {
+	public List<?> getInitialFacts() {
         return this.initialFacts;
     }
     
@@ -791,8 +750,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return this.main;
     }
     
-    @SuppressWarnings("rawtypes")
-	public Map getDynamicFacts() {
+	public Map<Object, Object> getDynamicFacts() {
         return this.dynamicFacts;
     }
     
@@ -800,8 +758,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return this.compiler;
     }
 
-    @SuppressWarnings("rawtypes")
-	public Map getStaticFacts() {
+	public Map<Object, Object> getStaticFacts() {
         return this.staticFacts;
     }
     
@@ -809,8 +766,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return this.theStrat;
     }
 
-    @SuppressWarnings("unchecked")
-	public Object getTerminalMemory(Object key) {
+    public Object getTerminalMemory(Object key) {
         Object m = this.terminalMemories.get(key);
         if (m == null) {
             m = engine.newTerminalMap();
@@ -825,7 +781,6 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * 
      * @param data
      */
-    @SuppressWarnings("unchecked")
 	public void modifyObject(Object data) throws AssertException,
             RetractException {
         if (this.getDynamicFacts().containsKey(data)) {
@@ -871,7 +826,6 @@ public class DefaultWM implements WorkingMemory, Serializable {
         this.scopes.pop();
     }
 
-    @SuppressWarnings("unchecked")
 	public void pushScope(Scope s) {
         this.scopes.push(s);
     }
@@ -923,7 +877,7 @@ public class DefaultWM implements WorkingMemory, Serializable {
 
     public void setBindingValue(String key, Object value) {
         if (!this.scopes.isEmpty() && !key.startsWith("*")) {
-            ((Scope)this.scopes.peek()).setBindingValue(key, value);
+            this.scopes.peek().setBindingValue(key, value);
         } else {
             getDefglobals().declareDefglobal(key, value);
         }

@@ -7,6 +7,5 @@ public interface OOFact {
 	 * Return the Class object of the underlying java object.
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	Class getFactClass();
+	Class<?> getFactClass();
 }

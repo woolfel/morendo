@@ -82,8 +82,7 @@ public class Mod implements Function, Serializable {
 		return MOD;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}
 

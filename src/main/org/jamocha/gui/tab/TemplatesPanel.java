@@ -119,13 +119,12 @@ public class TemplatesPanel extends AbstractJamochaPanel implements
 		initPopupMenu();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initTemplatesList() {
 		dataModel.clear();
-		Collection<Module> modules = gui.getEngine().getWorkingMemory().getModules();
+		Collection<Module> modules = (Collection<Module>) gui.getEngine().getWorkingMemory().getModules();
 		// dataModel.setTemplates(modules);
 		for (Module module : modules) {
-			Collection templates = module.getTemplates();
+			Collection<Template> templates = module.getTemplates();
 			dataModel.addTemplates(templates, module);
 		}
 		templatesTable.getColumnModel().getColumn(0).setPreferredWidth(100);
@@ -219,8 +218,7 @@ public class TemplatesPanel extends AbstractJamochaPanel implements
 			return false;
 		}
 
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		public Class getColumnClass(int aColumn) {
+		public Class<?> getColumnClass(int aColumn) {
 			if (aColumn == 0)
 				return java.lang.String.class;
 			else if (aColumn == 1)

@@ -24,7 +24,6 @@ public class MemberTestFunction implements Serializable, Function {
 		super();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		// int index = -1; Unsued
@@ -56,7 +55,7 @@ public class MemberTestFunction implements Serializable, Function {
 						}
 					}
 				} else if (list instanceof List) {
-					List alist = (List)list;
+					List<?> alist = (List<?>)list;
 					member = alist.contains(item);
 				}
 			}
@@ -70,8 +69,7 @@ public class MemberTestFunction implements Serializable, Function {
 		return MEMBER_TEST;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}
 

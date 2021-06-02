@@ -23,10 +23,9 @@ public class ListCubesFunction implements Function {
 		super();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
-		List cubes = engine.getCubes();
-		Iterator iterator = cubes.iterator();
+		List<?> cubes = engine.getCubes();
+		Iterator<?> iterator = cubes.iterator();
 		while (iterator.hasNext()) {
 			String cubeName = (String)iterator.next();
 			engine.writeMessage(cubeName + Constants.LINEBREAK,
@@ -40,8 +39,7 @@ public class ListCubesFunction implements Function {
 		return LIST_DEFCUBES;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

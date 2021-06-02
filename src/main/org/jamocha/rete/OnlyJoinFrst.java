@@ -44,9 +44,8 @@ public class OnlyJoinFrst extends BaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
-		Map rightmem = (Map) mem.getBetaRightMemory(this);
+		Map<?, ?> rightmem = (Map<?, ?>) mem.getBetaRightMemory(this);
 		rightmem.clear();
 	}
 
@@ -66,13 +65,13 @@ public class OnlyJoinFrst extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
 		// we only proceed if the fact hasn't already entered
 		// the join node
 		Index inx = new Index(new Fact[] { rfact });
-		Map rightmem = (Map) mem.getBetaRightMemory(this);
+		Map<Index, Fact> rightmem = (Map<Index, Fact>) mem.getBetaRightMemory(this);
 		if (!rightmem.containsKey(inx)) {
 			int count = rightmem.size();
 			rightmem.put(inx, rfact);
@@ -106,11 +105,10 @@ public class OnlyJoinFrst extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws RetractException {
 		Index inx = new Index(new Fact[] { rfact });
-		Map rightmem = (Map) mem.getBetaRightMemory(this);
+		Map<?, ?> rightmem = (Map<?, ?>) mem.getBetaRightMemory(this);
 		if (rightmem.containsKey(inx)) {
 			int count = rightmem.size();
 			rightmem.remove(inx);

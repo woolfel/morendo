@@ -32,21 +32,18 @@ public class CubeFact implements Fact {
 	private long timeStamp = 0;
 	protected boolean hasBinding = false;
 	private EqualityIndex Eindex = null;
-	@SuppressWarnings("rawtypes")
-	private Map slotMap = null;
+	private Map<String, BaseSlot> slotMap = null;
 	
-	@SuppressWarnings("rawtypes")
 	public CubeFact(Template template, Object instance, BaseSlot[] values, long id) {
 		this.template = template;
 		this.objInstance = instance;
 		this.slots = values;
 		this.id = id;
 		this.timeStamp = System.currentTimeMillis();
-		slotMap = new HashMap(values.length);
+		slotMap = new HashMap<String, BaseSlot>(values.length);
 		mapSlots();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void mapSlots() {
 		for (int idx=0; idx < slots.length; idx++) {
 			slotMap.put(this.slots[idx].getName(), slots[idx]);
@@ -96,7 +93,7 @@ public class CubeFact implements Fact {
 	}
 
 	public int getSlotId(String name) {
-		BaseSlot s = (BaseSlot)slotMap.get(name);
+		BaseSlot s = slotMap.get(name);
 		return s.getId();
 	}
 

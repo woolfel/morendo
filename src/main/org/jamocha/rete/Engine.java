@@ -13,7 +13,6 @@ import org.jamocha.rete.exception.RetractException;
  * @author Peter Lin
  *
  */
-@SuppressWarnings("rawtypes")
 public interface Engine {
 	ActivationList getActivationList();
 	Agenda getAgenda();
@@ -21,17 +20,17 @@ public interface Engine {
 	Object getDefglobalValue(String name);
 	MessageRouter getMessageRouter();
 	int getRulesFiredCount();
-	List getRulesFired();
+	List<?> getRulesFired();
 	Strategy getStrategy();
 	WorkingMemory getWorkingMemory();
 	
 	long nextFactId();
 	
 	void assertObject(Object value) throws AssertException;
-	void assertObjects(List values) throws AssertException;
+	void assertObjects(List<?> values) throws AssertException;
 	void retractObject(Object value) throws RetractException;
-	void retractObjects(List values) throws RetractException;
-	void declareObject(Class obj);
+	void retractObjects(List<?> values) throws RetractException;
+	void declareObject(Class<?> obj);
 	
 	void resetAll();
 	void writeMessage(String msg);

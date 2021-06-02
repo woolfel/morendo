@@ -79,8 +79,7 @@ public class Max implements Function, Serializable {
 		return MAX;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

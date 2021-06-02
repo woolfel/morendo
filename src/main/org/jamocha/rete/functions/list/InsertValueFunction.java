@@ -33,12 +33,11 @@ public class InsertValueFunction implements Serializable, Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		Object value = new Object[0];
 		if (params != null && params.length >= 3) {
-			List returnlist = new ArrayList();
+			List<Object> returnlist = new ArrayList<Object>();
 			Object list = null;
 			if (params[0] instanceof ValueParam) {
 				list = params[0].getValue();
@@ -72,7 +71,7 @@ public class InsertValueFunction implements Serializable, Function {
 				}
 				if (add.getClass().isArray()) {
 					Object[] ar = (Object[])add;
-					List inlist = new ArrayList();
+					List<Object> inlist = new ArrayList<Object>();
 					for (int idx=0; idx < ar.length; idx++) {
 						inlist.add(ar[idx]);
 					}
@@ -93,8 +92,7 @@ public class InsertValueFunction implements Serializable, Function {
 		return INSERT_VALUE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}
 

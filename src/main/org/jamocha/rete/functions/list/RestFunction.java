@@ -34,11 +34,10 @@ public class RestFunction implements Serializable, Function {
 		super();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		Object val = new Object[0];
-		List rlist = new ArrayList();
+		List<Object> rlist = new ArrayList<Object>();
 		if (params != null && params.length == 1) {
 			if (params[0] instanceof BoundParam) {
 				BoundParam bp = (BoundParam) params[0];
@@ -79,8 +78,7 @@ public class RestFunction implements Serializable, Function {
 		return REST;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam[].class};
 	}
 

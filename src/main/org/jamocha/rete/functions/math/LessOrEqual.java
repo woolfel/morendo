@@ -89,8 +89,7 @@ public class LessOrEqual implements Function, Serializable {
 		return LESSOREQUAL;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class };
 	}
 

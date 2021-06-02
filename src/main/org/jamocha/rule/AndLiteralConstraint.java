@@ -19,6 +19,7 @@ package org.jamocha.rule;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.jamocha.rete.Constants;
 import org.jamocha.rete.ConversionUtils;
@@ -41,8 +42,7 @@ public class AndLiteralConstraint implements Constraint {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected String name;
-    @SuppressWarnings("rawtypes")
-	protected ArrayList value = new ArrayList();
+	protected ArrayList<MultiValue> value = new ArrayList<MultiValue>();
     protected boolean negated = false;
     
 	/**
@@ -77,21 +77,19 @@ public class AndLiteralConstraint implements Constraint {
      * Set the value of the constraint. It should be a concrete value and
      * not a binding.
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings("unchecked")
 	public void setValue(Object val) {
 		if (val instanceof ArrayList) {
-	        this.value = (ArrayList)val;
+	        this.value = (ArrayList<MultiValue>)val;
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void addValue(MultiValue mv) {
 		this.value.add(mv);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void addValues(Collection list) {
-		this.value.addAll(list);
+	public void addValues(Collection<? extends MultiValue> andor) {
+		this.value.addAll(andor);
 	}
 
 	/**
@@ -111,14 +109,13 @@ public class AndLiteralConstraint implements Constraint {
 		return this.negated;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public String toPPString() {
 		StringBuffer buf = new StringBuffer();
-		Iterator itr = this.value.iterator();
+		Iterator<MultiValue> itr = this.value.iterator();
 		buf.append("    (" + this.name + " ");
 		int count = 0;
 		while (itr.hasNext()) {
-			MultiValue mv = (MultiValue)itr.next();
+			MultiValue mv = itr.next();
 			if (count > 0) {
 				buf.append("&");
 			}
@@ -131,5 +128,10 @@ public class AndLiteralConstraint implements Constraint {
 		}
 		buf.append(")" + Constants.LINEBREAK);
 		return buf.toString();
+	}
+
+	public void addValues(List<Object> andor) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -40,10 +40,8 @@ public class Slot2 extends Slot {
      * 
      */
     private static final long serialVersionUID = 1L;
-    @SuppressWarnings("rawtypes")
-	private List equalsList = new ArrayList();
-    @SuppressWarnings("rawtypes")
-	private List notEqualList = new ArrayList();
+   	private List<Object> equalsList = new ArrayList<Object>();
+    private List<Object> notEqualList = new ArrayList<Object>();
 
     public Slot2(){
     }
@@ -58,10 +56,9 @@ public class Slot2 extends Slot {
      * list.
      * @param val
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setValue(Object val) {
     	if (val instanceof Collection) {
-    		Iterator itr = ((Collection)val).iterator();
+    		Iterator<?> itr = ((Collection<?>)val).iterator();
     		while (itr.hasNext()) {
     			MultiValue mv = (MultiValue)itr.next();
     			if (mv.getNegated()) {
@@ -84,8 +81,7 @@ public class Slot2 extends Slot {
      * get the list of values the slot should equal to
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public List getEqualList(){
+    public List<Object> getEqualList(){
         return this.equalsList;
     }
 
@@ -93,8 +89,7 @@ public class Slot2 extends Slot {
      * set the values the slot should equal to 
      * @param val
      */
-    @SuppressWarnings("rawtypes")
-	public void setEqualList(List val){
+    public void setEqualList(List<Object> val){
         this.equalsList = val;
     }
 
@@ -102,8 +97,7 @@ public class Slot2 extends Slot {
      * get the list of values the slot should not equal to
      * @return
      */
-    @SuppressWarnings("rawtypes")
-	public List getNotEqualList(){
+    public List<Object> getNotEqualList(){
         return this.notEqualList;
     }
     
@@ -123,17 +117,15 @@ public class Slot2 extends Slot {
      * set the list of values the slot should not equal to
      * @param val
      */
-    @SuppressWarnings("rawtypes")
-	public void setNotEqualList(List val){
+    public void setNotEqualList(List<Object> val){
         this.notEqualList = val;
     }
     
-    @SuppressWarnings("rawtypes")
-	public String toString(String andOr) {
+    public String toString(String andOr) {
     	StringBuffer buf = new StringBuffer();
     	if (this.equalsList.size() > 0) {
     		buf.append("(");
-    		Iterator itr = this.equalsList.iterator();
+    		Iterator<Object> itr = this.equalsList.iterator();
     		buf.append( itr.next().toString() );
     		while (itr.hasNext()) {
         		buf.append(andOr + itr.next().toString() );
@@ -142,7 +134,7 @@ public class Slot2 extends Slot {
     	}
     	if (this.notEqualList.size() > 0) {
     		buf.append("~(");
-    		Iterator itr = this.notEqualList.iterator();
+    		Iterator<Object> itr = this.notEqualList.iterator();
     		buf.append( itr.next().toString() );
     		while (itr.hasNext()) {
     			buf.append(andOr + itr.next().toString());

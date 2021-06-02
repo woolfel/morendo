@@ -67,8 +67,7 @@ public class Random implements Function, Serializable {
 		return RANDOM;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] {};
 	}
 

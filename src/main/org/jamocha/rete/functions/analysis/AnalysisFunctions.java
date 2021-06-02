@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jamocha.rete.Function;
 import org.jamocha.rete.FunctionGroup;
 import org.jamocha.rete.Rete;
 
@@ -35,8 +36,7 @@ public class AnalysisFunctions implements FunctionGroup, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private ArrayList funcs = new ArrayList();
+	private ArrayList<Function> funcs = new ArrayList<Function>();
 	
 	public AnalysisFunctions() {
 		super();
@@ -46,7 +46,6 @@ public class AnalysisFunctions implements FunctionGroup, Serializable {
 		return (AnalysisFunctions.class.getSimpleName());
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		AverageCostFunction aveCost = new AverageCostFunction();
 		engine.declareFunction(aveCost);
@@ -74,8 +73,7 @@ public class AnalysisFunctions implements FunctionGroup, Serializable {
         funcs.add(vrf);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List listFunctions() {
+	public List<Function> listFunctions() {
 		return funcs;
 	}
 

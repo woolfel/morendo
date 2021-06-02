@@ -43,10 +43,9 @@ public class RuleMatchesFunction extends BaseMatchFunction implements Function, 
     public RuleMatchesFunction() {
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
+    	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
         if (params != null && params.length > 0) {
-            ArrayList rules = new ArrayList();
+            ArrayList<Defrule> rules = new ArrayList<Defrule>();
             for (int idx=0; idx < params.length; idx++) {
                 if (params[idx] instanceof ValueParam) {
                     String name = params[idx].getStringValue();
@@ -59,27 +58,26 @@ public class RuleMatchesFunction extends BaseMatchFunction implements Function, 
             DefaultWM wm = (DefaultWM)engine.getWorkingMemory();
             // iterate over the rules
             for (int idx=0; idx < rules.size(); idx++) {
-                this.printRuleMemories(engine, (Defrule)rules.get(idx), wm);
+                this.printRuleMemories(engine, rules.get(idx), wm);
             }
         }
         return new DefaultReturnVector();
     }
 
-    @SuppressWarnings("rawtypes")
-	protected void printRuleMemories(Rete engine, Defrule rule, DefaultWM wm) {
+    protected void printRuleMemories(Rete engine, Defrule rule, DefaultWM wm) {
         StringBuffer buf = new StringBuffer();
         buf.append(rule.getName() + Constants.LINEBREAK);
         Condition[] conditions = rule.getConditions();
         for (int idx=0; idx < conditions.length; idx++) {
             Condition c = conditions[idx];
-            List nodes = c.getNodes();
-            Iterator itr = nodes.iterator();
+            List<?> nodes = c.getNodes();
+            Iterator<?> itr = nodes.iterator();
             while (itr.hasNext()) {
                 BaseAlpha n = (BaseAlpha)itr.next();
                 if ( !(n instanceof LIANode) ) {
-                    Map rmem = (Map)wm.getBetaRightMemory(n);
+                    Map<?, ?> rmem = (Map<?, ?>)wm.getBetaRightMemory(n);
                     buf.append(n.toPPString() + " - right memories:" + rmem.size() + Constants.LINEBREAK);
-                    Iterator memItr = rmem.keySet().iterator();
+                    Iterator<?> memItr = rmem.keySet().iterator();
                     while (memItr.hasNext()) {
                         Fact f = (Fact)memItr.next();
                         buf.append("\t" + f.toFactString() + Constants.LINEBREAK);
@@ -87,16 +85,16 @@ public class RuleMatchesFunction extends BaseMatchFunction implements Function, 
                 }
             }
         }
-        List betaNodes = rule.getJoins();
-        Iterator bnItr = betaNodes.iterator();
+        List<?> betaNodes = rule.getJoins();
+        Iterator<?> bnItr = betaNodes.iterator();
         while (bnItr.hasNext()) {
             BaseJoin betaNode = (BaseJoin)bnItr.next();
             buf.append(betaNode.toPPString() + Constants.LINEBREAK);
-            Map lmem = (Map)wm.getBetaLeftMemory(betaNode);
+            Map<?, ?> lmem = (Map<?, ?>)wm.getBetaLeftMemory(betaNode);
             Object rmem = wm.getBetaRightMemory(betaNode);
             if (lmem.size() > 0) {
                 buf.append(" - left memories:" + Constants.LINEBREAK);
-                Iterator leftItr = lmem.keySet().iterator();
+                Iterator<?> leftItr = lmem.keySet().iterator();
                 while (leftItr.hasNext()) {
                     Index mem = (Index)leftItr.next();
                     buf.append("\t" + mem.toPPString() + Constants.LINEBREAK);
@@ -120,8 +118,8 @@ public class RuleMatchesFunction extends BaseMatchFunction implements Function, 
                     buf.append("\t" + f.toFactString() + Constants.LINEBREAK);
                 }
             } else if (betaNode instanceof ExistJoin || betaNode instanceof NotJoin) {
-                Map rmMem = (Map)rmem;
-                Iterator itr = rmMem.keySet().iterator();
+                Map<?, ?> rmMem = (Map<?, ?>)rmem;
+                Iterator<?> itr = rmMem.keySet().iterator();
                 while (itr.hasNext()) {
                     Fact f = (Fact)itr.next();
                     buf.append("\t" + f.toFactString() + Constants.LINEBREAK);
@@ -136,8 +134,7 @@ public class RuleMatchesFunction extends BaseMatchFunction implements Function, 
         return RULE_MATCHES;
     }
 
-    @SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
         return new Class[] {String[].class};
     }
 

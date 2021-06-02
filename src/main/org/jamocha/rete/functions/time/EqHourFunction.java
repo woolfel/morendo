@@ -88,8 +88,7 @@ public class EqHourFunction extends AbstractTimeFunction implements Function {
 		return EQ_HOUR;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Date.class, Date.class};
 	}
 

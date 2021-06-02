@@ -76,8 +76,7 @@ public class Rint implements Function, Serializable {
 		return RINT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

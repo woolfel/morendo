@@ -83,8 +83,7 @@ public class DefclassFunction implements Function, Serializable {
 	 * defclass function expects 3 parameters. (defclass classname,
 	 * templatename, parenttemplate) parent template name is optional.
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class, ValueParam.class,
 				ValueParam.class };
 	}

@@ -19,6 +19,7 @@ package org.jamocha.rete.functions.agent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jamocha.rete.Function;
 import org.jamocha.rete.FunctionGroup;
 import org.jamocha.rete.Rete;
 
@@ -28,8 +29,7 @@ public class AgentFunctions implements FunctionGroup {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private List funcs = new ArrayList();
+	private List<Function> funcs = new ArrayList<Function>();
 
 	public AgentFunctions() {
 		super();
@@ -39,12 +39,10 @@ public class AgentFunctions implements FunctionGroup {
 		return AgentFunctions.class.getSimpleName();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List listFunctions() {
+	public List<Function> listFunctions() {
 		return funcs;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void loadFunctions(Rete engine) {
 		AddRuleStatusFunction addstatus = new AddRuleStatusFunction();
 		engine.declareFunction(addstatus);

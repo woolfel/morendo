@@ -79,8 +79,7 @@ public class Cos implements Function, Serializable {
 		return COS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

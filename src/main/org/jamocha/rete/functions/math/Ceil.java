@@ -85,8 +85,7 @@ public class Ceil implements Function, Serializable {
 		return CEIL;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

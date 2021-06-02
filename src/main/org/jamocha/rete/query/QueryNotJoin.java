@@ -53,11 +53,10 @@ public class QueryNotJoin extends QueryBaseNot {
     /**
      * clear will clear the lists
      */
-    @SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem){
-        Map rightmem = (Map)mem.getQueryRightMemory(this);
-        Map leftmem = (Map)mem.getQueryBetaMemory(this);
-        Iterator itr = leftmem.keySet().iterator();
+        Map<?, ?> rightmem = (Map<?, ?>)mem.getQueryRightMemory(this);
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getQueryBetaMemory(this);
+        Iterator<?> itr = leftmem.keySet().iterator();
         // first we iterate over the list for each fact
         // and clear it.
         while (itr.hasNext()){
@@ -78,17 +77,17 @@ public class QueryNotJoin extends QueryBaseNot {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
-        Map leftmem = (Map)mem.getQueryBetaMemory(this);
+        Map<Index, BetaMemory> leftmem = (Map<Index, BetaMemory>)mem.getQueryBetaMemory(this);
         // we create a new list for storing the matches.
         // any fact that isn't in the list will be evaluated.
         BetaMemory bmem = new BetaMemoryImpl(linx, engine);
         leftmem.put(bmem.getIndex(),bmem);
-        Map rightmem = (Map)mem.getQueryRightMemory(this);
-        Iterator itr = rightmem.values().iterator();
+        Map<?, ?> rightmem = (Map<?, ?>)mem.getQueryRightMemory(this);
+        Iterator<?> itr = rightmem.values().iterator();
         while (itr.hasNext()){
             Fact rfcts = (Fact)itr.next();
             if (this.evaluate(linx.getFacts(),rfcts,engine)){
@@ -104,18 +103,18 @@ public class QueryNotJoin extends QueryBaseNot {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "unchecked" })
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
         // we only proceed if the fact hasn't already entered
         // the join node
-        Map rightmem = (Map)mem.getQueryRightMemory(this);
+        Map<Fact, Fact> rightmem = (Map<Fact, Fact>)mem.getQueryRightMemory(this);
         rightmem.put(rfact,rfact);
         // now that we've added the facts to the list, we
         // proceed with evaluating the fact
-        Map leftmem = (Map)mem.getQueryBetaMemory(this);
-        Iterator itr = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getQueryBetaMemory(this);
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()){
             BetaMemory bmem = (BetaMemory)itr.next();
             Index linx = bmem.getIndex();
@@ -131,10 +130,9 @@ public class QueryNotJoin extends QueryBaseNot {
      * @param mem
      * @throws AssertException
      */
-    @SuppressWarnings("rawtypes")
-	public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
-        Map leftmem = (Map)mem.getBetaLeftMemory(this);
-    	Iterator iterator = leftmem.values().iterator();
+    public void executeJoin(Rete engine, WorkingMemory mem) throws AssertException {
+        Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
+    	Iterator<?> iterator = leftmem.values().iterator();
     	while (iterator.hasNext()) {
     		BetaMemory bmem = (BetaMemory)iterator.next();
     		if (bmem.matchCount() == 0) {

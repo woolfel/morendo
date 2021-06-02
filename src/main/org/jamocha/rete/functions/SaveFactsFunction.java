@@ -57,7 +57,6 @@ public class SaveFactsFunction implements Function, Serializable {
 		return Constants.BOOLEAN_OBJECT;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Boolean saved = Boolean.FALSE;
 		boolean sortid = true;
@@ -69,7 +68,7 @@ public class SaveFactsFunction implements Function, Serializable {
 			}
 			try {
 				FileWriter writer = new FileWriter(params[0].getStringValue());
-				List facts = engine.getAllFacts();
+				List<?> facts = engine.getAllFacts();
 				Object[] sorted = null;
 				if (sortid) {
 					sorted = FactUtils.sortFacts(facts);
@@ -96,8 +95,7 @@ public class SaveFactsFunction implements Function, Serializable {
 		return SAVE_FACTS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}
 

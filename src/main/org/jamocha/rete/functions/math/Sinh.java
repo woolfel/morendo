@@ -78,8 +78,7 @@ public class Sinh implements Function, Serializable {
 		return SINH;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

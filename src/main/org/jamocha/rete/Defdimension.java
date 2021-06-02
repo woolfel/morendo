@@ -30,16 +30,15 @@ public class Defdimension implements CubeDimension {
 	private boolean joined = false;
 	private boolean autoIndex = false;
 	private Binding binding = null;
-	@SuppressWarnings("rawtypes")
-	private List deftemplates = new ArrayList();
+	private List<Deftemplate> deftemplates = new ArrayList<Deftemplate>();
 	private String variableName;
-	@SuppressWarnings("rawtypes")
-	private Map tokenIndex = null;
+	private Map<Object, Object> tokenIndex = null;
 	private boolean profile = false;
 	
+	@SuppressWarnings("unchecked")
 	public Defdimension(Rete engine) {
 		super();
-		tokenIndex = engine.newLocalMap();
+		tokenIndex = (Map<Object, Object>) engine.newLocalMap();
 	}
 	
 	public String getName() {
@@ -58,13 +57,11 @@ public class Defdimension implements CubeDimension {
 		this.joined = joined;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List getDeftemplates() {
+	public List<Deftemplate> getDeftemplates() {
 		return deftemplates;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setDeftemplates(List deftemplates) {
+	public void setDeftemplates(List<Deftemplate> deftemplates) {
 		this.deftemplates = deftemplates;
 	}
 	
@@ -96,23 +93,23 @@ public class Defdimension implements CubeDimension {
 	 * Current implementation gets the value for the left row + column and creates a
 	 * token index. This is inspired by sybase IQ, which is a column based database.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public void indexData(Index index, Rete engine) {
 		if (profile) {
 			ProfileStats.startCubeIndex();
 			Object key = index.getFacts()[this.binding.leftrow].getSlotValue(this.binding.leftIndex);
-			Map value = (Map)this.tokenIndex.get(key);
+			Map<Object, Object> value = (Map<Object, Object>)this.tokenIndex.get(key);
 			if (value == null) {
-				value = engine.newLocalMap();
+				value = (Map<Object, Object>) engine.newLocalMap();
 				this.tokenIndex.put(key, value);
 			}
 			value.put(index, index);
 			ProfileStats.endCubeIndex();
 		} else {
 			Object key = index.getFacts()[this.binding.leftrow].getSlotValue(this.binding.leftIndex);
-			Map value = (Map)this.tokenIndex.get(key);
+			Map<Object, Object> value = (Map<Object, Object>)this.tokenIndex.get(key);
 			if (value == null) {
-				value = engine.newLocalMap();
+				value = (Map<Object, Object>) engine.newLocalMap();
 				this.tokenIndex.put(key, value);
 			}
 			value.put(index, index);
@@ -127,17 +124,17 @@ public class Defdimension implements CubeDimension {
 		this.profile = profile;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Map getData(Object value, boolean negated) {
+	@SuppressWarnings("unchecked")
+	public Map<Object, Object> getData(Object value, boolean negated) {
 		if (!negated) {
-			return (Map)tokenIndex.get(value);
+			return (Map<Object, Object>)tokenIndex.get(value);
 		} else {
-			Map results = new HashMap();
-			Iterator keyIterator = this.tokenIndex.keySet().iterator();
+			Map<Object, Object> results = new HashMap<Object, Object>();
+			Iterator<Object> keyIterator = this.tokenIndex.keySet().iterator();
 			while (keyIterator.hasNext()) {
 				String key = (String)keyIterator.next();
 				if (!key.equals(value)) {
-					Map values = (Map)this.tokenIndex.get(key);
+					Map<Object, Object>values = (Map<Object, Object>)this.tokenIndex.get(key);
 					results.putAll(values);
 				}
 			}
@@ -149,8 +146,7 @@ public class Defdimension implements CubeDimension {
 	 * method will only return data if the value is an instance
 	 * of Number of a subclass.
 	 */
-	@SuppressWarnings("rawtypes")
-	public Map getData(Object value, int operator) {
+	public Map<?, ?> getData(Object value, int operator) {
 		if (value instanceof Number) {
 			Number n = (Number)value;
 			switch (operator) {
@@ -172,16 +168,16 @@ public class Defdimension implements CubeDimension {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Map queryGreater(Number value) {
-		Map matches = new HashMap();
-		Iterator keyIterator = this.tokenIndex.keySet().iterator();
+	@SuppressWarnings({ "unchecked" })
+	protected Map<?, ?> queryGreater(Number value) {
+		Map<Object, Object> matches = new HashMap<Object, Object>();
+		Iterator<Object> keyIterator = this.tokenIndex.keySet().iterator();
 		while (keyIterator.hasNext()) {
 			Object key = keyIterator.next();
 			if (key instanceof Number) {
 				Number v = (Number)key;
 				if (Evaluate.evaluateGreater(v, value)) {
-					Map data = (Map)tokenIndex.get(key);
+					Map<Object, Object> data = (Map<Object, Object>)tokenIndex.get(key);
 					matches.putAll(data);
 				}
 			}
@@ -193,16 +189,16 @@ public class Defdimension implements CubeDimension {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Map queryLesser(Number value) {
-		Map matches = new HashMap();
-		Iterator keyIterator = this.tokenIndex.keySet().iterator();
+	@SuppressWarnings({ "unchecked" })
+	protected Map<Object, Object> queryLesser(Number value) {
+		Map<Object, Object> matches = new HashMap<Object, Object>();
+		Iterator<Object> keyIterator = this.tokenIndex.keySet().iterator();
 		while (keyIterator.hasNext()) {
 			Object key = keyIterator.next();
 			if (key instanceof Number) {
 				Number v = (Number)key;
 				if (Evaluate.evaluateLess(v, value)) {
-					Map data = (Map)tokenIndex.get(key);
+					Map<Object, Object> data = (Map<Object, Object>)tokenIndex.get(key);
 					matches.putAll(data);
 				}
 			}
@@ -214,16 +210,16 @@ public class Defdimension implements CubeDimension {
 		}
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Map queryGreaterEqual(Number value) {
-		Map matches = new HashMap();
-		Iterator keyIterator = this.tokenIndex.keySet().iterator();
+	@SuppressWarnings({ "unchecked" })
+	protected Map<Object, Object> queryGreaterEqual(Number value) {
+		Map<Object, Object> matches = new HashMap<Object, Object>();
+		Iterator<Object> keyIterator = this.tokenIndex.keySet().iterator();
 		while (keyIterator.hasNext()) {
 			Object key = keyIterator.next();
 			if (key instanceof Number) {
 				Number v = (Number)key;
 				if (Evaluate.evaluateGreaterEqual(v, value)) {
-					Map data = (Map)tokenIndex.get(key);
+					Map<Object, Object> data = (Map<Object, Object>)tokenIndex.get(key);
 					matches.putAll(data);
 				}
 			}
@@ -235,16 +231,16 @@ public class Defdimension implements CubeDimension {
 		}
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Map queryLesserEqual(Number value) {
-		Map matches = new HashMap();
-		Iterator keyIterator = this.tokenIndex.keySet().iterator();
+	@SuppressWarnings({ "unchecked" })
+	protected Map<Object,Object> queryLesserEqual(Number value) {
+		Map<Object,Object> matches = new HashMap<Object, Object>();
+		Iterator<Object> keyIterator = this.tokenIndex.keySet().iterator();
 		while (keyIterator.hasNext()) {
 			Object key = keyIterator.next();
 			if (key instanceof Number) {
 				Number v = (Number)key;
 				if (Evaluate.evaluateLessEqual(v, value)) {
-					Map data = (Map)tokenIndex.get(key);
+					Map<Object,Object> data = (Map<Object,Object>)tokenIndex.get(key);
 					matches.putAll(data);
 				}
 			}

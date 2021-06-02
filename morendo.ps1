@@ -2,7 +2,7 @@
 set-variable -name "JAMOCHA_HOME" -Value "."
 
 # Sumatra JAR
-set-variable -name "JAMOCHA_LIB" -value "./morendo.jar"
+set-variable -name "JAMOCHA_LIB" -value "./jamocha.jar"
 
 # Logging Library
 set-variable -name "LOG4J" -value "./lib/log4j-1.2.14.jar"

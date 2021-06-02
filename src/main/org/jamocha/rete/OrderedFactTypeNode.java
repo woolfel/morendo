@@ -48,8 +48,8 @@ public class OrderedFactTypeNode extends BaseAlpha implements Serializable {
     /**
      * HashMap entries for unique AlphaNodes
      */
-    @SuppressWarnings("rawtypes")
-    private Map entries = null;
+    @SuppressWarnings("unused")
+	private Map<?, ?> entries = null;
 
     /**
      * @param id

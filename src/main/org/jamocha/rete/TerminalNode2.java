@@ -48,9 +48,8 @@ public class TerminalNode2 extends TerminalNode {
 	 * The terminal nodes doesn't have a memory, so the method
 	 * does nothing.
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
-		Map tmem = (Map) mem.getTerminalMemory(this);
+		Map<?, ?> tmem = (Map<?, ?>) mem.getTerminalMemory(this);
 		if (tmem != null) {
 			tmem.clear();
 		}
@@ -60,11 +59,11 @@ public class TerminalNode2 extends TerminalNode {
 	 * @param facts
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public void assertFacts(Index inx, Rete engine, WorkingMemory mem) {
 		LinkedActivation act = new LinkedActivation(this.theRule, inx);
 		act.setTerminalNode(this);
-		Map tmem = (Map) mem.getTerminalMemory(this);
+		Map<Index, LinkedActivation> tmem = (Map<Index, LinkedActivation>) mem.getTerminalMemory(this);
 		tmem.put(inx, act);
 		// add the activation to the current module's activation list.
 		engine.getAgenda().addActivation(act);
@@ -74,9 +73,8 @@ public class TerminalNode2 extends TerminalNode {
 	 * @param facts
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void retractFacts(Index inx, Rete engine, WorkingMemory mem) {
-		Map tmem = (Map) mem.getTerminalMemory(this);
+		Map<?, ?> tmem = (Map<?, ?>) mem.getTerminalMemory(this);
         LinkedActivation act = (LinkedActivation) tmem.remove(inx);
 		if (act != null) {
             engine.getAgenda().removeActivation(act);
@@ -96,9 +94,8 @@ public class TerminalNode2 extends TerminalNode {
 	 * when the activation is fired and the actions executed.
 	 * @param LinkedActivation
 	 */
-	@SuppressWarnings("rawtypes")
 	public void removeActivation(WorkingMemory mem, LinkedActivation activation) {
-		Map tmem = (Map) mem.getTerminalMemory(this);
+		Map<?, ?> tmem = (Map<?, ?>) mem.getTerminalMemory(this);
 		tmem.remove(activation.getIndex());
 	}
 

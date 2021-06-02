@@ -57,8 +57,7 @@ public class Defmodule implements Module, Serializable {
 	 * activation is added to the module, the class should
 	 * check to see if the rule is in the module first.
 	 */
-	@SuppressWarnings("rawtypes")
-	protected Map rules = null;
+	protected Map<String, Rule> rules = null;
 
 	/**
 	 * A simple List of the activations for the given module
@@ -70,14 +69,12 @@ public class Defmodule implements Module, Serializable {
 	 * from the shell, or the defclass if it was created from
 	 * an Object.
 	 */
-	@SuppressWarnings("rawtypes")
-	protected Map deftemplates = null;
+	protected Map<String, Template> deftemplates = null;
 	/**
 	 * we have a second HashMap that maps the class to the
 	 * deftemplate instance.
 	 */
-	@SuppressWarnings("rawtypes")
-	protected Map classToDeftemplates = null;
+	protected Map<String, Serializable> classToDeftemplates = null;
 
 	private int templateCount = 0;
 	
@@ -88,12 +85,13 @@ public class Defmodule implements Module, Serializable {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	public Defmodule(String name, Rete engine) {
 		super();
 		this.name = name;
-		rules = engine.newLocalMap();
-		deftemplates = engine.newLocalMap();
-		classToDeftemplates = engine.newLocalMap();
+		rules = (Map<String, Rule>) engine.newLocalMap();
+		deftemplates = (Map<String, Template>) engine.newLocalMap();
+		classToDeftemplates = (Map<String, Serializable>) engine.newLocalMap();
 		// activations = new ArrayActivationList(strat);
 		activations = new LinkedActivationList();
 
@@ -168,10 +166,9 @@ public class Defmodule implements Module, Serializable {
 	 * When clear is called, the module needs to clear all the internal lists
 	 * for rules and activations. The handle to Rete should not be nulled.
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear() {
 		this.activations.clear();
-		Iterator itr = this.rules.values().iterator();
+		Iterator<Rule> itr = this.rules.values().iterator();
 		while (itr.hasNext()) {
 			Defrule rl = (Defrule) itr.next();
 			rl.clear();
@@ -184,14 +181,12 @@ public class Defmodule implements Module, Serializable {
 	/**
 	 * Add a compiled rule to the module
 	 */
-	@SuppressWarnings("unchecked")
 	public void addRule(Rule rl) {
 		this.rules.put(rl.getName(), rl);
 	}
 
-	@SuppressWarnings("rawtypes")
 	public void removeAllRules(Rete engine, WorkingMemory mem) {
-		Iterator itr = this.rules.values().iterator();
+		Iterator<Rule> itr = this.rules.values().iterator();
 		while (itr.hasNext()) {
 			Defrule rl = (Defrule) itr.next();
 			this.removeRule(rl, engine, mem);
@@ -201,7 +196,6 @@ public class Defmodule implements Module, Serializable {
 	/**
 	 * Remove a rule from this module
 	 */
-	@SuppressWarnings("rawtypes")
 	public void removeRule(Rule rl, Rete engine, WorkingMemory mem) {
 		this.rules.remove(rl.getName());
 		// we should iterate over the nodes of the rule and remove
@@ -220,7 +214,7 @@ public class Defmodule implements Module, Serializable {
 		}
 		// now remove the betaNodes, since the engine currently
 		// doesn't share the betaNodes, we can just remove it
-		List bjl = rl.getJoins();
+		List<?> bjl = rl.getJoins();
 		
 		for (int idx=0; idx < bjl.size(); idx++) {
 			BaseJoin bjoin = (BaseJoin)bjl.get(idx);
@@ -235,8 +229,7 @@ public class Defmodule implements Module, Serializable {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	protected void removeAlphaNodes(List nodes, ObjectTypeNode otn) {
+	protected void removeAlphaNodes(List<?> nodes, ObjectTypeNode otn) {
 		BaseNode prev = otn;
 		for (int idx=0; idx < nodes.size(); idx++) {
 			BaseNode node = (BaseNode)nodes.get(idx);
@@ -262,8 +255,7 @@ public class Defmodule implements Module, Serializable {
 	/**
 	 * implementation returns the Values of the HashMap
 	 */
-	@SuppressWarnings("rawtypes")
-	public Collection getAllRules() {
+	public Collection<Rule> getAllRules() {
 		return this.rules.values();
 	}
 
@@ -307,10 +299,9 @@ public class Defmodule implements Module, Serializable {
 	/**
 	 * find a parent template using the string template name
 	 */
-	@SuppressWarnings("rawtypes")
 	public Template findParentTemplate(String key) {
 		Deftemplate tmpl = null;
-		Iterator itr = this.deftemplates.keySet().iterator();
+		Iterator<String> itr = this.deftemplates.keySet().iterator();
 		while (itr.hasNext()) {
 			Object keyval = itr.next();
 			Deftemplate entry = (Deftemplate) this.deftemplates.get(keyval);
@@ -327,7 +318,6 @@ public class Defmodule implements Module, Serializable {
 	 * template name for the key. The templates are stored in
 	 * a HashMap.
 	 */
-	@SuppressWarnings("unchecked")
 	public void addTemplate(Template temp, Rete engine, WorkingMemory mem) {
 		if (!this.deftemplates.containsKey(temp.getName())) {
 			// we have to set the template's module
@@ -363,8 +353,7 @@ public class Defmodule implements Module, Serializable {
 	 * number of entries will not correspond to the number of
 	 * actual deftemplates
 	 */
-	@SuppressWarnings("rawtypes")
-	public Collection getTemplates() {
+	public Collection<Template> getTemplates() {
 		return this.deftemplates.values();
 	}
 

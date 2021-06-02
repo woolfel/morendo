@@ -42,9 +42,8 @@ public class GenerateFacts {
 		super();
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static ArrayList generateFacts(Rule rule, Rete engine) {
-		ArrayList facts = new ArrayList();
+	public static ArrayList<Object> generateFacts(Rule rule, Rete engine) {
+		ArrayList<Object> facts = new ArrayList<Object>();
 		if (rule != null) {
 			Condition[] conditions = rule.getConditions();
 			for (int idx=0; idx < conditions.length; idx++) {
@@ -77,10 +76,9 @@ public class GenerateFacts {
 	 * @param engine
 	 * @return
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Object generateJavaFacts(ObjectCondition cond, Deftemplate templ, Rete engine) {
 		try {
-			Class theclz = Class.forName(templ.getClassName());
+			Class<?> theclz = Class.forName(templ.getClassName());
 			Defclass dfc = engine.findDefclass(theclz);
 			Object data = theclz.getDeclaredConstructor().newInstance();
 			Constraint[] cnstr = cond.getConstraints();
@@ -119,9 +117,8 @@ public class GenerateFacts {
 	 * @param engine
 	 * @return
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Object generateDeffact(ObjectCondition cond, Deftemplate templ, Rete engine) {
-		ArrayList list = new ArrayList();
+		ArrayList<Slot> list = new ArrayList<Slot>();
 		Constraint[] cnstr = cond.getConstraints();
 		for (int idx=0; idx < cnstr.length; idx++) {
 			Constraint cn = cnstr[idx];
@@ -153,13 +150,12 @@ public class GenerateFacts {
         return null;
     }
     
-    @SuppressWarnings("rawtypes")
 	public static Object generatePredicateValue(PredicateConstraint pc) {
     	String fname = pc.getFunctionName();
     	Object value = null;
 		Parameter p = null;
 		// first find the literal value
-		List prms = pc.getParameters();
+		List<?> prms = pc.getParameters();
 		for (int idx=0; idx < prms.size(); idx++) {
 			if (prms.get(idx) instanceof ValueParam) {
 				p = (Parameter)pc.getParameters().get(1);

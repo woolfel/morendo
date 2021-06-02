@@ -61,9 +61,8 @@ public class TableSorter extends TableMap {
 		reallocateIndexes();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public int compareRowsByColumn(int row1, int row2, int column) {
-		Class type = model.getColumnClass(column);
+		Class<?> type = model.getColumnClass(column);
 		TableModel data = model;
 
 		Object o1 = data.getValueAt(row1, column);

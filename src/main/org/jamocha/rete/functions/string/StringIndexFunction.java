@@ -84,8 +84,7 @@ public class StringIndexFunction implements Function, Serializable {
 		return STRING_INDEX;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class,ValueParam.class};
 	}
 

@@ -44,8 +44,7 @@ public class SetTemporalDistanceFunction implements Serializable, Function {
 		return SET_TEMPORAL_DISTANCE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class, ValueParam.class};
 	}
 

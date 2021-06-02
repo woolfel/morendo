@@ -58,8 +58,7 @@ public class StaticCompilerFunction implements Function {
 		return STATIC_COMPILER;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[0];
 	}
 

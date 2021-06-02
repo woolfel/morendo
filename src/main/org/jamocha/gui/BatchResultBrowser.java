@@ -35,14 +35,12 @@ public class BatchResultBrowser extends JFrame implements ActionListener {
 
 	private JTextArea aboutArea;
 
-	@SuppressWarnings("rawtypes")
-	private JComboBox resultsBox;
+	private JComboBox<?> resultsBox;
 
 	private ResultBoxModel resultsBoxModel;
 
 	private Map<String, String> batchResults;
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	BatchResultBrowser(JButton batchResultsButton) {
 		this.batchResultsButton = batchResultsButton;
 		topPanel = new JPanel();
@@ -50,7 +48,7 @@ public class BatchResultBrowser extends JFrame implements ActionListener {
 		setSize(500, 400);
 		setLayout(new BorderLayout());
 		resultsBoxModel = new ResultBoxModel();
-		resultsBox = new JComboBox(resultsBoxModel);
+		resultsBox = new JComboBox<Object>(resultsBoxModel);
 		removeButton = new JButton(IconLoader.getImageIcon("delete"));
 		removeButton.addActionListener(this);
 		removeButton.setToolTipText("Remove this batch result");
@@ -112,8 +110,7 @@ public class BatchResultBrowser extends JFrame implements ActionListener {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	private class ResultBoxModel extends DefaultComboBoxModel {
+	private class ResultBoxModel extends DefaultComboBoxModel<Object> {
 
 		private static final long serialVersionUID = 1L;
 

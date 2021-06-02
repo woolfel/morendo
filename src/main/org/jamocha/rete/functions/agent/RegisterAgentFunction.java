@@ -55,8 +55,7 @@ public class RegisterAgentFunction implements Function {
 		return REGISTER_AGENT;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String[].class};
 	}
 

@@ -52,8 +52,7 @@ public class RouteMessage implements Function, Serializable {
 		return ROUTE_MESSAGE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Object.class};
 	}
 

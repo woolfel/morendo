@@ -36,8 +36,7 @@ public class QueryTimeFunction implements Function {
 		return QUERY_TIME;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{String.class};
 	}
 

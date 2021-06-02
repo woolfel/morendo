@@ -76,8 +76,7 @@ public class DefcubeFunction implements Function, Serializable {
 		return DEFCUBE;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Cube.class};
 	}
 

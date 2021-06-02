@@ -16,8 +16,7 @@ public class EightyPercentMeasure implements AggregateMeasure {
 	public EightyPercentMeasure() {
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected BigDecimal calculate(Rete engine, Cube cube, List data) {
+	protected BigDecimal calculate(Rete engine, Cube cube, List<BigDecimal> data) {
 		if (data != null) {
 			java.util.Collections.sort(data);
 			Object value = data.get( (int)(data.size() * .8) );
@@ -32,13 +31,12 @@ public class EightyPercentMeasure implements AggregateMeasure {
 		return new BigDecimal(0);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BigDecimal calculate(Rete engine, Cube cube, Object[] data, CubeBinding binding) {
 		if (data != null) {
-			ArrayList values = new ArrayList();
+			ArrayList<BigDecimal> values = new ArrayList<BigDecimal>();
 			for (int idx=0; idx < data.length; idx++) {
 				Index facts = (Index)data[idx];
-				Object value = facts.getFacts()[binding.getLeftRow()].getSlotValue(binding.getLeftIndex());
+				BigDecimal value = (BigDecimal) facts.getFacts()[binding.getLeftRow()].getSlotValue(binding.getLeftIndex());
 				values.add(value);
 			}
 			return this.calculate(engine, cube, values);

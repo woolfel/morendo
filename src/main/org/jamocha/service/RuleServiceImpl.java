@@ -9,9 +9,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 import org.jamocha.logging.LogFactory;
 import org.jamocha.logging.Logger;
+import org.jamocha.rete.Rete;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RuleServiceImpl implements RuleService {
@@ -23,18 +26,15 @@ public class RuleServiceImpl implements RuleService {
 	private long requests = 0;
 	private long totalRulesFired = 0;
 	private String serviceName = null;
-	private List<RuleApplicationImpl> applications = new ArrayList<RuleApplicationImpl>();
-	@SuppressWarnings("rawtypes")
-	private Map applicationMap = new HashMap();
-	@SuppressWarnings("rawtypes")
-	private Map engineMap = new HashMap();
+	private List<Object> applications = new ArrayList<Object>();
+	private Map<String, RuleApplication> applicationMap = new HashMap<String, RuleApplication>();
+	private Map<String, PriorityQueue<Rete>> engineMap = new HashMap<String, PriorityQueue<Rete>>();
 	private ServiceConfiguration serviceConfiguration = null;
 	private ServiceAdministration administration = null;
 	private static ObjectMapper mapper = new ObjectMapper();
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public RuleServiceImpl() {
-		applications = new ArrayList();
+		applications = new ArrayList<Object>();
 		administration = new ServiceAdministrationImpl(this);
 	}
 
@@ -62,13 +62,12 @@ public class RuleServiceImpl implements RuleService {
 		return this.totalRulesFired;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initialize() {
 		log.info("--- Start initializing RuleService ---");
 		for (int idx=0; idx < applications.size(); idx++) {
 			RuleApplication application = (RuleApplication)this.applications.get(idx);
 			String key = application.getName() + "::" + application.getVersion();
-			java.util.PriorityQueue queue = new java.util.PriorityQueue();
+			java.util.PriorityQueue<Rete> queue = new java.util.PriorityQueue<Rete>();
 			this.applicationMap.put(key, application);
 			this.engineMap.put(key, queue);
 			
@@ -94,15 +93,14 @@ public class RuleServiceImpl implements RuleService {
 	/**
 	 * Close method iterates over all the engine instances and calls Rete.close()
 	 */
-	@SuppressWarnings("rawtypes")
 	public void close() {
 		log.info("--- Start closing RuleService ---");
-		Iterator itr = this.engineMap.keySet().iterator();
+		Iterator<String> itr = this.engineMap.keySet().iterator();
 		while (itr.hasNext()) {
-			String key = (String)itr.next();
-			java.util.PriorityQueue queue = (java.util.PriorityQueue)this.engineMap.remove(key);
+			String key = itr.next();
+			java.util.PriorityQueue<?> queue = this.engineMap.remove(key);
 			// first close all the engine instances.
-			Iterator queueItr = queue.iterator();
+			Iterator<?> queueItr = queue.iterator();
 			while (queueItr.hasNext()) {
 				org.jamocha.rete.Rete engine = (org.jamocha.rete.Rete)queueItr.next();
 				engine.close();
@@ -111,7 +109,7 @@ public class RuleServiceImpl implements RuleService {
 		}
 		itr = this.applicationMap.keySet().iterator();
 		while (itr.hasNext()) {
-			String key = (String)itr.next();
+			String key = itr.next();
 			RuleApplicationImpl app = (RuleApplicationImpl)this.applicationMap.remove(key);
 			app.close();
 		}
@@ -119,10 +117,9 @@ public class RuleServiceImpl implements RuleService {
 		log.info("--- End closing RuleService ---");
 	}
 
-	@SuppressWarnings("rawtypes")
 	public EngineContext getEngine(String applicationName, String version) {
 		String key = applicationName + "::" + version;
-		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.engineMap.get(key);
+		java.util.PriorityQueue<?> queue = this.engineMap.get(key);
 		if (queue != null) {
 			org.jamocha.rete.Rete engine = (org.jamocha.rete.Rete)queue.remove();
 			if (engine != null) {
@@ -132,7 +129,7 @@ public class RuleServiceImpl implements RuleService {
 				// there isn't any engine in the pool. Check to see if we've reached the
 				// max pool number. If we are below the max, create a new engine instance
 				// and return a new EngineContext.
-				RuleApplication application = (RuleApplication)this.applicationMap.get(key);
+				RuleApplication application = this.applicationMap.get(key);
 				if (application.getCurrentPoolCount() < application.getMaxPool()) {
 					engine = new org.jamocha.rete.Rete();
 					application.initializeEngine(engine);
@@ -167,14 +164,13 @@ public class RuleServiceImpl implements RuleService {
 		this.totalRulesFired = count;
 	}
 	
-	public List<RuleApplicationImpl> getRuleApplications() {
+	public List<Object> getRuleApplications() {
 		return applications;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void queueEngine(String application, String version, org.jamocha.rete.Rete engine) {
 		String key = application + "::" + version;
-		java.util.PriorityQueue queue = (java.util.PriorityQueue)this.engineMap.get(key);
+		java.util.PriorityQueue<Rete> queue = this.engineMap.get(key);
 		queue.add(engine);
 	}
 	
@@ -217,13 +213,11 @@ public class RuleServiceImpl implements RuleService {
 		}
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public Map getRuleApplicationMap() {
+	public Map<String, RuleApplication> getRuleApplicationMap() {
 		return this.applicationMap;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public Map getEngineMap() {
+	public Map<String, PriorityQueue<Rete>> getEngineMap() {
 		return this.engineMap;
 	}
 

@@ -78,8 +78,7 @@ public class Tanh implements Function, Serializable {
 		return TANH;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

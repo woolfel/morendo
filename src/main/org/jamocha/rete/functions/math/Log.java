@@ -75,8 +75,7 @@ public class Log implements Function, Serializable {
 		return LOG;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam[].class };
 	}
 

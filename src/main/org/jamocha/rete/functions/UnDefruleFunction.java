@@ -77,8 +77,7 @@ public class UnDefruleFunction implements Function, Serializable {
 	 * The expected parameter is a single ValueParam containing a deftemplate
 	 * instance. The function gets the deftemplate using Parameter.getValue().
 	 */
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[] { ValueParam.class };
 	}
 

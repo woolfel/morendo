@@ -76,8 +76,7 @@ public class LoadFunctionGroupFunction implements Function, Serializable {
 		return LOAD_FGROUP;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{ValueParam.class};
 	}
 

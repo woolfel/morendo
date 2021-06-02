@@ -76,10 +76,10 @@ public class TestNode extends BaseJoin {
 	 * Assert will first pass the facts to the parameters. Once the
 	 * parameters are set, it should call execute to get the result.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("unchecked")
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
-		Map leftmem = (Map) mem.getBetaLeftMemory(this);
+		Map<Index, BetaMemory> leftmem = (Map<Index, BetaMemory>) mem.getBetaLeftMemory(this);
 		if (!leftmem.containsKey(linx)) {
 			this.setParameters(linx.getFacts());
 			ReturnVector rv = this.func.executeFunction(engine, this.params);
@@ -100,10 +100,9 @@ public class TestNode extends BaseJoin {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("rawtypes")
 	public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws RetractException {
-		Map leftmem = (Map) mem.getBetaLeftMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
 		if (leftmem.containsKey(linx)) {
 			// the memory contains the key, so we retract and propogate
 			leftmem.remove(linx);
@@ -126,9 +125,8 @@ public class TestNode extends BaseJoin {
 	/**
 	 * clear the memory
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
-		((Map) mem.getBetaLeftMemory(this)).clear();
+		((Map<?, ?>) mem.getBetaLeftMemory(this)).clear();
 	}
 
 	protected void setParameters(Fact[] facts) {

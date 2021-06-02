@@ -46,11 +46,10 @@ public class ExistJoin extends BaseJoin {
 	/**
 	 * clear will clear the lists
 	 */
-	@SuppressWarnings("rawtypes")
 	public void clear(WorkingMemory mem) {
-		Map rightmem = (Map) mem.getBetaRightMemory(this);
-		Map leftmem = (Map) mem.getBetaRightMemory(this);
-		Iterator itr = leftmem.keySet().iterator();
+		Map<?, ?> rightmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaRightMemory(this);
+		Iterator<?> itr = leftmem.keySet().iterator();
 		// first we iterate over the list for each fact
 		// and clear it.
 		while (itr.hasNext()) {
@@ -70,10 +69,10 @@ public class ExistJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public void assertLeft(Index linx, Rete engine, WorkingMemory mem)
 			throws AssertException {
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
+        Map<Index, Index> leftmem = (Map<Index, Index>) mem.getBetaLeftMemory(this);
         leftmem.put(linx, linx);
         EqHashIndex inx = new EqHashIndex(NodeUtils.getLeftValues(this.binds,linx.getFacts()));
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem
@@ -89,15 +88,14 @@ public class ExistJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void assertRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws AssertException {
         HashedAlphaMemoryImpl rightmem = (HashedAlphaMemoryImpl) mem
                 .getBetaRightMemory(this);
         EqHashIndex inx = new EqHashIndex(NodeUtils.getRightValues(this.binds,rfact));
         int after = rightmem.addPartialMatch(inx, rfact, engine);
-        Map leftmem = (Map) mem.getBetaLeftMemory(this);
-        Iterator itr = leftmem.values().iterator();
+        Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
+        Iterator<?> itr = leftmem.values().iterator();
         while (itr.hasNext()) {
             Index linx = (Index) itr.next();
             if (this.evaluate(linx.getFacts(), rfact)) {
@@ -118,10 +116,9 @@ public class ExistJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void retractLeft(Index inx, Rete engine, WorkingMemory mem)
 			throws RetractException {
-		Map leftmem = (Map) mem.getBetaLeftMemory(this);
+		Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
         leftmem.remove(inx);
         propagateRetract(inx, engine, mem);
 	}
@@ -134,7 +131,6 @@ public class ExistJoin extends BaseJoin {
 	 * @param factInstance
 	 * @param engine
 	 */
-	@SuppressWarnings("rawtypes")
 	public void retractRight(Fact rfact, Rete engine, WorkingMemory mem)
 			throws RetractException {
         HashedAlphaMemoryImpl rightmem = 
@@ -144,8 +140,8 @@ public class ExistJoin extends BaseJoin {
         int after = rightmem.removePartialMatch(inx,rfact);
         if (after == 0){
             // now we see the left memory matched and remove it also
-            Map leftmem = (Map)mem.getBetaLeftMemory(this);
-            Iterator itr = leftmem.values().iterator();
+            Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
+            Iterator<?> itr = leftmem.values().iterator();
             while (itr.hasNext()){
                 Index linx = (Index)itr.next();
                 if (this.evaluate(linx.getFacts(), rfact)){

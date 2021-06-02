@@ -80,14 +80,13 @@ public class QueryObjTypeNode extends QueryBaseAlpha implements Serializable {
      * @param fact
      * @param engine
      */
-    @SuppressWarnings("rawtypes")
 	public void assertFact(Fact fact, Rete engine, WorkingMemory mem)
     throws AssertException
     {
     	if (fact == null) {
         	AlphaMemory alphaMemory = (AlphaMemory)mem.getAlphaMemory(this.objectTypeNode);
         	factCount = alphaMemory.size();
-        	Iterator iterator = alphaMemory.iterator();
+        	Iterator<?> iterator = alphaMemory.iterator();
         	while (iterator.hasNext()) {
         		Fact f = (Fact)iterator.next();
         		this.propogateAssert(f, engine, mem);

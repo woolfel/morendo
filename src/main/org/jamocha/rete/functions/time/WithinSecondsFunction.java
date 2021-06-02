@@ -94,8 +94,7 @@ public class WithinSecondsFunction extends AbstractTimeFunction implements Funct
 		return WITHIN_SECONDS;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Class[] getParameter() {
+	public Class<?>[] getParameter() {
 		return new Class[]{Date.class, Date.class};
 	}
 
