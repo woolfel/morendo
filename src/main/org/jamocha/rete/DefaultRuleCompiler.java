@@ -17,7 +17,6 @@
 package org.jamocha.rete;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -188,15 +187,14 @@ public class DefaultRuleCompiler implements RuleCompiler {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public Condition[] getRuleConditions(Rule rule) {
         Condition[] conditions = rule.getConditions();
-        ArrayList<Condition> conditionList = new ArrayList<Condition>();
+        ArrayList<Object> conditionList = new ArrayList<Object>();
         boolean hasAnd = false;
         for (int idx=0; idx < conditions.length; idx++) {
             if (conditions[idx] instanceof AndCondition) {
                 AndCondition and = (AndCondition)conditions[idx];
-                conditionList.addAll((Collection<? extends Condition>) and.getNestedConditionalElement());
+                conditionList.addAll(and.getNestedConditionalElement());
                 hasAnd = true;
             } else {
                 conditionList.add(conditions[idx]);
