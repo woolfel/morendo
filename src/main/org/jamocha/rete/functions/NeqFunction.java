@@ -18,10 +18,13 @@ package org.jamocha.rete.functions;
 
 import java.io.Serializable;
 
+import org.jamocha.rete.BoundParam;
 import org.jamocha.rete.Constants;
 import org.jamocha.rete.DefaultReturnValue;
 import org.jamocha.rete.DefaultReturnVector;
+import org.jamocha.rete.Evaluate;
 import org.jamocha.rete.Function;
+import org.jamocha.rete.FunctionParam2;
 import org.jamocha.rete.Parameter;
 import org.jamocha.rete.Rete;
 import org.jamocha.rete.ReturnVector;
@@ -54,15 +57,52 @@ public class NeqFunction implements Function, Serializable {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		Boolean eq = Boolean.TRUE;
 		if (params != null && params.length > 1) {
-			Object first = params[0].getValue(engine, Constants.OBJECT_TYPE);
+			Object first = null;
+			if (params[0] instanceof ValueParam) {
+				ValueParam n = (ValueParam) params[0];
+				first = n.getValue();
+			} else if (params[0] instanceof BoundParam) {
+				BoundParam bp = (BoundParam) params[0];
+				first = bp.getValue();
+				if (first == null) {
+					first = engine.getBinding(bp.getVariableName());
+				}
+			} else if (params[0] instanceof FunctionParam2) {
+				FunctionParam2 n = (FunctionParam2) params[0];
+				n.setEngine(engine);
+				n.lookUpFunction();
+				ReturnVector rval = (ReturnVector) n.getValue();
+				first = rval.firstReturnValue().getValue();
+			}
+            Boolean eval = Boolean.FALSE;
 			for (int idx = 1; idx < params.length; idx++) {
-				Object other = params[idx].getValue(engine, Constants.OBJECT_TYPE);
-				if ( (  (first == null && other == null)     ||  
-						(first != null && first.equals(other))  ) ) {
-					eq = Boolean.FALSE;
+				Object right = null;
+				if (params[idx] instanceof ValueParam) {
+					ValueParam n = (ValueParam) params[idx];
+                    right = n.getValue();
+				} else if (params[idx] instanceof BoundParam) {
+					BoundParam bp = (BoundParam) params[idx];
+					right = bp.getValue();
+					if (right == null) {
+	                    right = engine
+						.getBinding(bp.getVariableName());
+					}
+				} else if (params[idx] instanceof FunctionParam2) {
+					FunctionParam2 n = (FunctionParam2) params[idx];
+					n.setEngine(engine);
+					n.lookUpFunction();
+					ReturnVector rval = (ReturnVector) n.getValue();
+                    right = rval.firstReturnValue().getValue();
+				}
+				if (first == null && right != null) {
+                    eval = Boolean.TRUE;
+                    break;
+                } else if (first != null && !Evaluate.evaluate(Constants.EQUAL, first, right)) {
+					eval = Boolean.TRUE;
 					break;
 				}
 			}
+            eq = eval;
 		}
 		DefaultReturnValue rv = new DefaultReturnValue(
 				Constants.BOOLEAN_OBJECT, eq);
