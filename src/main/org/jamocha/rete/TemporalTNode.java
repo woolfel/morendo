@@ -60,7 +60,6 @@ public class TemporalTNode extends TerminalNode2 {
      * @param facts
      * @param engine
      */
-	@SuppressWarnings("unchecked")
 	public void assertFacts(Index inx, Rete engine, WorkingMemory mem) {
         // first check the facts and make sure they didn't expire
         if (checkFacts(inx,engine,mem)) {
@@ -69,7 +68,7 @@ public class TemporalTNode extends TerminalNode2 {
             if (this.temporal) {
                 engine.fireActivation(act);
             } else {
-                Map<Index, LinkedActivation> tmem = (Map<Index, LinkedActivation>) mem.getTerminalMemory(this);
+                Map<Index, Activation> tmem = mem.getTerminalMemory(this);
                 tmem.put(inx, act);
                 // add the activation to the current module's activation list.
                 engine.getAgenda().addActivation(act);

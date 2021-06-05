@@ -146,7 +146,7 @@ public class Defdimension implements CubeDimension {
 	 * method will only return data if the value is an instance
 	 * of Number of a subclass.
 	 */
-	public Map<?, ?> getData(Object value, int operator) {
+	public Map<Object, Object> getData(Object value, int operator) {
 		if (value instanceof Number) {
 			Number n = (Number)value;
 			switch (operator) {
@@ -169,7 +169,7 @@ public class Defdimension implements CubeDimension {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	protected Map<?, ?> queryGreater(Number value) {
+	protected Map<Object, Object> queryGreater(Number value) {
 		Map<Object, Object> matches = new HashMap<Object, Object>();
 		Iterator<Object> keyIterator = this.tokenIndex.keySet().iterator();
 		while (keyIterator.hasNext()) {
@@ -177,7 +177,7 @@ public class Defdimension implements CubeDimension {
 			if (key instanceof Number) {
 				Number v = (Number)key;
 				if (Evaluate.evaluateGreater(v, value)) {
-					Map<Object, Object> data = (Map<Object, Object>)tokenIndex.get(key);
+					Map<Object, Object> data = (Map<Object, Object>) tokenIndex.get(key);
 					matches.putAll(data);
 				}
 			}

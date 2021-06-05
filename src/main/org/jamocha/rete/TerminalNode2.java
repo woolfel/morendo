@@ -59,11 +59,10 @@ public class TerminalNode2 extends TerminalNode {
 	 * @param facts
 	 * @param engine
 	 */
-	@SuppressWarnings({ "unchecked" })
 	public void assertFacts(Index inx, Rete engine, WorkingMemory mem) {
 		LinkedActivation act = new LinkedActivation(this.theRule, inx);
 		act.setTerminalNode(this);
-		Map<Index, LinkedActivation> tmem = (Map<Index, LinkedActivation>) mem.getTerminalMemory(this);
+		Map<Index, Activation> tmem =  mem.getTerminalMemory(this);
 		tmem.put(inx, act);
 		// add the activation to the current module's activation list.
 		engine.getAgenda().addActivation(act);

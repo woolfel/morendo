@@ -162,7 +162,7 @@ public interface WorkingMemory extends Serializable {
 	 * @param key
 	 * @return
 	 */
-	Object getTerminalMemory(Object key);
+	Map<Index, Activation> getTerminalMemory(Object key);
 	/**
 	 * Returns the beta memory for query join nodes
 	 * @param key

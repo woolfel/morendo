@@ -549,14 +549,15 @@ public class DefaultWM implements WorkingMemory, Serializable {
      * If it doesn't find it, it will create a new Left memory, which is
      * HashMap.
      */
-    public Object getBetaLeftMemory(Object key) {
+    @SuppressWarnings("unchecked")
+	public Map<Index, Index> getBetaLeftMemory(Object key) {
         Object m = this.betaLeftMemories.get(key);
         if (m == null) {
             String mname = "blmem" + ((BaseNode) key).nodeID;
             m = engine.newBetaMemoryMap(mname);
             this.betaLeftMemories.put(key, m);
         }
-        return m;
+        return (Map<Index, Index>) m;
     }
     
     public Object getQueryBetaMemory(Object key) {
@@ -766,13 +767,14 @@ public class DefaultWM implements WorkingMemory, Serializable {
         return this.theStrat;
     }
 
-    public Object getTerminalMemory(Object key) {
+    @SuppressWarnings("unchecked")
+	public Map<Index, Activation> getTerminalMemory(Object key) {
         Object m = this.terminalMemories.get(key);
         if (m == null) {
             m = engine.newTerminalMap();
             this.terminalMemories.put(key, m);
         }
-        return m;
+        return (Map<Index, Activation>) m;
     }
 
     /**

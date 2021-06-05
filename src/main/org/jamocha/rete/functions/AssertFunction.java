@@ -64,25 +64,33 @@ public class AssertFunction implements RuleFunction, Serializable {
 			} else {
 				Deftemplate tmpl = (Deftemplate) engine.getCurrentFocus()
 						.getTemplate(params[0].getStringValue());
-				fact = (Deffact) tmpl.createFact((Object[])params[1].getValue(),-1);
-			}
-			if (fact.hasBinding()) {
-				fact.resolveValues(engine, this.triggerFacts);
-				fact = fact.cloneFact();
-			}
-			try {
-				engine.assertFact(fact);
-				// if the fact id is still -1, it means it wasn't asserted
-				// if it was asserted, we return the fact id, otherwise
-				// we return "false".
-				if (fact.getFactId() > 0) {
-					asrt = String.valueOf(fact.getFactId());
-				} else {
-					asrt = "false";
+				if (tmpl != null)
+					fact = (Deffact) tmpl.createFact((Object[])params[1].getValue(),-1);
+				else {
+					fact = null;
+					asrt = "false\nUnknown template: " + params[0].getStringValue();
 				}
-			} catch (AssertException e) {
+			}
+			if (fact != null) {
+				if (fact.hasBinding()) {
+					fact.resolveValues(engine, this.triggerFacts);
+					fact = fact.cloneFact();
+				}
+				try {
+					engine.assertFact(fact);
+					// if the fact id is still -1, it means it wasn't asserted
+					// if it was asserted, we return the fact id, otherwise
+					// we return "false".
+					if (fact.getFactId() > 0) {
+						asrt = String.valueOf(fact.getFactId());
+					} else {
+						asrt = "false";
+					}
+				} catch (AssertException e) {
 				// we should log this and output an error
-				asrt = "false";
+					//asrt = "false";
+					asrt = "false\n" + e.getMessage();
+				}
 			}
 		} else {
 			asrt = "false";
