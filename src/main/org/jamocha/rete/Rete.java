@@ -340,21 +340,20 @@ public class Rete implements PropertyChangeListener, CompilerListener,
 		/**
 		 * Clear out the modules too. Disturbing the working memory
 		 * upsets the iteration, so build a list of module names and then
-		 * remove by name
+		 * remove by name, except MAIN.
 		 */
 		ArrayList<String> modNames = new ArrayList<String>();
 		Collection<Module> modules = this.workingMem.getModules();	
 		String modName;
 		for (Module mod : modules) {
 			modName = mod.getModuleName();
-			if (!modName.equals("MAIN")) {
+			if (!modName.equals(Constants.MAIN_MODULE)) {
 				modNames.add(mod.getModuleName());
 				mod.clear();
 			}
 		}
-		for ( String mod : modNames) {
-			workingMem.removeModule(mod);
-		}
+		for ( String mod : modNames) workingMem.removeModule(mod);
+		
 		// now we clear all the rules and templates
 		this.clearDefclass();
 		ProfileStats.reset();
