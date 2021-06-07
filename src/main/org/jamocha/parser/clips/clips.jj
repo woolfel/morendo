@@ -290,7 +290,12 @@ Object basicExpr() :
     return exp;
   }
 |
-  (obj = <IDENTIFIER>|obj = <STRING_LITERAL>)
+	(obj = <IDENTIFIER>)
+	{
+	  return obj.image;
+	}
+|
+  (obj = <STRING_LITERAL>)
   {
     return ParserUtils.getStringLiteral(obj.image);
   }
