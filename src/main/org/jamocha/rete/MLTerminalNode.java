@@ -87,7 +87,7 @@ public class MLTerminalNode extends TerminalNode2 {
 	 * @param engine
 	 */
 	public void retractFacts(Index inx, Rete engine, WorkingMemory mem) {
-		long time = System.currentTimeMillis();
+		//long time = System.currentTimeMillis();
         Map<Index, Activation> tmem =  mem.getTerminalMemory(this);
         LinkedActivation act = (LinkedActivation) tmem.remove(inx);
         if (act != null) {

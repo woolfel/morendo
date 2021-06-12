@@ -15,14 +15,14 @@ public class SystemTimeTest {
         int count = 10000000;
         long start = System.currentTimeMillis();
         for (int idx=0; idx < count; idx++) {
-            long t = nextCounter();
+            // long t = nextCounter();
         }
         long end = System.currentTimeMillis();
         long el = end - start;
         System.out.println("Elapsed time for loop w/o time " + (el));
         long start1 = System.currentTimeMillis();
         for (int idx=0; idx < count; idx++) {
-            long t1 = System.currentTimeMillis();
+            // long t1 = System.currentTimeMillis();
         }
         long end1 = System.currentTimeMillis();
         long el1 = end1 - start1;
@@ -30,7 +30,7 @@ public class SystemTimeTest {
         // now test nanotime
         long start2 = System.currentTimeMillis();
         for (int idx=0; idx < count; idx++) {
-            long t2 = System.nanoTime();
+           // long t2 = System.nanoTime();
         }
         long end2 = System.currentTimeMillis();
         long el2 = end2 - start2;

@@ -68,7 +68,7 @@ public class MemoryBenchmark2 {
 					System.out.println("template=" + dt.getName());
 					engine.declareTemplate(dt);
 				} else if (itm instanceof FunctionAction) {
-					FunctionAction fa = (FunctionAction) itm;
+					//FunctionAction fa = (FunctionAction) itm;
                     // TODO - has this been completed ?
 				} else if (itm instanceof Function) {
 					if (itm instanceof ShellFunction) {
@@ -104,13 +104,13 @@ public class MemoryBenchmark2 {
 	public static void main(String args[]) {
         String rulefile = "./benchmark_files/4K_rules_50Kdata_sequential.clp";
         // String datafile = "./benchmark_files/test.clp"; Unused
-        boolean keepopen = false;
+        // boolean keepopen = false;
         if (args != null && args.length > 0) {
         	rulefile = args[0];
         }
         if (args.length >= 2) {
             if (args[1].equals("true")) {
-                keepopen = true;
+               // keepopen = true;
             }
         }
         System.out.println("Using file " + rulefile);

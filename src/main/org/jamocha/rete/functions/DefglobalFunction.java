@@ -78,7 +78,7 @@ public class DefglobalFunction implements Serializable, Function {
 
 	public String toPPString(Parameter[] params, int indents) {
 		// TODO Auto-generated method stub
-		return null;
+		return "(" + DEFGLOBAL + " ?*<symbol>* [value])\n create a global symbol and optionally assign a value.";
 	}
 
 }

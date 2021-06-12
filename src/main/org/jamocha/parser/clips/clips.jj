@@ -220,7 +220,7 @@ TOKEN :
 | < OR2: "|" >
 | < TILDA: "~" >
 | < IDENTIFIER: (<LETTER>|<DIGIT>|<TYPEDEF>|<TILDA>|["_",":","-","$",".","@","/"])+ >
-|
+| 
   < LETTER:
       [
        "\u0024",
@@ -290,7 +290,7 @@ Object basicExpr() :
     return exp;
   }
 |
-	(obj = <IDENTIFIER>)
+  (obj = <IDENTIFIER>)
 	{
 	  return obj.image;
 	}
@@ -304,7 +304,16 @@ Object basicExpr() :
   {
     return null;
   }
-}
+|
+  {
+    // This will return the next token unless it has been otherwise processed
+    String retval = token.next.image;
+    jj_consume_token(jj_ntk);
+    if (retval != null) return retval;
+    else throw new ParseException();
+  }
+} 
+
 
 // main expression for loading a data file
 List<Object> loadExpr() :

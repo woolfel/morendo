@@ -139,8 +139,11 @@ func = new ShellFunction();
       }
     default:
       jj_la1[0] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
+// This will return the next token unless it has been otherwise processed
+    String retval = token.next.image;
+    jj_consume_token(jj_ntk);
+    if (retval != null) {if ("" != null) return retval;}
+    else {if (true) throw new ParseException();}
     }
     throw new Error("Missing return statement in function");
 }
@@ -3293,33 +3296,6 @@ Defdimension d = new Defdimension(engine);
     finally { jj_save(46, xla); }
   }
 
-  private boolean jj_3_14()
- {
-    if (jj_scan_token(LBRACE)) return true;
-    if (jj_scan_token(SALIENCE)) return true;
-    return false;
-  }
-
-  private boolean jj_3_36()
- {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
-  private boolean jj_3_8()
- {
-    if (jj_scan_token(LBRACE)) return true;
-    if (jj_scan_token(SLOT)) return true;
-    return false;
-  }
-
-  private boolean jj_3_29()
- {
-    if (jj_scan_token(BIND)) return true;
-    if (jj_scan_token(RBRACE)) return true;
-    return false;
-  }
-
   private boolean jj_3_41()
  {
     if (jj_scan_token(TILDA)) return true;
@@ -3676,6 +3652,33 @@ Defdimension d = new Defdimension(engine);
   private boolean jj_3_30()
  {
     if (jj_scan_token(TILDA)) return true;
+    if (jj_scan_token(BIND)) return true;
+    if (jj_scan_token(RBRACE)) return true;
+    return false;
+  }
+
+  private boolean jj_3_14()
+ {
+    if (jj_scan_token(LBRACE)) return true;
+    if (jj_scan_token(SALIENCE)) return true;
+    return false;
+  }
+
+  private boolean jj_3_36()
+ {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
+  private boolean jj_3_8()
+ {
+    if (jj_scan_token(LBRACE)) return true;
+    if (jj_scan_token(SLOT)) return true;
+    return false;
+  }
+
+  private boolean jj_3_29()
+ {
     if (jj_scan_token(BIND)) return true;
     if (jj_scan_token(RBRACE)) return true;
     return false;

@@ -43,7 +43,7 @@ public class ParserUtils {
     }
 
     /**
-     * convienant utility method to escape string literals
+     * convennt utility method to escape string literals
      * 
      * @param text
      * @return
