@@ -272,7 +272,9 @@ public class Evaluate {
      * @return
      */
     public static boolean evaluateNotEqual(Object left, Object right){
-        if (left instanceof String){
+    	if (left == Constants.NIL_SYMBOL) {
+    		return right != null;
+    	} else if (left instanceof String) {
             return !left.equals(right);
         } else if (left instanceof Boolean) {
         	return evaluateBooleanNotEqual((Boolean)left,right);
