@@ -39,6 +39,9 @@ public class InsertValueFunction implements Serializable, Function {
 		if (params != null && params.length >= 3) {
 			List<Object> returnlist = new ArrayList<Object>();
 			Object list = null;
+			int idx  = 0; // change scope from per-loop so that this can be used for comparisons later (see begin-index)
+			
+			// Target multifield
 			if (params[0] instanceof ValueParam) {
 				list = params[0].getValue();
 			} else {
@@ -46,12 +49,14 @@ public class InsertValueFunction implements Serializable, Function {
 			}
 			if (list.getClass().isArray()) {
 				Object[] r = (Object[])list;
-				for (int idx=0; idx < r.length; idx++) {
+				for (idx=0; idx < r.length; idx++) {
 					returnlist.add(r[idx]);
 				}
 			} else {
 				returnlist.add(list);
 			}
+			
+			// Begin-index
 			int startIndex = 0;
 			if (params[1] instanceof ValueParam) {
 				startIndex = params[1].getBigDecimalValue().intValue();
@@ -59,7 +64,10 @@ public class InsertValueFunction implements Serializable, Function {
 				BigDecimal bval = new BigDecimal(params[1].getValue(engine, Constants.INT_PRIM_TYPE).toString());
 				startIndex = bval.intValue();
 			}
-			startIndex--; // Make 1 based
+			if (startIndex > idx) startIndex = idx; // Check to see if we need to place at end (behaviour as per CLIPS)
+			else startIndex--; // Make 1 based
+			
+			// Items to insert
 			Object add = null;
 			for (int p = params.length -1; p >= 2; p--) { // loop over remaining arguments 
 				if (params[p] instanceof ValueParam) {
@@ -72,7 +80,7 @@ public class InsertValueFunction implements Serializable, Function {
 				if (add.getClass().isArray()) {
 					Object[] ar = (Object[])add;
 					List<Object> inlist = new ArrayList<Object>();
-					for (int idx=0; idx < ar.length; idx++) {
+					for (idx=0; idx < ar.length; idx++) {
 						inlist.add(ar[idx]);
 					}
 					returnlist.addAll(startIndex,inlist);
