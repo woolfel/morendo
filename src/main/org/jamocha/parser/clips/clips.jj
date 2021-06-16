@@ -289,7 +289,6 @@ Object basicExpr() :
   {
     return exp;
   }
-  /*
 |
   (obj = <IDENTIFIER>)
 	{
@@ -299,14 +298,12 @@ Object basicExpr() :
   (obj = <STRING_LITERAL>)
   {
     return ParserUtils.getStringLiteral(obj.image);
-  } */
+  }
 |
   <EOF>
   {
     return null;
   }
-
-  /*
 |
   {
     // This will return the next token unless it has been otherwise processed
@@ -315,7 +312,6 @@ Object basicExpr() :
     if (retval != null) return retval;
     else throw new ParseException();
   }
-  */
 } 
 
 
