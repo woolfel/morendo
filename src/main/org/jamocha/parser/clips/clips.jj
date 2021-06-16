@@ -289,6 +289,7 @@ Object basicExpr() :
   {
     return exp;
   }
+  /*
 |
   (obj = <IDENTIFIER>)
 	{
@@ -298,12 +299,14 @@ Object basicExpr() :
   (obj = <STRING_LITERAL>)
   {
     return ParserUtils.getStringLiteral(obj.image);
-  }
+  } */
 |
   <EOF>
   {
     return null;
   }
+
+  /*
 |
   {
     // This will return the next token unless it has been otherwise processed
@@ -312,6 +315,7 @@ Object basicExpr() :
     if (retval != null) return retval;
     else throw new ParseException();
   }
+  */
 } 
 
 
@@ -1411,11 +1415,11 @@ void CEType(List<Object> list) :
   // (test (> ?var1 ?var2) )
   <TEST> <LBRACE> nested = expr() <RBRACE>
   {
-    TestCondition tc = new TestCondition();
+    TestCondition tc1 = new TestCondition();
     if (nested instanceof Function) {
-      tc.setFunction((Function)nested);
+      tc1.setFunction((Function)nested);
     }
-    list.add(tc);
+    list.add(tc1);
   }
 |
   <AND1> (<LBRACE> nestedCE(andcond) <RBRACE>)+
