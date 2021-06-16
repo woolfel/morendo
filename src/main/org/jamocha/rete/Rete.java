@@ -336,6 +336,24 @@ public class Rete implements PropertyChangeListener, CompilerListener,
         this.workingMem.getStaticFacts().clear();
 		this.workingMem.getDeffactMap().clear();
 		this.workingMem.clear();
+		
+		/**
+		 * Clear out the modules too. Disturbing the working memory
+		 * upsets the iteration, so build a list of module names and then
+		 * remove by name, except MAIN.
+		 */
+		ArrayList<String> modNames = new ArrayList<String>();
+		Collection<Module> modules = this.workingMem.getModules();	
+		String modName;
+		for (Module mod : modules) {
+			modName = mod.getModuleName();
+			if (!modName.equals(Constants.MAIN_MODULE)) {
+				modNames.add(mod.getModuleName());
+				mod.clear();
+			}
+		}
+		for ( String mod : modNames) workingMem.removeModule(mod);
+		
 		// now we clear all the rules and templates
 		this.clearDefclass();
 		ProfileStats.reset();
@@ -1695,7 +1713,7 @@ public class Rete implements PropertyChangeListener, CompilerListener,
     }
     
     public Map<?, ?> newLinkedHashmap(String name) {
-        return new LinkedHashMap<Object, Object>();
+        return new LinkedHashMap<Index, Index>();
     }
     
     public Map<?, ?> newBetaMemoryMap(String name) {

@@ -64,7 +64,7 @@ public class MemoryBenchmark {
                   System.out.println("template=" + dt.getName());
                   engine.declareTemplate(dt);
                 } else if (itm instanceof FunctionAction) {
-					FunctionAction fa = (FunctionAction) itm;
+					//FunctionAction fa = (FunctionAction) itm;
                     // TODO - has this been completed ?
 				} else if (itm instanceof Function) {
 					ReturnVector rv = ((Function) itm).executeFunction(engine,

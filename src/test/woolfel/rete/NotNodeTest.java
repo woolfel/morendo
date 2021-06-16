@@ -556,7 +556,7 @@ public class NotNodeTest extends TestCase {
         Map lbmem2 = (Map)engine.getWorkingMemory().getBetaLeftMemory(bn2);
         assertEquals(count,lbmem2.size());
         System.out.println(bn2.toPPString());
-        Iterator mitr2 = lbmem2.values().iterator();
+        //Iterator mitr2 = lbmem2.values().iterator();
         // TODO need to update the test to check the match count
         // by getting the right memory
     }

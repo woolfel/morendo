@@ -92,8 +92,10 @@ public class LiteralConstraint implements Constraint {
 	
 	public String toPPString() {
 		if (this.negated) {
-			return "    (" + this.name + " ~" + this.value.toString() +
-			")" + Constants.LINEBREAK;
+			String retStr = "    (" + this.name + " ~";
+ 			if (this.value == null ) retStr = retStr + "nil";
+ 			else retStr = retStr + this.value.toString();
+			return retStr  + ")" + Constants.LINEBREAK;
 		} else {
 			if (this.value == null) {
 				return "    (" + this.name + " nil" +

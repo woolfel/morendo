@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import org.jamocha.rete.BoundParam;
 import org.jamocha.rete.Constants;
+import org.jamocha.rete.DefaultReturnValue;
 import org.jamocha.rete.DefaultReturnVector;
 import org.jamocha.rete.Fact;
 import org.jamocha.rete.Function;
@@ -62,19 +63,27 @@ public class PrintFunction implements Function, Serializable {
 	 */
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
         // print out some stuff
+		DefaultReturnVector rv = new DefaultReturnVector();
         if (params.length > 0) {
             String output = params[0].getStringValue();
             for (int idx=1; idx < params.length; idx++) {
             	if (params[idx] instanceof BoundParam) {
             		BoundParam bp = (BoundParam)params[idx];
             		Object v = engine.getBinding(bp.getVariableName());
-            		if (v.getClass().isArray()) {
-            			Object[] ary = (Object[])v;
-                		writeArray(ary,engine,output,false);
-            		} else if (v instanceof ArrayList) {
-            			writeList((ArrayList<?>)v, engine, output, false);
+            		if (v != null) {
+            			if (v.getClass().isArray()) {
+            				Object[] ary = (Object[])v;
+            				writeArray(ary,engine,output,false);
+            			} else if (v instanceof ArrayList) {
+            				writeList((ArrayList<?>)v, engine, output, false);
+            			} else {
+            				engine.writeMessage(v.toString(),output);
+            			}
             		} else {
-                		engine.writeMessage(v.toString(),output);
+            			rv.addReturnValue(new DefaultReturnValue(Constants.STRING_TYPE,
+            					"Error: Variable " + bp.getVariableName() + " is not bound"));
+            			rv.addReturnValue(new DefaultReturnValue(Constants.BOOLEAN_OBJECT,
+            					Boolean.FALSE));
             		}
             	} else if (params[idx].getValue() != null &&
                 		params[idx].getValue().equals(Constants.CRLF)) {
@@ -92,8 +101,7 @@ public class PrintFunction implements Function, Serializable {
                 }
             }
         }
-        // there's nothing to return, so just return a new DefaultReturnVector
-		return new DefaultReturnVector();
+		return rv;
 	}
 
 	public void writeArray(Object[] arry, Rete engine, String output, boolean linebreak) {

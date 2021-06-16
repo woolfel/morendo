@@ -42,17 +42,16 @@ public class HashMapBenchmark {
         return map;
     }
 
-	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
         int[] series = {1000,10000,100000,1000000,10000000};
-        HashMapBenchmark util = new HashMapBenchmark();
-        Random ran = new Random();
+        //HashMapBenchmark util = new HashMapBenchmark();
+       // Random ran = new Random();
         for (int idx=0; idx < series.length; idx++) {
-        	HashMap map = util.createHashMap(series[idx]);
+        	//HashMap map = util.createHashMap(series[idx]);
             long start = System.currentTimeMillis();
             for (int idz=0; idz < 10000000; idz++) {
-                String key = String.valueOf(ran.nextInt(series[idx]));
-                Object val = map.get(key);
+                //String key = String.valueOf(ran.nextInt(series[idx]));
+                //Object val = map.get(key);
             }
             long end = System.currentTimeMillis();
             long el = end - start;

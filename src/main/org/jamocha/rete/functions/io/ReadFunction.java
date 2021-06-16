@@ -57,7 +57,7 @@ public class ReadFunction implements Function {
 	}
 
 	public String toPPString(Parameter[] params, int indents) {
-		return "";
+		return "(" + READ + ")" +" return next token from input stream";
 	}
 
 }
