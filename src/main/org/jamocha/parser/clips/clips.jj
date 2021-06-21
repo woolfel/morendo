@@ -2,6 +2,8 @@ options {
   JAVA_UNICODE_ESCAPE = false;
   UNICODE_INPUT = true;
   STATIC = false;
+  ERROR_REPORTING = true;
+  IGNORE_CASE = false;
 }
 
 PARSER_BEGIN(CLIPSParser)
