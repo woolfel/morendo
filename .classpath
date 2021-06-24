@@ -17,6 +17,5 @@
 	<classpathentry kind="lib" path="lib/jackson-core-2.12.3.jar"/>
 	<classpathentry kind="lib" path="lib/jackson-databind-2.12.3.jar"/>
 	<classpathentry kind="lib" path="lib/jackson-dataformat-xml-2.12.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/dave/eclipse-workspace/JavaTest/bin"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
