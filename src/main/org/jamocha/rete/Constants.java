@@ -125,7 +125,7 @@ public class Constants {
     public static String COUNT_SLOT = "count";
     public static String COUNT_VALUE = "value";
     public static String PROJECT_MESSAGE = "Copyright Jamocha Project http://sourceforge.net/projects/jamocha";
-    public static String SHELL_MESSAGE = "Morendo Version " + VERSION + " 6/2009-5/2021";
+    public static String SHELL_MESSAGE = "Morendo Version " + VERSION + " 6/2009-6/2021";
     
     /// --------------- working directory ----------------- ///
     public static final String WORKING_DIRECTORY = "./working_directory";

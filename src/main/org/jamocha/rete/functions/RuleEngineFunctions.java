@@ -214,7 +214,13 @@ public class RuleEngineFunctions implements FunctionGroup, Serializable {
 	        funcs.add(view);
 			WatchFunction watchf = new WatchFunction();
 			engine.declareFunction(watchf);
-	        funcs.add(watchf);
+			funcs.add(watchf);
+			IsNilFunction inf = new IsNilFunction();
+			engine.declareFunction(inf);
+	        funcs.add(inf);
+	        IsNotNilFunction innf = new IsNotNilFunction();
+	        engine.declareFunction(innf);
+	        funcs.add(innf);
 		} catch (FunctionException e) {
 			engine.writeMessage(e.getMessage());
 		}

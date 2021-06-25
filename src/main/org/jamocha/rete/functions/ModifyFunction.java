@@ -37,24 +37,26 @@ import org.jamocha.rete.Template;
 import org.jamocha.rete.exception.AssertException;
 import org.jamocha.rete.exception.RetractException;
 
-
 /**
  * @author Peter Lin
  *
- * ModifyFunction is equivalent to CLIPS modify function.
+ *         ModifyFunction is equivalent to CLIPS modify function.
+ * 
+ *         Modified by Dave Woodman 21/06/21 to permit (bind ?fred (assert...
+ *         (modify ?fred ....
  */
 public class ModifyFunction implements RuleFunction, Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public static final String MODIFY = "modify";
-    
-    protected Fact[] triggerFacts = null;
 
-    /**
+	protected Fact[] triggerFacts = null;
+
+	/**
 	 * 
 	 */
 	public ModifyFunction() {
@@ -71,60 +73,66 @@ public class ModifyFunction implements RuleFunction, Serializable {
 
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		Boolean exec = Boolean.FALSE;
-        if (params != null && params.length >= 2 &&
-                params[0].isObjectBinding()) {
-            BoundParam bp = (BoundParam)params[0];
-            Deffact fact = (Deffact)bp.getFact();
-            try {
-            	if (fact.getObjectInstance() == null) {
-                    // first retract the fact
-                    engine.retractFact(fact);
-                    // now modify the fact
-                    SlotParam[] sp = new SlotParam[params.length - 1];
-                    for (int idx=0; idx < sp.length; idx++) {
-                    	Parameter p = params[idx + 1];
-                    	if (p instanceof SlotParam) {
-                    		sp[idx] = (SlotParam)p;
-                    	}
-                    }
-                    fact.updateSlots(engine, 
-                    		convertToSlots(sp,fact.getDeftemplate()));
-        			if (fact.hasBinding()) {
-        				fact.resolveValues(engine,this.triggerFacts);
-        				fact = fact.cloneFact();
-        			}
-                    // now assert the fact using the same fact-id
-                    engine.assertFact(fact);
-                    exec = Boolean.TRUE;
-            	} else {
+		Deffact fact = null;
+		BoundParam bp = null;
+		if (params != null && params.length >= 2) {
+			if (params[0].isObjectBinding()) {
+				bp = (BoundParam) params[0];
+				fact = (Deffact) bp.getFact();
+			} else if (params[0] instanceof BoundParam) {
+				bp = (BoundParam) params[0];
+				fact = (Deffact) bp.getFact();
+			}
+			try {
+				if (fact == null)
+					fact = (Deffact) engine
+							.getFactById(Long.parseLong(engine.getBinding(bp.getVariableName()).toString()));
+				if (fact.getObjectInstance() == null) {
+					// first retract the fact
+					engine.retractFact(fact);
+					// now modify the fact
+					SlotParam[] sp = new SlotParam[params.length - 1];
+					for (int idx = 0; idx < sp.length; idx++) {
+						Parameter p = params[idx + 1];
+						if (p instanceof SlotParam) {
+							sp[idx] = (SlotParam) p;
+						}
+					}
+					fact.updateSlots(engine, convertToSlots(sp, fact.getDeftemplate()));
+					if (fact.hasBinding()) {
+						fact.resolveValues(engine, this.triggerFacts);
+						fact = fact.cloneFact();
+					}
+					// now assert the fact using the same fact-id
+					engine.assertFact(fact);
+					exec = Boolean.TRUE;
+				} else {
 					Object instance = fact.getObjectInstance();
-					// firt we remove the engine as a listener
+					// first we remove the engine as a listener
 					Defclass dc = engine.findDeclassByTemplate(fact.getDeftemplate().getName());
 					try {
-						dc.getRemoveListenerMethod().invoke(instance, new Object[]{engine});
+						dc.getRemoveListenerMethod().invoke(instance, new Object[] { engine });
 						this.updateObject(engine, fact, dc, instance, params);
-						dc.getAddListenerMethod().invoke(instance, new Object[]{engine});
+						dc.getAddListenerMethod().invoke(instance, new Object[] { engine });
 						engine.modifyObject(instance);
 						exec = Boolean.TRUE;
-					} catch (IllegalArgumentException e) {
-					} catch (IllegalAccessException e) {
-					} catch (InvocationTargetException e) {
+					} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 					}
-            	}
-            } catch (RetractException e) {
-                engine.writeMessage(e.getMessage());
-            } catch (AssertException e) {
-                engine.writeMessage(e.getMessage());
-            }
-        }
-        
+				}
+			} catch (RetractException | AssertException | NumberFormatException e) {
+				engine.writeMessage(e.getMessage());
+			}
+		}
+
 		DefaultReturnVector rv = new DefaultReturnVector();
 		DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, exec);
 		rv.addReturnValue(rval);
 		return rv;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see woolfel.engine.rete.Function#getName()
 	 */
 	public String getName() {
@@ -132,63 +140,61 @@ public class ModifyFunction implements RuleFunction, Serializable {
 	}
 
 	/**
-     * The current implementation expects 3 parameters in the following
-     * sequence:<br/>
-     * BoundParam
-     * SlotParam[]
-	 * <br/>
-     * Example: (modify ?boundVariable (slotName value)* )
+	 * The current implementation expects 3 parameters in the following
+	 * sequence:<br/>
+	 * BoundParam SlotParam[] <br/>
+	 * Example: (modify ?boundVariable (slotName value)* )
 	 */
 	public Class<?>[] getParameter() {
-		return new Class[] {BoundParam.class,SlotParam[].class};
+		return new Class[] { BoundParam.class, SlotParam[].class };
 	}
 
-    /**
-     * convert the SlotParam to Slot objects
-     * @param params
-     * @return
-     */
-    public BaseSlot[] convertToSlots(Parameter[] params, Template templ) {
-        BaseSlot[] slts = new BaseSlot[params.length];
-        for (int idx=0; idx < params.length; idx++) {
-            slts[idx] = ((SlotParam)params[idx]).getSlotValue();
-            int col = templ.getColumnIndex(slts[idx].getName());
-            if (col != -1) {
-                slts[idx].setId(col);
-            }
-        }
-        return slts;
-    }
+	/**
+	 * convert the SlotParam to Slot objects
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public BaseSlot[] convertToSlots(Parameter[] params, Template templ) {
+		BaseSlot[] slts = new BaseSlot[params.length];
+		for (int idx = 0; idx < params.length; idx++) {
+			slts[idx] = ((SlotParam) params[idx]).getSlotValue();
+			int col = templ.getColumnIndex(slts[idx].getName());
+			if (col != -1) {
+				slts[idx].setId(col);
+			}
+		}
+		return slts;
+	}
 
-    protected void updateObject(Rete engine, Deffact fact, Defclass defclass, Object instance, Parameter[] parameters) {
+	protected void updateObject(Rete engine, Deffact fact, Defclass defclass, Object instance, Parameter[] parameters) {
 		for (int idx = 1; idx < parameters.length; idx++) {
 			Parameter p = parameters[idx];
 			if (p instanceof SlotParam) {
-				SlotParam sp = (SlotParam)p;
+				SlotParam sp = (SlotParam) p;
 				String field = sp.getSlotValue().getName();
 				Object value = sp.getSlotValue().getValue();
 				// we need to check if the value is a boundparam
 				if (value instanceof BoundParam) {
-					value = ((BoundParam)value).getValue(engine, ((BoundParam)value).getValueType());
+					value = ((BoundParam) value).getValue(engine, ((BoundParam) value).getValueType());
 				}
 				int col = fact.getDeftemplate().getSlot(field).getId();
 				defclass.setFieldValue(col, instance, value);
 			}
 		}
-    }
-    
+	}
+
 	public String toPPString(Parameter[] params, int indents) {
 		if (params != null && params.length > 0) {
 			StringBuffer buf = new StringBuffer();
 			buf.append("(modify ");
-			buf.append("?" + ((BoundParam)params[0]).getVariableName() + " ");
-			for (int idx=1; idx < params.length; idx++) {
+			buf.append("?" + ((BoundParam) params[0]).getVariableName() + " ");
+			for (int idx = 1; idx < params.length; idx++) {
 				// the parameter should be a deffact
-				SlotParam sp = (SlotParam)params[idx];
+				SlotParam sp = (SlotParam) params[idx];
 				Slot s = sp.getSlotValue();
 				if (s.getValue() instanceof BoundParam) {
-					buf.append("(" + s.getName() + " ?" + 
-							((BoundParam)s.getValue()).getVariableName() + ")");
+					buf.append("(" + s.getName() + " ?" + ((BoundParam) s.getValue()).getVariableName() + ")");
 				} else {
 					buf.append("(" + s.getName() + " " + s.getValue() + ")");
 				}
@@ -196,9 +202,8 @@ public class ModifyFunction implements RuleFunction, Serializable {
 			buf.append(" )");
 			return buf.toString();
 		} else {
-			return "(modify [binding] [deffact])\n" +
-					"Function description:\n" +
-					"\tAllows the user to modify template facts on the fact-list.";
+			return "(modify [binding] [deffact])\n" + "Function description:\n"
+					+ "\tAllows the user to modify template facts on the fact-list.";
 		}
 	}
 }

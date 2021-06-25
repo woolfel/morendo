@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
+ * Modified by Dave Woodman - 21/6/21 to permit 
+ * (bind ?fred (assert ....
+ * (retract ?Fred)
+ * 	
+ * 
  */
 package org.jamocha.rete.functions;
 
@@ -31,7 +36,6 @@ import org.jamocha.rete.ReturnVector;
 import org.jamocha.rete.ValueParam;
 import org.jamocha.rete.exception.RetractException;
 
-
 public class RetractFunction implements Function, Serializable {
 
 	/**
@@ -39,7 +43,7 @@ public class RetractFunction implements Function, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	public static final String RETRACT = "retract";
-	
+
 	public RetractFunction() {
 		super();
 	}
@@ -51,38 +55,31 @@ public class RetractFunction implements Function, Serializable {
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector rv = new DefaultReturnVector();
 		if (params != null && params.length >= 1) {
-			for (int idx=0; idx < params.length; idx++) {
+			for (int idx = 0; idx < params.length; idx++) {
 				if (params[idx] instanceof BoundParam) {
-					BoundParam bp = (BoundParam)params[idx];
-					Deffact fact = (Deffact)bp.getFact();
+					BoundParam bp = (BoundParam) params[idx];
+					Deffact fact = (Deffact) bp.getFact();
 					try {
-						if (fact.getObjectInstance() != null) {
+						if (fact == null)
+							fact = (Deffact) engine
+									.getFactById(Long.parseLong(engine.getBinding(bp.getVariableName()).toString()));
+						if (fact.getObjectInstance() != null) 
 							engine.retractObject(fact.getObjectInstance());
-						} else {
-							engine.retractFact(fact);
-						}
-						DefaultReturnValue rval = 
-							new DefaultReturnValue(
-									Constants.BOOLEAN_OBJECT, Boolean.TRUE);
+						else engine.retractFact(fact);
+						DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, Boolean.TRUE);
 						rv.addReturnValue(rval);
-					} catch (RetractException e) {
-						DefaultReturnValue rval = 
-							new DefaultReturnValue(
-									Constants.BOOLEAN_OBJECT, Boolean.FALSE);
+					} catch (RetractException | NumberFormatException e) {
+						DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, Boolean.FALSE);
 						rv.addReturnValue(rval);
 					}
 				} else if (params[idx] instanceof ValueParam) {
 					BigDecimal bi = params[idx].getBigDecimalValue();
 					try {
 						engine.retractById(bi.longValue());
-						DefaultReturnValue rval = 
-							new DefaultReturnValue(
-									Constants.BOOLEAN_OBJECT, Boolean.TRUE);
+						DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, Boolean.TRUE);
 						rv.addReturnValue(rval);
 					} catch (RetractException e) {
-						DefaultReturnValue rval = 
-							new DefaultReturnValue(
-									Constants.BOOLEAN_OBJECT, Boolean.FALSE);
+						DefaultReturnValue rval = new DefaultReturnValue(Constants.BOOLEAN_OBJECT, Boolean.FALSE);
 						rv.addReturnValue(rval);
 					}
 				}
@@ -95,15 +92,13 @@ public class RetractFunction implements Function, Serializable {
 		return RETRACT;
 	}
 
-
-public Class<?>[] getParameter() {
-		return new Class[] {BoundParam.class};
+	public Class<?>[] getParameter() {
+		return new Class[] { BoundParam.class };
 	}
 
 	public String toPPString(Parameter[] params, int indents) {
-		return "(retract [?binding|fact-id])\n" +
-				"Function description:\n" +
-				"\tAllows the user to remove facts from the fact-list.";
+		return "(retract [?binding|fact-id])\n" + "Function description:\n"
+				+ "\tAllows the user to remove facts from the fact-list.";
 	}
 
 }

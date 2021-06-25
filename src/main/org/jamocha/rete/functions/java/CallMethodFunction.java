@@ -114,8 +114,10 @@ public class CallMethodFunction implements Function, Serializable {
 						rvalue = new DefaultReturnValue(Constants.STRING_TYPE,
 								"InvocationTargetException: could not invoke the method");
 					}
-				}
-			}
+				} else rvalue = new DefaultReturnValue(Constants.STRING_TYPE,
+						"Unknown method " + slot.getStringValue());
+			} else rvalue = new DefaultReturnValue(Constants.STRING_TYPE,
+						"Variable " + bp.getVariableName() + " has no associated defclass");
 		}
 		drv.addReturnValue(rvalue);
 		return drv;
