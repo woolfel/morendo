@@ -4,9 +4,9 @@ RETE inference rule engine written in Java inspired by CLIPS and JESS. Morendo i
 ## Features
 Morendo uses CLIPS language and is mostly compatible with rules written for CLIPS and JESS. There are some differences to note. Morendo does not support ordered facts. Although ordered facts are useful for quick prototyping and experimentation, it can lead to bad habits. It is better to design your model and use Java objects or deftemplates. I've seen real projects use ordered facts that had to be completely rewritten.
 
-**MOLAP** cubes is commonly used in financial applications. Morendo has MOLAP cubes and cube queries to make it easier to reason over financial data.
+**MOLAP** multi-dimensional OLAP cube is commonly used in financial applications. Morendo has MOLAP cubes and cube queries to make it easier to reason over financial data. There's examples in the sample folder.
 
-**Network topology cost** calculates the the cost of a rule and gives you an idea of how different implementations of rules change the cost.
+**Network topology cost** calculates the the cost of a rule. The function counts the nodes for the rule to estimate a relative cost. Alpha nodes for literal constraints cost is 1.  Join nodes have a cost of 4. Rules with higher cost will use more memory. The cost function gives you more information to make design decisions on how to implement the rules.
 
 **Java macros** provide a way to eliminate the cost of Java reflection when reasoning over POJO.
 
