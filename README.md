@@ -12,7 +12,9 @@ Morendo uses CLIPS language and is mostly compatible with rules written for CLIP
 
 **Graph query** provides a generic way to load concept graphs and use it in rules.
 
-Morendo provides some **temporal logic features** to make it easier to reason over temporal data and define temporal patterns.
+Morendo provides some **temporal logic features** to make it easier to reason over temporal data and define temporal patterns. Temporal activation will check if the facts are expired before adding the activation to the agenda. If any facts are expired, the engine will retract the expired facts and not add the rule to the agenda.
+
+**Event Driven Rules** Applications that process event streams can set the rule property no-agenda to true. This will skip the agenda and execute the action of the rules immediately.
 
 Two features from Haley enterprise **ONLY and MULTIPLE** adds some second order logic support.
 
