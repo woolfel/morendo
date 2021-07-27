@@ -94,7 +94,7 @@ public class SubsetpFunction  implements Serializable, Function {
 	}
 
 	public String toPPString(Parameter[] params, int indents) {
-		return "(aubsetp <multifield> <multifield>)\n checks that first mutlifield is a ssubset of the second";
+		return "(aubsetp <multifield> <multifield>)\n checks that first multifield is a subset of the second";
 	}
 
 }
