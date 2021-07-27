@@ -82,17 +82,8 @@ public class DefinstanceFunction implements Function, Serializable {
 							}
 						}
 					}
-				} catch (InstantiationException e) {
-					log.debug(e);
-				} catch (IllegalAccessException e) {
-					log.debug(e);
-				} catch (IllegalArgumentException e) {
-					log.debug(e);
-				} catch (InvocationTargetException e) {
-					log.debug(e);
-				} catch (NoSuchMethodException e) {
-					log.debug(e);
-				} catch (SecurityException e) {
+				} catch (InstantiationException|IllegalAccessException|IllegalArgumentException
+						|InvocationTargetException|NoSuchMethodException|SecurityException e) {
 					log.debug(e);
 				}
 			} else if (params[0] instanceof BoundParam) {
@@ -103,17 +94,8 @@ public class DefinstanceFunction implements Function, Serializable {
 				if (defclass != null) {
 					try {
 						instance = defclass.getClassObject().getDeclaredConstructor().newInstance();
-					} catch (InstantiationException e) {
-						log.debug(e);
-					} catch (IllegalAccessException e) {
-						log.debug(e);
-					} catch (IllegalArgumentException e) {
-						log.debug(e);
-					} catch (InvocationTargetException e) {
-						log.debug(e);
-					} catch (NoSuchMethodException e) {
-						log.debug(e);
-					} catch (SecurityException e) {
+					} catch (InstantiationException|IllegalAccessException|IllegalArgumentException
+							|InvocationTargetException|NoSuchMethodException|SecurityException e) {
 						log.debug(e);					}
 				}
 			}

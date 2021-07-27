@@ -72,12 +72,23 @@ public class ListFunctions implements FunctionGroup, Serializable {
 		engine.declareFunction(esetct);
 		// First function
 		FirstFunction first = new FirstFunction();
-		funcs.add(esetct);
+		funcs.add(first);
 		engine.declareFunction(first);
 		// rest function
 		RestFunction rest = new RestFunction();
-		funcs.add(esetct);
+		funcs.add(rest);
 		engine.declareFunction(rest);
+		// explode function
+		ExplodeFunction explode = new ExplodeFunction();
+		funcs.add(explode);
+		engine.declareFunction(explode);
+		// Implode function
+		ImplodeFunction implode = new ImplodeFunction();
+		funcs.add(implode);
+		engine.declareFunction(implode);
+		SubsetpFunction subsetp = new SubsetpFunction();
+		funcs.add(subsetp);
+		engine.declareFunction(subsetp);
 	}
 
 }

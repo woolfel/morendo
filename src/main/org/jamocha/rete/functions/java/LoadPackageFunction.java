@@ -77,19 +77,9 @@ public class LoadPackageFunction implements Function, Serializable {
 				if(o instanceof FunctionGroup) {
 					engine.declareFunctionGroup((FunctionGroup) o);
 				}
-			} catch (ClassNotFoundException e) {
-				engine.writeMessage(e.getMessage());
-			} catch (InstantiationException e) {
-				engine.writeMessage(e.getMessage());
-			} catch (IllegalAccessException e) {
-				engine.writeMessage(e.getMessage());
-			} catch (SecurityException e) {
-				engine.writeMessage(e.getMessage());
-			} catch (IllegalArgumentException e) {
-				engine.writeMessage(e.getMessage());
-			} catch (InvocationTargetException e) {
-				engine.writeMessage(e.getMessage());
-			} catch (NoSuchMethodException e) {
+			} catch (ClassNotFoundException|InstantiationException|IllegalAccessException
+					|SecurityException|IllegalArgumentException|InvocationTargetException
+					|NoSuchMethodException e) {
 				engine.writeMessage(e.getMessage());
 			}
 		}
