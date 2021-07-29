@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.jamocha.rete.BoundParam;
 import org.jamocha.rete.Constants;
 import org.jamocha.rete.DefaultReturnValue;
 import org.jamocha.rete.DefaultReturnVector;
@@ -33,17 +34,28 @@ public class CreateSetFunction implements Serializable, Function {
 	public ReturnVector executeFunction(Rete engine, Parameter[] params) {
 		DefaultReturnVector ret = new DefaultReturnVector();
 		Set<String> stringset = new HashSet<String>();
-		if (params != null && params.length > 0) {
+		if (params != null && params.length > 0) {	
 			for (int idx=0; idx < params.length; idx++) {
+				if (params[idx] instanceof BoundParam) {
+					BoundParam bp = (BoundParam)params[idx];
+					bp.resolveBinding(engine);
+				} 
 				if (params[idx] instanceof ValueParam) {
 					stringset.add(params[idx].getStringValue());
+				} else {
+					Object list = params[idx].getValue(engine, Constants.ARRAY_TYPE); 
+					if (list.getClass().isArray()) {
+						Object[] vals = (Object[])list;
+						for (Object val : vals) {
+							stringset.add(val.toString());
+						}
+					} else stringset.add(list.toString());
 				}
 			}
-			if (params[0].getValue() instanceof String) {
-				DefaultReturnValue rv = new DefaultReturnValue(Constants.OBJECT_TYPE,
-						stringset);
-				ret.addReturnValue(rv);
-			}
+			DefaultReturnValue rv = new DefaultReturnValue(Constants.OBJECT_TYPE,
+					stringset);
+			ret.addReturnValue(rv);
+			
 		}
 		return ret;
 	}

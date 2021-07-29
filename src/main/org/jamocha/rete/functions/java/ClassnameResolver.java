@@ -79,7 +79,7 @@ public class ClassnameResolver {
 			}
 		}
 		throw new ClassNotFoundException("Class \"" + name
-				+ "\" could ot be found.");
+				+ "\" could not be found.");
 	}
 
 	public boolean isValidClassname(String s) {
