@@ -19,7 +19,8 @@ package org.jamocha.rete;
 /**
  * @author Peter Lin
  *
- * Slot is similar to CLIPS slots, though slightly different.
+ * Slot is similar to CLIPS slots, though slightly different. A slot has a name
+ * and object value. Slot can inspect the type of the value.
  * 
  */
 public class Slot extends BaseSlot {

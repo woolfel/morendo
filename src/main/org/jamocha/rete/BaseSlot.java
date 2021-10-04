@@ -20,7 +20,7 @@ import java.io.Serializable;
 /**
  * @author Peter Lin
  *
- * AbstractSlot contains common attributes of Slot, multislot and
+ * Abstract BaseSlot contains common attributes of Slot, multislot and
  * binding. Slot classes need to implement the clone method for
  * cloning the slots. This is necessary because slots are used to
  * parse CLIPS and for the RETE nodes.
