@@ -95,7 +95,7 @@ public class NotEqHashIndex implements HashIndex, Serializable {
         NotEqHashIndex eval = (NotEqHashIndex)val;
         boolean eq = true;
         for (int idx=0; idx < values.length; idx++) {
-        	if (!values[idx].negated() && 
+        	if (values[idx].negated() && 
         			!eval.values[idx].getValue().equals(this.values[idx].getValue())) {
         		eq = false;
         		break;
