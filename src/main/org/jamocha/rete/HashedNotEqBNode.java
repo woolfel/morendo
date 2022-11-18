@@ -44,11 +44,11 @@ public class HashedNotEqBNode extends BaseJoin {
     /**
      * clear will clear the lists
      */
-   	public void clear(WorkingMemory mem){
-        Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
+    public void clear(WorkingMemory mem){
+        Map leftmem = (Map)mem.getBetaLeftMemory(this);
         HashedNeqAlphaMemory rightmem = 
         	(HashedNeqAlphaMemory)mem.getBetaRightMemory(this);
-        Iterator<?> itr = leftmem.keySet().iterator();
+        Iterator itr = leftmem.keySet().iterator();
         // first we iterate over the list for each fact
         // and clear it.
         while (itr.hasNext()){
@@ -68,18 +68,16 @@ public class HashedNotEqBNode extends BaseJoin {
      * @param factInstance
      * @param engine
      */
-    @SuppressWarnings({ "unchecked" })
-	public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
+    public void assertLeft(Index linx, Rete engine, WorkingMemory mem) 
     throws AssertException
     {
-        Map<Index, Index> leftmem = (Map<Index, Index>) mem.getBetaLeftMemory(this);
+        Map leftmem = (Map) mem.getBetaLeftMemory(this);
 
 		leftmem.put(linx, linx);
 		// need to think the getLeftValues through better to
 		// account for cases when a join has no bindings
 		NotEqHashIndex inx = new NotEqHashIndex(NodeUtils.getLeftBindValues(this.binds,linx.getFacts()));
-		HashedNeqAlphaMemory rightmem = (HashedNeqAlphaMemory) mem
-				.getBetaRightMemory(this);
+		HashedNeqAlphaMemory rightmem = (HashedNeqAlphaMemory) mem.getBetaRightMemory(this);
 		Object[] objs = rightmem.iterator(inx);
 		if (objs != null && objs.length > 0) {
 			for (int idx = 0; idx < objs.length; idx++) {
@@ -108,12 +106,12 @@ public class HashedNotEqBNode extends BaseJoin {
 		// now that we've added the facts to the list, we
 		// proceed with evaluating the fact
 		// else we compare the fact to all facts in the left
-		Map<?, ?> leftmem = (Map<?, ?>) mem.getBetaLeftMemory(this);
+		Map leftmem = (Map) mem.getBetaLeftMemory(this);
 		// since there may be key collisions, we iterate over the
 		// values of the HashMap. If we used keySet to iterate,
 		// we could encounter a ClassCastException in the case of
 		// key collision.
-		Iterator<?> itr = leftmem.values().iterator();
+		Iterator itr = leftmem.values().iterator();
 		while (itr.hasNext()) {
 			Index linx = (Index) itr.next();
 			if (this.evaluate(linx.getFacts(), rfact)) {
@@ -132,7 +130,7 @@ public class HashedNotEqBNode extends BaseJoin {
     public void retractLeft(Index linx, Rete engine, WorkingMemory mem)
     throws RetractException
     {
-        Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
+        Map leftmem = (Map)mem.getBetaLeftMemory(this);
         leftmem.remove(linx);
         NotEqHashIndex eqinx = new NotEqHashIndex(NodeUtils.getLeftBindValues(this.binds,linx.getFacts()));
         HashedNeqAlphaMemory rightmem = (HashedNeqAlphaMemory) mem
@@ -161,8 +159,8 @@ public class HashedNotEqBNode extends BaseJoin {
         // first we remove the fact from the right
         rightmem.removePartialMatch(inx,rfact);
         // now we see the left memory matched and remove it also
-        Map<?, ?> leftmem = (Map<?, ?>)mem.getBetaLeftMemory(this);
-        Iterator<?> itr = leftmem.values().iterator();
+        Map leftmem = (Map)mem.getBetaLeftMemory(this);
+        Iterator itr = leftmem.values().iterator();
         while (itr.hasNext()){
             Index linx = (Index)itr.next();
             if (this.evaluate(linx.getFacts(), rfact)){

@@ -61,7 +61,7 @@ public class EqHashIndex implements HashIndex, Serializable {
     }
     
     /**
-     * The implementation is similar to the index class.
+     * The method returns true if all values are equal
      */
     public boolean equals(Object val) {
         if (this == val) {
@@ -71,6 +71,26 @@ public class EqHashIndex implements HashIndex, Serializable {
         boolean eq = true;
         for (int idx=0; idx < values.length; idx++) {
         	if (!eval.values[idx].equals(this.values[idx])) {
+        		eq = false;
+        		break;
+        	}
+        }
+        return eq;
+    }
+    
+    /**
+     * Returns true if all values are not equal
+     * @param val
+     * @return
+     */
+    public boolean notEquals(Object val) {
+        if (this == val) {
+            return true;
+        }
+        EqHashIndex eval = (EqHashIndex)val;
+        boolean eq = true;
+        for (int idx=0; idx < values.length; idx++) {
+        	if (eval.values[idx].equals(this.values[idx])) {
         		eq = false;
         		break;
         	}
